@@ -14,10 +14,12 @@ import {
 } from "mui-tiptap";
 
 export default function EditorMenuControls({
+  togglePaletteMode,
   handleSave,
   handleClose,
   saved,
 }: {
+  togglePaletteMode: () => void;
   handleSave: () => void;
   handleClose: () => void;
   saved: boolean;
@@ -49,11 +51,7 @@ export default function EditorMenuControls({
           value="toggle-dark-mode"
           tooltipLabel="Toggle dark/light mode"
           size="small"
-          onClick={() => {
-            theme.palette.mode === "dark"
-              ? (theme.palette.mode = "light")
-              : (theme.palette.mode = "dark");
-          }}
+          onClick={togglePaletteMode}
           IconComponent={
             theme.palette.mode === "dark" ? Brightness7Icon : Brightness4Icon
           }

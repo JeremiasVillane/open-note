@@ -93,6 +93,7 @@ export function NoteEditor({
             editable={true}
             renderControls={() => (
               <EditorMenuControls
+                togglePaletteMode={togglePaletteMode}
                 handleSave={handleSave}
                 handleClose={handleClose}
                 saved={saved}
