@@ -1,10 +1,11 @@
+import { type PaletteMode } from "@mui/material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../store/notesStore";
 
-export function NoteForm() {
+export function NoteForm({ theme }: { theme: PaletteMode }) {
   const [fileName, setFileName] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +35,9 @@ export function NoteForm() {
         name="note-field"
         id="note-field"
         placeholder="Write a new note"
-        className="bg-neutral-800 text-white p-3 w-full border-none outline-none"
+        className={`${
+          theme === "dark" ? "bg-neutral-800 text-white" : "bg-neutral-300 text-black"
+        }  p-3 w-full border-none outline-none`}
         onChange={(e) => setFileName(e.target.value)}
         value={fileName}
       />

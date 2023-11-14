@@ -1,10 +1,17 @@
 import { Delete } from "@mui/icons-material";
+import { type PaletteMode } from "@mui/material";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../store/notesStore";
 
-export function NoteItem({ noteName }: { noteName: string }) {
+export function NoteItem({
+  noteName,
+  theme,
+}: {
+  noteName: string;
+  theme: PaletteMode;
+}) {
   const currentNote = useNotesStore((state) => state.currentNote);
 
   const handleDelete = async (noteName: string) => {
@@ -32,10 +39,14 @@ export function NoteItem({ noteName }: { noteName: string }) {
 
   return (
     <div
-      className={`flex justify-between py-2 px-4 cursor-pointer transition-all duration-300 ease-in-out ${
+      className={`flex justify-between py-2 px-4 cursor-pointer transition-colors duration-300 ease-in-out ${
         currentNote?.name === noteName
           ? "bg-blue-400 text-black"
-          : "bg-neutral-900 hover:bg-neutral-800"
+          : `${
+              theme === "dark"
+                ? "bg-neutral-900 hover:bg-neutral-800"
+                : "bg-neutral-200 hover:bg-neutral-100 text-black"
+            }`
       }`}
       onClick={async () => {
         if (currentNote?.name === noteName) return;

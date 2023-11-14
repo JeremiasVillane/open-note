@@ -1,10 +1,11 @@
+import { type PaletteMode } from "@mui/material";
 import { readDir } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { useEffect } from "react";
 import { NoteItem } from ".";
 import { useNotesStore } from "../store/notesStore";
 
-export function NoteList() {
+export function NoteList({ theme }: { theme: PaletteMode }) {
   const notesNames = useNotesStore((state) => state.notesNames);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export function NoteList() {
   return (
     <section>
       {notesNames.map((noteName) => (
-        <NoteItem noteName={noteName} key={noteName} />
+        <NoteItem key={noteName} noteName={noteName} theme={theme} />
       ))}
     </section>
   );
