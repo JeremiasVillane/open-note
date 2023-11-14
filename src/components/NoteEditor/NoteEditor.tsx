@@ -1,34 +1,19 @@
-import { Close, Save } from "@mui/icons-material";
+import { useTheme } from "@mui/material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import StarterKit from "@tiptap/starter-kit";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import {
-  MenuButton,
-  MenuButtonBold,
-  MenuButtonItalic,
-  MenuButtonRedo,
-  MenuButtonUndo,
-  MenuControlsContainer,
-  MenuDivider,
-  MenuSelectHeading,
-  RichTextEditor,
-  type RichTextEditorRef,
-} from "mui-tiptap";
-import { type PaletteMode } from "@mui/material";
+import { RichTextEditor, type RichTextEditorRef } from "mui-tiptap";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNotesStore } from "../store/notesStore";
+import { useNotesStore } from "../../store/notesStore";
+import EditorMenuControls from "./EditorMenuControls";
 
 export function NoteEditor({
-  theme,
+  togglePaletteMode,
 }: {
-  theme: {
-    mode: PaletteMode;
-    toggle: () => void;
-  };
+  togglePaletteMode: () => void;
 }) {
+  const theme = useTheme();
   const currentNote = useNotesStore((state) => state.currentNote);
   const [text, setText] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(true);
@@ -60,14 +45,14 @@ export function NoteEditor({
       `${currentNote?.name}.txt`
     );
 
-    await writeTextFile(filePath, text ?? "");
+    await writeTextFile(filePath, editor?.getHTML() ?? "");
 
     setSaved(true);
 
     useNotesStore.getState().setCurrentNote({
       ...currentNote,
       name: currentNote?.name ?? "",
-      content: text,
+      content: editor?.getHTML() ?? "",
     });
 
     toast.success("Note saved", {
@@ -107,52 +92,21 @@ export function NoteEditor({
             }}
             editable={true}
             renderControls={() => (
-              <MenuControlsContainer className="flex justify-between items-center">
-                <div
-                  id="menu-controls"
-                  className="flex justify-center items-center"
-                >
-                  <MenuButton
-                    value="save"
-                    tooltipLabel="Save note"
-                    size="small"
-                    onClick={handleSave}
-                    disabled={saved || text === currentNote?.content}
-                    IconComponent={Save}
-                  />
-                  <MenuDivider />
-                  <MenuSelectHeading />
-                  <MenuDivider />
-                  <MenuButtonBold />
-                  <MenuButtonItalic />
-                  <MenuDivider />
-                  <MenuButtonUndo />
-                  <MenuButtonRedo />
-                </div>
-                <div id="menu-actions">
-                  <MenuButton
-                    value="toggle-dark-mode"
-                    tooltipLabel="Toggle dark/light mode"
-                    size="small"
-                    onClick={theme.toggle}
-                    IconComponent={
-                      theme.mode === "dark" ? Brightness7Icon : Brightness4Icon
-                    }
-                  />
-                  <MenuButton
-                    value="close"
-                    tooltipLabel="Close note"
-                    size="small"
-                    onClick={handleClose}
-                    IconComponent={Close}
-                  />
-                </div>
-              </MenuControlsContainer>
+              <EditorMenuControls
+                handleSave={handleSave}
+                handleClose={handleClose}
+                saved={saved}
+              />
             )}
             onUpdate={() => {
               const content = editor?.getHTML() || text;
               setText(content);
               setSaved(false);
+
+              useNotesStore.getState().setCurrentNote({
+                ...currentNote,
+                content,
+              });
             }}
           />
         </div>

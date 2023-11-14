@@ -53,8 +53,8 @@ export default function App() {
             paletteMode === "light" ? "bg-gray-100" : "bg-neutral-950"
           }`}
         >
-          <NoteForm theme={paletteMode} />
-          <NoteList theme={paletteMode} />
+          <NoteForm />
+          <NoteList />
         </div>
 
         <div
@@ -62,9 +62,7 @@ export default function App() {
             paletteMode === "light" ? "bg-white text-black" : "bg-stone-900"
           }`}
         >
-          <NoteEditor
-            theme={{ mode: paletteMode, toggle: togglePaletteMode }}
-          />
+          <NoteEditor togglePaletteMode={togglePaletteMode} />
         </div>
         <Toaster />
       </div>
