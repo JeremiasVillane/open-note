@@ -41,6 +41,15 @@ export function NoteEditor() {
     }
   }, [text, editor, editor?.isEditable, editor?.isFocused, currentNote]);
 
+  const handleSave = async () => {
+    const documentPath = await documentDir();
+
+    await writeTextFile(
+      `${documentPath}/open-note/${currentNote?.name}.txt`,
+      editor?.getHTML() ?? ""
+    );
+  };
+
   return (
     <>
       {currentNote ? (
@@ -57,14 +66,7 @@ export function NoteEditor() {
                   value="save"
                   tooltipLabel="Save note"
                   size="small"
-                  onClick={async () => {
-                    const documentPath = await documentDir();
-
-                    await writeTextFile(
-                      `${documentPath}/open-note/${currentNote.name}.txt`,
-                      editor?.getHTML() ?? ""
-                    );
-                  }}
+                  onClick={handleSave}
                   // selected={saved}
                   IconComponent={Save}
                 />
