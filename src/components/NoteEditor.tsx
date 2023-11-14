@@ -53,9 +53,10 @@ export function NoteEditor() {
   return (
     <>
       {currentNote ? (
-        <div className="rounded-none p-0">
+        <div className="flex flex-col h-screen overflow-y-auto">
           <RichTextEditor
-            className="h-screen"
+            className="bg-stone-900 flex-1"
+            autofocus
             ref={rteRef}
             extensions={[StarterKit]}
             content={currentNote.content ?? ""}
@@ -92,7 +93,7 @@ export function NoteEditor() {
           />
         </div>
       ) : (
-        <div className="flex items-center justify-center inset-0">
+        <div className="absolute my-0 mx-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           Select a note to edit
         </div>
       )}
