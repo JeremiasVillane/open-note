@@ -1,7 +1,6 @@
-// import { Button } from "@mui/material";
-import { Save } from "@mui/icons-material";
+import { Close, Save } from "@mui/icons-material";
 import { writeTextFile } from "@tauri-apps/api/fs";
-import { documentDir } from "@tauri-apps/api/path";
+import { documentDir, join } from "@tauri-apps/api/path";
 import StarterKit from "@tiptap/starter-kit";
 import {
   MenuButton,
@@ -16,6 +15,7 @@ import {
   type RichTextEditorRef,
 } from "mui-tiptap";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNotesStore } from "../store/notesStore";
 
 export function NoteEditor() {
@@ -43,11 +43,22 @@ export function NoteEditor() {
 
   const handleSave = async () => {
     const documentPath = await documentDir();
-
-    await writeTextFile(
-      `${documentPath}/open-note/${currentNote?.name}.txt`,
-      editor?.getHTML() ?? ""
+    const filePath = await join(
+      documentPath,
+      "open-note",
+      `${currentNote?.name}.txt`
     );
+
+    await writeTextFile(filePath, editor?.getHTML() ?? "");
+
+    toast.success("Note saved", {
+      duration: 2000,
+      position: "bottom-right",
+      style: {
+        background: "#333",
+        color: "#fff",
+      },
+    });
   };
 
   return (
@@ -56,29 +67,40 @@ export function NoteEditor() {
         <div className="flex flex-col h-screen overflow-y-auto">
           <RichTextEditor
             className="bg-stone-900 flex-1"
-            autofocus
             ref={rteRef}
             extensions={[StarterKit]}
             content={currentNote.content ?? ""}
             editable={true}
             renderControls={() => (
-              <MenuControlsContainer>
+              <MenuControlsContainer className="flex justify-between items-center">
+                <div id="main-buttons" className="flex justify-center items-center">
+                  <MenuButton
+                    value="save"
+                    tooltipLabel="Save note"
+                    size="small"
+                    onClick={handleSave}
+                    // selected={saved}
+                    IconComponent={Save}
+                  />
+                  <MenuDivider />
+                  <MenuSelectHeading />
+                  <MenuDivider />
+                  <MenuButtonBold />
+                  <MenuButtonItalic />
+                  <MenuDivider />
+                  <MenuButtonUndo />
+                  <MenuButtonRedo />
+                </div>
                 <MenuButton
-                  value="save"
-                  tooltipLabel="Save note"
+                  className="ml-auto"
+                  value="close"
+                  tooltipLabel="Close note"
                   size="small"
-                  onClick={handleSave}
-                  // selected={saved}
-                  IconComponent={Save}
+                  onClick={() => {
+                    useNotesStore.getState().setCurrentNote(null);
+                  }}
+                  IconComponent={Close}
                 />
-                <MenuDivider />
-                <MenuSelectHeading />
-                <MenuDivider />
-                <MenuButtonBold />
-                <MenuButtonItalic />
-                <MenuDivider />
-                <MenuButtonUndo />
-                <MenuButtonRedo />
               </MenuControlsContainer>
             )}
             onUpdate={() => {

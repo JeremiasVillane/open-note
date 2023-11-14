@@ -1,13 +1,11 @@
+import { Delete } from "@mui/icons-material";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { toast } from "react-hot-toast";
-import { FiTrash, FiX } from "react-icons/fi";
 import { useNotesStore } from "../store/notesStore";
 
 export function NoteItem({ noteName }: { noteName: string }) {
   const currentNote = useNotesStore((state) => state.currentNote);
-  const setCurrentNote = useNotesStore((state) => state.setCurrentNote);
-  const removeNote = useNotesStore((state) => state.removeNote);
 
   const handleDelete = async (noteName: string) => {
     const confirm = await window.confirm(
@@ -16,14 +14,11 @@ export function NoteItem({ noteName }: { noteName: string }) {
     if (!confirm) return;
 
     const documentPath = await documentDir();
-    const filePath = await join(
-      documentPath,
-      "open-note",
-      `${noteName}.txt`
-    );
+    const filePath = await join(documentPath, "open-note", `${noteName}.txt`);
 
     await removeFile(filePath);
-    removeNote(noteName);
+    useNotesStore.getState().removeNote(noteName);
+    useNotesStore.getState().setCurrentNote(null);
 
     toast.success("Note deleted", {
       duration: 2000,
@@ -53,7 +48,7 @@ export function NoteItem({ noteName }: { noteName: string }) {
         );
         const content = await readTextFile(filePath);
 
-        setCurrentNote({
+        useNotesStore.getState().setCurrentNote({
           name: noteName,
           content,
         });
@@ -63,19 +58,13 @@ export function NoteItem({ noteName }: { noteName: string }) {
 
       {currentNote?.name === noteName ? (
         <div className="flex gap-2 items-center justify-center">
-          <FiTrash
+          <Delete
+            fontSize="small"
+            className="file-icons"
             onClick={async (e: { stopPropagation: () => void }) => {
               e.stopPropagation();
               await handleDelete(noteName);
             }}
-            className="file-icons"
-          />
-          <FiX
-            onClick={(e: { stopPropagation: () => void }) => {
-              e.stopPropagation();
-              setCurrentNote(null);
-            }}
-            className="file-icons"
           />
         </div>
       ) : null}

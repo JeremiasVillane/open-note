@@ -1,11 +1,10 @@
 import { readDir } from "@tauri-apps/api/fs";
-import { useEffect } from "react";
 import { documentDir, join } from "@tauri-apps/api/path";
-import { useNotesStore } from "../store/notesStore";
+import { useEffect } from "react";
 import { NoteItem } from ".";
+import { useNotesStore } from "../store/notesStore";
 
 export function NoteList() {
-  const setNotesNames = useNotesStore((state) => state.setNotesNames);
   const notesNames = useNotesStore((state) => state.notesNames);
 
   useEffect(() => {
@@ -14,7 +13,7 @@ export function NoteList() {
       const scanDir = await readDir(await join(documentPath, "open-note"));
       const filenames = scanDir.map((file) => file.name!.split(".")[0]);
 
-      setNotesNames(filenames);
+      useNotesStore.getState().setNotesNames(filenames);
     }
 
     loadFiles();

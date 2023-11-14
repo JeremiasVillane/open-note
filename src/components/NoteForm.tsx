@@ -1,23 +1,23 @@
 import { writeTextFile } from "@tauri-apps/api/fs";
-import { documentDir } from "@tauri-apps/api/path";
+import { documentDir, join } from "@tauri-apps/api/path";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../store/notesStore";
 
 export function NoteForm() {
   const [fileName, setFileName] = useState<string>("");
-  const setNoteName = useNotesStore((state) => state.setNoteName);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const documentPath = await documentDir();
+    const filePath = await join(documentPath, "open-note", `${fileName}.txt`);
 
-    await writeTextFile(`${documentPath}/open-note/${fileName}.txt`, ``);
+    await writeTextFile(filePath, ``);
 
     setFileName("");
-    setNoteName(fileName);
+    useNotesStore.getState().setNoteName(fileName);
 
-    toast.success("Note saved", {
+    toast.success("Note created", {
       duration: 2000,
       position: "bottom-right",
       style: {
