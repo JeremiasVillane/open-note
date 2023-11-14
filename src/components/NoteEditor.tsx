@@ -1,8 +1,10 @@
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
+import { Save } from "@mui/icons-material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir } from "@tauri-apps/api/path";
 import StarterKit from "@tiptap/starter-kit";
 import {
+  MenuButton,
   MenuButtonBold,
   MenuButtonItalic,
   MenuButtonRedo,
@@ -51,20 +53,10 @@ export function NoteEditor() {
             editable={true}
             renderControls={() => (
               <MenuControlsContainer>
-                <MenuSelectHeading />
-                <MenuDivider />
-                <MenuButtonBold />
-                <MenuButtonItalic />
-                <MenuDivider />
-                <MenuButtonUndo />
-                <MenuButtonRedo />
-                <Button
-                  variant="contained"
-                  style={{
-                    marginLeft: "auto",
-                    fontSize: "12px",
-                    padding: "4px 8px",
-                  }}
+                <MenuButton
+                  value="save"
+                  tooltipLabel="Save note"
+                  size="small"
                   onClick={async () => {
                     const documentPath = await documentDir();
 
@@ -73,9 +65,17 @@ export function NoteEditor() {
                       editor?.getHTML() ?? ""
                     );
                   }}
-                >
-                  Save
-                </Button>
+                  // selected={saved}
+                  IconComponent={Save}
+                />
+                <MenuDivider />
+                <MenuSelectHeading />
+                <MenuDivider />
+                <MenuButtonBold />
+                <MenuButtonItalic />
+                <MenuDivider />
+                <MenuButtonUndo />
+                <MenuButtonRedo />
               </MenuControlsContainer>
             )}
             onUpdate={() => {
