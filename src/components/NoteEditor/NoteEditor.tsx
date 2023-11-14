@@ -1,19 +1,20 @@
-import { useTheme } from "@mui/material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
-import StarterKit from "@tiptap/starter-kit";
 import { RichTextEditor, type RichTextEditorRef } from "mui-tiptap";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../../store/notesStore";
 import EditorMenuControls from "./EditorMenuControls";
+import useExtensions from "./useExtensions";
 
 export function NoteEditor({
   togglePaletteMode,
 }: {
   togglePaletteMode: () => void;
 }) {
-  const theme = useTheme();
+  const extensions = useExtensions({
+    placeholder: "Start typing...",
+  });
   const currentNote = useNotesStore((state) => state.currentNote);
   const [text, setText] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(true);
@@ -24,13 +25,15 @@ export function NoteEditor({
     if (!currentNote || !editor || editor.isDestroyed) {
       return;
     }
+
     if (!editor.isFocused || !editor.isEditable) {
       setText(currentNote?.content ?? "");
       queueMicrotask(() => {
         const currentSelection = editor?.state.selection;
+
         editor
           ?.chain()
-          .setContent(text)
+          .setContent(currentNote?.content)
           .setTextSelection(currentSelection!)
           .run();
       });
@@ -85,7 +88,7 @@ export function NoteEditor({
             autofocus
             className="flex-1"
             ref={rteRef}
-            extensions={[StarterKit]}
+            extensions={extensions}
             content={currentNote.content ?? ""}
             RichTextFieldProps={{
               variant: "standard",
