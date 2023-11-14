@@ -21,6 +21,7 @@ import { useNotesStore } from "../store/notesStore";
 export function NoteEditor() {
   const currentNote = useNotesStore((state) => state.currentNote);
   const [text, setText] = useState<string>("");
+  const [saved, setSaved] = useState<boolean>(true);
   const rteRef = useRef<RichTextEditorRef>(null);
   const editor = rteRef.current?.editor;
 
@@ -51,6 +52,8 @@ export function NoteEditor() {
 
     await writeTextFile(filePath, editor?.getHTML() ?? "");
 
+    setSaved(true);
+
     toast.success("Note saved", {
       duration: 2000,
       position: "bottom-right",
@@ -59,6 +62,18 @@ export function NoteEditor() {
         color: "#fff",
       },
     });
+  };
+
+  const handleClose = async () => {
+    if (!saved) {
+      const confirm = await window.confirm(
+        "Are you sure you want to discard your changes?"
+      );
+      if (!confirm) return;
+    }
+
+    useNotesStore.getState().setCurrentNote(null);
+    setSaved(true);
   };
 
   return (
@@ -73,13 +88,16 @@ export function NoteEditor() {
             editable={true}
             renderControls={() => (
               <MenuControlsContainer className="flex justify-between items-center">
-                <div id="main-buttons" className="flex justify-center items-center">
+                <div
+                  id="main-buttons"
+                  className="flex justify-center items-center"
+                >
                   <MenuButton
                     value="save"
                     tooltipLabel="Save note"
                     size="small"
                     onClick={handleSave}
-                    // selected={saved}
+                    disabled={saved}
                     IconComponent={Save}
                   />
                   <MenuDivider />
@@ -96,9 +114,7 @@ export function NoteEditor() {
                   value="close"
                   tooltipLabel="Close note"
                   size="small"
-                  onClick={() => {
-                    useNotesStore.getState().setCurrentNote(null);
-                  }}
+                  onClick={handleClose}
                   IconComponent={Close}
                 />
               </MenuControlsContainer>
@@ -106,6 +122,7 @@ export function NoteEditor() {
             onUpdate={() => {
               const content = editor?.getHTML() || text;
               setText(content);
+              setSaved(false);
 
               useNotesStore.getState().setCurrentNote({
                 ...currentNote,
