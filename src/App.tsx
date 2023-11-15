@@ -1,6 +1,8 @@
 import {
-  createTheme,
+  Box,
+  CssBaseline,
   ThemeProvider,
+  createTheme,
   useMediaQuery,
   type PaletteMode,
 } from "@mui/material";
@@ -47,25 +49,29 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="h-screen text-white grid grid-cols-12 overflow-hidden">
-        <div
+      <CssBaseline />
+
+      <main className="h-screen text-white grid grid-cols-12 overflow-hidden">
+        <section
+          id="left-panel"
           className={`col-span-3 ${
             paletteMode === "light" ? "bg-gray-100" : "bg-neutral-950"
           }`}
         >
           <NoteForm />
           <NoteList />
-        </div>
+        </section>
 
-        <div
+        <Box
           className={`relative col-span-9 ${
-            paletteMode === "light" ? "bg-white text-black" : "bg-stone-900"
+            paletteMode === "light" ? " text-black" : "text-white"
           }`}
         >
           <NoteEditor togglePaletteMode={togglePaletteMode} />
-        </div>
+        </Box>
+
         <Toaster />
-      </div>
+      </main>
     </ThemeProvider>
   );
 }

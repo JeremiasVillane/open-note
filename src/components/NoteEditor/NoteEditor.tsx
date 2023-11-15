@@ -1,6 +1,12 @@
+import { Box } from "@mui/material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
-import { RichTextEditor, type RichTextEditorRef } from "mui-tiptap";
+import {
+  LinkBubbleMenu,
+  RichTextEditor,
+  TableBubbleMenu,
+  type RichTextEditorRef,
+} from "mui-tiptap";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../../store/notesStore";
@@ -83,18 +89,11 @@ export function NoteEditor({
     useNotesStore.getState().setCurrentNote(null);
     setSaved(true);
   };
-  console.log(
-    "text: ",
-    text,
-    "\ncurrentNote content: ",
-    currentNote?.content,
-    "\neditor: ",
-    editor?.getHTML()
-  );
+
   return (
     <>
       {currentNote ? (
-        <div className="flex flex-col h-screen overflow-y-auto">
+        <Box className="flex flex-col h-screen overflow-y-auto">
           <RichTextEditor
             className="flex-1"
             ref={rteRef}
@@ -127,8 +126,15 @@ export function NoteEditor({
                 content,
               });
             }}
-          />
-        </div>
+          >
+            {() => (
+              <>
+                <LinkBubbleMenu />
+                <TableBubbleMenu />
+              </>
+            )}
+          </RichTextEditor>
+        </Box>
       ) : (
         <div className="absolute my-0 mx-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           Select a note to edit
