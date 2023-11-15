@@ -1,4 +1,4 @@
-import { Close, Save } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useTheme } from "@mui/material";
@@ -36,14 +36,12 @@ import {
 export default function EditorMenuControls({
   togglePaletteMode,
   handleSave,
-  handleClose,
   saved,
 }: {
   togglePaletteMode: () => void;
   handleSave: () => void;
-  handleClose: () => void;
   saved: boolean;
-}) {
+}): JSX.Element {
   const theme = useTheme();
 
   return (
@@ -190,13 +188,6 @@ export default function EditorMenuControls({
         IconComponent={
           theme.palette.mode === "dark" ? Brightness7Icon : Brightness4Icon
         }
-      />
-      <MenuButton
-        value="close"
-        tooltipLabel="Close note"
-        size="small"
-        onClick={handleClose}
-        IconComponent={Close}
       />
     </MenuControlsContainer>
   );

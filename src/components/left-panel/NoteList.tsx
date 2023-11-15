@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteList() {
+export function NoteList(): JSX.Element {
   const notesNames = useNotesStore((state) => state.notesNames);
+  const setNotesNames = useNotesStore((state) => state.setNotesNames);
 
   useEffect(() => {
     async function loadFiles() {
@@ -13,7 +14,7 @@ export function NoteList() {
       const scanDir = await readDir(await join(documentPath, "open-note"));
       const filenames = scanDir.map((file) => file.name!.split(".")[0]);
 
-      useNotesStore.getState().setNotesNames(filenames);
+      setNotesNames(filenames);
     }
 
     loadFiles();

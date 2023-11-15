@@ -10,9 +10,9 @@ import {
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { NoteEditor, NoteForm, NoteList } from "./components";
+import { NoteForm, NoteList, NotePanel } from "./components";
 
-export default function App() {
+export default function App(): JSX.Element {
   const systemSettingsPrefersDarkMode = useMediaQuery(
     "(prefers-color-scheme: dark)"
   );
@@ -56,7 +56,7 @@ export default function App() {
         <Grid
           item
           xs={3}
-          className={`h-screen border-r-[1.5px] ${
+          className={`h-screen border-r-[1.5px] resize-x ${
             paletteMode === "light" ? "border-gray-300" : "border-[#2f2f2f]"
           }`}
         >
@@ -66,7 +66,7 @@ export default function App() {
 
         <Grid item xs={9}>
           <Box>
-            <NoteEditor togglePaletteMode={togglePaletteMode} />
+            <NotePanel togglePaletteMode={togglePaletteMode} />
           </Box>
         </Grid>
       </Grid>

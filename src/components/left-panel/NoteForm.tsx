@@ -5,9 +5,10 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteForm() {
+export function NoteForm(): JSX.Element {
   const theme = useTheme();
   const [fileName, setFileName] = useState<string>("");
+  const setNoteName = useNotesStore((state) => state.setNoteName);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ export function NoteForm() {
     await writeTextFile(filePath, ``);
 
     setFileName("");
-    useNotesStore.getState().setNoteName(fileName);
+    setNoteName(fileName);
 
     toast.success("Note created", {
       duration: 2000,
@@ -41,13 +42,13 @@ export function NoteForm() {
             ? "bg-neutral-800 text-white"
             : "bg-neutral-300 text-black"
         }  p-3 w-full border-none outline-none`}
-        onChange={(e) => setFileName(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setFileName(e.target.value)
+        }
         value={fileName}
       />
 
-      <button type="submit" className="hidden">
-        Save
-      </button>
+      <button type="submit" className="hidden" />
     </form>
   );
 }

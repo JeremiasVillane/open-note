@@ -5,9 +5,11 @@ import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
 
 export function FileMenu({
+  handleClose,
   handleDelete,
   noteName,
 }: {
+  handleClose: () => void;
   handleDelete: (noteName: string) => void;
   noteName: string;
 }) {
@@ -16,7 +18,7 @@ export function FileMenu({
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null);
   };
 
@@ -39,11 +41,10 @@ export function FileMenu({
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseMenu}
       >
-        <MenuItem onClick={async () => handleDelete(noteName)}>
-          Delete
-        </MenuItem>
+        <MenuItem onClick={async () => handleClose()}>Close</MenuItem>
+        <MenuItem onClick={async () => handleDelete(noteName)}>Delete</MenuItem>
       </Menu>
     </div>
   );

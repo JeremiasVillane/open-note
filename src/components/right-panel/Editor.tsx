@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import {
@@ -13,14 +12,17 @@ import { useNotesStore } from "../../store/notesStore";
 import EditorMenuControls from "./EditorMenuControls";
 import useExtensions from "./useExtensions";
 
-export function NoteEditor({
+export default function Editor({
   togglePaletteMode,
 }: {
   togglePaletteMode: () => void;
-}) {
+}): JSX.Element {
   const currentNote = useNotesStore((state) => state.currentNote);
+  const setCurrentNote = useNotesStore((state) => state.setCurrentNote);
+  const saved = useNotesStore((state) => state.saved);
+  const setSaved = useNotesStore((state) => state.setSaved);
   const [text, setText] = useState<string>("");
-  const [saved, setSaved] = useState<boolean>(true);
+  // const [saved, setSaved] = useState<boolean>(true);
   const rteRef = useRef<RichTextEditorRef>(null);
   const editor = rteRef.current?.editor;
   const extensions = useExtensions({
@@ -62,7 +64,7 @@ export function NoteEditor({
 
     setSaved(true);
 
-    useNotesStore.getState().setCurrentNote({
+    setCurrentNote({
       ...currentNote,
       name: currentNote?.name ?? "",
       content: text,
@@ -78,68 +80,46 @@ export function NoteEditor({
     });
   };
 
-  const handleClose = async () => {
-    if (!saved) {
-      const confirm = await window.confirm(
-        "Are you sure you want to discard your changes?"
-      );
-      if (!confirm) return;
-    }
-
-    useNotesStore.getState().setCurrentNote(null);
-    setSaved(true);
-  };
-
   return (
-    <>
-      {currentNote ? (
-        <Box className="flex flex-col h-screen overflow-y-auto">
-          <RichTextEditor
-            className="flex-1"
-            ref={rteRef}
-            extensions={extensions}
-            content={currentNote.content ?? ""}
-            RichTextFieldProps={{
-              variant: "standard",
-            }}
-            editable={true}
-            renderControls={() => (
-              <EditorMenuControls
-                togglePaletteMode={togglePaletteMode}
-                handleSave={handleSave}
-                handleClose={handleClose}
-                saved={saved}
-              />
-            )}
-            onCreate={() => {
-              const content = editor?.getHTML() ?? "";
-              setText(content);
-              setSaved(true);
-            }}
-            onUpdate={() => {
-              const content = editor?.getHTML() ?? "";
-              setText(content);
-              setSaved(false);
-
-              useNotesStore.getState().setCurrentNote({
-                ...currentNote,
-                content,
-              });
-            }}
-          >
-            {() => (
-              <>
-                <LinkBubbleMenu />
-                <TableBubbleMenu />
-              </>
-            )}
-          </RichTextEditor>
-        </Box>
-      ) : (
-        <div className="absolute my-0 mx-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          Select a note to edit
-        </div>
+    <RichTextEditor
+      className="flex-1"
+      ref={rteRef}
+      extensions={extensions}
+      content={currentNote?.content ?? ""}
+      RichTextFieldProps={{
+        variant: "standard",
+      }}
+      editable={true}
+      renderControls={() => (
+        <EditorMenuControls
+          togglePaletteMode={togglePaletteMode}
+          handleSave={handleSave}
+          saved={saved}
+        />
       )}
-    </>
+      onCreate={() => {
+        const content = editor?.getHTML() ?? "";
+        setText(content);
+        setSaved(true);
+      }}
+      onUpdate={() => {
+        const content = editor?.getHTML() ?? "";
+        setText(content);
+        setSaved(false);
+
+        setCurrentNote({
+          ...currentNote,
+          name: currentNote?.name ?? "",
+          content,
+        });
+      }}
+    >
+      {() => (
+        <>
+          <LinkBubbleMenu />
+          <TableBubbleMenu />
+        </>
+      )}
+    </RichTextEditor>
   );
 }
