@@ -3,7 +3,7 @@ import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNotesStore } from "../store/notesStore";
+import { useNotesStore } from "../../store/notesStore";
 
 export function NoteForm() {
   const theme = useTheme();

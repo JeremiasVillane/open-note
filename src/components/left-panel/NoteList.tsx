@@ -1,8 +1,8 @@
 import { readDir } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { useEffect } from "react";
-import { NoteItem } from ".";
-import { useNotesStore } from "../store/notesStore";
+import { NoteItem } from "..";
+import { useNotesStore } from "../../store/notesStore";
 
 export function NoteList() {
   const notesNames = useNotesStore((state) => state.notesNames);

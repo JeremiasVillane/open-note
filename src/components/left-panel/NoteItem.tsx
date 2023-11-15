@@ -1,9 +1,9 @@
-import { Delete } from "@mui/icons-material";
 import { useTheme } from "@mui/material";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { toast } from "react-hot-toast";
-import { useNotesStore } from "../store/notesStore";
+import { FileMenu } from "..";
+import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({ noteName }: { noteName: string }) {
   const theme = useTheme();
@@ -34,7 +34,7 @@ export function NoteItem({ noteName }: { noteName: string }) {
 
   return (
     <div
-      className={`flex justify-between py-2 px-4 cursor-pointer transition-colors duration-300 ease-in-out ${
+      className={`flex justify-between items-center py-2 px-4 cursor-pointer transition-colors duration-300 ease-in-out ${
         currentNote?.name === noteName
           ? "bg-blue-400 text-black"
           : `${
@@ -63,16 +63,7 @@ export function NoteItem({ noteName }: { noteName: string }) {
       <h1>{noteName}</h1>
 
       {currentNote?.name === noteName ? (
-        <div className="flex gap-2 items-center justify-center">
-          <Delete
-            fontSize="small"
-            className="file-icons"
-            onClick={async (e: { stopPropagation: () => void }) => {
-              e.stopPropagation();
-              await handleDelete(noteName);
-            }}
-          />
-        </div>
+        <FileMenu handleDelete={handleDelete} noteName={noteName} />
       ) : null}
     </div>
   );

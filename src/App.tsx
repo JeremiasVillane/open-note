@@ -1,6 +1,7 @@
 import {
   Box,
   CssBaseline,
+  Grid,
   ThemeProvider,
   createTheme,
   useMediaQuery,
@@ -51,27 +52,26 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <main className="h-screen text-white grid grid-cols-12 overflow-hidden">
-        <section
-          id="left-panel"
-          className={`col-span-3 ${
-            paletteMode === "light" ? "bg-gray-100" : "bg-neutral-950"
+      <Grid container>
+        <Grid
+          item
+          xs={3}
+          className={`h-screen border-r-[1.5px] ${
+            paletteMode === "light" ? "border-gray-300" : "border-[#2f2f2f]"
           }`}
         >
           <NoteForm />
           <NoteList />
-        </section>
+        </Grid>
 
-        <Box
-          className={`relative col-span-9 ${
-            paletteMode === "light" ? " text-black" : "text-white"
-          }`}
-        >
-          <NoteEditor togglePaletteMode={togglePaletteMode} />
-        </Box>
+        <Grid item xs={9}>
+          <Box>
+            <NoteEditor togglePaletteMode={togglePaletteMode} />
+          </Box>
+        </Grid>
+      </Grid>
 
-        <Toaster />
-      </main>
+      <Toaster />
     </ThemeProvider>
   );
 }
