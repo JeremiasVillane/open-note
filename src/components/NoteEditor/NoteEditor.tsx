@@ -12,14 +12,18 @@ export function NoteEditor({
 }: {
   togglePaletteMode: () => void;
 }) {
-  const extensions = useExtensions({
-    placeholder: "Start typing...",
-  });
   const currentNote = useNotesStore((state) => state.currentNote);
   const [text, setText] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(true);
   const rteRef = useRef<RichTextEditorRef>(null);
   const editor = rteRef.current?.editor;
+  const extensions = useExtensions({
+    placeholder: "Start typing...",
+  });
+
+  useEffect(() => {
+    setText(currentNote?.content ?? "");
+  }, [currentNote]);
 
   useEffect(() => {
     if (!currentNote || !editor || editor.isDestroyed) {
@@ -28,9 +32,9 @@ export function NoteEditor({
 
     if (!editor.isFocused || !editor.isEditable) {
       setText(currentNote?.content ?? "");
+
       queueMicrotask(() => {
         const currentSelection = editor?.state.selection;
-
         editor
           ?.chain()
           .setContent(currentNote?.content)
@@ -45,7 +49,7 @@ export function NoteEditor({
     const filePath = await join(
       documentPath,
       "open-note",
-      `${currentNote?.name}.txt`
+      `${currentNote?.name}.html`
     );
 
     await writeTextFile(filePath, editor?.getHTML() ?? "");
@@ -55,7 +59,7 @@ export function NoteEditor({
     useNotesStore.getState().setCurrentNote({
       ...currentNote,
       name: currentNote?.name ?? "",
-      content: editor?.getHTML() ?? "",
+      content: text,
     });
 
     toast.success("Note saved", {
@@ -79,13 +83,19 @@ export function NoteEditor({
     useNotesStore.getState().setCurrentNote(null);
     setSaved(true);
   };
-
+  console.log(
+    "text: ",
+    text,
+    "\ncurrentNote content: ",
+    currentNote?.content,
+    "\neditor: ",
+    editor?.getHTML()
+  );
   return (
     <>
       {currentNote ? (
         <div className="flex flex-col h-screen overflow-y-auto">
           <RichTextEditor
-            autofocus
             className="flex-1"
             ref={rteRef}
             extensions={extensions}
@@ -102,8 +112,13 @@ export function NoteEditor({
                 saved={saved}
               />
             )}
+            onCreate={() => {
+              const content = editor?.getHTML() ?? "";
+              setText(content);
+              setSaved(true);
+            }}
             onUpdate={() => {
-              const content = editor?.getHTML() || text;
+              const content = editor?.getHTML() ?? "";
               setText(content);
               setSaved(false);
 

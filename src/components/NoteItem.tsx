@@ -16,7 +16,7 @@ export function NoteItem({ noteName }: { noteName: string }) {
     if (!confirm) return;
 
     const documentPath = await documentDir();
-    const filePath = await join(documentPath, "open-note", `${noteName}.txt`);
+    const filePath = await join(documentPath, "open-note", `${noteName}.html`);
 
     await removeFile(filePath);
     useNotesStore.getState().removeNote(noteName);
@@ -50,7 +50,7 @@ export function NoteItem({ noteName }: { noteName: string }) {
         const filePath = await join(
           documentPath,
           "open-note",
-          `${noteName}.txt`
+          `${noteName}.html`
         );
         const content = await readTextFile(filePath);
 

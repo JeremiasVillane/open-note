@@ -12,7 +12,7 @@ export function NoteForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const documentPath = await documentDir();
-    const filePath = await join(documentPath, "open-note", `${fileName}.txt`);
+    const filePath = await join(documentPath, "open-note", `${fileName}.html`);
 
     await writeTextFile(filePath, ``);
 

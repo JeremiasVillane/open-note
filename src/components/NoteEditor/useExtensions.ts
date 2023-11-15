@@ -35,7 +35,6 @@ import {
   FontSize,
   HeadingWithAnchor,
   LinkBubbleMenuHandler,
-  ResizableImage,
   TableImproved,
 } from "mui-tiptap";
 import { useMemo } from "react";
@@ -102,7 +101,6 @@ export default function useExtensions({
       FontSize,
       Highlight.configure({ multicolor: true }),
       HorizontalRule,
-      ResizableImage,
       Dropcursor,
       TaskList,
       TaskItem.configure({
