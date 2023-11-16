@@ -4,12 +4,7 @@
 
 /* Titlebar styles */
 #titlebar {
-  @apply flex items-center justify-between text-gray-300 pl-2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
+  @apply flex items-center justify-between pl-2 fixed top-0 left-0 right-0 z-50 border-b;
 }
 
 .titlebar-actions {

@@ -1,5 +1,5 @@
 import { Close, Maximize, Minimize, SquareOutlined } from "@mui/icons-material";
-import { Theme, useTheme } from "@mui/material";
+import { Stack, Theme, useTheme } from "@mui/material";
 import { appWindow } from "@tauri-apps/api/window";
 import { useCallback, useLayoutEffect, useState } from "react";
 
@@ -28,10 +28,11 @@ export function Titlebar() {
   const handleClose = () => appWindow.close();
 
   return (
-    <div
+    <Stack
       id="titlebar"
+      direction="row"
       style={{
-        backgroundColor: theme.palette.mode === "dark" ? "#1c1c1c" : "gray",
+        borderColor: theme.palette.mode === "dark" ? "#2f2f2f" : "rgb(209, 213, 219)",
       }}
       data-tauri-drag-region
     >
@@ -59,6 +60,6 @@ export function Titlebar() {
           <Close />
         </i>
       </div>
-    </div>
+    </Stack>
   );
 }
