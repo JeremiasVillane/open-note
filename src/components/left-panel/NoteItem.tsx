@@ -8,11 +8,8 @@ import Paper from "@mui/material/Paper";
 
 export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   const theme = useTheme();
-  const currentNote = useNotesStore((state) => state.currentNote);
-  const setCurrentNote = useNotesStore((state) => state.setCurrentNote);
-  const saved = useNotesStore((state) => state.saved);
-  const setSaved = useNotesStore((state) => state.setSaved);
-  const removeNote = useNotesStore((state) => state.removeNote);
+  const { currentNote, setCurrentNote, saved, setSaved, removeNote } =
+    useNotesStore();
 
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;

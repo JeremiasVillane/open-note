@@ -7,7 +7,7 @@ export function NotePanel({
 }: {
   togglePaletteMode: () => void;
 }): JSX.Element {
-  const currentNote = useNotesStore((state) => state.currentNote);
+  const { currentNote } = useNotesStore();
 
   return (
     <>

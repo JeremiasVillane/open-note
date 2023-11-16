@@ -8,7 +8,7 @@ import { useNotesStore } from "../../store/notesStore";
 export function NoteForm(): JSX.Element {
   const theme = useTheme();
   const [fileName, setFileName] = useState<string>("");
-  const setNoteName = useNotesStore((state) => state.setNoteName);
+  const { setNoteName } = useNotesStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

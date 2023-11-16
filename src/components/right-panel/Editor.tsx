@@ -17,12 +17,8 @@ export default function Editor({
 }: {
   togglePaletteMode: () => void;
 }): JSX.Element {
-  const currentNote = useNotesStore((state) => state.currentNote);
-  const setCurrentNote = useNotesStore((state) => state.setCurrentNote);
-  const saved = useNotesStore((state) => state.saved);
-  const setSaved = useNotesStore((state) => state.setSaved);
+  const { currentNote, setCurrentNote, saved, setSaved } = useNotesStore();
   const [text, setText] = useState<string>("");
-  // const [saved, setSaved] = useState<boolean>(true);
   const rteRef = useRef<RichTextEditorRef>(null);
   const editor = rteRef.current?.editor;
   const extensions = useExtensions({

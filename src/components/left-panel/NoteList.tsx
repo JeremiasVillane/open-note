@@ -5,8 +5,7 @@ import { NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteList(): JSX.Element {
-  const notesNames = useNotesStore((state) => state.notesNames);
-  const setNotesNames = useNotesStore((state) => state.setNotesNames);
+  const { notesNames, setNotesNames } = useNotesStore();
 
   useEffect(() => {
     async function loadFiles() {
