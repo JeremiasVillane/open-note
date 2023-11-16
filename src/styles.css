@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-.file-icons {
-  @apply text-zinc-700 hover:text-zinc-900 active:text-slate-300 transition-colors duration-500 ease-in-out;
+/* Titlebar styles */
+#titlebar {
+  @apply flex items-center justify-between text-gray-300 pl-2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.titlebar-actions {
+  @apply flex items-center;
+}
+
+.titlebar-icon {
+  @apply py-0.5 cursor-pointer;
+  width: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.titlebar-icon:hover {
+  background-color: #383838;
+}
+
+#ttb-close:hover {
+  @apply bg-red-500 text-gray-100;
 }

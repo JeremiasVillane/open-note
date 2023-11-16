@@ -11,7 +11,7 @@ import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
-import { NoteForm, NoteList, NotePanel } from "./components";
+import { NoteForm, NoteList, NotePanel, Titlebar } from "./components";
 
 export default function App(): JSX.Element {
   const systemSettingsPrefersDarkMode = useMediaQuery(
@@ -52,12 +52,13 @@ export default function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Titlebar />
 
-      <Grid container>
+      <Grid className="h-screen pt-7 overflow-hidden" container>
         <Grid
           item
           xs={3}
-          className={`h-screen border-r-[1.5px] resize-x ${
+          className={`border-r-2 resize-x ${
             paletteMode === "light" ? "border-gray-300" : "border-[#2f2f2f]"
           }`}
         >

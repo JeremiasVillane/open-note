@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "open-note",
-    "version": "0.0.0"
+    "productName": "Open Note",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -24,6 +24,12 @@
         "open": false,
         "save": true
       },
+      "notification": {
+        "all": true
+      },
+      "os": {
+        "all": true
+      },
       "path": {
         "all": true
       },
@@ -39,12 +45,50 @@
         "renameFile": true,
         "scope": ["$DOCUMENT/**", "$DESKTOP/**/**"],
         "writeFile": true
+      },
+      "window": {
+        "all": true,
+        "center": true,
+        "close": true,
+        "create": true,
+        "hide": true,
+        "maximize": true,
+        "minimize": true,
+        "print": true,
+        "requestUserAttention": true,
+        "setAlwaysOnTop": true,
+        "setClosable": true,
+        "setContentProtected": true,
+        "setCursorGrab": true,
+        "setCursorIcon": true,
+        "setCursorPosition": true,
+        "setCursorVisible": true,
+        "setDecorations": true,
+        "setFocus": true,
+        "setFullscreen": true,
+        "setIcon": true,
+        "setIgnoreCursorEvents": true,
+        "setMaxSize": true,
+        "setMaximizable": true,
+        "setMinSize": true,
+        "setMinimizable": true,
+        "setPosition": true,
+        "setResizable": true,
+        "setSize": true,
+        "setSkipTaskbar": true,
+        "setTitle": true,
+        "show": true,
+        "startDragging": true,
+        "unmaximize": true,
+        "unminimize": true
       }
     },
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "open.note.jv",
+      "publisher": "Jeremias Villane",
+      "copyright": "CC0",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -54,15 +98,21 @@
       ]
     },
     "security": {
-      "csp": null
+      "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'"
     },
     "windows": [
       {
-        "fullscreen": false,
-        "resizable": true,
         "title": "Open Note",
-        "width": 1155,
-        "height": 655
+        "label": "main",
+        "width": 1000,
+        "height": 600,
+        "minWidth": 600,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "visible": true,
+        "decorations": false,
+        "alwaysOnTop": false
       }
     ]
   }
