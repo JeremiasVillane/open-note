@@ -1,15 +1,18 @@
+/* Editor content styles */
 .ProseMirror {
   padding: 1rem;
   outline: none;
-  padding-top: 2.5rem;
 }
 
 .ProseMirror > * + * {
   margin-top: 0.75em;
 }
+.ProseMirror a {
+  cursor: pointer;
+}
 .ProseMirror ul,
 .ProseMirror ol {
-  padding: 0 1rem;
+  padding: 1rem 2rem;
 }
 .ProseMirror h1,
 .ProseMirror h2,
@@ -49,6 +52,7 @@
   margin: 2rem 0;
 }
 
+/* Custom scrollbar styles */
 ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
