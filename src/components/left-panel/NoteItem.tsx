@@ -4,6 +4,7 @@ import { documentDir, join } from "@tauri-apps/api/path";
 import { toast } from "react-hot-toast";
 import { FileMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
+import Paper from "@mui/material/Paper";
 
 export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   const theme = useTheme();
@@ -62,15 +63,26 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   };
 
   return (
-    <section
+    <Paper
+      square
+      variant="outlined"
+      sx={{
+        backgroundColor: `${
+          currentNote?.name === noteName
+            ? "rgb(96, 165, 250)"
+            : theme.palette.mode === "dark"
+            ? "rgb(23, 23, 23)"
+            : "rgb(229, 229, 229)"
+        }`,
+      }}
       className={`flex justify-between items-center py-2 px-4 cursor-pointer transition-colors duration-300 ease-in-out ${
-        currentNote?.name === noteName
-          ? "bg-blue-400 text-black"
-          : `${
+        currentNote?.name !== noteName
+          ? `${
               theme.palette.mode === "dark"
-                ? "bg-neutral-900 hover:bg-neutral-800"
-                : "bg-neutral-200 hover:bg-neutral-100 text-black"
+                ? "hover:bg-neutral-800"
+                : "hover:bg-neutral-100"
             }`
+          : ""
       }`}
       onClick={hadleOpen}
     >
@@ -83,6 +95,6 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
           noteName={noteName}
         />
       ) : null}
-    </section>
+    </Paper>
   );
 }

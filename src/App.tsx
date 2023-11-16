@@ -10,6 +10,7 @@ import {
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import "./App.css";
 import { NoteForm, NoteList, NotePanel } from "./components";
 
 export default function App(): JSX.Element {
@@ -64,7 +65,7 @@ export default function App(): JSX.Element {
           <NoteList />
         </Grid>
 
-        <Grid item xs={9}>
+        <Grid className="relative" item xs={9}>
           <Box>
             <NotePanel togglePaletteMode={togglePaletteMode} />
           </Box>
