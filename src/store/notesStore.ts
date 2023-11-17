@@ -4,6 +4,7 @@ export const useNotesStore = create<NotesState>((set) => ({
   notesNames: [],
   currentNote: null,
   saved: true,
+  status: null,
   setNoteName: (name) =>
     set((state) => ({ notesNames: [...state.notesNames, name] })),
   setNotesNames: (names) => set({ notesNames: names }),
@@ -12,5 +13,6 @@ export const useNotesStore = create<NotesState>((set) => ({
     set((state) => ({
       notesNames: state.notesNames.filter((note) => note !== name),
     })),
-  setSaved: (saved: boolean) => set({ saved: saved }),
+  setSaved: (saved) => set({ saved }),
+  setStatus: (status) => set({ status }),
 }));

@@ -11,6 +11,7 @@ export const CloseIcon: React.FC<CustomIconProps<SVGSVGElement>> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
+    <title>{props.title ?? ""}</title>
     <path
       fill={props.color ?? "currentColor"}
       fillRule="evenodd"

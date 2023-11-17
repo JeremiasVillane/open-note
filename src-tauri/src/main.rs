@@ -8,7 +8,6 @@ use serde::Serialize;
 use std::{fs::metadata, path::PathBuf};
 use tauri::{self, Manager};
 use tauri_plugin_store;
-use tauri_plugin_window_state;
 use window_shadows::set_shadow;
 // Manager is used by .get_window
 
@@ -21,6 +20,12 @@ struct SingleInstancePayload {
 #[derive(Clone, Serialize)]
 struct SystemTrayPayload {
     message: String,
+}
+
+#[tauri::command]
+fn show_main_window(window: tauri::Window) {
+    // replace "main" by the name of your window
+    window.get_window("main").unwrap().show().unwrap();
 }
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -45,12 +50,9 @@ fn main() {
         //     }
         //     _ => {}
         // })
+        .invoke_handler(tauri::generate_handler![show_main_window])
         // persistent storage with filesystem
         .plugin(tauri_plugin_store::Builder::default().build())
-        // save window position and size between sessions
-        // if you remove this, make sure to uncomment the show_main_window code
-        //  in this file and TauriProvider.jsx
-        .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(|app| {
             if let Some(window) = app.get_window("main") {
                 set_shadow(&window, true).ok();

@@ -1,14 +1,21 @@
 import { Card, useMantineColorScheme } from "@mantine/core";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
-import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
+  const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const { currentNote, setCurrentNote, saved, setSaved, removeNote } =
-    useNotesStore();
+  const {
+    currentNote,
+    setCurrentNote,
+    saved,
+    setSaved,
+    removeNote,
+    setStatus,
+  } = useNotesStore();
 
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;
@@ -48,14 +55,10 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
     removeNote(noteName);
     setCurrentNote(null);
 
-    toast.success("Note deleted", {
-      duration: 2000,
-      position: "bottom-right",
-      style: {
-        background: "#333",
-        color: "#fff",
-      },
-    });
+    setStatus(t("NoteDeleted"));
+    setTimeout(() => {
+      setStatus(null);
+    }, 2000);
   };
 
   return (

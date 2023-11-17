@@ -1,5 +1,28 @@
+/* Layout */
+.appShell main {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-8)
+  );
+
+  margin-top: var(----app-shell-header-offset);
+}
+
+.titleBarAdjustedHeight {
+  height: calc(
+    var(
+        --_section-height,
+        calc(
+          100dvh - var(--app-shell-header-offset, 0px) -
+            var(--app-shell-footer-offset, 0px)
+        )
+      ) - var(--titlebar-height)
+  ) !important;
+  margin-top: var(--titlebar-height);
+}
+
 /* Editor content styles */
-/* .ProseMirror {
+.ProseMirror {
   padding: 1rem;
   outline: none;
 }
@@ -22,7 +45,7 @@
 .ProseMirror h6 {
   line-height: 1.1;
 }
-.ProseMirror code {
+/* .ProseMirror code {
   background-color: rgba(97, 97, 97, 0.1);
   color: #616161;
 }
@@ -37,7 +60,7 @@
   padding: 0;
   background: none;
   font-size: 0.8rem;
-}
+} */
 .ProseMirror img {
   max-width: 100%;
   height: auto;
@@ -50,10 +73,10 @@
   border: none;
   border-top: 2px solid rgba(13, 13, 13, 0.1);
   margin: 2rem 0;
-} */
+}
 
 /* Custom scrollbar styles */
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 14px;
   height: 14px;
 }
@@ -80,4 +103,4 @@
   background-clip: padding-box;
   border-radius: 8px;
   background-color: transparent;
-} */
+}

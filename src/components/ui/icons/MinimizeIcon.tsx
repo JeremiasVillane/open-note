@@ -1,6 +1,8 @@
 import React from "react";
 
-export const MinimizeIcon: React.FC<CustomIconProps<SVGSVGElement>> = (props) => (
+export const MinimizeIcon: React.FC<CustomIconProps<SVGSVGElement>> = (
+  props
+) => (
   <svg
     aria-hidden="false"
     focusable="true"
@@ -11,6 +13,7 @@ export const MinimizeIcon: React.FC<CustomIconProps<SVGSVGElement>> = (props) =>
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
+    <title>{props.title ?? ""}</title>
     <path fill={props.color ?? "currentColor"} d="M14 8v1H3V8h11z" />
   </svg>
 );

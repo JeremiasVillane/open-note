@@ -65,7 +65,7 @@
         "setCursorVisible": true,
         "setDecorations": true,
         "setFocus": true,
-        "setFullscreen": true,
+        "setFullscreen": false,
         "setIcon": true,
         "setIgnoreCursorEvents": true,
         "setMaxSize": true,

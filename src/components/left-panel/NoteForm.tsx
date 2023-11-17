@@ -1,14 +1,15 @@
-import { useTheme } from "@mui/material";
+import { useMantineColorScheme } from "@mantine/core";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteForm(): JSX.Element {
-  const theme = useTheme();
+  const { t } = useTranslation();
+  const { colorScheme } = useMantineColorScheme();
   const [fileName, setFileName] = useState<string>("");
-  const { setNoteName } = useNotesStore();
+  const { setNoteName, setStatus } = useNotesStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,14 +21,10 @@ export function NoteForm(): JSX.Element {
     setFileName("");
     setNoteName(fileName);
 
-    toast.success("Note created", {
-      duration: 2000,
-      position: "bottom-right",
-      style: {
-        background: "#333",
-        color: "#fff",
-      },
-    });
+    setStatus(t("NoteCreated"));
+    setTimeout(() => {
+      setStatus(null);
+    }, 2000);
   };
 
   return (
@@ -36,9 +33,10 @@ export function NoteForm(): JSX.Element {
         type="text"
         name="note-field"
         id="note-field"
-        placeholder="Write a new note"
+        placeholder={t("Placeholder")}
+        autoComplete="off"
         className={`${
-          theme.palette.mode === "dark"
+          colorScheme === "dark"
             ? "bg-neutral-800 text-white"
             : "bg-neutral-300 text-black"
         }  p-3 w-full border-none outline-none`}

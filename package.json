@@ -41,7 +41,6 @@
     "mui-tiptap": "^1.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
     "react-i18next": "^13.5.0",
     "simplebar-react": "^3.2.4",
     "zustand": "^4.4.6"

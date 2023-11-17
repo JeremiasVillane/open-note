@@ -13,6 +13,7 @@ export const RestoreIcon: React.FC<CustomIconProps<SVGSVGElement>> = (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
+    <title>{props.title ?? ""}</title>
     <g fill={props.color ?? "currentColor"}>
       <path d="M3 5v9h9V5H3zm8 8H4V6h7v7z" />
       <path

@@ -1,4 +1,4 @@
-import { useInterval } from "@mantine/hooks";
+import { invoke } from "@tauri-apps/api";
 import { listen } from "@tauri-apps/api/event";
 import * as fs from "@tauri-apps/api/fs";
 import * as os from "@tauri-apps/api/os";
@@ -15,63 +15,58 @@ const WIN32_CUSTOM_TITLEBAR = true;
 // defaults are only for auto-complete
 const TauriContext = React.createContext({
   loading: true,
-  downloads: undefined,
-  documents: undefined,
-  appDocuments: undefined,
-  osType: undefined,
+  downloads: "",
+  documents: "",
+  appDocuments: "",
+  osType: "",
   fileSep: "/",
-  isFullScreen: false,
-  usingCustomTitleBar: false,
 });
 
 export const useTauriContext = () => useContext(TauriContext);
+
 export function TauriProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [downloads, setDownloadDir] = useState<string | undefined>();
-  const [documents, setDocumentDir] = useState<string | undefined>();
-  const [osType, setOsType] = useState<string | undefined>();
+  const [downloads, setDownloadDir] = useState<string>("");
+  const [documents, setDocumentDir] = useState<string>("");
+  const [osType, setOsType] = useState<string>("");
   const [fileSep, setFileSep] = useState<string>("/");
-  const [appDocuments, setAppDocuments] = useState<string | undefined>();
-  const [isFullScreen, setFullscreen] = useState<boolean>(false);
-  const [usingCustomTitleBar, setUsingCustomTitleBar] =
-    useState<boolean>(false);
+  const [appDocuments, setAppDocuments] = useState<string>("");
 
   if (RUNNING_IN_TAURI) {
-    const tauriInterval = useInterval(() => {
-      appWindow.isFullscreen().then(setFullscreen);
-    }, 200);
+    // const tauriInterval = useInterval(() => {
+    //   appWindow.isFullscreen().then(setFullscreen);
+    // }, 200);
 
-    useEffect(() => {
-      tauriInterval.start();
-      return tauriInterval.stop;
-    }, []);
+    // useEffect(() => {
+    //   tauriInterval.start();
+    //   return tauriInterval.stop;
+    // }, []);
 
     useEffect(() => {
       if (osType === "Windows_NT") {
         appWindow.setDecorations(!WIN32_CUSTOM_TITLEBAR);
         if (WIN32_CUSTOM_TITLEBAR) {
-          root.style.setProperty("--titlebar-height", "28px");
+          const root = document.getElementById("root");
+          if (root) {
+            root.style.setProperty("--titlebar-height", "28px");
+          }
         }
       }
     }, [osType]);
 
     useEffect(() => {
-      // hide titlebar when: in fullscreen, not on Windows, and explicitly allowing custom titlebar
-      setUsingCustomTitleBar(
-        !isFullScreen && osType === "Windows_NT" && WIN32_CUSTOM_TITLEBAR
-      );
-    }, [isFullScreen, osType]);
-
-    useEffect(() => {
       // if you want to listen for event listeners, use mountID trick to call unlisten on old listeners
       const callTauriAPIs = async () => {
         // Handle additional app launches (url, etc.)
-        await listen("newInstance", ({ payload }) => {
-          appWindow.unminimize().then(() => appWindow.setFocus());
-          let args = payload?.args;
-          if (args?.length > 1) {
+        await listen(
+          "newInstance",
+          ({ payload }: { payload: Record<string, any> }) => {
+            appWindow.unminimize().then(() => appWindow.setFocus());
+            let args = payload?.args;
+            if (args?.length > 1) {
+            }
           }
-        });
+        );
         setDownloadDir(await tauriPath.downloadDir());
         const _documents = await tauriPath.documentDir();
         setDocumentDir(_documents);
@@ -85,10 +80,8 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
         });
         setAppDocuments(`${_documents}${APP_NAME}`);
         setLoading(false);
-        // if you aren't using the window-state plugin,
-        //  you need to manually show the window (uncomment code)
-        // import { invoke } from '@tauri-apps/api';
-        // invoke('show_main_window');
+
+        invoke("show_main_window");
         // Why? The default background color of webview is white
         //  so we should show the window when the react app loads
         // See: https://github.com/tauri-apps/tauri/issues/1564
@@ -106,11 +99,9 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
         documents,
         osType,
         appDocuments,
-        isFullScreen,
-        usingCustomTitleBar,
       }}
     >
-      {usingCustomTitleBar && <Titlebar />}
+      <Titlebar />
       {children}
     </TauriContext.Provider>
   );
