@@ -1,42 +1,34 @@
 import {
-  Box,
-  CssBaseline,
-  Grid,
-  ThemeProvider,
-  createTheme,
-  useMediaQuery,
-  type PaletteMode,
-} from "@mui/material";
+  ActionIcon,
+  AppShell,
+  AppShellFooter,
+  AppShellHeader,
+  AppShellMain,
+  AppShellNavbar,
+  AppShellSection,
+  Burger,
+  Group,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
+import "@mantine/tiptap/styles.css";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import "./App.css";
-import { NoteForm, NoteList, NotePanel, Titlebar } from "./components";
+import "simplebar-react/dist/simplebar.min.css";
+import classes from "./App.module.css";
+import { NoteForm, NoteList, NotePanel } from "./components";
+import { HEADER_TITLE } from "./utils";
+// import LanguageHeaders from "./Components/LanguageHeaders";
+// import { ScrollToTop } from "./Components/ScrollToTop";
 
 export default function App(): JSX.Element {
-  const systemSettingsPrefersDarkMode = useMediaQuery(
-    "(prefers-color-scheme: dark)"
-  );
-  const [paletteMode, setPaletteMode] = useState<PaletteMode>(
-    systemSettingsPrefersDarkMode ? "dark" : "light"
-  );
-  const togglePaletteMode = useCallback(
-    () =>
-      setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
-    []
-  );
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: paletteMode,
-          secondary: {
-            main: "#42B81A",
-          },
-        },
-      }),
-    [paletteMode]
-  );
+  const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  useHotkeys([["ctrl+J", toggleColorScheme]]);
 
   useEffect(() => {
     async function createNotesDir() {
@@ -50,30 +42,83 @@ export default function App(): JSX.Element {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Titlebar />
+    <>
+      <AppShell
+        header={{ height: 60 }}
+        footer={{ height: 33 }}
+        navbar={{
+          width: 200,
+          breakpoint: "sm",
+          collapsed: {
+            mobile: leftPanelIsOpened,
+            desktop: leftPanelIsOpened,
+          },
+        }}
+        className="overflow-hidden"
+        // className={classes.appShell}
+      >
+        <AppShellMain>
+          <NotePanel />
+          {/* <ScrollToTop
+              scroller={scrollbarRef.current}
+              bottom={showFooter ? 70 : 20}
+            /> */}
+        </AppShellMain>
 
-      <Grid className="h-screen pt-7 overflow-hidden" container>
-        <Grid
-          item
-          xs={3}
-          className={`border-r-2 resize-x ${
-            paletteMode === "light" ? "border-gray-300" : "border-[#2f2f2f]"
-          }`}
+        <AppShellHeader
+          data-tauri-drag-region
+          p="md"
+          className={classes.header}
         >
-          <NoteForm />
-          <NoteList />
-        </Grid>
+          <Group h="100%">
+            <Burger
+              hiddenFrom="sm"
+              opened={!leftPanelIsOpened}
+              onClick={() => setLeftPanelIsOpened(!leftPanelIsOpened)}
+              size="sm"
+            />
+            <Burger
+              visibleFrom="sm"
+              opened={!leftPanelIsOpened}
+              onClick={() => setLeftPanelIsOpened(!leftPanelIsOpened)}
+              size="sm"
+            />
+            {/* <Text>{HEADER_TITLE}</Text> */}
+          </Group>
+          <Group className={classes.headerRightItems} h="110%">
+            {/* <LanguageHeaders i18n={i18n} /> */}
+            <ActionIcon
+              id="toggle-theme"
+              title="Ctrl + J"
+              variant="default"
+              onClick={() => toggleColorScheme()}
+              size={30}
+            >
+              {colorScheme === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </ActionIcon>
+          </Group>
+        </AppShellHeader>
 
-        <Grid className="relative" item xs={9}>
-          <Box>
-            <NotePanel togglePaletteMode={togglePaletteMode} />
-          </Box>
-        </Grid>
-      </Grid>
+        <AppShellNavbar
+          className={classes.titleBarAdjustedHeight}
+          hidden={!leftPanelIsOpened}
+        >
+          <AppShellSection>
+            <NoteForm />
+            <NoteList />
+          </AppShellSection>
+        </AppShellNavbar>
+
+        <AppShellFooter p="md" className={classes.footer}>
+          Footer
+        </AppShellFooter>
+      </AppShell>
 
       <Toaster />
-    </ThemeProvider>
+    </>
   );
 }

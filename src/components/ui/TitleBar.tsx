@@ -1,10 +1,11 @@
-import { Close, Maximize, Minimize, SquareOutlined } from "@mui/icons-material";
-import { Stack, Theme, useTheme } from "@mui/material";
+import { useMantineColorScheme } from "@mantine/core";
+import { Stack } from "@mui/material";
 import { appWindow } from "@tauri-apps/api/window";
 import { useCallback, useLayoutEffect, useState } from "react";
+import { CloseIcon, MaximizeIcon, MinimizeIcon, RestoreIcon } from "./icons";
 
 export function Titlebar() {
-  const theme = useTheme<Theme>();
+  const { colorScheme } = useMantineColorScheme();
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
 
   useLayoutEffect(() => {
@@ -32,7 +33,7 @@ export function Titlebar() {
       id="titlebar"
       direction="row"
       style={{
-        borderColor: theme.palette.mode === "dark" ? "#2f2f2f" : "rgb(209, 213, 219)",
+        borderColor: colorScheme === "dark" ? "#2f2f2f" : "rgb(209, 213, 219)",
       }}
       data-tauri-drag-region
     >
@@ -43,21 +44,21 @@ export function Titlebar() {
 
       <div className="titlebar-actions">
         <i className="titlebar-icon" onClick={handleMinimize}>
-          <Minimize />
+          <MinimizeIcon size={18} />
         </i>
 
         {isMaximized ? (
           <i className="titlebar-icon" onClick={handleRestore}>
-            <Maximize />
+            <RestoreIcon size={18} />
           </i>
         ) : (
           <i onClick={handleMaximize} className="titlebar-icon">
-            <SquareOutlined />
+            <MaximizeIcon size={18} />
           </i>
         )}
 
         <i id="ttb-close" className="titlebar-icon" onClick={handleClose}>
-          <Close />
+          <CloseIcon size={18} />
         </i>
       </div>
     </Stack>

@@ -1,5 +1,5 @@
 /* Editor content styles */
-.ProseMirror {
+/* .ProseMirror {
   padding: 1rem;
   outline: none;
 }
@@ -50,10 +50,10 @@
   border: none;
   border-top: 2px solid rgba(13, 13, 13, 0.1);
   margin: 2rem 0;
-}
+} */
 
 /* Custom scrollbar styles */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
 }
@@ -80,4 +80,4 @@
   background-clip: padding-box;
   border-radius: 8px;
   background-color: transparent;
-}
+} */

@@ -1,3 +1,7 @@
+interface Math {
+  clamp(num: number, min: number, max: number): number;
+}
+
 interface Note {
   name: string;
   content: string | null;
@@ -13,3 +17,7 @@ interface NotesState {
   removeNote: (name: string) => void;
   setSaved: (saved: boolean) => void;
 }
+
+type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
+  size?: string | number;
+};

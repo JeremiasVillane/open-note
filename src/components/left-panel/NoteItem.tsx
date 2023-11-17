@@ -1,13 +1,12 @@
-import { useTheme } from "@mui/material";
+import { Card, useMantineColorScheme } from "@mantine/core";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { toast } from "react-hot-toast";
 import { FileMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
-import Paper from "@mui/material/Paper";
 
 export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
-  const theme = useTheme();
+  const { colorScheme } = useMantineColorScheme();
   const { currentNote, setCurrentNote, saved, setSaved, removeNote } =
     useNotesStore();
 
@@ -60,22 +59,21 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   };
 
   return (
-    <Paper
-      square
-      variant="outlined"
-      sx={{
-        backgroundColor: `${
-          currentNote?.name === noteName
-            ? "rgb(96, 165, 250)"
-            : theme.palette.mode === "dark"
-            ? "rgb(23, 23, 23)"
-            : "rgb(229, 229, 229)"
-        }`,
-      }}
-      className={`flex justify-between items-center py-2 px-4 cursor-pointer transition-colors duration-300 ease-in-out ${
+    <Card
+      withBorder
+      // style={{
+      //   backgroundColor: `${
+      //     currentNote?.name === noteName
+      //       ? "rgb(96, 165, 250)"
+      //       : colorScheme === "dark"
+      //       ? "rgb(23, 23, 23)"
+      //       : "rgb(229, 229, 229)"
+      //   }`,
+      // }}
+      className={`cursor-pointer transition-colors duration-300 ease-in-out ${
         currentNote?.name !== noteName
           ? `${
-              theme.palette.mode === "dark"
+              colorScheme === "dark"
                 ? "hover:bg-neutral-800"
                 : "hover:bg-neutral-100"
             }`
@@ -83,15 +81,17 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
       }`}
       onClick={hadleOpen}
     >
-      <h1>{noteName}</h1>
+      <div className="flex justify-between items-center">
+        <h1>{noteName}</h1>
 
-      {currentNote?.name === noteName ? (
-        <FileMenu
-          handleClose={handleClose}
-          handleDelete={handleDelete}
-          noteName={noteName}
-        />
-      ) : null}
-    </Paper>
+        {currentNote?.name === noteName ? (
+          <FileMenu
+            handleClose={handleClose}
+            handleDelete={handleDelete}
+            noteName={noteName}
+          />
+        ) : null}
+      </div>
+    </Card>
   );
 }
