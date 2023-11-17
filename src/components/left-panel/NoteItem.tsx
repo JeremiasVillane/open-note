@@ -1,21 +1,22 @@
 import { Card, useMantineColorScheme } from "@mantine/core";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
+import { Editor } from "@tiptap/react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
+export function NoteItem({
+  noteName,
+  editor,
+}: {
+  noteName: string;
+  editor: Editor;
+}): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const {
-    currentNote,
-    setCurrentNote,
-    saved,
-    setSaved,
-    removeNote,
-    setStatus,
-  } = useNotesStore();
+  const { currentNote, setCurrentNote, removeNote, setStatus } =
+    useNotesStore();
 
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;
@@ -31,7 +32,7 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   };
 
   const handleClose = async () => {
-    if (!saved) {
+    if (editor?.getHTML() !== currentNote?.content) {
       const confirm = await window.confirm(
         "Are you sure you want to discard your changes?"
       );
@@ -39,7 +40,6 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
     }
 
     setCurrentNote(null);
-    setSaved(true);
   };
 
   const handleDelete = async (noteName: string) => {

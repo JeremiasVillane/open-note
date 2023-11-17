@@ -12,6 +12,7 @@ const resources = {
         "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
       NoteCreated: "Note successfully created!",
       NoteDeleted: "Note successfully deleted",
+      NoteSaved: "Note successfully saved!"
     },
   },
   es: {
@@ -25,8 +26,9 @@ const resources = {
       Close: "Cerrar",
       About:
         "Esta es una aplicación de escritorio desarrollada con Tauri. Usando React/Typescript y Rust.",
-      NoteCreated: "Nota creada correctamente!",
+      NoteCreated: "¡Nota creada correctamente!",
       NoteDeleted: "Nota eliminada correctamente",
+      NoteSaved: "¡Nota guardada correctamente!"
     },
   },
 };

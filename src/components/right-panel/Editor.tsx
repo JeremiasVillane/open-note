@@ -1,29 +1,14 @@
-import { Link, RichTextEditor } from "@mantine/tiptap";
-import Highlight from "@tiptap/extension-highlight";
-import SubScript from "@tiptap/extension-subscript";
-import Superscript from "@tiptap/extension-superscript";
-import TextAlign from "@tiptap/extension-text-align";
-import Underline from "@tiptap/extension-underline";
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { useNotesStore } from "../../store/notesStore";
+import { RichTextEditor } from "@mantine/tiptap";
+import { writeTextFile } from "@tauri-apps/api/fs";
+import { documentDir, join } from "@tauri-apps/api/path";
+import { Editor as EditorTipTap } from "@tiptap/react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNotesStore } from "../../store/notesStore";
 
-export default function Editor() {
-  const { currentNote, setCurrentNote, saved, setSaved } = useNotesStore();
-
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Link,
-      Superscript,
-      SubScript,
-      Highlight,
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
-    ],
-    content: currentNote?.content,
-  });
+export default function Editor({ editor }: { editor: EditorTipTap }) {
+  const { t } = useTranslation();
+  const { currentNote, setCurrentNote, setStatus } = useNotesStore();
 
   useEffect(() => {
     if (!currentNote || !editor || editor.isDestroyed) {
@@ -32,34 +17,67 @@ export default function Editor() {
 
     if (!editor.isFocused || !editor.isEditable) {
       queueMicrotask(() => {
-        const currentSelection = editor?.state.selection;
+        // const currentSelection = editor?.state.selection;
         editor
           ?.chain()
           .setContent(currentNote?.content)
-          .setTextSelection(currentSelection!)
+          // .setTextSelection(currentSelection!)
           .run();
       });
     }
-  }, [editor, editor?.isEditable, editor?.isFocused, currentNote]);
+  }, [currentNote]);
+
+  const handleSave = async () => {
+    const documentPath = await documentDir();
+    const filePath = await join(
+      documentPath,
+      "open-note",
+      `${currentNote?.name}.html`
+    );
+
+    await writeTextFile(filePath, editor?.getHTML() ?? "");
+
+    setCurrentNote({
+      ...currentNote,
+      name: currentNote?.name ?? "",
+      content: editor?.getHTML()!,
+    });
+
+    setStatus(t("NoteSaved"));
+    setTimeout(() => {
+      setStatus(null);
+    }, 2000);
+  };
+
+  // console.log(
+  //   "saved: ",
+  //   saved,
+  //   "comparación: ",
+  //   currentNote?.content !== editor?.getHTML(),
+  //   "modified: ",
+  //   modified
+  // );
+  // console.log(
+  //   "editorHTML: ",
+  //   editor?.getHTML(),
+  //   "\ncurrentNote: ",
+  //   currentNote?.content
+  // );
 
   return (
     <RichTextEditor
-      className="h-[calc(100vh-7.3rem)] mt-6 overflow-auto border-none"
+      className="h-[calc(100vh-6.7rem)] mt-6 overflow-auto"
       editor={editor}
-      onLoad={() => {
-        setCurrentNote({
-          ...currentNote,
-          name: currentNote?.name ?? "",
-          content: editor?.getHTML() ?? "",
-        });
-      }}
-      onChange={() => {
-        setCurrentNote({
-          ...currentNote,
-          name: currentNote?.name ?? "",
-          content: editor?.getHTML() ?? "",
-        });
-      }}
+      // onChange={() => {
+      //   const content = editor?.getHTML() ?? "";
+
+      //   setSaved(false);
+      //   setCurrentNote({
+      //     ...currentNote,
+      //     name: currentNote?.name ?? "",
+      //     content,
+      //   });
+      // }}
     >
       <RichTextEditor.Toolbar sticky stickyOffset={0}>
         <RichTextEditor.ControlsGroup>

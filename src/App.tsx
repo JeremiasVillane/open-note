@@ -12,10 +12,17 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import "@mantine/tiptap/styles.css";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
+import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
+import SubScript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+import TextAlign from "@tiptap/extension-text-align";
+import Underline from "@tiptap/extension-underline";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
@@ -23,11 +30,24 @@ import { LanguageToggle, NoteForm, NoteList, NotePanel } from "./components";
 import { useNotesStore } from "./store/notesStore";
 
 export default function App(): JSX.Element {
-  const { status } = useNotesStore();
+  const { currentNote, status } = useNotesStore();
   const { i18n } = useTranslation();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   useHotkeys([["ctrl+J", toggleColorScheme]]);
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      Superscript,
+      SubScript,
+      Highlight,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+    ],
+    content: currentNote?.content,
+  });
 
   useEffect(() => {
     async function createNotesDir() {
@@ -55,7 +75,7 @@ export default function App(): JSX.Element {
       className="overflow-hidden"
     >
       <AppShellMain>
-        <NotePanel />
+        <NotePanel editor={editor!} />
       </AppShellMain>
 
       <AppShellHeader
@@ -98,7 +118,7 @@ export default function App(): JSX.Element {
       >
         <AppShellSection>
           <NoteForm />
-          <NoteList />
+          <NoteList editor={editor!} />
         </AppShellSection>
       </AppShellNavbar>
 
