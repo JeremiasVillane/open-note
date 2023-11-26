@@ -39,6 +39,7 @@ const resources = {
       NoteSaved: "Nota guardada correctamente",
 
       // ***** Menubar
+      "Toggle sidebar": "Mostrar/ocultar barra lateral",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",
@@ -59,6 +60,7 @@ const resources = {
       "Align Center": "Centrar",
       "Justify Text": "Justificar",
       "Align Right": "Alinear derecha",
+      "Dark/Light Theme": "Modo claro/oscuro",
     },
   },
 };

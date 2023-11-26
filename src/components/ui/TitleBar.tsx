@@ -44,7 +44,7 @@ export function Titlebar() {
   const buttonStylesOnHover =
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-slate-400";
   const menuItemStyles =
-    "cursor-default hover:bg-gray-200 transition-all ease-in-out";
+    `cursor-default ${colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"} transition-colors ease-in-out`;
 
   return (
     <div
@@ -65,7 +65,7 @@ export function Titlebar() {
               <img className="h-5 w-5 mx-2 flex-shrink-0" src={AppIcon} />
             </UnstyledButton>
           </Menu.Target>
-          <Menu.Dropdown>
+          <Menu.Dropdown className="shadow-lg">
             <Menu.Item
               onClick={handleMinimize}
               leftSection={<MinimizeIcon size={14} />}

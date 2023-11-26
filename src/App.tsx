@@ -12,41 +12,37 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
-import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
-import SubScript from "@tiptap/extension-subscript";
-import Superscript from "@tiptap/extension-superscript";
-import TextAlign from "@tiptap/extension-text-align";
-import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import { LanguageToggle, NoteForm, NoteList, NotePanel } from "./components";
+import {
+  LanguageToggle,
+  Menubar,
+  NoteForm,
+  NoteList,
+  NotePanel,
+} from "./components";
+import { MoonIcon, SunIcon } from "./components/ui/icons";
+import { extensions } from "./lib/extensions";
 import { useNotesStore } from "./store/notesStore";
-import Menubar from "./components/header/Menubar";
 
 export default function App(): JSX.Element {
+  const { i18n, t } = useTranslation();
   const { currentNote, status } = useNotesStore();
-  const { i18n } = useTranslation();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   useHotkeys([["ctrl+J", toggleColorScheme]]);
+  useHotkeys([
+    ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
+  ]);
+
+  const hoverStyles =
+    "hover:text-indigo-900 transition-colors ease-in-out duration-150";
 
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Link,
-      Superscript,
-      SubScript,
-      Highlight,
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
-    ],
+    extensions,
     content: currentNote?.content,
   });
 
@@ -73,7 +69,7 @@ export default function App(): JSX.Element {
           desktop: leftPanelIsOpened,
         },
       }}
-      className="overflow-hidden"
+      className="overflow-hidden select-none"
     >
       <AppShellMain>
         <NotePanel editor={editor!} />
@@ -81,41 +77,44 @@ export default function App(): JSX.Element {
 
       <AppShellHeader
         p="md"
-        className="flex items-center h-[50px] mt-[var(--titlebar-height)] select-none"
+        className="flex items-center h-[50px] mt-[var(--titlebar-height)]"
       >
         <Group>
           <Burger
-            hiddenFrom="sm"
+            color="transparent relative"
             opened={!leftPanelIsOpened}
             onClick={() => setLeftPanelIsOpened(!leftPanelIsOpened)}
             size="sm"
-          />
-          <Burger
-            visibleFrom="sm"
-            opened={!leftPanelIsOpened}
-            onClick={() => setLeftPanelIsOpened(!leftPanelIsOpened)}
-            size="sm"
-          />
+          >
+            <i
+              className={`${
+                leftPanelIsOpened ? "ri-book-read-line" : "ri-book-read-fill"
+              } text-2xl absolute -translate-y-4 -translate-x-1 ${hoverStyles}`}
+              title={t(`Toggle sidebar \nCtrl + Shift + B
+              `)}
+            ></i>
+          </Burger>
           {editor ? <Menubar editor={editor} /> : null}
         </Group>
         <Group className="ml-auto">
           <LanguageToggle i18n={i18n} />
           <ActionIcon
             id="toggle-theme"
-            title="Ctrl + J"
+            title={`
+            ${t("Dark/Light Theme")}
+          Ctrl + J
+            `}
             variant="default"
+            className={`border-none ${hoverStyles}`}
             onClick={() => toggleColorScheme()}
             size={30}
           >
-            {colorScheme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            {colorScheme === "dark" ? <MoonIcon /> : <SunIcon />}
           </ActionIcon>
         </Group>
       </AppShellHeader>
 
-      <AppShellNavbar
-        className="titleBarAdjustedHeight select-none"
-        hidden={false}
-      >
+      <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
           <NoteForm />
           <NoteList editor={editor!} />
@@ -124,7 +123,7 @@ export default function App(): JSX.Element {
 
       <AppShellFooter
         p="md"
-        className="flex justify-end items-center select-none font-mono text-sm"
+        className="flex justify-end items-center font-mono text-xs"
       >
         {status}
       </AppShellFooter>

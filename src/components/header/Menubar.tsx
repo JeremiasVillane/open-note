@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { menuControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
 
-export default function Menubar({ editor }: { editor: Editor }) {
+export function Menubar({ editor }: { editor: Editor }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { currentNote, setCurrentNote, setStatus } = useNotesStore();
@@ -30,7 +30,7 @@ export default function Menubar({ editor }: { editor: Editor }) {
                       title={control.title ?? ""}
                     >
                       <i
-                        className={`ri-${control.icon} ${control.isActive} hover:text-gray-600`}
+                        className={`ri-${control.icon} ${control.isActive} hover:text-indigo-600 transition-colors ease-in-out duration-150`}
                       ></i>
                     </button>
                   );
