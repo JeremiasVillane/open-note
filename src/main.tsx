@@ -6,6 +6,7 @@ import "./lib/i18n";
 import Providers from "./providers";
 import "./styles.css";
 import "./mantine.css";
+import "remixicon/fonts/remixicon.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

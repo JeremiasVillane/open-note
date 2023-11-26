@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import "./App.css";
 import { LanguageToggle, NoteForm, NoteList, NotePanel } from "./components";
 import { useNotesStore } from "./store/notesStore";
+import Menubar from "./components/header/Menubar";
 
 export default function App(): JSX.Element {
   const { currentNote, status } = useNotesStore();
@@ -79,7 +80,6 @@ export default function App(): JSX.Element {
       </AppShellMain>
 
       <AppShellHeader
-        data-tauri-drag-region
         p="md"
         className="flex items-center h-[50px] mt-[var(--titlebar-height)] select-none"
       >
@@ -96,7 +96,7 @@ export default function App(): JSX.Element {
             onClick={() => setLeftPanelIsOpened(!leftPanelIsOpened)}
             size="sm"
           />
-          {/* ACÁ EL HEADER */}
+          {editor ? <Menubar editor={editor} /> : null}
         </Group>
         <Group className="ml-auto">
           <LanguageToggle i18n={i18n} />

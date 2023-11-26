@@ -1,3 +1,10 @@
+interface menuControl {
+  icon: string;
+  onClick: () => boolean;
+  isActive?: string;
+  title?: string;
+}
+
 interface Math {
   clamp(num: number, min: number, max: number): number;
 }

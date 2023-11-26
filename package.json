@@ -42,6 +42,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.5.0",
+    "remixicon": "^3.5.0",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
