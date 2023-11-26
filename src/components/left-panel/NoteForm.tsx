@@ -9,7 +9,7 @@ export function NoteForm(): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [fileName, setFileName] = useState<string>("");
-  const { setNoteName, setStatus } = useNotesStore();
+  const { setNoteName, setStatus, setShowNoteForm } = useNotesStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +20,7 @@ export function NoteForm(): JSX.Element {
 
     setFileName("");
     setNoteName(fileName);
+    setShowNoteForm(false);
 
     setStatus(t("NoteCreated"));
     setTimeout(() => {
@@ -28,12 +29,13 @@ export function NoteForm(): JSX.Element {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="relative">
       <input
         type="text"
+        autoFocus
         name="note-field"
         id="note-field"
-        placeholder={t("Placeholder")}
+        placeholder={t("New note")}
         autoComplete="off"
         className={`${
           colorScheme === "dark"
@@ -45,7 +47,10 @@ export function NoteForm(): JSX.Element {
         }
         value={fileName}
       />
-
+      <i
+        className="ri-close-circle-line absolute text-xl translate-y-[44%] right-1 cursor-pointer hover:text-red-900"
+        onClick={() => setShowNoteForm(false)}
+      ></i>
       <button type="submit" className="hidden" />
     </form>
   );

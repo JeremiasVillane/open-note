@@ -18,11 +18,13 @@ interface NotesState {
   notesNames: string[];
   currentNote: Note | null;
   status: string | null;
+  showNoteForm: boolean;
   setNoteName: (name: string) => void;
   setNotesNames: (names: string[]) => void;
   setCurrentNote: (note: Note | null) => void;
   removeNote: (name: string) => void;
   setStatus: (status: string | null) => void;
+  setShowNoteForm: (value: boolean) => void;
 }
 
 type CustomIconProps<T extends SVGElement> = SVGProps<T> & {

@@ -15,8 +15,13 @@ export function NoteItem({
 }): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const { currentNote, setCurrentNote, removeNote, setStatus } =
-    useNotesStore();
+  const {
+    currentNote,
+    setCurrentNote,
+    removeNote,
+    setStatus,
+    setShowNoteForm,
+  } = useNotesStore();
 
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;
@@ -29,13 +34,13 @@ export function NoteItem({
       name: noteName,
       content,
     });
+
+    setShowNoteForm(false);
   };
 
   const handleClose = async () => {
     if (editor?.getHTML() !== currentNote?.content) {
-      const confirm = await window.confirm(
-        "Are you sure you want to discard your changes?"
-      );
+      const confirm = await window.confirm(t("Discard"));
       if (!confirm) return;
     }
 
@@ -43,9 +48,7 @@ export function NoteItem({
   };
 
   const handleDelete = async (noteName: string) => {
-    const confirm = await window.confirm(
-      "Are you sure you want to delete this note?"
-    );
+    const confirm = await window.confirm(t("Delete"));
     if (!confirm) return;
 
     const documentPath = await documentDir();

@@ -7,11 +7,11 @@ import { useNotesStore } from "../../store/notesStore";
 export function Menubar({ editor }: { editor: Editor }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const { currentNote, setCurrentNote, setStatus } = useNotesStore();
+  const { currentNote, setCurrentNote, setStatus, setShowNoteForm } = useNotesStore();
 
   return (
     <div className="flex gap-2 px-4 fixed z-10 ml-6 text-lg">
-      {menuControls(t, editor, { currentNote, setCurrentNote, setStatus }).map(
+      {menuControls(t, editor, { currentNote, setCurrentNote, setStatus, setShowNoteForm }).map(
         (group, index) => {
           return (
             <div

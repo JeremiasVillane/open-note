@@ -9,9 +9,15 @@ export const menuControls = (
     currentNote: Note | null;
     setCurrentNote: (note: Note | null) => void;
     setStatus: (status: string | null) => void;
+    setShowNoteForm: (value: boolean) => void;
   }
 ) => [
   [
+    {
+      icon: "file-add-line",
+      onClick: () => store.setShowNoteForm(true),
+      title: t("New note"),
+    },
     {
       icon: "save-3-line",
       onClick: () => handleSave(t, editor, store),

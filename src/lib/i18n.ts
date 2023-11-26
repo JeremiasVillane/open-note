@@ -6,8 +6,11 @@ export const defaultLng = "en";
 const resources = {
   en: {
     translations: {
+      // ***** Modals
+      Discard: "Are you sure you want to discard your changes?",
+      Delete: "Are you sure you want to delete this note?",
+
       // ***** UI
-      Placeholder: "Write a new note",
       Welcome: "Select a note to edit",
       About:
         "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
@@ -20,8 +23,11 @@ const resources = {
   },
   es: {
     translations: {
+      // ***** Modals
+      Discard: "¿Estás seguro que quieres descartar los cambios?",
+      Delete: "¿Estás seguro que quieres eliminar esta nota?",
+
       // ***** UI
-      Placeholder: "Escribe una nueva nota",
       Welcome: "Selecciona una nota para editar",
       About:
         "Esta es una aplicación de escritorio desarrollada con Tauri. Usando React/Typescript y Rust.",
@@ -40,6 +46,7 @@ const resources = {
 
       // ***** Menubar
       "Toggle sidebar": "Mostrar/ocultar barra lateral",
+      "New note": "Nueva nota",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",

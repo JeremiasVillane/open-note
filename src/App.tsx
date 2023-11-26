@@ -30,7 +30,7 @@ import { useNotesStore } from "./store/notesStore";
 
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
-  const { currentNote, status } = useNotesStore();
+  const { currentNote, status, showNoteForm } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   useHotkeys([["ctrl+J", toggleColorScheme]]);
@@ -90,8 +90,7 @@ export default function App(): JSX.Element {
               className={`${
                 leftPanelIsOpened ? "ri-book-read-line" : "ri-book-read-fill"
               } text-2xl absolute -translate-y-4 -translate-x-1 ${hoverStyles}`}
-              title={t(`Toggle sidebar \nCtrl + Shift + B
-              `)}
+              title={t("Toggle sidebar") + "\nCtrl + Shift + B"}
             ></i>
           </Burger>
           {editor ? <Menubar editor={editor} /> : null}
@@ -116,7 +115,7 @@ export default function App(): JSX.Element {
 
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
-          <NoteForm />
+          {showNoteForm ? <NoteForm /> : null}
           <NoteList editor={editor!} />
         </AppShellSection>
       </AppShellNavbar>
