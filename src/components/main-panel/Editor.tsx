@@ -25,7 +25,7 @@ export default function Editor({ editor }: { editor: EditorTipTap }) {
 
   return (
     <RichTextEditor
-      className="h-[calc(100vh-6.7rem)] mt-6 overflow-auto"
+      className="h-[calc(100vh-6.7rem)] mt-6 overflow-auto border-none"
       editor={editor}
     >
       <RichTextEditor.Content />

@@ -88,7 +88,12 @@ export default function App(): JSX.Element {
               title={t("Toggle sidebar") + "\nCtrl + Shift + B"}
             ></i>
           </Burger>
-          {editor ? <Menubar editor={editor} /> : null}
+          {editor ? (
+            <Menubar
+              editor={editor}
+              setLeftPanelIsOpened={setLeftPanelIsOpened}
+            />
+          ) : null}
         </Group>
 
         <Group className="ml-auto">

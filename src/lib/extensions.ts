@@ -6,12 +6,20 @@ import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 
+const CustomSubscript = SubScript.extend({
+  excludes: "superscript",
+});
+
+const CustomSuperscript = Superscript.extend({
+  excludes: "subscript",
+});
+
 export const extensions = [
   StarterKit,
   Underline,
   Link,
-  Superscript,
-  SubScript,
+  CustomSuperscript,
+  CustomSubscript,
   Highlight,
   TextAlign.configure({ types: ["heading", "paragraph"] }),
 ];

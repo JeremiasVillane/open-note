@@ -29,6 +29,7 @@ export function LanguageToggle({ i18n }: { i18n: I18nType | any }) {
 
     return (
       <Menu.Item
+        key={index}
         onClick={() => i18n.changeLanguage(supportedLang)}
         className={`${selectedLang ? "text-violet-600" : ""} "cursor-default" ${
           colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"

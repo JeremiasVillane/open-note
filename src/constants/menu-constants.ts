@@ -1,6 +1,7 @@
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { getFocus, handleSave, isActive } from "../helpers";
+import { Dispatch, SetStateAction } from "react";
 
 export const menuControls = (
   t: TFunction<"translation", undefined>,
@@ -10,12 +11,16 @@ export const menuControls = (
     setCurrentNote: (note: Note | null) => void;
     setStatus: (status: string | null) => void;
     setShowNoteForm: (value: boolean) => void;
+    setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
   }
 ) => [
   [
     {
       icon: "file-add-line",
-      onClick: () => store.setShowNoteForm(true),
+      onClick: () => {
+        store.setLeftPanelIsOpened(false);
+        store.setShowNoteForm(true);
+      },
       title: t("New note"),
     },
     {
