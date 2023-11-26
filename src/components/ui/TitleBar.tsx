@@ -40,9 +40,12 @@ export function Titlebar() {
   const handleClose = () => appWindow.close();
 
   const buttonStyles =
-    "inline-flex items-center justify-center w-12 h-[var(--titlebar-height)] transition-colors duration-200 cursor-pointer";
+    "inline-flex items-center justify-center w-12 h-[var(--titlebar-height)] transition-colors duration-200";
   const buttonStylesOnHover =
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-slate-400";
+  const menuItemStyles =
+    "cursor-default hover:bg-gray-200 transition-all ease-in-out";
+
   return (
     <div
       id="titlebar"
@@ -58,7 +61,7 @@ export function Titlebar() {
       <div className="flex items-center">
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <UnstyledButton style={{ cursor: "default" }}>
+            <UnstyledButton className="cursor-default">
               <img className="h-5 w-5 mx-2 flex-shrink-0" src={AppIcon} />
             </UnstyledButton>
           </Menu.Target>
@@ -66,6 +69,7 @@ export function Titlebar() {
             <Menu.Item
               onClick={handleMinimize}
               leftSection={<MinimizeIcon size={14} />}
+              className={menuItemStyles}
             >
               {t("Minimize")}
             </Menu.Item>
@@ -73,6 +77,7 @@ export function Titlebar() {
               <Menu.Item
                 onClick={handleRestore}
                 leftSection={<RestoreIcon size={14} />}
+                className={menuItemStyles}
               >
                 {t("Restore")}
               </Menu.Item>
@@ -80,6 +85,7 @@ export function Titlebar() {
               <Menu.Item
                 onClick={handleMaximize}
                 leftSection={<MaximizeIcon size={14} />}
+                className={menuItemStyles}
               >
                 {t("Maximize")}
               </Menu.Item>
@@ -93,6 +99,7 @@ export function Titlebar() {
                   Alt + F4
                 </Text>
               }
+              className={menuItemStyles}
             >
               {t("Close")}
             </Menu.Item>
