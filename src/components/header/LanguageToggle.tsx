@@ -1,7 +1,6 @@
-import { Anchor, Text } from "@mantine/core";
+import { Menu, useMantineColorScheme } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { Resource } from "i18next";
-import { Fragment } from "react";
+import { Resource, t } from "i18next";
 
 type I18nType = {
   options?: {
@@ -12,7 +11,9 @@ type I18nType = {
 };
 
 export function LanguageToggle({ i18n }: { i18n: I18nType | any }) {
-  const languages = Object.keys(i18n.options.resources!);
+  const { colorScheme } = useMantineColorScheme();
+
+  const languages = Object.keys(i18n?.options?.resources!);
   if (languages.length == 1) return <></>;
   const lang = i18n.resolvedLanguage;
   let nextLangIdx = 0;
@@ -22,22 +23,35 @@ export function LanguageToggle({ i18n }: { i18n: I18nType | any }) {
     i18n.changeLanguage(languages[nextLangIdx]);
   }
 
-  const header = languages.map((supportedLang, index) => {
+  const langMenu = languages.map((supportedLang, index) => {
     const selectedLang = lang === supportedLang;
     if (selectedLang) nextLangIdx = index + 1;
+
     return (
-      <Fragment key={index}>
-        {selectedLang ? (
-          <Text>{supportedLang.toUpperCase()}</Text>
-        ) : (
-          <Anchor onClick={() => i18n.changeLanguage(supportedLang)}>
-            {supportedLang.toUpperCase()}
-          </Anchor>
-        )}
-        <Text>{index < languages.length - 1 && "|"}</Text>
-      </Fragment>
+      <Menu.Item
+        onClick={() => i18n.changeLanguage(supportedLang)}
+        className={`${selectedLang ? "text-violet-600" : ""} "cursor-default" ${
+          colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
+        } transition-colors ease-in-out font-semibold`}
+      >
+        {supportedLang.toUpperCase()}
+      </Menu.Item>
     );
   });
+
   useHotkeys([["Ctrl+L", cycleLang]]);
-  return header;
+
+  return (
+    <Menu>
+      <Menu.Target>
+        <i
+          className="ri-translate cursor-pointer text-xl hover:text-indigo-900 transition-colors ease-in-out duration-150"
+          title={`
+        ${t("Switch language")}
+        Ctrl + L`}
+        />
+      </Menu.Target>
+      <Menu.Dropdown className="shadow-lg">{langMenu}</Menu.Dropdown>
+    </Menu>
+  );
 }

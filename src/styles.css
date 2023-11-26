@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .hoverStyles {
+    @apply hover:text-indigo-900 transition-colors ease-in-out duration-150;
+  }
+}

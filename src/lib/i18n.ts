@@ -68,6 +68,7 @@ const resources = {
       "Align Center": "Centrar",
       "Justify Text": "Justificar",
       "Align Right": "Alinear derecha",
+      "Switch language": "Cambiar idioma",
       "Dark/Light Theme": "Modo claro/oscuro",
     },
   },
