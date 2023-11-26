@@ -26,6 +26,11 @@ export function NoteItem({
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;
 
+    if (editor?.getHTML() !== "<p></p>" && editor?.getHTML() !== currentNote?.content) {
+      const confirm = await window.confirm(t("Discard"));
+      if (!confirm) return;
+    }
+
     const documentPath = await documentDir();
     const filePath = await join(documentPath, "open-note", `${noteName}.html`);
     const content = await readTextFile(filePath);

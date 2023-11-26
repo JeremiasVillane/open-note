@@ -28,6 +28,7 @@ const resources = {
       Delete: "¿Estás seguro que quieres eliminar esta nota?",
 
       // ***** UI
+      Cancel: "Cancelar",
       Welcome: "Selecciona una nota para editar",
       About:
         "Esta es una aplicación de escritorio desarrollada con Tauri. Usando React/Typescript y Rust.",
