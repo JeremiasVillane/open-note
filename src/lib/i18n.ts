@@ -19,6 +19,9 @@ const resources = {
       NoteCreated: "Note successfully created",
       NoteDeleted: "Note successfully deleted",
       NoteSaved: "Note successfully saved",
+
+      // ***** Toolbar
+      "Link URL": "https://example.com",
     },
   },
   es: {
@@ -45,29 +48,43 @@ const resources = {
       NoteDeleted: "Nota eliminada correctamente",
       NoteSaved: "Nota guardada correctamente",
 
-      // ***** Menubar
+      // ***** Toolbar
       "Toggle sidebar": "Mostrar/ocultar barra lateral",
       "New note": "Nueva nota",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",
+
       Bold: "Negrita",
       Italic: "Cursiva",
       Underline: "Subrayado",
       Strikethrough: "Tachado",
-      Code: "Código",
       Highlight: "Resaltado",
-      List: "Lista",
-      "Ordered List": "Lista numerada",
+      Code: "Código",
+
+      "Heading 1": "Encabezado 1",
+      "Heading 2": "Encabezado 2",
+      "Heading 3": "Encabezado 3",
+      "Heading 4": "Encabezado 4",
+
+      "Bullet list": "Lista",
+      "Ordered list": "Lista numerada",
       Subscript: "Subíndice",
       Superscript: "Superíndice",
-      "Code Box": "Bloque de código",
-      Quote: "Cita",
+      "Code block": "Bloque de código",
+      Blockquote: "Cita",
       Separator: "Separador",
-      "Align Left": "Alinear izquierda",
-      "Align Center": "Centrar",
-      "Justify Text": "Justificar",
-      "Align Right": "Alinear derecha",
+
+      Link: "Crear enlace",
+      "Remove link": "Quitar enlace",
+      "Enter URL": "Ingresar URL",
+      "Link URL": "https://ejemplo.com",
+
+      "Align left": "Alinear izquierda",
+      "Align center": "Centrar",
+      "Justify text": "Justificar",
+      "Align right": "Alinear derecha",
+
       "Switch language": "Cambiar idioma",
       "Dark/Light Theme": "Modo claro/oscuro",
     },

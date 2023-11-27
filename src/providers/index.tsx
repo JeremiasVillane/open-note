@@ -1,17 +1,17 @@
 import "@mantine/core/styles.css";
-import "@mantine/tiptap/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/tiptap/styles.css";
 // import '@mantine/code-highlight/styles.css';
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 // import { ModalsProvider } from "@mantine/modals";
 // import { Notifications } from "@mantine/notifications";
-import { TauriProvider } from "./tauri-provider";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
-import { useNotesStore } from "../store/notesStore";
 import { extensions } from "../lib/extensions";
+import { useNotesStore } from "../store/notesStore";
+import { TauriProvider } from "./tauri-provider";
 // import { useState } from "react";
 // import Splashscreen from "./Splashscreen";
 
