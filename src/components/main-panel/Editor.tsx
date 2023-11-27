@@ -1,9 +1,9 @@
-import { RichTextEditor } from "@mantine/tiptap";
-import { Editor as EditorTipTap } from "@tiptap/react";
+import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { useEffect } from "react";
 import { useNotesStore } from "../../store/notesStore";
 
-export default function Editor({ editor }: { editor: EditorTipTap }) {
+export default function Editor() {
+  const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();
 
   useEffect(() => {

@@ -6,11 +6,22 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 // import { ModalsProvider } from "@mantine/modals";
 // import { Notifications } from "@mantine/notifications";
 import { TauriProvider } from "./tauri-provider";
+import { RichTextEditor } from "@mantine/tiptap";
+import { useEditor } from "@tiptap/react";
+import { useNotesStore } from "../store/notesStore";
+import { extensions } from "../lib/extensions";
 // import { useState } from "react";
 // import Splashscreen from "./Splashscreen";
 
 export default function Providers({ children }: { children: JSX.Element }) {
+  const { currentNote } = useNotesStore();
   // const [isLoading, setLoading] = useState(false);
+
+  const editor = useEditor({
+    extensions,
+    content: currentNote?.content,
+  });
+
 
   return (
     <>
@@ -19,7 +30,9 @@ export default function Providers({ children }: { children: JSX.Element }) {
         {/* <ModalsProvider> */}
           <TauriProvider>
             {/* <Notifications /> */}
+            <RichTextEditor editor={editor} className="border-none">
             {children}
+            </RichTextEditor>
             {/* {isLoading ? <Splashscreen /> : children} */}
           </TauriProvider>
         {/* </ModalsProvider> */}

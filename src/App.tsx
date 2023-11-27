@@ -10,7 +10,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { useEditor } from "@tiptap/react";
+import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
@@ -22,23 +22,18 @@ import {
   ThemeToggle,
   Toolbar,
 } from "./components";
-import { extensions } from "./lib/extensions";
 import { useNotesStore } from "./store/notesStore";
 
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
-  const { currentNote, status, showNoteForm } = useNotesStore();
+  const { editor } = useRichTextEditorContext();
+  const { status, showNoteForm } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
   useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
   ]);
-
-  const editor = useEditor({
-    extensions,
-    content: currentNote?.content,
-  });
 
   return (
     <AppShell
@@ -55,7 +50,7 @@ export default function App(): JSX.Element {
       className="overflow-hidden select-none"
     >
       <AppShellMain>
-        <NotePanel editor={editor!} />
+        <NotePanel />
       </AppShellMain>
 
       <AppShellHeader
@@ -77,10 +72,7 @@ export default function App(): JSX.Element {
             ></i>
           </Burger>
           {editor ? (
-            <Toolbar
-              editor={editor}
-              setLeftPanelIsOpened={setLeftPanelIsOpened}
-            />
+            <Toolbar setLeftPanelIsOpened={setLeftPanelIsOpened} />
           ) : null}
         </Group>
 
@@ -93,7 +85,7 @@ export default function App(): JSX.Element {
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
           {showNoteForm ? <NoteForm /> : null}
-          <NoteList editor={editor!} />
+          <NoteList />
         </AppShellSection>
       </AppShellNavbar>
 

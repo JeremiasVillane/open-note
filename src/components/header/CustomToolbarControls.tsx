@@ -1,23 +1,22 @@
-import { Editor } from "@tiptap/react";
+import { useRichTextEditorContext } from "@mantine/tiptap";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
 
 export function CustomToolbarControls({
-  editor,
   setLeftPanelIsOpened,
 }: {
-  editor: Editor;
   setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
+  const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setStatus, setShowNoteForm } =
     useNotesStore();
 
   return (
     <>
-      {customControls(t, editor, {
+      {customControls(t, editor!, {
         currentNote,
         setCurrentNote,
         setStatus,

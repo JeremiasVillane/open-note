@@ -1,20 +1,15 @@
 import { Card, useMantineColorScheme } from "@mantine/core";
+import { useRichTextEditorContext } from "@mantine/tiptap";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
-import { Editor } from "@tiptap/react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteItem({
-  noteName,
-  editor,
-}: {
-  noteName: string;
-  editor: Editor;
-}): JSX.Element {
+export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   const { t } = useTranslation();
+  const { editor } = useRichTextEditorContext();
   const { colorScheme } = useMantineColorScheme();
   const { appDocuments } = useTauriContext();
   const {
@@ -55,7 +50,7 @@ export function NoteItem({
     }
 
     setCurrentNote(null);
-    editor.chain().clearContent().run();
+    editor?.chain().clearContent().run();
   };
 
   const handleDelete = async (noteName: string) => {
@@ -67,7 +62,7 @@ export function NoteItem({
     await removeFile(filePath);
     removeNote(noteName);
     setCurrentNote(null);
-    editor.chain().clearContent().run();
+    editor?.chain().clearContent().run();
 
     setStatus(t("NoteDeleted"));
     setTimeout(() => {
