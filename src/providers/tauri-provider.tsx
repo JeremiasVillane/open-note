@@ -6,7 +6,9 @@ import * as tauriPath from "@tauri-apps/api/path";
 import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
 import { Titlebar } from "../components";
-import { APP_NAME, RUNNING_IN_TAURI } from "../utils";
+import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
+import { getUserAppFiles } from "../utils";
+import { useNotesStore } from "../store/notesStore";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 // NOTE: Add memoized Tauri calls in this file
@@ -31,17 +33,9 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
   const [osType, setOsType] = useState<string>("");
   const [fileSep, setFileSep] = useState<string>("/");
   const [appDocuments, setAppDocuments] = useState<string>("");
+  const { setNotesNames } = useNotesStore();
 
   if (RUNNING_IN_TAURI) {
-    // const tauriInterval = useInterval(() => {
-    //   appWindow.isFullscreen().then(setFullscreen);
-    // }, 200);
-
-    // useEffect(() => {
-    //   tauriInterval.start();
-    //   return tauriInterval.stop;
-    // }, []);
-
     useEffect(() => {
       if (osType === "Windows_NT") {
         appWindow.setDecorations(!WIN32_CUSTOM_TITLEBAR);
@@ -79,6 +73,9 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
           recursive: true,
         });
         setAppDocuments(`${_documents}${APP_NAME}`);
+        const userAppFiles = await getUserAppFiles();
+        // @ts-ignore
+        setNotesNames(userAppFiles);
         setLoading(false);
 
         invoke("show_main_window");

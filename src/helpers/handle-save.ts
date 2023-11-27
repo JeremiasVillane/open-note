@@ -2,6 +2,7 @@ import { writeTextFile } from "@tauri-apps/api/fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
+import { APP_NAME } from "../constants";
 
 export const handleSave = async (
   t: TFunction<"translation", undefined>,
@@ -14,11 +15,7 @@ export const handleSave = async (
 ) => {
   const { currentNote, setCurrentNote, setStatus } = store;
   const documentPath = await documentDir();
-  const filePath = await join(
-    documentPath,
-    "open-note",
-    `${currentNote?.name}.html`
-  );
+  const filePath = await join(documentPath, APP_NAME, `${currentNote?.name}`);
 
   if (currentNote?.name) {
     await writeTextFile(filePath, editor.getHTML());

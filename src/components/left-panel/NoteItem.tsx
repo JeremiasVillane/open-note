@@ -1,9 +1,10 @@
 import { Card, useMantineColorScheme } from "@mantine/core";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
-import { documentDir, join } from "@tauri-apps/api/path";
+import { join } from "@tauri-apps/api/path";
 import { Editor } from "@tiptap/react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({
@@ -15,6 +16,7 @@ export function NoteItem({
 }): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
+  const { appDocuments } = useTauriContext();
   const {
     currentNote,
     setCurrentNote,
@@ -26,13 +28,16 @@ export function NoteItem({
   const hadleOpen = async () => {
     if (currentNote?.name === noteName) return;
 
-    if (editor?.getHTML() !== "<p></p>" && editor?.getHTML() !== currentNote?.content) {
+    if (
+      editor?.getHTML() !== "<p></p>" &&
+      editor?.getHTML() !== undefined &&
+      editor?.getHTML() !== currentNote?.content
+    ) {
       const confirm = await window.confirm(t("Discard"));
       if (!confirm) return;
     }
 
-    const documentPath = await documentDir();
-    const filePath = await join(documentPath, "open-note", `${noteName}.html`);
+    const filePath = await join(appDocuments, noteName);
     const content = await readTextFile(filePath);
 
     setCurrentNote({
@@ -50,18 +55,19 @@ export function NoteItem({
     }
 
     setCurrentNote(null);
+    editor.chain().clearContent().run();
   };
 
   const handleDelete = async (noteName: string) => {
     const confirm = await window.confirm(t("Delete"));
     if (!confirm) return;
 
-    const documentPath = await documentDir();
-    const filePath = await join(documentPath, "open-note", `${noteName}.html`);
+    const filePath = await join(appDocuments, noteName);
 
     await removeFile(filePath);
     removeNote(noteName);
     setCurrentNote(null);
+    editor.chain().clearContent().run();
 
     setStatus(t("NoteDeleted"));
     setTimeout(() => {

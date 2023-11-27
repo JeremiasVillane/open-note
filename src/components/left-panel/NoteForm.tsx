@@ -1,8 +1,9 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { writeTextFile } from "@tauri-apps/api/fs";
-import { documentDir, join } from "@tauri-apps/api/path";
+import { join } from "@tauri-apps/api/path";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteForm(): JSX.Element {
@@ -10,11 +11,11 @@ export function NoteForm(): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const [fileName, setFileName] = useState<string>("");
   const { setNoteName, setStatus, setShowNoteForm } = useNotesStore();
+  const { appDocuments } = useTauriContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const documentPath = await documentDir();
-    const filePath = await join(documentPath, "open-note", `${fileName}.html`);
+    const filePath = await join(appDocuments, fileName);
 
     await writeTextFile(filePath, ``);
 

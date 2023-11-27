@@ -10,9 +10,8 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { useEditor } from "@tiptap/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import {
@@ -40,17 +39,6 @@ export default function App(): JSX.Element {
     extensions,
     content: currentNote?.content,
   });
-
-  useEffect(() => {
-    async function createNotesDir() {
-      await createDir("open-note", {
-        dir: BaseDirectory.Document,
-        recursive: true,
-      });
-    }
-
-    createNotesDir();
-  }, []);
 
   return (
     <AppShell
