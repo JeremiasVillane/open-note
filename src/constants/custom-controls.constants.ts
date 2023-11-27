@@ -2,6 +2,7 @@ import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { Dispatch, SetStateAction } from "react";
 import { getFocus, handleSave } from "../helpers";
+import { Note } from "../types";
 
 export const customControls = (
   t: TFunction<"translation", undefined>,

@@ -1,4 +1,5 @@
 import React from "react";
+import { CustomIconProps } from "../../../types";
 
 export const MinimizeIcon: React.FC<CustomIconProps<SVGSVGElement>> = (
   props

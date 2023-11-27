@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
+import { menuControl } from "../../types";
 
 export function CustomToolbarControls({
   setLeftPanelIsOpened,

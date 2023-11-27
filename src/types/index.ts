@@ -1,19 +1,17 @@
-interface menuControl {
+import { SVGProps } from "react";
+
+export interface menuControl {
   icon: string;
   onClick: () => boolean;
   title?: string;
 }
 
-interface Math {
-  clamp(num: number, min: number, max: number): number;
-}
-
-interface Note {
+export interface Note {
   name: string;
   content: string | null;
 }
 
-interface NotesState {
+export interface NotesState {
   notesNames: string[];
   currentNote: Note | null;
   status: string | null;
@@ -26,6 +24,7 @@ interface NotesState {
   setShowNoteForm: (value: boolean) => void;
 }
 
-type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
+export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
+  title?: string;
   size?: string | number;
 };

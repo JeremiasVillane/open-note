@@ -3,6 +3,7 @@ import { documentDir, join } from "@tauri-apps/api/path";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { APP_NAME } from "../constants";
+import { Note } from "../types";
 
 export const handleSave = async (
   t: TFunction<"translation", undefined>,
