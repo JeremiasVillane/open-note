@@ -13,7 +13,7 @@ import { useHotkeys } from "@mantine/hooks";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import "./App.css";
+import "./styles/App.css";
 import {
   LanguageToggle,
   NoteForm,

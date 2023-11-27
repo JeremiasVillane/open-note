@@ -45,7 +45,7 @@
 .ProseMirror h6 {
   line-height: 1.1;
 }
-/* .ProseMirror code {
+.ProseMirror code {
   background-color: rgba(97, 97, 97, 0.1);
   color: #616161;
 }
@@ -60,7 +60,7 @@
   padding: 0;
   background: none;
   font-size: 0.8rem;
-} */
+}
 .ProseMirror img {
   max-width: 100%;
   height: auto;

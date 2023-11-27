@@ -2,6 +2,8 @@ import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 import "@mantine/notifications/styles.css";
 // import '@mantine/code-highlight/styles.css';
+import "remixicon/fonts/remixicon.css";
+import "../styles/globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 // import { ModalsProvider } from "@mantine/modals";
 // import { Notifications } from "@mantine/notifications";
@@ -22,19 +24,18 @@ export default function Providers({ children }: { children: JSX.Element }) {
     content: currentNote?.content,
   });
 
-
   return (
     <>
       <ColorSchemeScript defaultColorScheme="auto" />
       <MantineProvider defaultColorScheme="auto">
         {/* <ModalsProvider> */}
-          <TauriProvider>
-            {/* <Notifications /> */}
-            <RichTextEditor editor={editor} className="border-none">
+        <TauriProvider>
+          {/* <Notifications /> */}
+          <RichTextEditor editor={editor} className="border-none">
             {children}
-            </RichTextEditor>
-            {/* {isLoading ? <Splashscreen /> : children} */}
-          </TauriProvider>
+          </RichTextEditor>
+          {/* {isLoading ? <Splashscreen /> : children} */}
+        </TauriProvider>
         {/* </ModalsProvider> */}
       </MantineProvider>
     </>
