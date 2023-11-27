@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
 import "@mantine/notifications/styles.css";
 // import '@mantine/code-highlight/styles.css';
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
@@ -14,7 +15,7 @@ export default function Providers({ children }: { children: JSX.Element }) {
   return (
     <>
       <ColorSchemeScript defaultColorScheme="auto" />
-      <MantineProvider defaultColorScheme="auto" withCssVariables>
+      <MantineProvider defaultColorScheme="auto">
         {/* <ModalsProvider> */}
           <TauriProvider>
             {/* <Notifications /> */}

@@ -1,5 +1,5 @@
 export * from "./header/LanguageToggle";
-export * from "./header/Menubar";
+export * from "./header/Toolbar";
 export * from "./header/ThemeToggle";
 export * from "./left-panel/NoteForm";
 export * from "./left-panel/NoteItem";

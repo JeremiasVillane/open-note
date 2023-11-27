@@ -1,11 +1,10 @@
-import { useMantineColorScheme } from "@mantine/core";
 import { Editor } from "@tiptap/react";
-import { useTranslation } from "react-i18next";
-import { menuControls } from "../../constants";
-import { useNotesStore } from "../../store/notesStore";
 import { Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
+import { customControls } from "../../constants";
+import { useNotesStore } from "../../store/notesStore";
 
-export function Menubar({
+export function CustomToolbarControls({
   editor,
   setLeftPanelIsOpened,
 }: {
@@ -13,13 +12,12 @@ export function Menubar({
   setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
-  const { colorScheme } = useMantineColorScheme();
   const { currentNote, setCurrentNote, setStatus, setShowNoteForm } =
     useNotesStore();
 
   return (
-    <div className="flex gap-2 px-4 fixed z-10 ml-6 text-lg">
-      {menuControls(t, editor, {
+    <>
+      {customControls(t, editor, {
         currentNote,
         setCurrentNote,
         setStatus,
@@ -27,11 +25,13 @@ export function Menubar({
         setLeftPanelIsOpened,
       }).map((group, index) => {
         return (
-          <div
+          <section
             key={index}
-            className={`flex gap-2 ml-1 px-2 border rounded-lg ${
-              colorScheme === "dark" && "border-gray-700"
-            }`}
+            className={`border overflow-hidden`}
+            style={{
+              borderRadius: "var(--mantine-radius-default)",
+              borderColor: "var(--_root-bd)",
+            }}
           >
             {
               // @ts-ignore
@@ -43,15 +43,18 @@ export function Menubar({
                     title={control.title ?? ""}
                   >
                     <i
-                      className={`ri-${control.icon} ${control.isActive} hover:text-indigo-600 transition-colors ease-in-out duration-150`}
+                      className={`ri-${control.icon} border-r ${
+                        index === group.length - 1 && "border-none"
+                      } px-[0.3rem] py-1`}
+                      style={{ borderColor: "var(--_root-bd)" }}
                     ></i>
                   </button>
                 );
               })
             }
-          </div>
+          </section>
         );
       })}
-    </div>
+    </>
   );
 }

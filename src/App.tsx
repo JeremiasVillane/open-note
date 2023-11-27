@@ -16,11 +16,11 @@ import { useTranslation } from "react-i18next";
 import "./App.css";
 import {
   LanguageToggle,
-  Menubar,
   NoteForm,
   NoteList,
   NotePanel,
   ThemeToggle,
+  Toolbar,
 } from "./components";
 import { extensions } from "./lib/extensions";
 import { useNotesStore } from "./store/notesStore";
@@ -60,9 +60,9 @@ export default function App(): JSX.Element {
 
       <AppShellHeader
         p="md"
-        className="flex items-center h-[50px] mt-[var(--titlebar-height)]"
+        className="flex items-center justify-between h-[50px] mt-[var(--titlebar-height)]"
       >
-        <Group>
+        <Group className="gap-0">
           <Burger
             color="transparent relative"
             opened={!leftPanelIsOpened}
@@ -77,14 +77,14 @@ export default function App(): JSX.Element {
             ></i>
           </Burger>
           {editor ? (
-            <Menubar
+            <Toolbar
               editor={editor}
               setLeftPanelIsOpened={setLeftPanelIsOpened}
             />
           ) : null}
         </Group>
 
-        <Group className="ml-auto">
+        <Group>
           <LanguageToggle i18n={i18n} />
           <ThemeToggle />
         </Group>

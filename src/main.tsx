@@ -1,10 +1,8 @@
-import "@mantine/tiptap/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "remixicon/fonts/remixicon.css";
 import App from "./App";
 import "./lib/i18n";
-import "./mantine.css";
 import Providers from "./providers";
 import "./styles.css";
 
