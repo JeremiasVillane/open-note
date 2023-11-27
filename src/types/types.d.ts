@@ -1,7 +1,6 @@
 interface menuControl {
   icon: string;
   onClick: () => boolean;
-  isActive?: string;
   title?: string;
 }
 
