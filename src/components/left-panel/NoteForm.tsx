@@ -57,7 +57,7 @@ export function NoteForm(): JSX.Element {
         value={fileName}
       />
       <i
-        className="ri-close-circle-line absolute text-xl translate-y-[12%] right-1 cursor-pointer hover:text-red-900 transition-colors ease-in-out duration-150"
+        className="ri-close-circle-line absolute text-lg translate-y-[12%] right-1 cursor-pointer hover:text-red-800 transition-colors ease-in-out duration-150"
         onClick={() => setShowNoteForm(false)}
         title={t("Cancel")}
       ></i>

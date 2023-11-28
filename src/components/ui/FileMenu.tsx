@@ -19,7 +19,7 @@ export function FileMenu({
   } transition-colors ease-in-out`;
 
   return (
-    <Menu shadow="md">
+    <Menu position="bottom-start" shadow="sm">
       <Menu.Target>
         <UnstyledButton>
           <OptionsIcon size={21} />
@@ -34,7 +34,7 @@ export function FileMenu({
         </Menu.Item>
         <Menu.Item
           onClick={async () => handleDelete(noteName)}
-          className={menuItemStyles}
+          className={`${menuItemStyles} text-red-600`}
         >
           {t("Remove")}
         </Menu.Item>
