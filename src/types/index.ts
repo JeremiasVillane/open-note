@@ -3,6 +3,7 @@ import { SVGProps } from "react";
 export interface FileObj {
   id: string;
   name: string;
+  path: string;
   isFolder: boolean;
   children?: FileObj[];
 }
@@ -15,6 +16,7 @@ export interface menuControl {
 
 export interface Note {
   name: string;
+  path: string;
   content: string | null;
 }
 

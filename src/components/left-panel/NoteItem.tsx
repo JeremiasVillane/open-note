@@ -1,4 +1,3 @@
-import { Card, useMantineColorScheme } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
@@ -7,10 +6,15 @@ import { FileMenu } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
+export function NoteItem({
+  noteName,
+  path,
+}: {
+  noteName: string;
+  path: string;
+}): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { colorScheme } = useMantineColorScheme();
   const { appDocuments } = useTauriContext();
   const {
     currentNote,
@@ -32,11 +36,11 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
       if (!confirm) return;
     }
 
-    const filePath = await join(appDocuments, noteName);
-    const content = await readTextFile(filePath);
+    const content = await readTextFile(path);
 
     setCurrentNote({
       name: noteName,
+      path,
       content,
     });
 
@@ -71,29 +75,8 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
   };
 
   return (
-    <Card
-      withBorder
-      // style={{
-      //   backgroundColor: `${
-      //     currentNote?.name === noteName
-      //       ? "rgb(96, 165, 250)"
-      //       : colorScheme === "dark"
-      //       ? "rgb(23, 23, 23)"
-      //       : "rgb(229, 229, 229)"
-      //   }`,
-      // }}
-      className={`cursor-pointer transition-colors duration-300 ease-in-out ${
-        currentNote?.name !== noteName
-          ? `${
-              colorScheme === "dark"
-                ? "hover:bg-neutral-800"
-                : "hover:bg-neutral-100"
-            }`
-          : ""
-      }`}
-      onClick={hadleOpen}
-    >
-      <div className="flex justify-between items-center">
+    <div className="pl-1.5 w-full" onClick={hadleOpen}>
+      <div className="flex items-center justify-between">
         <h1>{noteName}</h1>
 
         {currentNote?.name === noteName ? (
@@ -104,6 +87,6 @@ export function NoteItem({ noteName }: { noteName: string }): JSX.Element {
           />
         ) : null}
       </div>
-    </Card>
+    </div>
   );
 }

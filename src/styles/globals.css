@@ -4,6 +4,10 @@
 
 @layer components {
   .hoverStyles {
-    @apply hover:text-indigo-900 transition-colors ease-in-out duration-150;
+    @apply hover:text-blue-400 transition-colors ease-in-out duration-150;
+  }
+
+  .itemStyles {
+    @apply pl-3 flex items-center cursor-pointer transition-colors duration-300 ease-in-out;
   }
 }

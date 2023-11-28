@@ -22,7 +22,13 @@ export function NoteForm(): JSX.Element {
     await writeTextFile(filePath, ``);
 
     setFileName("");
-    setNote({ id, name: fileName, isFolder: false, children: undefined });
+    setNote({
+      id,
+      name: fileName,
+      path: filePath,
+      isFolder: false,
+      children: undefined,
+    });
     setShowNoteForm(false);
 
     setStatus(t("NoteCreated"));

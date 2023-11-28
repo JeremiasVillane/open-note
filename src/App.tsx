@@ -17,7 +17,7 @@ import "./styles/App.css";
 import {
   LanguageToggle,
   NoteForm,
-  NoteList,
+  FileList,
   NotePanel,
   ThemeToggle,
   Toolbar,
@@ -27,9 +27,10 @@ import { useNotesStore } from "./store/notesStore";
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { status, showNoteForm } = useNotesStore();
+  const { fileList, status, showNoteForm } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
+
   useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
@@ -85,7 +86,7 @@ export default function App(): JSX.Element {
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
           {showNoteForm ? <NoteForm /> : null}
-          <NoteList />
+          <FileList fileList={fileList} />
         </AppShellSection>
       </AppShellNavbar>
 
