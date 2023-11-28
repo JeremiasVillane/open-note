@@ -31,6 +31,7 @@ export default function App(): JSX.Element {
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
 
+  useHotkeys([["F12", () => null]]);
   useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
@@ -86,7 +87,9 @@ export default function App(): JSX.Element {
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
           {showNoteForm ? <NoteForm /> : null}
-          <FileList fileList={fileList} />
+          <div className="mt-2">
+            <FileList fileList={fileList} />
+          </div>
         </AppShellSection>
       </AppShellNavbar>
 

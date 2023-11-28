@@ -1,11 +1,11 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
-import { nanoid } from "nanoid";
 
 export function NoteForm(): JSX.Element {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ export function NoteForm(): JSX.Element {
         id="note-field"
         placeholder={t("New note")}
         autoComplete="off"
-        className={`${
+        className={`py-1 ${
           colorScheme === "dark"
             ? "bg-neutral-800 text-white"
             : "bg-neutral-300 text-black"
@@ -57,7 +57,7 @@ export function NoteForm(): JSX.Element {
         value={fileName}
       />
       <i
-        className="ri-close-circle-line absolute text-xl translate-y-[44%] right-1 cursor-pointer hover:text-red-900 transition-colors ease-in-out duration-150"
+        className="ri-close-circle-line absolute text-xl translate-y-[12%] right-1 cursor-pointer hover:text-red-900 transition-colors ease-in-out duration-150"
         onClick={() => setShowNoteForm(false)}
         title={t("Cancel")}
       ></i>

@@ -1,8 +1,6 @@
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import * as React from "react";
+import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { OptionsIcon } from "./icons";
 
 export function FileMenu({
   handleClose,
@@ -13,39 +11,34 @@ export function FileMenu({
   handleDelete: (noteName: string) => void;
   noteName: string;
 }) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
+  const { t } = useTranslation();
+  const { colorScheme } = useMantineColorScheme();
+
+  const menuItemStyles = `${
+    colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
+  } transition-colors ease-in-out`;
 
   return (
-    <div>
-      <IconButton
-        aria-label="more"
-        id="file-button"
-        aria-controls={open ? "file-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="file-menu"
-        MenuListProps={{
-          "aria-labelledby": "file-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-      >
-        <MenuItem onClick={async () => handleClose()}>Close</MenuItem>
-        <MenuItem onClick={async () => handleDelete(noteName)}>Delete</MenuItem>
-      </Menu>
-    </div>
+    <Menu shadow="md">
+      <Menu.Target>
+        <UnstyledButton>
+          <OptionsIcon size={21} />
+        </UnstyledButton>
+      </Menu.Target>
+      <Menu.Dropdown className="shadow-lg">
+        <Menu.Item
+          onClick={async () => handleClose()}
+          className={menuItemStyles}
+        >
+          {t("Close")}
+        </Menu.Item>
+        <Menu.Item
+          onClick={async () => handleDelete(noteName)}
+          className={menuItemStyles}
+        >
+          {t("Remove")}
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
   );
 }

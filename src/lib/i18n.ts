@@ -15,6 +15,9 @@ const resources = {
       About:
         "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
 
+      // ***** Context menu
+      Remove: "Delete",
+
       // ***** Statusbar
       NoteCreated: "Note successfully created",
       NoteDeleted: "Note successfully deleted",
@@ -42,6 +45,9 @@ const resources = {
       Restore: "Restaurar",
       Fullscreen: "Pantalla completa",
       Close: "Cerrar",
+
+      // ***** Context menu
+      Remove: "Eliminar",
 
       // ***** Statusbar
       NoteCreated: "Nota creada correctamente",
