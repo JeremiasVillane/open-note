@@ -1,21 +1,20 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { readTextFile, removeFile } from "@tauri-apps/api/fs";
-import { join } from "@tauri-apps/api/path";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
-import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({
   noteName,
+  noteId,
   path,
 }: {
   noteName: string;
+  noteId: string;
   path: string;
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { appDocuments } = useTauriContext();
   const {
     currentNote,
     setCurrentNote,
@@ -39,6 +38,7 @@ export function NoteItem({
     const content = await readTextFile(path);
 
     setCurrentNote({
+      id: noteId,
       name: noteName,
       path,
       content,
@@ -57,14 +57,12 @@ export function NoteItem({
     editor?.chain().clearContent().run();
   };
 
-  const handleDelete = async (noteName: string) => {
+  const handleDelete = async () => {
     const confirm = await window.confirm(t("Delete"));
     if (!confirm) return;
 
-    const filePath = await join(appDocuments, noteName);
-
-    await removeFile(filePath);
-    removeNote(noteName);
+    await removeFile(path);
+    removeNote(noteId);
     setCurrentNote(null);
     editor?.chain().clearContent().run();
 

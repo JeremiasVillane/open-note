@@ -54,7 +54,7 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem noteName={file.name} path={file.path} />
+            <NoteItem noteName={file.name} noteId={file.id} path={file.path} />
           </section>
         )
       )}

@@ -15,6 +15,7 @@ export interface menuControl {
 }
 
 export interface Note {
+  id: string;
   name: string;
   path: string;
   content: string | null;
