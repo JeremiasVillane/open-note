@@ -53,6 +53,10 @@ const resources = {
       NoteCreated: "Nota creada correctamente",
       NoteDeleted: "Nota eliminada correctamente",
       NoteSaved: "Nota guardada correctamente",
+      Characters: "Caracteres",
+      Letters: "Letras",
+      Words: "Palabras",
+      Lines: "Líneas",
 
       // ***** Toolbar
       "Toggle sidebar": "Mostrar/ocultar barra lateral",

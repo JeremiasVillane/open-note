@@ -11,18 +11,19 @@ import {
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { useRichTextEditorContext } from "@mantine/tiptap";
+import { count } from "letter-count";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import "./styles/App.css";
 import {
+  FileList,
   LanguageToggle,
   NoteForm,
-  FileList,
   NotePanel,
   ThemeToggle,
   Toolbar,
 } from "./components";
 import { useNotesStore } from "./store/notesStore";
+import "./styles/App.css";
 
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
@@ -31,11 +32,14 @@ export default function App(): JSX.Element {
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
 
-  // useHotkeys([["F12", () => null]]);
+  useHotkeys([["F12", () => null]]);
   useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
   ]);
+
+  const editorContent = editor?.getText();
+  const stadistics = count(editorContent ?? "");
 
   return (
     <AppShell
@@ -95,8 +99,21 @@ export default function App(): JSX.Element {
 
       <AppShellFooter
         p="md"
-        className="flex justify-end items-center font-mono text-xs"
+        className="flex justify-between items-center font-mono text-xs"
       >
+        {editorContent?.length ? (
+          <div>
+            {t("Characters")}: {stadistics.chars}{" "}|{" "}
+            {t("Letters")}: {stadistics.letters}{" "}|{" "}
+            {t("Words")}: {stadistics.words}{" "}|{" "}
+            {t("Lines")}: {stadistics.lines > 1 
+              ? stadistics.lines - (stadistics.lines - 1) / 2 
+              : stadistics.lines}
+          </div>
+        ) : (
+          <></>
+        )}
+
         {status}
       </AppShellFooter>
     </AppShell>

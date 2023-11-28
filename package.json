@@ -31,6 +31,7 @@
     "@tiptap/starter-kit": "^2.1.12",
     "i18next": "^23.7.6",
     "i18next-browser-languagedetector": "^7.2.0",
+    "letter-count": "^5.2.1",
     "nanoid": "^5.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
