@@ -2,17 +2,16 @@ import { create } from "zustand";
 import { NotesState } from "../types";
 
 export const useNotesStore = create<NotesState>((set) => ({
-  notesNames: [],
+  fileList: [],
   currentNote: null,
   status: null,
   showNoteForm: false,
-  setNoteName: (name) =>
-    set((state) => ({ notesNames: [...state.notesNames, name] })),
-  setNotesNames: (names) => set({ notesNames: names }),
+  setNote: (note) => set((state) => ({ fileList: [...state.fileList, note] })),
+  setFiles: (files) => set({ fileList: files }),
   setCurrentNote: (note) => set({ currentNote: note }),
   removeNote: (name) =>
     set((state) => ({
-      notesNames: state.notesNames.filter((note) => note !== name),
+      fileList: state.fileList.filter((note) => note.name !== name),
     })),
   setStatus: (status) => set({ status }),
   setShowNoteForm: (value) => set({ showNoteForm: value }),

@@ -5,22 +5,24 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import { nanoid } from "nanoid";
 
 export function NoteForm(): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [fileName, setFileName] = useState<string>("");
-  const { setNoteName, setStatus, setShowNoteForm } = useNotesStore();
+  const { setNote, setStatus, setShowNoteForm } = useNotesStore();
   const { appDocuments } = useTauriContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const filePath = await join(appDocuments, fileName);
+    const id = nanoid();
 
     await writeTextFile(filePath, ``);
 
     setFileName("");
-    setNoteName(fileName);
+    setNote({ id, name: fileName, isFolder: false, children: undefined });
     setShowNoteForm(false);
 
     setStatus(t("NoteCreated"));

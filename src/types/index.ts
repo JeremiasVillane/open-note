@@ -1,5 +1,12 @@
 import { SVGProps } from "react";
 
+export interface FileObj {
+  id: string;
+  name: string;
+  isFolder: boolean;
+  children?: FileObj[];
+}
+
 export interface menuControl {
   icon: string;
   onClick: () => boolean;
@@ -12,12 +19,12 @@ export interface Note {
 }
 
 export interface NotesState {
-  notesNames: string[];
+  fileList: FileObj[];
   currentNote: Note | null;
   status: string | null;
   showNoteForm: boolean;
-  setNoteName: (name: string) => void;
-  setNotesNames: (names: string[]) => void;
+  setNote: (note: FileObj) => void;
+  setFiles: (names: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
   removeNote: (name: string) => void;
   setStatus: (status: string | null) => void;
