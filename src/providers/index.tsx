@@ -11,18 +11,18 @@ import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../lib/extensions";
 import { useNotesStore } from "../store/notesStore";
+import { useMinWidth } from "../utils";
 import { TauriProvider } from "./tauri-provider";
-// import { useState } from "react";
-// import Splashscreen from "./Splashscreen";
 
 export default function Providers({ children }: { children: JSX.Element }) {
   const { currentNote } = useNotesStore();
-  // const [isLoading, setLoading] = useState(false);
 
   const editor = useEditor({
     extensions,
     content: currentNote?.content,
   });
+
+  useMinWidth(1000);
 
   return (
     <>
@@ -34,7 +34,6 @@ export default function Providers({ children }: { children: JSX.Element }) {
           <RichTextEditor editor={editor} className="border-none">
             {children}
           </RichTextEditor>
-          {/* {isLoading ? <Splashscreen /> : children} */}
         </TauriProvider>
         {/* </ModalsProvider> */}
       </MantineProvider>

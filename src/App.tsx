@@ -32,7 +32,6 @@ export default function App(): JSX.Element {
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
 
-  useHotkeys([["F12", () => null]]);
   useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
