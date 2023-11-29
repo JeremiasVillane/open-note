@@ -22,12 +22,12 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
   };
 
   return (
-    <aside>
+    <aside className="group/panel">
       {fileList?.map((item) =>
         item.isFolder ? (
           <section key={item.id}>
             <div
-              className={`${fileStyles} group justify-between items-center relative`}
+              className={`${fileStyles} group/item justify-between items-center relative`}
               onClick={() => handleOpenFolder(item.id)}
             >
               <div className="flex">
@@ -44,13 +44,15 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
                 </div>
               </div>
 
-              <div className="invisible group-hover:visible">
+              <div className="invisible group-hover/item:visible">
                 <FolderMenu folder={item} setNewItem={setNewItem} />
               </div>
             </div>
 
             <div
-              className={`ml-5 border-l ${!openFolder[item.id] && "hidden"}`}
+              className={`ml-5 group-hover/panel:border-l group-hover/panel:ml-[1.19rem] ${
+                !openFolder[item.id] && "hidden"
+              }`}
             >
               {newItem[item.id] ? (
                 <NewItemForm
