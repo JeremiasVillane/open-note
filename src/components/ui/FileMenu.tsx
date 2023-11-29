@@ -23,6 +23,7 @@ export function FileMenu({
           <OptionsIcon size={21} />
         </UnstyledButton>
       </Menu.Target>
+
       <Menu.Dropdown className="shadow-lg">
         <Menu.Item
           onClick={async () => handleClose()}
@@ -30,6 +31,7 @@ export function FileMenu({
         >
           {t("Close")}
         </Menu.Item>
+
         <Menu.Item
           onClick={async () => handleDelete()}
           className={`${menuItemStyles} text-red-600`}

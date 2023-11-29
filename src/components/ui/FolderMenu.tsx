@@ -48,12 +48,14 @@ export function FolderMenu({
         >
           {t("New note")}
         </Menu.Item>
+
         <Menu.Item
           className={menuItemStyles}
           onClick={(e) => handleCreate(e, folder.id, "folder")}
         >
           {t("New folder")}
         </Menu.Item>
+
         <Menu.Item
           className={`${menuItemStyles} text-red-600`}
           onClick={(e) =>
