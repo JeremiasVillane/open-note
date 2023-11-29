@@ -45,7 +45,7 @@ export function NoteItem({
       content,
     });
 
-    setShowNewItemForm(false);
+    setShowNewItemForm(null);
   };
 
   const handleClose = async () => {

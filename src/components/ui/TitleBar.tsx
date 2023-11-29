@@ -30,7 +30,7 @@ export function Titlebar() {
     setIsMaximized(false);
   }, [appWindow, setIsMaximized]);
 
-  const handleClose = () => appWindow.close();
+  const handleClose = async () => await appWindow.close();
 
   return (
     <div
