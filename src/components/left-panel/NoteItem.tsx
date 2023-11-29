@@ -1,5 +1,5 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
-import { readTextFile, removeFile } from "@tauri-apps/api/fs";
+import { readTextFile } from "@tauri-apps/api/fs";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
@@ -81,7 +81,6 @@ export function NoteItem({
           <FileMenu
             handleClose={handleClose}
             handleDelete={handleDelete}
-            noteName={noteName}
           />
         ) : null}
       </div>

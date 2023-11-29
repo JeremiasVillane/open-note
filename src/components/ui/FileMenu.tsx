@@ -5,11 +5,9 @@ import { OptionsIcon } from "./icons";
 export function FileMenu({
   handleClose,
   handleDelete,
-  noteName,
 }: {
   handleClose: () => void;
   handleDelete: () => void;
-  noteName: string;
 }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
