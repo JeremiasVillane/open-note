@@ -1,5 +1,5 @@
 import { useMantineColorScheme } from "@mantine/core";
-import { writeTextFile } from "@tauri-apps/api/fs";
+import * as fs from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
 import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -7,39 +7,44 @@ import { useTranslation } from "react-i18next";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteForm({
+export function NewItemForm({
+  itemType,
   path,
   parentId,
-  setNewFile,
+  setNewItem,
 }: {
+  itemType: string;
   path: string;
   parentId: string;
-  setNewFile: Dispatch<SetStateAction<Record<string, boolean>>>;
+  setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const [fileName, setFileName] = useState<string>("");
-  const { addFile, setStatus, setShowNoteForm } = useNotesStore();
+  const [itemName, setItemName] = useState<string>("");
+  const { addItem, setStatus, setShowNewItemForm } = useNotesStore();
   const { appDocuments } = useTauriContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const filePath = await join(path, fileName);
     const id = nanoid();
+    const filePath = await join(path, itemName);
+    const isFolder = itemType === "folder";
 
-    await writeTextFile(filePath, ``);
+    isFolder
+      ? await fs.createDir(filePath)
+      : await fs.writeTextFile(filePath, ``);
 
-    setFileName("");
-    addFile(parentId, {
+    setItemName("");
+    addItem(parentId, {
       id,
-      name: fileName,
+      name: itemName,
       path: filePath,
-      isFolder: false,
+      isFolder: itemType === "folder",
       children: undefined,
     });
-    setNewFile({});
+    setNewItem({});
 
-    setStatus(t("NoteCreated"));
+    setStatus(t(isFolder ? "FolderCreated" : "NoteCreated"));
     setTimeout(() => {
       setStatus(null);
     }, 2000);
@@ -50,9 +55,9 @@ export function NoteForm({
       <input
         type="text"
         autoFocus
-        name="note-field"
-        id="note-field"
-        placeholder={t("New note")}
+        name="new-item-field"
+        id="new-item-field"
+        placeholder={t(itemType === "note" ? "New note" : "New folder")}
         autoComplete="off"
         className={`py-1 ${
           colorScheme === "dark"
@@ -60,13 +65,13 @@ export function NoteForm({
             : "bg-neutral-300 text-black"
         }  p-3 w-full border-none outline-none`}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setFileName(e.target.value)
+          setItemName(e.target.value)
         }
-        value={fileName}
+        value={itemName}
       />
       <i
         className="ri-close-circle-line absolute text-lg translate-y-[12%] right-1 cursor-pointer hover:text-red-800 transition-colors ease-in-out duration-150"
-        onClick={() => setNewFile({})}
+        onClick={() => setNewItem({})}
         title={t("Cancel")}
       ></i>
       <button type="submit" className="hidden" />

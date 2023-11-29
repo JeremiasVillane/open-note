@@ -33,7 +33,7 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
   const [osType, setOsType] = useState<string>("");
   const [fileSep, setFileSep] = useState<string>("/");
   const [appDocuments, setAppDocuments] = useState<string>("");
-  const { setFiles } = useNotesStore();
+  const { setItems } = useNotesStore();
 
   if (RUNNING_IN_TAURI) {
     useEffect(() => {
@@ -75,7 +75,7 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
         setAppDocuments(`${_documents}${APP_NAME}`);
         const userAppFiles = await getUserAppFiles(`${_documents}${APP_NAME}`);
         // @ts-ignore
-        setFiles(userAppFiles);
+        setItems(userAppFiles);
         setLoading(false);
 
         invoke("show_main_window");

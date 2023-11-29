@@ -1,33 +1,35 @@
 import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
-import { useTranslation } from "react-i18next";
-import { OptionsIcon } from "./icons";
 import { Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
+import { handleDelete } from "../../helpers/handle-delete";
+import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import { OptionsIcon } from "./icons";
 
 export function FolderMenu({
   folder,
-  newFile,
-  setNewFile,
+  setNewItem,
 }: {
   folder: FileObj;
-  newFile: Record<string, boolean>;
-  setNewFile: Dispatch<SetStateAction<Record<string, boolean>>>;
+  setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
 }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
+  const { setStatus, removeItem } = useNotesStore();
 
   const menuItemStyles = `${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
   } transition-colors ease-in-out`;
 
-  const handleCreateFile = (
+  const handleCreate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    folderId: string
+    folderId: string,
+    itemType: string
   ) => {
     e.stopPropagation();
 
-    setNewFile({
-      [folderId]: true,
+    setNewItem({
+      [folderId]: itemType,
     });
   };
 
@@ -42,12 +44,30 @@ export function FolderMenu({
       <Menu.Dropdown className="shadow-lg">
         <Menu.Item
           className={menuItemStyles}
-          onClick={(e) => handleCreateFile(e, folder.id)}
+          onClick={(e) => handleCreate(e, folder.id, "note")}
         >
           {t("New note")}
         </Menu.Item>
-        <Menu.Item className={menuItemStyles}>{t("New folder")}</Menu.Item>
-        <Menu.Item className={`${menuItemStyles} text-red-600`}>
+        <Menu.Item
+          className={menuItemStyles}
+          onClick={(e) => handleCreate(e, folder.id, "folder")}
+        >
+          {t("New folder")}
+        </Menu.Item>
+        <Menu.Item
+          className={`${menuItemStyles} text-red-600`}
+          onClick={(e) =>
+            handleDelete(
+              e,
+              "folder",
+              setStatus,
+              removeItem,
+              folder.path,
+              folder.id,
+              t
+            )
+          }
+        >
           {t("Delete folder")}
         </Menu.Item>
       </Menu.Dropdown>

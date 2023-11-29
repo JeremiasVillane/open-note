@@ -11,7 +11,7 @@ export const customControls = (
     currentNote: Note | null;
     setCurrentNote: (note: Note | null) => void;
     setStatus: (status: string | null) => void;
-    setShowNoteForm: (value: boolean) => void;
+    setShowNewItemForm: (value: boolean) => void;
     setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
   }
 ) => [
@@ -20,7 +20,7 @@ export const customControls = (
       icon: "file-add-line",
       onClick: () => {
         store.setLeftPanelIsOpened(false);
-        store.setShowNoteForm(true);
+        store.setShowNewItemForm(true);
       },
       title: t("New note"),
     },

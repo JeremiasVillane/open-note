@@ -8,17 +8,18 @@ const resources = {
     translations: {
       // ***** Modals
       Discard: "Are you sure you want to discard your changes?",
-      Delete: "Are you sure you want to delete this note?",
+      ConfirmDeleteNote: "Are you sure you want to delete this note?",
+      ConfirmDeleteFolder:
+        "Are you sure you want to delete this folder and all its content?",
 
       // ***** UI
       Welcome: "Select a note to edit",
       About:
         "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
 
-      // ***** Context menu
-      Remove: "Delete",
-
       // ***** Statusbar
+      FolderCreated: "Folder successfully created",
+      FolderDeleted: "Folder successfully deleted",
       NoteCreated: "Note successfully created",
       NoteDeleted: "Note successfully deleted",
       NoteSaved: "Note successfully saved",
@@ -31,7 +32,9 @@ const resources = {
     translations: {
       // ***** Modals
       Discard: "¿Estás seguro que quieres descartar los cambios?",
-      Delete: "¿Estás seguro que quieres eliminar esta nota?",
+      ConfirmDeleteNote: "¿Estás seguro que quieres eliminar esta nota?",
+      ConfirmDeleteFolder:
+        "¿Estás seguro que quieres eliminar esta carpeta y todo su contenido?",
 
       // ***** UI
       Cancel: "Cancelar",
@@ -47,11 +50,13 @@ const resources = {
       Close: "Cerrar",
 
       // ***** Context menu
-      Remove: "Eliminar",
+      Delete: "Eliminar",
       "New folder": "Nueva carpeta",
       "Delete folder": "Eliminar carpeta",
 
       // ***** Statusbar
+      FolderCreated: "Carpeta creada correctamente",
+      FolderDeleted: "Carpeta eliminada correctamente",
       NoteCreated: "Nota creada correctamente",
       NoteDeleted: "Nota eliminada correctamente",
       NoteSaved: "Nota guardada correctamente",

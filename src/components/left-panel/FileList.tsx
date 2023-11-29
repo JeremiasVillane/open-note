@@ -1,6 +1,6 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { FolderMenu, NoteForm, NoteItem } from "..";
+import { FolderMenu, NewItemForm, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
@@ -8,64 +8,71 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();
   const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
-  const [newFile, setNewFile] = useState<Record<string, boolean>>({});
+  const [newItem, setNewItem] = useState<Record<string, string>>({});
 
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
   }`;
 
-  const handleOpenFolder = (fileId: string) => {
+  const handleOpenFolder = (folderId: string) => {
     setOpenFolder({
       ...openFolder,
-      [fileId]: openFolder[fileId] ? false : true,
+      [folderId]: openFolder[folderId] ? false : true,
     });
   };
 
   return (
     <aside>
-      {fileList.map((file) =>
-        file.isFolder ? (
-          <section key={file.id}>
+      {fileList?.map((item) =>
+        item.isFolder ? (
+          <section key={item.id}>
             <div
               className={`${fileStyles} group justify-between items-center relative`}
-              onClick={() => handleOpenFolder(file.id)}
+              onClick={() => handleOpenFolder(item.id)}
             >
               <div className="flex">
                 <i
                   className={`${
-                    openFolder[file.id]
+                    openFolder[item.id]
                       ? "ri-folder-open-fill"
                       : "ri-folder-fill"
                   } text-yellow-500`}
                 ></i>
 
                 <div className="py-0 pb-0 pl-1.5 font-semibold">
-                  {file.name}
+                  {item.name}
                 </div>
               </div>
 
               <div className="invisible group-hover:visible">
-                <FolderMenu folder={file} newFile={newFile} setNewFile={setNewFile} />
+                <FolderMenu folder={item} setNewItem={setNewItem} />
               </div>
             </div>
 
             <div
-              className={`ml-5 border-l ${!openFolder[file.id] && "hidden"}`}
+              className={`ml-5 border-l ${!openFolder[item.id] && "hidden"}`}
             >
-              {newFile[file.id] ? <NoteForm path={file.path} parentId={file.id} setNewFile={setNewFile} /> : null}
-              <FileList fileList={file.children!} />
+              {newItem[item.id] ? (
+                <NewItemForm
+                  itemType={newItem[item.id]}
+                  path={item.path}
+                  parentId={item.id}
+                  setNewItem={setNewItem}
+                />
+              ) : null}
+              <FileList fileList={item.children!} />
             </div>
           </section>
         ) : (
           <section
-            key={file.id}
+            key={item.id}
             className={`${fileStyles} ${
-              currentNote?.id === file.id &&
+              currentNote?.id === item.id &&
               (colorScheme === "dark" ? "bg-slate-800" : "bg-gray-300")
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem noteName={file.name} noteId={file.id} path={file.path} />
+            <NoteItem noteName={item.name} noteId={item.id} path={item.path} />
           </section>
         )
       )}

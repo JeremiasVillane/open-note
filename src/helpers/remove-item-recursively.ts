@@ -1,6 +1,6 @@
 import { FileObj } from "../types";
 
-export function removeFileRecursively(
+export function removeItemRecursively(
   fileList: FileObj[], 
   id: string
 ) {
@@ -8,7 +8,7 @@ export function removeFileRecursively(
     if (note.id === id) {
       return false;
     } else if (note.children) {
-      note.children = removeFileRecursively(note.children, id);
+      note.children = removeItemRecursively(note.children, id);
     }
     return true;
   });

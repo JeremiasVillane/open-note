@@ -34,7 +34,7 @@ export function FileMenu({
           onClick={async () => handleDelete()}
           className={`${menuItemStyles} text-red-600`}
         >
-          {t("Remove")}
+          {t("Delete")}
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

@@ -12,7 +12,7 @@ export function CustomToolbarControls({
 }) {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { currentNote, setCurrentNote, setStatus, setShowNoteForm } =
+  const { currentNote, setCurrentNote, setStatus, setShowNewItemForm } =
     useNotesStore();
 
   return (
@@ -21,7 +21,7 @@ export function CustomToolbarControls({
         currentNote,
         setCurrentNote,
         setStatus,
-        setShowNoteForm,
+        setShowNewItemForm,
         setLeftPanelIsOpened,
       }).map((group, index) => {
         return (

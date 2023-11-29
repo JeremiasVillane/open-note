@@ -1,22 +1,22 @@
 import { create } from "zustand";
-import { addFileRecursively, removeFileRecursively } from "../helpers";
+import { addItemRecursively, removeItemRecursively } from "../helpers";
 import { NotesState } from "../types";
 
 export const useNotesStore = create<NotesState>((set) => ({
   fileList: [],
   currentNote: null,
   status: null,
-  showNoteForm: false,
-  addFile: (parentId, note) =>
+  showNewItemForm: false,
+  addItem: (parentId, newItem) =>
     set((state) => ({
-      fileList: addFileRecursively(state.fileList, parentId, note),
+      fileList: addItemRecursively(state.fileList, parentId, newItem),
     })),
-  removeFile: (id) =>
+  removeItem: (id) =>
     set((state) => ({
-      fileList: removeFileRecursively(state.fileList, id),
+      fileList: removeItemRecursively(state.fileList, id),
     })),
-  setFiles: (files) => set({ fileList: files }),
+  setItems: (items) => set({ fileList: items }),
   setCurrentNote: (note) => set({ currentNote: note }),
   setStatus: (status) => set({ status }),
-  setShowNoteForm: (value) => set({ showNoteForm: value }),
+  setShowNewItemForm: (value) => set({ showNewItemForm: value }),
 }));

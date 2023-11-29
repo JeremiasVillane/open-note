@@ -1,18 +1,18 @@
 import { FileObj } from "../types";
 
-export function addFileRecursively(
+export function addItemRecursively(
   fileList: FileObj[],
   parentId: string,
-  note: FileObj
+  newItem: FileObj
 ) {
   return fileList.map((item) => {
     if (item.id === parentId) {
       if (!item.children) {
         item.children = [];
       }
-      item.children.push(note);
+      item.children.push(newItem);
     } else if (item.children) {
-      item.children = addFileRecursively(item.children, parentId, note);
+      item.children = addItemRecursively(item.children, parentId, newItem);
     }
     return item;
   });

@@ -25,13 +25,13 @@ export interface NotesState {
   fileList: FileObj[];
   currentNote: Note | null;
   status: string | null;
-  showNoteForm: boolean;
-  addFile: (parentId: string, note: FileObj) => void;
-  removeFile: (id: string) => void;
-  setFiles: (names: FileObj[]) => void;
+  showNewItemForm: boolean;
+  addItem: (parentId: string, note: FileObj) => void;
+  removeItem: (id: string) => void;
+  setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
   setStatus: (status: string | null) => void;
-  setShowNoteForm: (value: boolean) => void;
+  setShowNewItemForm: (value: boolean) => void;
 }
 
 export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {

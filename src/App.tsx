@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import {
   FileList,
   LanguageToggle,
-  NoteForm,
+  NewItemForm,
   NotePanel,
   ThemeToggle,
   Toolbar,
@@ -28,7 +28,7 @@ import "./styles/App.css";
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { fileList, status, showNoteForm } = useNotesStore();
+  const { fileList, status, showNewItemForm } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
   const { toggleColorScheme } = useMantineColorScheme();
 
@@ -89,7 +89,7 @@ export default function App(): JSX.Element {
 
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
-          {/* {showNoteForm ? <NoteForm /> : null} */}
+          {/* {showNewItemForm ? <NewItemForm /> : null} */}
           <div className="mt-2">
             <FileList fileList={fileList} />
           </div>

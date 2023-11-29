@@ -34,13 +34,13 @@
         "all": true
       },
       "fs": {
-        "all": false,
-        "copyFile": false,
+        "all": true,
+        "copyFile": true,
         "createDir": true,
-        "exists": false,
+        "exists": true,
         "readDir": true,
         "readFile": true,
-        "removeDir": false,
+        "removeDir": true,
         "removeFile": true,
         "renameFile": true,
         "scope": ["$DOCUMENT/**", "$DESKTOP/**/**"],
