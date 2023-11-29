@@ -7,7 +7,7 @@ const resources = {
   en: {
     translations: {
       // ***** Modals
-      Discard: "Are you sure you want to discard your changes?",
+      ConfirmDiscardChanges: "Are you sure you want to discard your changes?",
       ConfirmDeleteNote: "Are you sure you want to delete this note?",
       ConfirmDeleteFolder:
         "Are you sure you want to delete this folder and all its content?",
@@ -31,7 +31,7 @@ const resources = {
   es: {
     translations: {
       // ***** Modals
-      Discard: "¿Estás seguro que quieres descartar los cambios?",
+      ConfirmDiscardChanges: "¿Estás seguro que quieres descartar los cambios?",
       ConfirmDeleteNote: "¿Estás seguro que quieres eliminar esta nota?",
       ConfirmDeleteFolder:
         "¿Estás seguro que quieres eliminar esta carpeta y todo su contenido?",

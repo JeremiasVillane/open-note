@@ -23,9 +23,10 @@ export function ExplorerMenubar() {
         loadFiles,
         appDocuments,
         setItems
-      ).map((control) => {
+      ).map((control, index) => {
         return (
           <ActionIcon
+            key={index}
             variant="default"
             className={control.className}
             title={control.title}

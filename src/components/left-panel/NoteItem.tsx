@@ -24,15 +24,17 @@ export function NoteItem({
     setShowNewItemForm,
   } = useNotesStore();
 
+  const isEdited: boolean =
+    editor?.getText() !== "" &&
+    (currentNote?.content !== undefined ||
+      currentNote?.content !== "<p></p>") &&
+    editor?.getHTML() !== currentNote?.content;
+
   const hadleOpen = async () => {
     if (currentNote?.id === noteId) return;
 
-    if (
-      editor?.getHTML() !== "<p></p>" &&
-      editor?.getHTML() !== undefined &&
-      editor?.getHTML() !== currentNote?.content
-    ) {
-      const confirm = await window.confirm(t("Discard"));
+    if (isEdited) {
+      const confirm = await window.confirm(t("ConfirmDiscardChanges"));
       if (!confirm) return;
     }
 
@@ -49,8 +51,8 @@ export function NoteItem({
   };
 
   const handleClose = async () => {
-    if (editor?.getHTML() !== currentNote?.content) {
-      const confirm = await window.confirm(t("Discard"));
+    if (isEdited) {
+      const confirm = await window.confirm(t("ConfirmDiscardChanges"));
       if (!confirm) return;
     }
 
