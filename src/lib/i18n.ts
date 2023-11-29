@@ -51,6 +51,7 @@ const resources = {
 
       // ***** Context menu
       Delete: "Eliminar",
+      "New note": "Nueva nota",
       "New folder": "Nueva carpeta",
       "Delete folder": "Eliminar carpeta",
 
@@ -65,9 +66,11 @@ const resources = {
       Words: "Palabras",
       Lines: "Líneas",
 
+      // ***** Explorer menubar
+      Reload: "Recargar",
+
       // ***** Toolbar
       "Toggle sidebar": "Mostrar/ocultar barra lateral",
-      "New note": "Nueva nota",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",

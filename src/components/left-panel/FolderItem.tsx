@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { FileList, FolderMenu, NewItemForm } from "..";
+import { Explorer, FolderMenu, NewItemForm } from "..";
 import { FileObj } from "../../types";
 
 export function FolderItem({
@@ -51,7 +51,7 @@ export function FolderItem({
             setNewItem={setNewItem}
           />
         ) : null}
-        <FileList fileList={item.children!} />
+        <Explorer fileList={item.children!} />
       </div>
     </>
   );

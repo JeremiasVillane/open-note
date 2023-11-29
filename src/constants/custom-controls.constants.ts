@@ -1,6 +1,5 @@
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
-import { Dispatch, SetStateAction } from "react";
 import { getFocus, handleSave } from "../helpers";
 import { Note } from "../types";
 
@@ -12,7 +11,6 @@ export const customControls = (
     setCurrentNote: (note: Note | null) => void;
     setStatus: (status: string | null) => void;
     setShowNewItemForm: (value: "note" | "folder") => void;
-    setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
   }
 ) => [
   [

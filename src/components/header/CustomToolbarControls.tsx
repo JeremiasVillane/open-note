@@ -1,15 +1,10 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
-import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
 import { menuControl } from "../../types";
 
-export function CustomToolbarControls({
-  setLeftPanelIsOpened,
-}: {
-  setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
-}) {
+export function CustomToolbarControls() {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setStatus, setShowNewItemForm } =
@@ -22,7 +17,6 @@ export function CustomToolbarControls({
         setCurrentNote,
         setStatus,
         setShowNewItemForm,
-        setLeftPanelIsOpened,
       }).map((group, index) => {
         return (
           <section

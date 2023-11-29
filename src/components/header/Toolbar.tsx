@@ -1,24 +1,17 @@
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
-import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { labels } from "../../lib/labels";
 import { CodeBlockIcon } from "../ui/icons";
 import { CustomToolbarControls } from "./CustomToolbarControls";
 
-export function Toolbar({
-  setLeftPanelIsOpened,
-}: {
-  setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
-}) {
+export function Toolbar() {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
 
   return (
     <RichTextEditor editor={editor} labels={labels(t)} className="border-none">
       <RichTextEditor.Toolbar className="border-none">
-        <RichTextEditor.ControlsGroup>
-          <CustomToolbarControls setLeftPanelIsOpened={setLeftPanelIsOpened} />
-        </RichTextEditor.ControlsGroup>
+        <CustomToolbarControls />
 
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />

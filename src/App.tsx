@@ -15,7 +15,8 @@ import { count } from "letter-count";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  FileList,
+  ExplorerMenubar,
+  Explorer,
   LanguageToggle,
   NotePanel,
   ThemeToggle,
@@ -23,7 +24,6 @@ import {
 } from "./components";
 import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
-import { ItemListMenubar } from "./components/left-panel/ItemListMenubar";
 
 export default function App(): JSX.Element {
   const { i18n, t } = useTranslation();
@@ -77,7 +77,7 @@ export default function App(): JSX.Element {
             ></i>
           </Burger>
           {editor ? (
-            <Toolbar setLeftPanelIsOpened={setLeftPanelIsOpened} />
+            <Toolbar />
           ) : null}
         </Group>
 
@@ -89,8 +89,8 @@ export default function App(): JSX.Element {
 
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
-          <ItemListMenubar />
-          <FileList fileList={fileList} />
+          <ExplorerMenubar />
+          <Explorer fileList={fileList} />
         </AppShellSection>
       </AppShellNavbar>
 

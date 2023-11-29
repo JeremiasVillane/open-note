@@ -5,7 +5,7 @@ import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
-export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
+export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote, showNewItemForm } = useNotesStore();
   const { appDocuments } = useTauriContext();
