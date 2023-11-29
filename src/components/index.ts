@@ -2,6 +2,7 @@ export * from "./header/LanguageToggle";
 export * from "./header/ThemeToggle";
 export * from "./header/Toolbar";
 export * from "./left-panel/FileList";
+export * from "./left-panel/FolderItem";
 export * from "./left-panel/NewItemForm";
 export * from "./left-panel/NoteItem";
 export * from "./main-panel/NotePanel";

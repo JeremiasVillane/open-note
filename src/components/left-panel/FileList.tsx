@@ -1,6 +1,6 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { FolderMenu, NewItemForm, NoteItem } from "..";
+import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
@@ -26,44 +26,14 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
       {fileList?.map((item) =>
         item.isFolder ? (
           <section key={item.id}>
-            <div
-              className={`${fileStyles} group/item justify-between items-center relative`}
-              onClick={() => handleOpenFolder(item.id)}
-            >
-              <div className="flex">
-                <i
-                  className={`${
-                    openFolder[item.id]
-                      ? "ri-folder-open-fill"
-                      : "ri-folder-fill"
-                  } text-yellow-500`}
-                ></i>
-
-                <div className="py-0 pb-0 pl-1.5 font-semibold">
-                  {item.name}
-                </div>
-              </div>
-
-              <div className="invisible group-hover/item:visible">
-                <FolderMenu folder={item} setNewItem={setNewItem} />
-              </div>
-            </div>
-
-            <div
-              className={`ml-5 group-hover/panel:border-l group-hover/panel:ml-[1.19rem] ${
-                !openFolder[item.id] && "hidden"
-              }`}
-            >
-              {newItem[item.id] ? (
-                <NewItemForm
-                  itemType={newItem[item.id]}
-                  path={item.path}
-                  parentId={item.id}
-                  setNewItem={setNewItem}
-                />
-              ) : null}
-              <FileList fileList={item.children!} />
-            </div>
+            <FolderItem
+              item={item}
+              newItem={newItem}
+              setNewItem={setNewItem}
+              openFolder={openFolder}
+              handleOpenFolder={handleOpenFolder}
+              fileStyles={fileStyles}
+            />
           </section>
         ) : (
           <section
