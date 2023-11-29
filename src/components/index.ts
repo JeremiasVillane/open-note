@@ -6,4 +6,5 @@ export * from "./left-panel/NoteForm";
 export * from "./left-panel/NoteItem";
 export * from "./main-panel/NotePanel";
 export * from "./ui/FileMenu";
+export * from "./ui/FolderMenu";
 export * from "./ui/TitleBar";

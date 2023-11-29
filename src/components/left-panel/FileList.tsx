@@ -1,13 +1,14 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { NoteItem } from "..";
-import { FileObj } from "../../types";
+import { FolderMenu, NoteForm, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
+import { FileObj } from "../../types";
 
 export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
-  const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const { currentNote } = useNotesStore();
+  const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
+  const [newFile, setNewFile] = useState<Record<string, boolean>>({});
 
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
@@ -26,22 +27,32 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
         file.isFolder ? (
           <section key={file.id}>
             <div
-              className={fileStyles}
+              className={`${fileStyles} group justify-between items-center relative`}
               onClick={() => handleOpenFolder(file.id)}
             >
-              <i
-                className={`${
-                  openFolder[file.id] ? "ri-folder-open-fill" : "ri-folder-fill"
-                } text-yellow-500`}
-              ></i>
-              <div className="flex justify-between py-0 pb-0 pl-1.5 font-semibold">
-                {file.name}
+              <div className="flex">
+                <i
+                  className={`${
+                    openFolder[file.id]
+                      ? "ri-folder-open-fill"
+                      : "ri-folder-fill"
+                  } text-yellow-500`}
+                ></i>
+
+                <div className="py-0 pb-0 pl-1.5 font-semibold">
+                  {file.name}
+                </div>
+              </div>
+
+              <div className="invisible group-hover:visible">
+                <FolderMenu folder={file} newFile={newFile} setNewFile={setNewFile} />
               </div>
             </div>
 
             <div
               className={`ml-5 border-l ${!openFolder[file.id] && "hidden"}`}
             >
+              {newFile[file.id] ? <NoteForm path={file.path} parentId={file.id} setNewFile={setNewFile} /> : null}
               <FileList fileList={file.children!} />
             </div>
           </section>
@@ -49,7 +60,7 @@ export function FileList({ fileList }: { fileList: FileObj[] }): JSX.Element {
           <section
             key={file.id}
             className={`${fileStyles} ${
-              currentNote?.name === file.name &&
+              currentNote?.id === file.id &&
               (colorScheme === "dark" ? "bg-slate-800" : "bg-gray-300")
             }`}
           >

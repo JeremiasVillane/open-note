@@ -8,7 +8,7 @@ export function FileMenu({
   noteName,
 }: {
   handleClose: () => void;
-  handleDelete: (noteName: string) => void;
+  handleDelete: () => void;
   noteName: string;
 }) {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export function FileMenu({
           {t("Close")}
         </Menu.Item>
         <Menu.Item
-          onClick={async () => handleDelete(noteName)}
+          onClick={async () => handleDelete()}
           className={`${menuItemStyles} text-red-600`}
         >
           {t("Remove")}

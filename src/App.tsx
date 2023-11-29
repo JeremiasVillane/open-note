@@ -89,7 +89,7 @@ export default function App(): JSX.Element {
 
       <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
         <AppShellSection>
-          {showNoteForm ? <NoteForm /> : null}
+          {/* {showNoteForm ? <NoteForm /> : null} */}
           <div className="mt-2">
             <FileList fileList={fileList} />
           </div>

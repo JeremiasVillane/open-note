@@ -26,10 +26,10 @@ export interface NotesState {
   currentNote: Note | null;
   status: string | null;
   showNoteForm: boolean;
-  setNote: (note: FileObj) => void;
+  addFile: (parentId: string, note: FileObj) => void;
+  removeFile: (id: string) => void;
   setFiles: (names: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
-  removeNote: (name: string) => void;
   setStatus: (status: string | null) => void;
   setShowNoteForm: (value: boolean) => void;
 }

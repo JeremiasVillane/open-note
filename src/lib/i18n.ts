@@ -48,6 +48,8 @@ const resources = {
 
       // ***** Context menu
       Remove: "Eliminar",
+      "New folder": "Nueva carpeta",
+      "Delete folder": "Eliminar carpeta",
 
       // ***** Statusbar
       NoteCreated: "Nota creada correctamente",

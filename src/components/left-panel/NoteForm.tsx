@@ -2,34 +2,42 @@ import { useMantineColorScheme } from "@mantine/core";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
-export function NoteForm(): JSX.Element {
+export function NoteForm({
+  path,
+  parentId,
+  setNewFile,
+}: {
+  path: string;
+  parentId: string;
+  setNewFile: Dispatch<SetStateAction<Record<string, boolean>>>;
+}): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [fileName, setFileName] = useState<string>("");
-  const { setNote, setStatus, setShowNoteForm } = useNotesStore();
+  const { addFile, setStatus, setShowNoteForm } = useNotesStore();
   const { appDocuments } = useTauriContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const filePath = await join(appDocuments, fileName);
+    const filePath = await join(path, fileName);
     const id = nanoid();
 
     await writeTextFile(filePath, ``);
 
     setFileName("");
-    setNote({
+    addFile(parentId, {
       id,
       name: fileName,
       path: filePath,
       isFolder: false,
       children: undefined,
     });
-    setShowNoteForm(false);
+    setNewFile({});
 
     setStatus(t("NoteCreated"));
     setTimeout(() => {
@@ -58,7 +66,7 @@ export function NoteForm(): JSX.Element {
       />
       <i
         className="ri-close-circle-line absolute text-lg translate-y-[12%] right-1 cursor-pointer hover:text-red-800 transition-colors ease-in-out duration-150"
-        onClick={() => setShowNoteForm(false)}
+        onClick={() => setNewFile({})}
         title={t("Cancel")}
       ></i>
       <button type="submit" className="hidden" />

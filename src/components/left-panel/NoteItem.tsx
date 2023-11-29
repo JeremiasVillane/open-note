@@ -18,13 +18,13 @@ export function NoteItem({
   const {
     currentNote,
     setCurrentNote,
-    removeNote,
+    removeFile,
     setStatus,
     setShowNoteForm,
   } = useNotesStore();
 
   const hadleOpen = async () => {
-    if (currentNote?.name === noteName) return;
+    if (currentNote?.id === noteId) return;
 
     if (
       editor?.getHTML() !== "<p></p>" &&
@@ -62,7 +62,7 @@ export function NoteItem({
     if (!confirm) return;
 
     await removeFile(path);
-    removeNote(noteId);
+    removeFile(noteId);
     setCurrentNote(null);
     editor?.chain().clearContent().run();
 
@@ -77,7 +77,7 @@ export function NoteItem({
       <div className="flex items-center justify-between">
         <h1>{noteName}</h1>
 
-        {currentNote?.name === noteName ? (
+        {currentNote?.id === noteId ? (
           <FileMenu
             handleClose={handleClose}
             handleDelete={handleDelete}
