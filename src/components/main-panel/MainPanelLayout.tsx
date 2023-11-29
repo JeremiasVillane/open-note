@@ -1,13 +1,14 @@
+import { AppShellMain } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../store/notesStore";
 import Editor from "./Editor";
 
-export function NotePanel(): JSX.Element {
+export function MainPanelLayout(): JSX.Element {
   const { t } = useTranslation();
   const { currentNote } = useNotesStore();
 
   return (
-    <>
+    <AppShellMain>
       {currentNote ? (
         <Editor />
       ) : (
@@ -15,6 +16,6 @@ export function NotePanel(): JSX.Element {
           {t("Welcome")}
         </div>
       )}
-    </>
+    </AppShellMain>
   );
 }
