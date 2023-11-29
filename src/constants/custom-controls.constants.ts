@@ -11,19 +11,11 @@ export const customControls = (
     currentNote: Note | null;
     setCurrentNote: (note: Note | null) => void;
     setStatus: (status: string | null) => void;
-    setShowNewItemForm: (value: boolean) => void;
+    setShowNewItemForm: (value: "note" | "folder") => void;
     setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
   }
 ) => [
   [
-    {
-      icon: "file-add-line",
-      onClick: () => {
-        store.setLeftPanelIsOpened(false);
-        store.setShowNewItemForm(true);
-      },
-      title: t("New note"),
-    },
     {
       icon: "save-3-line",
       onClick: () => handleSave(t, editor, store),

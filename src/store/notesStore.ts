@@ -6,11 +6,18 @@ export const useNotesStore = create<NotesState>((set) => ({
   fileList: [],
   currentNote: null,
   status: null,
-  showNewItemForm: false,
-  addItem: (parentId, newItem) =>
-    set((state) => ({
-      fileList: addItemRecursively(state.fileList, parentId, newItem),
-    })),
+  showNewItemForm: null,
+  addItem: (parentId, newItem) => {
+    if (parentId === "root") {
+      set((state) => ({
+        fileList: [...state.fileList, newItem],
+      }));
+    } else {
+      set((state) => ({
+        fileList: addItemRecursively(state.fileList, parentId, newItem),
+      }));
+    }
+  },
   removeItem: (id) =>
     set((state) => ({
       fileList: removeItemRecursively(state.fileList, id),

@@ -4,7 +4,6 @@ import { join } from "@tauri-apps/api/path";
 import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NewItemForm({
@@ -16,13 +15,12 @@ export function NewItemForm({
   itemType: string;
   path: string;
   parentId: string;
-  setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
+  setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [itemName, setItemName] = useState<string>("");
   const { addItem, setStatus, setShowNewItemForm } = useNotesStore();
-  const { appDocuments } = useTauriContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +40,8 @@ export function NewItemForm({
       isFolder: itemType === "folder",
       children: undefined,
     });
-    setNewItem({});
+
+    parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
 
     setStatus(t(isFolder ? "FolderCreated" : "NoteCreated"));
     setTimeout(() => {
@@ -71,7 +70,9 @@ export function NewItemForm({
       />
       <i
         className="ri-close-circle-line absolute text-lg translate-y-[12%] right-1 cursor-pointer hover:text-red-800 transition-colors ease-in-out duration-150"
-        onClick={() => setNewItem({})}
+        onClick={() =>
+          parentId === "root" ? setShowNewItemForm(null) : setNewItem!({})
+        }
         title={t("Cancel")}
       ></i>
       <button type="submit" className="hidden" />
