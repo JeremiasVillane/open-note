@@ -1,7 +1,7 @@
-import * as fs from "@tauri-apps/api/fs";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, FolderMenu, NewItemForm } from "..";
+import { handleRename } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
@@ -26,31 +26,6 @@ export function FolderItem({
   const [folderName, setFolderName] = useState(item.name);
   const [currentPath, setCurrentPath] = useState(item.path);
 
-  const handleRename = async (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (item.name === folderName) {
-      setToRename(false);
-      return;
-    }
-
-    const newPath = currentPath.replace(item.name, folderName);
-    setCurrentPath(newPath);
-
-    try {
-      await fs.renameFile(currentPath, newPath);
-    } catch (error) {
-      setStatus(t("ErrorRenaming"));
-      setFolderName(item.name);
-      setCurrentPath(item.path);
-      return;
-    }
-
-    renameItem(item.id, folderName);
-    setToRename(false);
-  };
-
   return (
     <>
       <div
@@ -64,7 +39,24 @@ export function FolderItem({
             } text-yellow-500`}
           ></i>
           {toRename ? (
-            <form onSubmit={handleRename}>
+            <form
+              onSubmit={(event) =>
+                handleRename(
+                  event,
+                  t,
+                  item.id,
+                  item.name,
+                  folderName,
+                  item.path,
+                  currentPath,
+                  setCurrentPath,
+                  setToRename,
+                  setFolderName,
+                  setStatus,
+                  renameItem
+                )
+              }
+            >
               <input
                 type="text"
                 value={folderName}

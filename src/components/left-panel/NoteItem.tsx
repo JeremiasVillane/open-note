@@ -3,7 +3,7 @@ import * as fs from "@tauri-apps/api/fs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
-import { handleDelete } from "../../helpers";
+import { handleDelete, handleRename } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({
@@ -65,35 +65,28 @@ export function NoteItem({
     editor?.chain().clearContent().run();
   };
 
-  const handleRename = async (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (noteName === fileName) {
-      setToRename(false);
-      return;
-    }
-
-    const newPath = currentPath.replace(noteName, fileName);
-    setCurrentPath(newPath);
-
-    try {
-      await fs.renameFile(currentPath, newPath);
-    } catch (error) {
-      setStatus(t("ErrorRenaming"));
-      setFileName(noteName);
-      setCurrentPath(path);
-      return;
-    }
-
-    renameItem(noteId, fileName);
-    setToRename(false);
-  };
-
   return (
     <div className="pl-1.5 w-full" onClick={toRename ? () => null : hadleOpen}>
       <div className="flex items-center justify-between">
         {toRename ? (
-          <form onSubmit={handleRename}>
+          <form
+            onSubmit={(event) =>
+              handleRename(
+                event,
+                t,
+                noteId,
+                noteName,
+                fileName,
+                path,
+                currentPath,
+                setCurrentPath,
+                setToRename,
+                setFileName,
+                setStatus,
+                renameItem
+              )
+            }
+          >
             <input
               type="text"
               value={fileName}
