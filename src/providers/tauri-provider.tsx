@@ -74,11 +74,10 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
         });
         setAppDocuments(`${_documents}${APP_NAME}`);
         const userAppFiles = await getUserAppFiles(`${_documents}${APP_NAME}`);
-        // @ts-ignore
         setItems(userAppFiles);
         setLoading(false);
+        invoke("close_splashscreen");
 
-        invoke("show_main_window");
         // Why? The default background color of webview is white
         //  so we should show the window when the react app loads
         // See: https://github.com/tauri-apps/tauri/issues/1564
