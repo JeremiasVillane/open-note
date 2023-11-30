@@ -9,9 +9,11 @@ import { OptionsIcon } from "./icons";
 export function FolderMenu({
   folder,
   setNewItem,
+  setToRename,
 }: {
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
+  setToRename: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
@@ -42,6 +44,16 @@ export function FolderMenu({
       </Menu.Target>
 
       <Menu.Dropdown className="shadow-lg">
+        <Menu.Item
+          className={menuItemStyles}
+          onClick={(e) => {
+            e.stopPropagation();
+            setToRename(true);
+          }}
+        >
+          {t("Rename")}
+        </Menu.Item>
+
         <Menu.Item
           className={menuItemStyles}
           onClick={(e) => handleCreate(e, folder.id, "note")}

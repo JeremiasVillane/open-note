@@ -1,7 +1,8 @@
 import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
+import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { OptionsIcon } from "./icons";
-import { Dispatch, SetStateAction } from "react";
 
 export function FileMenu({
   setToRename,
@@ -14,6 +15,8 @@ export function FileMenu({
 }) {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
+
+  useHotkeys([["f2", () => setToRename(true)]]);
 
   const menuItemStyles = `${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
@@ -28,10 +31,7 @@ export function FileMenu({
       </Menu.Target>
 
       <Menu.Dropdown className="shadow-lg">
-        <Menu.Item
-          onClick={() => setToRename(true)}
-          className={menuItemStyles}
-        >
+        <Menu.Item onClick={() => setToRename(true)} className={menuItemStyles}>
           {t("Rename")}
         </Menu.Item>
 

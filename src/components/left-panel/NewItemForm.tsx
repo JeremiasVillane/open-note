@@ -44,9 +44,6 @@ export function NewItemForm({
     parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
 
     setStatus(t(isFolder ? "FolderCreated" : "NoteCreated"));
-    setTimeout(() => {
-      setStatus(null);
-    }, 2000);
   };
 
   return (

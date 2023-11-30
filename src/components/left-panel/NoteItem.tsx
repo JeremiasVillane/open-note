@@ -73,10 +73,20 @@ export function NoteItem({
       return;
     }
 
-    await fs.renameFile(path, path.replace(noteName, fileName));
+    const newPath = currentPath.replace(noteName, fileName);
+    setCurrentPath(newPath);
+
+    try {
+      await fs.renameFile(currentPath, newPath);
+    } catch (error) {
+      setStatus(t("ErrorRenaming"));
+      setFileName(noteName);
+      setCurrentPath(path);
+      return;
+    }
+
     renameItem(noteId, fileName);
     setToRename(false);
-    setCurrentPath(path.replace(noteName, fileName));
   };
 
   return (

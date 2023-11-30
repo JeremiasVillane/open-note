@@ -32,6 +32,11 @@ export const useNotesStore = create<NotesState>((set) => ({
     })),
   setItems: (items) => set({ fileList: items }),
   setCurrentNote: (note) => set({ currentNote: note }),
-  setStatus: (status) => set({ status }),
+  setStatus: (status) => {
+    set({ status });
+    setTimeout(() => {
+      set({ status: null });
+    }, 2000);
+  },
   setShowNewItemForm: (value) => set({ showNewItemForm: value }),
 }));

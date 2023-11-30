@@ -23,6 +23,7 @@ const resources = {
       NoteCreated: "Note successfully created",
       NoteDeleted: "Note successfully deleted",
       NoteSaved: "Note successfully saved",
+      ErrorRenaming: "Wrong or forbidden caracters",
 
       // ***** Toolbar
       "Link URL": "https://example.com",
@@ -66,6 +67,7 @@ const resources = {
       Letters: "Letras",
       Words: "Palabras",
       Lines: "Líneas",
+      ErrorRenaming: "Caracteres erróneos o no permitidos",
 
       // ***** Explorer menubar
       Reload: "Recargar",

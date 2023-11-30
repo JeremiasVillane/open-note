@@ -25,8 +25,5 @@ export const handleSave = async (
     });
 
     setStatus(t("NoteSaved"));
-    setTimeout(() => {
-      setStatus(null);
-    }, 2000);
   } else null;
 };

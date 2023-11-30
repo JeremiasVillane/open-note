@@ -34,7 +34,4 @@ export const handleDelete = async (
   }
 
   setStatus(t(isFolder ? "FolderDeleted" : "NoteDeleted"));
-  setTimeout(() => {
-    setStatus(null);
-  }, 2000);
 };
