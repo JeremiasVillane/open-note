@@ -1,11 +1,14 @@
 import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { OptionsIcon } from "./icons";
+import { Dispatch, SetStateAction } from "react";
 
 export function FileMenu({
+  setToRename,
   handleClose,
   handleDelete,
 }: {
+  setToRename: Dispatch<SetStateAction<boolean>>;
   handleClose: () => void;
   handleDelete: () => void;
 }) {
@@ -25,6 +28,13 @@ export function FileMenu({
       </Menu.Target>
 
       <Menu.Dropdown className="shadow-lg">
+        <Menu.Item
+          onClick={() => setToRename(true)}
+          className={menuItemStyles}
+        >
+          {t("Rename")}
+        </Menu.Item>
+
         <Menu.Item
           onClick={async () => handleClose()}
           className={menuItemStyles}

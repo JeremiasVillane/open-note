@@ -32,6 +32,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
           parentId="root"
         />
       ) : null}
+
       {fileList?.map((item) =>
         item.isFolder ? (
           <section key={item.id}>

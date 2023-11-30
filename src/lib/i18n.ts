@@ -50,6 +50,7 @@ const resources = {
       Close: "Cerrar",
 
       // ***** Context menu
+      Rename: "Renombrar",
       Delete: "Eliminar",
       "New note": "Nueva nota",
       "New folder": "Nueva carpeta",

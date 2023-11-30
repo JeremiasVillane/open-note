@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { addItemRecursively, removeItemRecursively } from "../helpers";
+import {
+  addItemRecursively,
+  removeItemRecursively,
+  renameItemRecursively,
+} from "../helpers";
 import { NotesState } from "../types";
 
 export const useNotesStore = create<NotesState>((set) => ({
@@ -21,6 +25,10 @@ export const useNotesStore = create<NotesState>((set) => ({
   removeItem: (id) =>
     set((state) => ({
       fileList: removeItemRecursively(state.fileList, id),
+    })),
+  renameItem: (targetId, newName) =>
+    set((state) => ({
+      fileList: renameItemRecursively(state.fileList, targetId, newName),
     })),
   setItems: (items) => set({ fileList: items }),
   setCurrentNote: (note) => set({ currentNote: note }),

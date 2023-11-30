@@ -1,8 +1,9 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
-import { readTextFile } from "@tauri-apps/api/fs";
+import * as fs from "@tauri-apps/api/fs";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
-import { handleDelete } from "../../helpers/handle-delete";
+import { handleDelete } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({
@@ -20,9 +21,13 @@ export function NoteItem({
     currentNote,
     setCurrentNote,
     removeItem,
+    renameItem,
     setStatus,
     setShowNewItemForm,
   } = useNotesStore();
+  const [toRename, setToRename] = useState(false);
+  const [fileName, setFileName] = useState(noteName);
+  const [currentPath, setCurrentPath] = useState(path);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -38,12 +43,12 @@ export function NoteItem({
       if (!confirm) return;
     }
 
-    const content = await readTextFile(path);
+    const content = await fs.readTextFile(currentPath);
 
     setCurrentNote({
       id: noteId,
-      name: noteName,
-      path,
+      name: fileName,
+      path: currentPath,
       content,
     });
 
@@ -60,13 +65,42 @@ export function NoteItem({
     editor?.chain().clearContent().run();
   };
 
+  const handleRename = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (noteName === fileName) {
+      setToRename(false);
+      return;
+    }
+
+    await fs.renameFile(path, path.replace(noteName, fileName));
+    renameItem(noteId, fileName);
+    setToRename(false);
+    setCurrentPath(path.replace(noteName, fileName));
+  };
+
   return (
-    <div className="pl-1.5 w-full" onClick={hadleOpen}>
+    <div className="pl-1.5 w-full" onClick={toRename ? () => null : hadleOpen}>
       <div className="flex items-center justify-between">
-        <h1>{noteName}</h1>
+        {toRename ? (
+          <form onSubmit={handleRename}>
+            <input
+              type="text"
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+              onKeyUp={(e) => e.key === "Escape" && setToRename(false)}
+              className="outline-none w-full"
+              autoFocus
+            />
+            <button className="hidden" />
+          </form>
+        ) : (
+          <h1>{noteName}</h1>
+        )}
 
         {currentNote?.id === noteId ? (
           <FileMenu
+            setToRename={setToRename}
             handleClose={handleClose}
             handleDelete={() =>
               handleDelete(
