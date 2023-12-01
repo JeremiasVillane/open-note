@@ -6,8 +6,41 @@
     <title>Document</title>
   </head>
   <body>
-    <div>
-      <p>Loading...</p>
+    <div class="container" data-tauri-drag-region>
+      <img class="logo" src="./open-note.png" height="200" width="auto" draggable="false" data-tauri-drag-region />
+      <img class="spinner" height="33" src="./spinner-loading.gif" draggable="false" data-tauri-drag-region />
+      <h1 style="margin-bottom: .7rem;" data-tauri-drag-region>Open Note</h1>
+      <h3 style="margin-bottom: .9rem;" data-tauri-drag-region>(v. 0.0.1)</h2>
+      <p style="font-style: italic;" data-tauri-drag-region>by Jeremias Villane</p>
     </div>
   </body>
+
+  <style>
+    body {
+      margin: 0;
+      user-select: none;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+      border: .6rem solid lightblue;
+    }
+
+    .logo {
+      margin-top: -1rem;
+      position: relative;
+    }
+
+    .spinner {
+      position: absolute;
+      top: 41%;
+      mix-blend-mode: multiply;
+      filter: contrast(150%);
+    }
+  </style>
 </html>

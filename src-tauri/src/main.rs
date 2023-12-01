@@ -9,7 +9,7 @@ use std::{ fs::metadata, path::PathBuf };
 use tauri::{ self, Manager, Window };
 use tauri_plugin_store;
 use window_shadows::set_shadow;
-// Manager is used by .get_window
+use tauri_plugin_positioner::{ WindowExt, Position };
 
 #[derive(Clone, Serialize)]
 struct SingleInstancePayload {
@@ -43,7 +43,11 @@ fn main() {
         // persistent storage with filesystem
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
+            let win = app.get_window("splashscreen").unwrap();
+            let _ = win.move_window(Position::Center);
+
             if let Some(window) = app.get_window("main") {
+                window.move_window(Position::Center).ok();
                 set_shadow(&window, true).ok();
             }
             Ok(())

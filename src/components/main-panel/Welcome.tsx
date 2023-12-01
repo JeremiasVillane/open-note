@@ -1,5 +1,6 @@
 import { Image, Kbd, Popover, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
+import { APP_AUTHOR, APP_NAME, APP_VERSION } from "../../constants";
 import { GitHubIcon, LinkedInIcon } from "../ui/icons";
 
 export default function Welcome() {
@@ -21,33 +22,36 @@ export default function Welcome() {
           />
           <article>
             <p aria-label="Application name" className="font-black text-3xl">
-              Open Note
+              {APP_NAME}
             </p>
             <div className="font-mono">
-              (v. 0.0.1){" "}
+              (v. {APP_VERSION}){" "}
               <Popover width={200} position="bottom" withArrow shadow="md">
                 <Popover.Target>
                   <span className={`font-semibold ${linkStyle}`}>INFO</span>
                 </Popover.Target>
                 <Popover.Dropdown className="text-sm text-center">
                   <p>
-                    {t("About1")}{" "}
+                    {t("Powered by")}{" "}
                     <a
                       className="text-blue-400 hover:underline"
-                      href="https://tauri.app/"
+                      href="https://tauri.app"
+                      title="https://tauri.app"
                       rel="noreferrer noopener"
                       target="_blank"
                     >
                       Tauri
                     </a>
                   </p>
-                  <p>{t("About2")}</p>
+                  <p>{t("About")}</p>
                 </Popover.Dropdown>
               </Popover>
             </div>
           </article>
           <article className="text-sm">
-            <em>{t("Developed by")} Jeremias Villane</em>
+            <em>
+              {t("Developed by")} {APP_AUTHOR}
+            </em>
           </article>
         </div>
 
@@ -60,7 +64,7 @@ export default function Welcome() {
           >
             <GitHubIcon
               size={21}
-              title="GitHub"
+              title="https://github.com/JeremiasVillane"
               className={linkStyle}
               colorscheme={colorScheme}
             />
@@ -72,7 +76,7 @@ export default function Welcome() {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <LinkedInIcon size={21} title="LinkedIn" className={linkStyle} />
+            <LinkedInIcon size={21} title="https://www.linkedin.com/in/jeremias-villane" className={linkStyle} />
           </a>
         </div>
       </section>

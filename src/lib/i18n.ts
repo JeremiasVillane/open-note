@@ -12,9 +12,8 @@ const resources = {
       ConfirmDeleteFolder:
         "Are you sure you want to delete this folder and all its content?",
 
-      // ***** UI
-      About1: "Open Note is a desktop app powered by",
-      About2: "Using React/Typescript and Rust.",
+      // ***** INFO
+      About: "Using React/Typescript and Rust.",
 
       // ***** Statusbar
       FolderCreated: "Folder successfully created",
@@ -36,11 +35,10 @@ const resources = {
       ConfirmDeleteFolder:
         "¿Estás seguro que quieres eliminar esta carpeta y todo su contenido?",
 
-      // ***** UI
+      // ***** INFO
       "Developed by": "Desarrollada por",
-      Cancel: "Cancelar",
-      About1: "Open Note es una aplicación de escritorio desarrollada con",
-      About2: "Usando React/Typescript y Rust.",
+      "Powered by": "Desarrollada con",
+      About: "Usando React/Typescript y Rust.",
 
       // ***** Window menu
       Minimize: "Minimizar",
@@ -68,8 +66,9 @@ const resources = {
       Lines: "Líneas",
       ErrorRenaming: "Caracteres erróneos o no permitidos",
 
-      // ***** Explorer menubar
+      // ***** Explorer/Explorer menubar
       Reload: "Recargar",
+      Cancel: "Cancelar",
 
       // ***** Toolbar
       "Toggle sidebar": "Mostrar/ocultar barra lateral",
