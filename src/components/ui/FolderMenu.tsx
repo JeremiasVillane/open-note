@@ -1,4 +1,4 @@
-import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
+import { Menu, UnstyledButton } from "@mantine/core";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { handleDelete } from "../../helpers/handle-delete";
@@ -7,21 +7,18 @@ import { FileObj } from "../../types";
 import { OptionsIcon } from "./icons";
 
 export function FolderMenu({
+  menuItemStyles,
   folder,
   setNewItem,
   setToRename,
 }: {
+  menuItemStyles: string;
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
   setToRename: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
-  const { colorScheme } = useMantineColorScheme();
   const { setStatus, removeItem } = useNotesStore();
-
-  const menuItemStyles = `${
-    colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
-  } transition-colors ease-in-out`;
 
   const handleCreate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

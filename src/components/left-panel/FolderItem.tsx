@@ -12,6 +12,7 @@ export function FolderItem({
   openFolder,
   handleOpenFolder,
   fileStyles,
+  menuItemStyles,
 }: {
   item: FileObj;
   newItem: Record<string, string>;
@@ -19,6 +20,7 @@ export function FolderItem({
   openFolder: Record<string, boolean>;
   handleOpenFolder: (folderId: string) => void;
   fileStyles: string;
+  menuItemStyles: string;
 }) {
   const { t } = useTranslation();
   const { renameItem, setStatus } = useNotesStore();
@@ -74,6 +76,7 @@ export function FolderItem({
 
         <div className="invisible group-hover/item:visible">
           <FolderMenu
+            menuItemStyles={menuItemStyles}
             folder={item}
             setNewItem={setNewItem}
             setToRename={setToRename}

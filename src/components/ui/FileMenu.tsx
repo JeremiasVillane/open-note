@@ -1,26 +1,23 @@
-import { Menu, UnstyledButton, useMantineColorScheme } from "@mantine/core";
+import { Menu, UnstyledButton } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { OptionsIcon } from "./icons";
 
 export function FileMenu({
+  menuItemStyles,
   setToRename,
   handleClose,
   handleDelete,
 }: {
+  menuItemStyles: string;
   setToRename: Dispatch<SetStateAction<boolean>>;
   handleClose: () => void;
   handleDelete: () => void;
 }) {
   const { t } = useTranslation();
-  const { colorScheme } = useMantineColorScheme();
 
   useHotkeys([["f2", () => setToRename(true)]]);
-
-  const menuItemStyles = `${
-    colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
-  } transition-colors ease-in-out`;
 
   return (
     <Menu position="bottom-start" shadow="sm">

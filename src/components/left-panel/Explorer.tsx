@@ -15,6 +15,9 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
   }`;
+  const menuItemStyles = `${
+    colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
+  } transition-colors ease-in-out`;
 
   const handleOpenFolder = (folderId: string) => {
     setOpenFolder({
@@ -43,6 +46,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
               openFolder={openFolder}
               handleOpenFolder={handleOpenFolder}
               fileStyles={fileStyles}
+              menuItemStyles={menuItemStyles}
             />
           </section>
         ) : (
@@ -54,7 +58,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem noteName={item.name} noteId={item.id} path={item.path} />
+            <NoteItem noteName={item.name} noteId={item.id} path={item.path} menuItemStyles={menuItemStyles} />
           </section>
         )
       )}

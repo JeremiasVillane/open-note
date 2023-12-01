@@ -10,10 +10,12 @@ export function NoteItem({
   noteName,
   noteId,
   path,
+  menuItemStyles,
 }: {
   noteName: string;
   noteId: string;
   path: string;
+  menuItemStyles: string;
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
@@ -103,6 +105,7 @@ export function NoteItem({
 
         {currentNote?.id === noteId ? (
           <FileMenu
+            menuItemStyles={menuItemStyles}
             setToRename={setToRename}
             handleClose={handleClose}
             handleDelete={() =>
