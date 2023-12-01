@@ -22,7 +22,10 @@ export const handleRename = async (
     return;
   }
 
-  const newPath = currentPath.replace(oldName, newName); // TODO: improve logic using regex
+  const oldPath = currentPath.split("\\");
+  oldPath[oldPath.length - 1] = newName;
+
+  const newPath = oldPath.join("\\");
   setCurrentPath(newPath);
 
   try {
