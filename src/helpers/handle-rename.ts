@@ -22,7 +22,7 @@ export const handleRename = async (
     return;
   }
 
-  const newPath = currentPath.replace(oldName, newName);
+  const newPath = currentPath.replace(oldName, newName); // TODO: improve logic using regex
   setCurrentPath(newPath);
 
   try {
