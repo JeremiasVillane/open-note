@@ -1,4 +1,4 @@
-import { Image, Kbd, useMantineColorScheme } from "@mantine/core";
+import { Image, Kbd, Popover, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { GitHubIcon, LinkedInIcon } from "../ui/icons";
 
@@ -23,10 +23,28 @@ export default function Welcome() {
             <p aria-label="Application name" className="font-black text-3xl">
               Open Note
             </p>
-            <p className="font-mono">
+            <div className="font-mono">
               (v. 0.0.1){" "}
-              <span className={`font-semibold ${linkStyle}`}>INFO</span>
-            </p>
+              <Popover width={200} position="bottom" withArrow shadow="md">
+                <Popover.Target>
+                  <span className={`font-semibold ${linkStyle}`}>INFO</span>
+                </Popover.Target>
+                <Popover.Dropdown className="text-sm text-center">
+                  <p>
+                    {t("About1")}{" "}
+                    <a
+                      className="text-blue-400 hover:underline"
+                      href="https://tauri.app/"
+                      rel="noreferrer noopener"
+                      target="_blank"
+                    >
+                      Tauri
+                    </a>
+                  </p>
+                  <p>{t("About2")}</p>
+                </Popover.Dropdown>
+              </Popover>
+            </div>
           </article>
           <article className="text-sm">
             <em>{t("Developed by")} Jeremias Villane</em>
@@ -69,11 +87,21 @@ export default function Welcome() {
         </div>
 
         <div>
-          <p><Kbd>Ctrl</Kbd> + <Kbd>N</Kbd></p>
-          <p><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>F</Kbd></p>
-          <p><Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>B</Kbd></p>
-          <p><Kbd>Ctrl</Kbd> + <Kbd>L</Kbd></p>
-          <p><Kbd>Ctrl</Kbd> + <Kbd>J</Kbd></p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>N</Kbd>
+          </p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>F</Kbd>
+          </p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>B</Kbd>
+          </p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>L</Kbd>
+          </p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>J</Kbd>
+          </p>
         </div>
       </section>
     </main>

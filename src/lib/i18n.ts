@@ -13,8 +13,8 @@ const resources = {
         "Are you sure you want to delete this folder and all its content?",
 
       // ***** UI
-      About:
-        "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
+      About1: "Open Note is a desktop app powered by",
+      About2: "Using React/Typescript and Rust.",
 
       // ***** Statusbar
       FolderCreated: "Folder successfully created",
@@ -39,8 +39,8 @@ const resources = {
       // ***** UI
       "Developed by": "Desarrollada por",
       Cancel: "Cancelar",
-      About:
-        "Esta es una aplicación de escritorio desarrollada con Tauri. Usando React/Typescript y Rust.",
+      About1: "Open Note es una aplicación de escritorio desarrollada con",
+      About2: "Usando React/Typescript y Rust.",
 
       // ***** Window menu
       Minimize: "Minimizar",
