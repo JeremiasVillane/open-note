@@ -107,7 +107,7 @@
         "width": 1000,
         "height": 800,
         "minWidth": 963,
-        "minHeight": 400,
+        "minHeight": 630,
         "resizable": true,
         "fullscreen": false,
         "visible": false,

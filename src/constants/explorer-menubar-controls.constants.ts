@@ -15,19 +15,20 @@ export const explorerMenubarControls = (
 ) => [
   {
     icon: "file-add-line",
-    title: t("New note"),
+    title: `${t("New note")} 
+    Ctr+N`,
     className: commonStyles,
     onClick: () => setShowNewItemForm("note"),
   },
   {
     icon: "folder-add-line",
-    title: t("New folder"),
+    title: t("New folder") + "\nCtrl+Shift+F",
     className: commonStyles,
     onClick: () => setShowNewItemForm("folder"),
   },
   {
     icon: "refresh-line",
-    title: t("Reload"),
+    title: t("Reload") + "\nCtrl+Shift+R",
     className: commonStyles,
     onClick: () => loadFiles(appDocuments, setItems),
   },

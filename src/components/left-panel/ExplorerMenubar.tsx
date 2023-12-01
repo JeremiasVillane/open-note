@@ -1,9 +1,9 @@
 import { ActionIcon, Group } from "@mantine/core";
 import { useTranslation } from "react-i18next";
+import { explorerMenubarControls } from "../../constants";
 import { loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
-import { explorerMenubarControls } from "../../constants";
 
 export function ExplorerMenubar() {
   const { t } = useTranslation();

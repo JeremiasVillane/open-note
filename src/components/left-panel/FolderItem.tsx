@@ -70,7 +70,7 @@ export function FolderItem({
               <button className="hidden" />
             </form>
           ) : (
-            <div className="py-0 pb-0 pl-1.5 font-semibold">{item.name}</div>
+            <p className="overlook py-0 pb-0 pl-1.5 font-semibold" data-text={item.name} />
           )}
         </div>
 

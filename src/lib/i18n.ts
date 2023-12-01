@@ -13,7 +13,6 @@ const resources = {
         "Are you sure you want to delete this folder and all its content?",
 
       // ***** UI
-      Welcome: "Select a note to edit",
       About:
         "This is a desktop app powered by Tauri. Using React/Typescript and Rust.",
 
@@ -38,8 +37,8 @@ const resources = {
         "¿Estás seguro que quieres eliminar esta carpeta y todo su contenido?",
 
       // ***** UI
+      "Developed by": "Desarrollada por",
       Cancel: "Cancelar",
-      Welcome: "Selecciona una nota para editar",
       About:
         "Esta es una aplicación de escritorio desarrollada con Tauri. Usando React/Typescript y Rust.",
 
@@ -109,7 +108,7 @@ const resources = {
       "Align right": "Alinear derecha",
 
       "Switch language": "Cambiar idioma",
-      "Dark/Light Theme": "Modo claro/oscuro",
+      "Dark/Light theme": "Modo claro/oscuro",
     },
   },
 };

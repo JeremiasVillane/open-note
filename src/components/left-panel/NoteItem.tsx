@@ -100,7 +100,7 @@ export function NoteItem({
             <button className="hidden" />
           </form>
         ) : (
-          <h1>{noteName}</h1>
+          <p className="overlook" data-text={noteName} />
         )}
 
         {currentNote?.id === noteId ? (

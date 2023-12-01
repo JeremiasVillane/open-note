@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  p, h1, h2, h3, h4, ul, ol {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  ul,
+  ol {
     @apply whitespace-pre-line;
   }
 
@@ -23,7 +29,7 @@
   ol li {
     @apply flex -ml-4;
   }
-  
+
   ol li:before {
     @apply text-blue-400 font-mono font-semibold mr-1;
     content: counter(item) ". ";
@@ -38,5 +44,9 @@
 
   .itemStyles {
     @apply pl-3 flex items-center cursor-pointer transition-colors duration-300 ease-in-out;
+  }
+
+  .overlook::after {
+    content: attr(data-text);
   }
 }

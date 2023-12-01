@@ -7,15 +7,36 @@ import {
   LeftPanelLayout,
   MainPanelLayout,
 } from "./components";
+import { loadFiles } from "./helpers";
+import { useTauriContext } from "./providers/tauri-provider";
+import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
 
 export default function App(): JSX.Element {
-  const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
+  const { appDocuments } = useTauriContext();
   const { toggleColorScheme } = useMantineColorScheme();
+  const { setItems, setShowNewItemForm } = useNotesStore();
+  const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
 
-  useHotkeys([["ctrl+J", toggleColorScheme]]);
   useHotkeys([
+    ["ctrl+F", () => null],
+    ["ctrl+J", toggleColorScheme],
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
+    ["ctrl+shift+R", () => loadFiles(appDocuments, setItems)],
+    [
+      "ctrl+N",
+      () => {
+        setShowNewItemForm("note");
+        setLeftPanelIsOpened(false);
+      },
+    ],
+    [
+      "ctrl+shift+F",
+      () => {
+        setShowNewItemForm("folder");
+        setLeftPanelIsOpened(false);
+      },
+    ],
   ]);
 
   return (
