@@ -25,12 +25,7 @@ export default function Providers({ children }: { children: JSX.Element }) {
 
   useMinWidth(1000);
 
-  useHotkeys([
-    ["ctrl+P", () => null],
-    ["ctrl+F", () => null],
-    ["ctrl+R", () => null],
-    ["F5", () => null],
-  ]);
+  useHotkeys([["ctrl+F", () => null]]);
 
   return (
     <>

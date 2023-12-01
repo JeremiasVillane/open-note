@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api";
+import { globalShortcut, invoke } from "@tauri-apps/api";
 import { listen } from "@tauri-apps/api/event";
 import * as fs from "@tauri-apps/api/fs";
 import * as os from "@tauri-apps/api/os";
@@ -7,8 +7,8 @@ import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
 import { Titlebar } from "../components";
 import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
-import { getUserAppFiles } from "../utils";
 import { useNotesStore } from "../store/notesStore";
+import { getUserAppFiles } from "../utils";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 // NOTE: Add memoized Tauri calls in this file
@@ -34,6 +34,13 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
   const [fileSep, setFileSep] = useState<string>("/");
   const [appDocuments, setAppDocuments] = useState<string>("");
   const { setItems } = useNotesStore();
+
+  useEffect(() => {
+    globalShortcut.registerAll(
+      ["CommandOrControl+P", "F5"],  // TODO: add "CommandOrControl+R"
+      () => null
+    );
+  }, []);
 
   if (RUNNING_IN_TAURI) {
     useEffect(() => {
