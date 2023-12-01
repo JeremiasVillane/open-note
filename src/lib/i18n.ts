@@ -67,11 +67,11 @@ const resources = {
       ErrorRenaming: "Caracteres erróneos o no permitidos",
 
       // ***** Explorer/Explorer menubar
-      Reload: "Recargar",
+      "Reload explorer": "Recargar explorador",
       Cancel: "Cancelar",
 
       // ***** Toolbar
-      "Toggle sidebar": "Mostrar/ocultar barra lateral",
+      "Toggle explorer": "Mostrar/ocultar explorador",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",

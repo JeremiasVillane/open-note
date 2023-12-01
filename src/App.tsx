@@ -20,8 +20,14 @@ export default function App(): JSX.Element {
 
   useHotkeys([
     ["ctrl+J", toggleColorScheme],
-    ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
-    ["ctrl+shift+R", () => loadFiles(appDocuments, setItems)],
+    ["ctrl+shift+E", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
+    [
+      "ctrl+shift+R",
+      () => {
+        loadFiles(appDocuments, setItems);
+        setLeftPanelIsOpened(false);
+      },
+    ],
     [
       "ctrl+N",
       () => {

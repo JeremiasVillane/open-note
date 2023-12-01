@@ -85,7 +85,8 @@ export default function Welcome() {
         <div className="text-right">
           <p>{t("New note")}</p>
           <p>{t("New folder")}</p>
-          <p>{t("Toggle sidebar")}</p>
+          <p>{t("Toggle explorer")}</p>
+          <p>{t("Reload explorer")}</p>
           <p>{t("Switch language")}</p>
           <p>{t("Dark/Light theme")}</p>
         </div>
@@ -98,7 +99,10 @@ export default function Welcome() {
             <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>F</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>B</Kbd>
+            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>E</Kbd>
+          </p>
+          <p>
+            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>R</Kbd>
           </p>
           <p>
             <Kbd>Ctrl</Kbd> + <Kbd>L</Kbd>

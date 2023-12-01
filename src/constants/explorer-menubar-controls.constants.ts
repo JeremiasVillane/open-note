@@ -28,7 +28,7 @@ export const explorerMenubarControls = (
   },
   {
     icon: "refresh-line",
-    title: t("Reload") + "\nCtrl+Shift+R",
+    title: t("Reload explorer") + "\nCtrl+Shift+R",
     className: commonStyles,
     onClick: () => loadFiles(appDocuments, setItems),
   },
