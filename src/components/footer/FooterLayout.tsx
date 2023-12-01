@@ -18,14 +18,17 @@ export function FooterLayout() {
       className="flex justify-between items-center font-mono text-xs"
     >
       {editorContent?.length ? (
-        <div>
-          {t("Characters")}: {stadistics.chars} | {t("Letters")}:{" "}
-          {stadistics.letters} | {t("Words")}: {stadistics.words} | {t("Lines")}
-          :{" "}
-          {stadistics.lines > 1
-            ? stadistics.lines - (stadistics.lines - 1) / 2
-            : stadistics.lines}
-        </div>
+        <div
+          className="overlook"
+          data-text={
+            `${t("Characters")}: ${stadistics.chars}${" "}
+            | ${t("Letters")}:${" "}${stadistics.letters}${" "}
+            | ${t("Words")}: ${stadistics.words}${" "}
+            | ${t("Lines")}: ${stadistics.lines > 1
+              ? stadistics.lines - (stadistics.lines - 1) / 2
+              : stadistics.lines}
+          `}
+        />
       ) : (
         <></>
       )}

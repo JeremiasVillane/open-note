@@ -1,6 +1,7 @@
 import { Text, useMantineColorScheme } from "@mantine/core";
 import { appWindow } from "@tauri-apps/api/window";
 import { useCallback, useLayoutEffect, useState } from "react";
+import { useNotesStore } from "../../store/notesStore";
 import TitleBarButtons from "./TitleBarButtons";
 import TitleBarMenu from "./TitleBarMenu";
 
@@ -8,6 +9,7 @@ export function Titlebar() {
   const { colorScheme } = useMantineColorScheme();
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
   const [windowTitle, setWindowTitle] = useState<string>("");
+  const { currentNote } = useNotesStore();
 
   useLayoutEffect(() => {
     appWindow.isMaximized().then(setIsMaximized);
@@ -53,10 +55,24 @@ export function Titlebar() {
           isMaximized={isMaximized}
         />
 
-        <Text data-tauri-drag-region inline size="xs">
-          {windowTitle}
-        </Text>
+        <Text
+          data-tauri-drag-region
+          inline
+          size="xs"
+          className="overlook"
+          data-text={windowTitle}
+        />
       </div>
+
+      {currentNote ? (
+        <Text
+          data-tauri-drag-region
+          inline
+          size="sm"
+          className="overlook self-center italic"
+          data-text={currentNote?.name}
+        />
+      ) : null}
 
       <TitleBarButtons
         handleMinimize={handleMinimize}

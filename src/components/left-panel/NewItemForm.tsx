@@ -1,4 +1,3 @@
-import { useMantineColorScheme } from "@mantine/core";
 import * as fs from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
 import { nanoid } from "nanoid";
@@ -18,7 +17,6 @@ export function NewItemForm({
   setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
 }): JSX.Element {
   const { t } = useTranslation();
-  const { colorScheme } = useMantineColorScheme();
   const [itemName, setItemName] = useState<string>("");
   const { addItem, setStatus, setShowNewItemForm } = useNotesStore();
 
@@ -55,11 +53,7 @@ export function NewItemForm({
         id="new-item-field"
         placeholder={t(itemType === "note" ? "New note" : "New folder")}
         autoComplete="off"
-        className={`py-1 ${
-          colorScheme === "dark"
-            ? "bg-neutral-800 text-white"
-            : "bg-neutral-300 text-black"
-        }  p-3 w-full border-none outline-none`}
+        className="py-1 bg-[var(--mantine-color-gray-light)] p-3 w-full border-none outline-none"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setItemName(e.target.value)
         }

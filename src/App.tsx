@@ -19,7 +19,6 @@ export default function App(): JSX.Element {
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
 
   useHotkeys([
-    ["ctrl+F", () => null],
     ["ctrl+J", toggleColorScheme],
     ["ctrl+shift+B", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
     ["ctrl+shift+R", () => loadFiles(appDocuments, setItems)],

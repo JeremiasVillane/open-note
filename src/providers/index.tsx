@@ -7,6 +7,7 @@ import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
 // import { ModalsProvider } from "@mantine/modals";
 // import { Notifications } from "@mantine/notifications";
+import { useHotkeys } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../lib/extensions";
@@ -23,6 +24,13 @@ export default function Providers({ children }: { children: JSX.Element }) {
   });
 
   useMinWidth(1000);
+
+  useHotkeys([
+    ["ctrl+P", () => null],
+    ["ctrl+F", () => null],
+    ["ctrl+R", () => null],
+    ["F5", () => null],
+  ]);
 
   return (
     <>

@@ -6,7 +6,7 @@ export function LeftPanelLayout() {
   const { fileList } = useNotesStore();
 
   return (
-    <AppShellNavbar className="titleBarAdjustedHeight" hidden={false}>
+    <AppShellNavbar className="titleBarAdjustedHeight overflow-auto" hidden={false}>
       <AppShellSection>
         <ExplorerMenubar />
         <Explorer fileList={fileList} />

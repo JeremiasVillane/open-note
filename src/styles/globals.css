@@ -35,6 +35,10 @@
     content: counter(item) ". ";
     counter-increment: item;
   }
+
+  blockquote {
+    @apply border-l-4 border-[var(--mantine-color-blue-light)]
+  }
 }
 
 @layer components {
