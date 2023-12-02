@@ -7,7 +7,7 @@ export async function getUserAppFiles(path: string) {
   const scanDir = async (path: string): Promise<FileObj[]> => {
     const folderContent: FileEntry[] = await readDir(path);
 
-    const folders: FileObj[] = [];
+    let folders: FileObj[] = [];
     const files: FileObj[] = [];
 
     await Promise.all(
@@ -28,7 +28,7 @@ export async function getUserAppFiles(path: string) {
         } else {
           files.push({
             id,
-            name: file.name ?? "",
+            name: file.name?.split(".")[0] ?? "",
             path: file.path,
             isFolder,
           });
@@ -36,7 +36,10 @@ export async function getUserAppFiles(path: string) {
       })
     );
 
-    return [...folders, ...files];
+    return [
+      ...folders.sort((a, b) => a.name.localeCompare(b.name)),
+      ...files.sort((a, b) => a.name.localeCompare(b.name)),
+    ];
   };
 
   return await scanDir(path);

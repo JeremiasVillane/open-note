@@ -19,6 +19,7 @@ export default function Welcome() {
             h={300}
             w="auto"
             className="saturate-50 opacity-50"
+            draggable="false"
           />
           <article>
             <p aria-label="Application name" className="font-black text-3xl">
@@ -61,6 +62,7 @@ export default function Welcome() {
             href="https://snppr.vercel.app/r0nyEBaLC"
             rel="noreferrer noopener"
             target="_blank"
+            draggable="false"
           >
             <GitHubIcon
               size={21}
@@ -75,6 +77,7 @@ export default function Welcome() {
             href="https://snppr.vercel.app/2Vt7W2xMe"
             rel="noreferrer noopener"
             target="_blank"
+            draggable="false"
           >
             <LinkedInIcon size={21} title="https://www.linkedin.com/in/jeremias-villane" className={linkStyle} />
           </a>

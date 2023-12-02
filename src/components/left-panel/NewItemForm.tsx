@@ -23,7 +23,10 @@ export function NewItemForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = nanoid();
-    const filePath = await join(path, itemName);
+    const filePath = await join(
+      path,
+      itemType === "note" ? `${itemName}.on` : itemName
+    );
     const isFolder = itemType === "folder";
 
     isFolder
@@ -43,7 +46,6 @@ export function NewItemForm({
 
     setStatus(t(isFolder ? "FolderCreated" : "NoteCreated"));
   };
-
   return (
     <form onSubmit={handleSubmit} className="relative">
       <input

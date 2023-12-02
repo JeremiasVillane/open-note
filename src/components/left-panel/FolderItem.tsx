@@ -4,6 +4,7 @@ import { Explorer, FolderMenu, NewItemForm } from "..";
 import { handleRename } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import { useTauriContext } from "../../providers/tauri-provider";
 
 export function FolderItem({
   item,
@@ -23,10 +24,11 @@ export function FolderItem({
   menuItemStyles: string;
 }) {
   const { t } = useTranslation();
-  const { renameItem, setStatus } = useNotesStore();
+  const { renameItem, setStatus, setItems } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
   const [currentPath, setCurrentPath] = useState(item.path);
+  const { appDocuments } = useTauriContext();
 
   return (
     <>
@@ -42,8 +44,10 @@ export function FolderItem({
           ></i>
           {toRename ? (
             <form
+              className="pl-1.5 font-semibold"
               onSubmit={(event) =>
                 handleRename(
+                  "folder",
                   event,
                   t,
                   item.id,
@@ -55,7 +59,10 @@ export function FolderItem({
                   setToRename,
                   setFolderName,
                   setStatus,
-                  renameItem
+                  renameItem,
+                  undefined,
+                  undefined,
+                  setFolderName
                 )
               }
             >
@@ -67,10 +74,13 @@ export function FolderItem({
                 className="outline-none w-full"
                 autoFocus
               />
-              <button className="hidden" />
+              <button onClick={(e) => e.stopPropagation()} className="hidden" />
             </form>
           ) : (
-            <p className="overlook py-0 pb-0 pl-1.5 font-semibold" data-text={item.name} />
+            <p
+              className="overlook py-0 pb-0 pl-1.5 font-semibold"
+              data-text={item.name}
+            />
           )}
         </div>
 

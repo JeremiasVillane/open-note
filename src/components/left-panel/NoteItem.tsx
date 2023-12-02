@@ -74,6 +74,7 @@ export function NoteItem({
           <form
             onSubmit={(event) =>
               handleRename(
+                "note",
                 event,
                 t,
                 noteId,
@@ -85,7 +86,9 @@ export function NoteItem({
                 setToRename,
                 setFileName,
                 setStatus,
-                renameItem
+                renameItem,
+                currentNote,
+                setCurrentNote
               )
             }
           >
@@ -100,7 +103,7 @@ export function NoteItem({
             <button className="hidden" />
           </form>
         ) : (
-          <p className="overlook" data-text={noteName} />
+          <p className="overlook" data-text={noteName.split(".")[0]} />
         )}
 
         {currentNote?.id === noteId ? (
@@ -114,7 +117,7 @@ export function NoteItem({
                 "note",
                 setStatus,
                 removeItem,
-                path,
+                currentPath,
                 noteId,
                 t,
                 setCurrentNote,

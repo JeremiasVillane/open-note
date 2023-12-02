@@ -58,7 +58,12 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem noteName={item.name} noteId={item.id} path={item.path} menuItemStyles={menuItemStyles} />
+            <NoteItem
+              noteName={item.name}
+              noteId={item.id}
+              path={item.path}
+              menuItemStyles={menuItemStyles}
+            />
           </section>
         )
       )}

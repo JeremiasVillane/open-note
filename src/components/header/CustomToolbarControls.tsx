@@ -35,6 +35,7 @@ export function CustomToolbarControls() {
                     key={index}
                     onClick={control.onClick}
                     title={control.title ?? ""}
+                    disabled={!currentNote}
                   >
                     <i
                       className={`ri-${control.icon} border-r ${

@@ -28,7 +28,12 @@ export interface NotesState {
   showNewItemForm: "note" | "folder" | null;
   addItem: (parentId: string, note: FileObj) => void;
   removeItem: (id: string) => void;
-  renameItem: (targetId: string, newName: string) => void
+  renameItem: (
+    targetId: string,
+    newName: string,
+    currentPath: string,
+    setCurrentPath: React.Dispatch<React.SetStateAction<string>>
+  ) => void;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
   setStatus: (status: string | null) => void;

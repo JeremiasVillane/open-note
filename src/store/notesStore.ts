@@ -13,9 +13,20 @@ export const useNotesStore = create<NotesState>((set) => ({
   showNewItemForm: null,
   addItem: (parentId, newItem) => {
     if (parentId === "root") {
-      set((state) => ({
-        fileList: [...state.fileList, newItem],
-      }));
+      set((state) => {
+        const newList = [...state.fileList, newItem];
+
+        const folders = newList
+          .filter((item) => item.isFolder)
+          .sort((a, b) => a.name.localeCompare(b.name));
+        const notes = newList
+          .filter((item) => !item.isFolder)
+          .sort((a, b) => a.name.localeCompare(b.name));
+
+        return {
+          fileList: [...folders, ...notes],
+        };
+      });
     } else {
       set((state) => ({
         fileList: addItemRecursively(state.fileList, parentId, newItem),
@@ -26,9 +37,15 @@ export const useNotesStore = create<NotesState>((set) => ({
     set((state) => ({
       fileList: removeItemRecursively(state.fileList, id),
     })),
-  renameItem: (targetId, newName) =>
+  renameItem: (targetId, newName, currentPath, setCurrentPath) =>
     set((state) => ({
-      fileList: renameItemRecursively(state.fileList, targetId, newName),
+      fileList: renameItemRecursively(
+        state.fileList,
+        targetId,
+        newName,
+        currentPath,
+        setCurrentPath
+      ),
     })),
   setItems: (items) => set({ fileList: items }),
   setCurrentNote: (note) => set({ currentNote: note }),

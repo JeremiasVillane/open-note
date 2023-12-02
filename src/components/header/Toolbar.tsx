@@ -1,12 +1,14 @@
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { labels } from "../../lib/labels";
+import { useNotesStore } from "../../store/notesStore";
 import { CodeBlockIcon } from "../ui/icons";
 import { CustomToolbarControls } from "./CustomToolbarControls";
 
 export function Toolbar() {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
+  const { currentNote } = useNotesStore();
 
   return (
     <RichTextEditor editor={editor} labels={labels(t)} className="border-none">
@@ -14,45 +16,48 @@ export function Toolbar() {
         <CustomToolbarControls />
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold />
-          <RichTextEditor.Italic />
-          <RichTextEditor.Underline />
-          <RichTextEditor.Strikethrough />
-          <RichTextEditor.Highlight />
-          <RichTextEditor.Code />
+          <RichTextEditor.Bold disabled={!currentNote} />
+          <RichTextEditor.Italic disabled={!currentNote} />
+          <RichTextEditor.Underline disabled={!currentNote} />
+          <RichTextEditor.Strikethrough disabled={!currentNote} />
+          <RichTextEditor.Highlight disabled={!currentNote} />
+          <RichTextEditor.Code disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 />
-          <RichTextEditor.H2 />
-          <RichTextEditor.H3 />
-          <RichTextEditor.H4 />
+          <RichTextEditor.H1 disabled={!currentNote} />
+          <RichTextEditor.H2 disabled={!currentNote} />
+          <RichTextEditor.H3 disabled={!currentNote} />
+          <RichTextEditor.H4 disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.BulletList />
-          <RichTextEditor.OrderedList />
-          <RichTextEditor.Subscript />
-          <RichTextEditor.Superscript />
+          <RichTextEditor.BulletList disabled={!currentNote} />
+          <RichTextEditor.OrderedList disabled={!currentNote} />
+          <RichTextEditor.Subscript disabled={!currentNote} />
+          <RichTextEditor.Superscript disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          {/* @ts-ignore */}
-          <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
-          <RichTextEditor.Blockquote />
-          <RichTextEditor.Hr />
+          <RichTextEditor.CodeBlock
+            // @ts-ignore
+            icon={CodeBlockIcon}
+            disabled={!currentNote}
+          />
+          <RichTextEditor.Blockquote disabled={!currentNote} />
+          <RichTextEditor.Hr disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link />
-          <RichTextEditor.Unlink />
+          <RichTextEditor.Link disabled={!currentNote} />
+          <RichTextEditor.Unlink disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft />
-          <RichTextEditor.AlignCenter />
-          <RichTextEditor.AlignJustify />
-          <RichTextEditor.AlignRight />
+          <RichTextEditor.AlignLeft disabled={!currentNote} />
+          <RichTextEditor.AlignCenter disabled={!currentNote} />
+          <RichTextEditor.AlignJustify disabled={!currentNote} />
+          <RichTextEditor.AlignRight disabled={!currentNote} />
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
     </RichTextEditor>
