@@ -1,14 +1,12 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { FolderItem, NewItemForm, NoteItem } from "..";
-import { useTauriContext } from "../../providers/tauri-provider";
+import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
 export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
-  const { currentNote, showNewItemForm } = useNotesStore();
-  const { appDocuments } = useTauriContext();
+  const { currentNote } = useNotesStore();
   const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const [newItem, setNewItem] = useState<Record<string, string>>({});
 
@@ -28,14 +26,6 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
 
   return (
     <aside className="group/panel">
-      {showNewItemForm ? (
-        <NewItemForm
-          itemType={showNewItemForm}
-          path={appDocuments}
-          parentId="root"
-        />
-      ) : null}
-
       {fileList?.map((item) =>
         item.isFolder ? (
           <section key={item.id}>
