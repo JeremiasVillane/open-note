@@ -6,7 +6,7 @@ export interface FileObj {
   parent: string;
   content?: string;
   tags?: string[];
-  children?: FileObj[];
+  children?: string[];
   isFolder: boolean;
 }
 
@@ -19,8 +19,8 @@ export interface menuControl {
 export interface Note {
   id: string;
   name: string;
-  path: string;
-  content: string | null;
+  content: string | undefined;
+  parent: string;
 }
 
 export interface NotesState {

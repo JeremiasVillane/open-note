@@ -18,7 +18,7 @@ export const handleSave = async (
   const _documents = await documentDir();
 
   if (currentNote?.name) {
-    const path = `${_documents}${APP_NAME}\\${currentNote.name}.on`
+    const path = `${_documents}${APP_NAME}\\${currentNote.name}`
     let fileContent = await readTextFile(path);
     const fileJSON: FileObj = JSON.parse(fileContent)
     fileJSON.content = editor.getHTML();

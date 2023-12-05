@@ -4,12 +4,18 @@ import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
-export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
+export function Explorer({
+  fileList,
+  currentParent,
+}: {
+  fileList: FileObj[];
+  currentParent: string;
+}): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();
   const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const [newItem, setNewItem] = useState<Record<string, string>>({});
-console.log(currentNote)
+
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
   }`;
@@ -39,7 +45,7 @@ console.log(currentNote)
               menuItemStyles={menuItemStyles}
             />
           </section>
-        ) : (
+        ) : item.parent === currentParent ? (
           <section
             key={item.id}
             className={`${fileStyles} ${
@@ -48,15 +54,9 @@ console.log(currentNote)
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem
-              noteName={item.name}
-              noteId={item.id}
-              content={item.content!}
-              parent={item.parent}
-              menuItemStyles={menuItemStyles}
-            />
+            <NoteItem item={item} menuItemStyles={menuItemStyles} />
           </section>
-        )
+        ) : null
       )}
     </aside>
   );

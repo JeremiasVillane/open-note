@@ -1,22 +1,16 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
-import * as fs from "@tauri-apps/api/fs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
 import { handleDelete, handleRename } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
+import { FileObj } from "../../types";
 
 export function NoteItem({
-  noteName,
-  noteId,
-  content,
-  parent,
+  item,
   menuItemStyles,
 }: {
-  noteName: string;
-  noteId: string;
-  content: string;
-  parent: string;
+  item: FileObj;
   menuItemStyles: string;
 }): JSX.Element {
   const { t } = useTranslation();
@@ -30,8 +24,7 @@ export function NoteItem({
     setShowNewItemForm,
   } = useNotesStore();
   const [toRename, setToRename] = useState(false);
-  const [fileName, setFileName] = useState(noteName);
-  // const [currentPath, setCurrentPath] = useState(path);
+  const [fileName, setFileName] = useState(item.name);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -40,20 +33,18 @@ export function NoteItem({
     editor?.getHTML() !== currentNote?.content;
 
   const hadleOpen = async () => {
-    if (currentNote?.id === noteId) return;
+    if (currentNote?.id === item.id) return;
 
     if (isEdited) {
       const confirm = await window.confirm(t("ConfirmDiscardChanges"));
       if (!confirm) return;
     }
 
-    // const content = await fs.readTextFile(currentPath);
-
     setCurrentNote({
-      id: noteId,
+      id: item.id,
       name: fileName,
-      // path: currentPath,
-      content,
+      content: item.content,
+      parent: item.parent,
     });
 
     setShowNewItemForm(null);
@@ -79,8 +70,8 @@ export function NoteItem({
                 "note",
                 event,
                 t,
-                noteId,
-                noteName,
+                item.id,
+                item.name,
                 fileName,
                 parent,
                 "currentPath",
@@ -105,10 +96,10 @@ export function NoteItem({
             <button className="hidden" />
           </form>
         ) : (
-          <p className="overlook" data-text={noteName.split(".")[0]} />
+          <p className="overlook" data-text={item.name.split(".")[0]} />
         )}
 
-        {currentNote?.id === noteId ? (
+        {currentNote?.id === item.id ? (
           <FileMenu
             menuItemStyles={menuItemStyles}
             setToRename={setToRename}
@@ -120,7 +111,7 @@ export function NoteItem({
                 setStatus,
                 removeItem,
                 "currentPath",
-                noteId,
+                item.id,
                 t,
                 setCurrentNote,
                 editor!

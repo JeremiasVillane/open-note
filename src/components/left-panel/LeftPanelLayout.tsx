@@ -22,7 +22,7 @@ export function LeftPanelLayout() {
           />
         ) : null}
 
-        <Explorer fileList={fileList} />
+        <Explorer fileList={fileList} currentParent="root" />
       </AppShellSection>
     </AppShellNavbar>
   );

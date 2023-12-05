@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useLayoutEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, FolderMenu, NewItemForm } from "..";
 import { handleRename } from "../../helpers";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
-import { useTauriContext } from "../../providers/tauri-provider";
+import { getChildren } from "../../utils/get-children";
 
 export function FolderItem({
   item,
@@ -27,8 +28,19 @@ export function FolderItem({
   const { renameItem, setStatus, setItems } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
-  const [currentPath, setCurrentPath] = useState(item.path);
+  const [children, setChildren] = useState<FileObj[]>([]);
   const { appDocuments } = useTauriContext();
+
+  useLayoutEffect(() => {
+    const loadFolderContent = async () => {
+      return await getChildren(item.children!);
+    };
+
+    (async () => {
+      const loadedChildren = await loadFolderContent();
+      setChildren(loadedChildren);
+    })();
+  }, [item.children]);
 
   return (
     <>
@@ -107,7 +119,7 @@ export function FolderItem({
             setNewItem={setNewItem}
           />
         ) : null}
-        <Explorer fileList={item.children!} />
+        <Explorer fileList={children!} currentParent={item.id} />
       </div>
     </>
   );

@@ -5,24 +5,22 @@ import { FileObj } from "../types";
 import { fs } from "@tauri-apps/api";
 import { APP_NAME } from "../constants";
 
-export async function getUserAppFiles(path: string) {
+export async function getChildren(ids: string[]) {
+  const _documents = await documentDir();
+
   const scanDir = async (path: string): Promise<FileObj[]> => {
-    const _documents = await documentDir();
     const folderContent: FileEntry[] = await readDir(path);
 
-    let folders: FileObj[] = [];
+    const folders: FileObj[] = [];
     const files: FileObj[] = [];
 
     await Promise.all(
       folderContent.map(async (file) => {
-        const fileContent = await fs.readTextFile(`${_documents}${APP_NAME}\\${file.name}`);
+        const fileContent = await fs.readTextFile(`${path}\\${file.name}`);
         const fileJSON: FileObj = JSON.parse(fileContent)
-        // const id = nanoid();
         const isFolder: boolean = fileJSON.isFolder;
-        // let subFolder: string | null = null;
 
         if (isFolder) {
-          // subFolder = await join(path, file.name!);
           folders.push({
             id: fileJSON.id,
             name: fileJSON.name,
@@ -43,10 +41,10 @@ export async function getUserAppFiles(path: string) {
     );
 
     return [
-      ...folders.sort((a, b) => a.name.localeCompare(b.name)),
-      ...files.sort((a, b) => a.name.localeCompare(b.name)),
+      ...folders.sort((a, b) => a.name.localeCompare(b.name)).filter(item => ids.includes(item.id)),
+      ...files.sort((a, b) => a.name.localeCompare(b.name)).filter(item => ids.includes(item.id)),
     ];
   };
 
-  return await scanDir(path);
+  return await scanDir(`${_documents}${APP_NAME}`);
 }

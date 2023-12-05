@@ -25,7 +25,7 @@ export function NewItemForm({
     const id = nanoid();
     const filePath = await join(
       path,
-      itemType === "note" ? `${itemName}.on` : itemName
+      itemType === "note" ? `${itemName}` : itemName
     );
     const isFolder = itemType === "folder";
 
