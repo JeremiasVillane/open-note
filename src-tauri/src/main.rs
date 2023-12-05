@@ -43,13 +43,19 @@ fn main() {
         // persistent storage with filesystem
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {
-            let win = app.get_window("splashscreen").unwrap();
-            let _ = win.move_window(Position::Center);
+            let splashscreen_window = app.get_window("splashscreen").unwrap();
+            let main_window = app.get_window("main").unwrap();
 
-            if let Some(window) = app.get_window("main") {
-                window.move_window(Position::Center).ok();
-                set_shadow(&window, true).ok();
-            }
+            tauri::async_runtime::spawn(async move {
+                splashscreen_window.move_window(Position::Center).ok();
+                main_window.move_window(Position::Center).ok();
+
+                #[cfg(any(target_os = "windows", target_os = "macos"))]
+                {
+                    set_shadow(&main_window, true).expect("Unsupported platform!");
+                    set_shadow(&splashscreen_window, true).expect("Unsupported platform!");
+                }
+            });
             Ok(())
         })
         .run(tauri::generate_context!())
