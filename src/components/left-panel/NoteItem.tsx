@@ -9,12 +9,14 @@ import { useNotesStore } from "../../store/notesStore";
 export function NoteItem({
   noteName,
   noteId,
-  path,
+  content,
+  parent,
   menuItemStyles,
 }: {
   noteName: string;
   noteId: string;
-  path: string;
+  content: string;
+  parent: string;
   menuItemStyles: string;
 }): JSX.Element {
   const { t } = useTranslation();
@@ -29,7 +31,7 @@ export function NoteItem({
   } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [fileName, setFileName] = useState(noteName);
-  const [currentPath, setCurrentPath] = useState(path);
+  // const [currentPath, setCurrentPath] = useState(path);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -45,12 +47,12 @@ export function NoteItem({
       if (!confirm) return;
     }
 
-    const content = await fs.readTextFile(currentPath);
+    // const content = await fs.readTextFile(currentPath);
 
     setCurrentNote({
       id: noteId,
       name: fileName,
-      path: currentPath,
+      // path: currentPath,
       content,
     });
 
@@ -80,9 +82,9 @@ export function NoteItem({
                 noteId,
                 noteName,
                 fileName,
-                path,
-                currentPath,
-                setCurrentPath,
+                parent,
+                "currentPath",
+                () => null,
                 setToRename,
                 setFileName,
                 setStatus,
@@ -117,7 +119,7 @@ export function NoteItem({
                 "note",
                 setStatus,
                 removeItem,
-                currentPath,
+                "currentPath",
                 noteId,
                 t,
                 setCurrentNote,

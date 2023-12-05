@@ -3,9 +3,11 @@ import { SVGProps } from "react";
 export interface FileObj {
   id: string;
   name: string;
-  path: string;
-  isFolder: boolean;
+  parent: string;
+  content?: string;
+  tags?: string[];
   children?: FileObj[];
+  isFolder: boolean;
 }
 
 export interface menuControl {

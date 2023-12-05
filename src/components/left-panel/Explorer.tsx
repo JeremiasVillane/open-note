@@ -9,7 +9,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { currentNote } = useNotesStore();
   const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const [newItem, setNewItem] = useState<Record<string, string>>({});
-
+console.log(currentNote)
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
   }`;
@@ -51,7 +51,8 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
             <NoteItem
               noteName={item.name}
               noteId={item.id}
-              path={item.path}
+              content={item.content!}
+              parent={item.parent}
               menuItemStyles={menuItemStyles}
             />
           </section>

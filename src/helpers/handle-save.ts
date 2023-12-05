@@ -1,7 +1,9 @@
-import { writeTextFile } from "@tauri-apps/api/fs";
+import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
-import { Note } from "../types";
+import { FileObj, Note } from "../types";
+import { documentDir } from "@tauri-apps/api/path";
+import { APP_NAME } from "../constants";
 
 export const handleSave = async (
   t: TFunction<"translation", undefined>,
@@ -13,15 +15,21 @@ export const handleSave = async (
   }
 ) => {
   const { currentNote, setCurrentNote, setStatus } = store;
+  const _documents = await documentDir();
 
   if (currentNote?.name) {
-    await writeTextFile(currentNote.path, editor.getHTML());
+    const path = `${_documents}${APP_NAME}\\${currentNote.name}.on`
+    let fileContent = await readTextFile(path);
+    const fileJSON: FileObj = JSON.parse(fileContent)
+    fileJSON.content = editor.getHTML();
+    fileContent = JSON.stringify(fileJSON);
+
+    await writeTextFile(path, fileContent);
 
     setCurrentNote({
       ...currentNote,
       name: currentNote.name,
-      path: currentNote.path,
-      content: editor.getHTML(),
+      content: fileJSON.content,
     });
 
     setStatus(t("NoteSaved"));
