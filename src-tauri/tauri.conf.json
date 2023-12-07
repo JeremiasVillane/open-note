@@ -113,7 +113,7 @@
         "minHeight": 630,
         "resizable": true,
         "fullscreen": false,
-        "visible": true,
+        "visible": false,
         "decorations": false,
         "alwaysOnTop": false
       },
@@ -122,8 +122,7 @@
         "height": 300,
         "decorations": false,
         "url": "splashscreen.html",
-        "label": "splashscreen",
-        "visible": false
+        "label": "splashscreen"
       }
     ]
   }

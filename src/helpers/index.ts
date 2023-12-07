@@ -1,4 +1,4 @@
-export * from "./add-item-recursively";
+export * from "./add-item-children";
 export * from "./get-focus";
 export * from "./handle-delete";
 export * from "./handle-rename";

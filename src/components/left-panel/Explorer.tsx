@@ -1,20 +1,22 @@
 import { useMantineColorScheme } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import { getChildren } from "../../utils/get-children";
 
 export function Explorer({
   fileList,
   currentParent,
 }: {
-  fileList: FileObj[];
+  fileList: string[];
   currentParent: string;
 }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
-  const { currentNote } = useNotesStore();
+  const { currentNote, setItems } = useNotesStore();
   const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const [newItem, setNewItem] = useState<Record<string, string>>({});
+  const [children, setChildren] = useState<FileObj[]>([]);
 
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
@@ -30,10 +32,17 @@ export function Explorer({
     });
   };
 
+  useEffect(() => {
+    (async () => {
+      const loadedChildren = await getChildren(fileList);
+      setChildren(loadedChildren);
+    })();
+  }, [fileList]);
+
   return (
     <aside className="group/panel">
-      {fileList?.map((item) =>
-        item.isFolder ? (
+      {children?.map((item) =>
+        item.isFolder && item.parent === currentParent ? (
           <section key={item.id}>
             <FolderItem
               item={item}

@@ -1,4 +1,4 @@
-import { ActionIcon, Group } from "@mantine/core";
+import { ActionIcon, Group, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { explorerMenubarControls } from "../../constants";
 import { loadFiles } from "../../helpers";
@@ -9,12 +9,14 @@ export function ExplorerMenubar() {
   const { t } = useTranslation();
   const { setItems, setShowNewItemForm } = useNotesStore();
   const { appDocuments } = useTauriContext();
+  const { colorScheme } = useMantineColorScheme();
+
 
   return (
     <Group
       justify="flex-end"
       gap="1"
-      bg="var(--mantine-color-blue-light)"
+      bg={`${colorScheme === "light" ? "#e8f3fc" : "#1b2c3c"}`}
       className="pr-1"
     >
       {explorerMenubarControls(

@@ -1,6 +1,6 @@
 import { AppShell, useMantineColorScheme } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FooterLayout,
   HeaderLayout,
@@ -15,9 +15,9 @@ import "./styles/App.css";
 export default function App(): JSX.Element {
   const { appDocuments } = useTauriContext();
   const { toggleColorScheme } = useMantineColorScheme();
-  const { setItems, setShowNewItemForm, fileList } = useNotesStore();
+  const { addItem, setItems, setShowNewItemForm, fileList } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
-console.log(fileList)
+
   useHotkeys([
     ["ctrl+J", toggleColorScheme],
     ["ctrl+shift+E", () => setLeftPanelIsOpened(!leftPanelIsOpened)],

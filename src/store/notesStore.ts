@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import {
-  addItemRecursively,
+  addItemChildren,
   removeItemRecursively,
   renameItemRecursively,
 } from "../helpers";
@@ -29,7 +29,7 @@ export const useNotesStore = create<NotesState>((set) => ({
       });
     } else {
       set((state) => ({
-        fileList: addItemRecursively(state.fileList, parentId, newItem),
+        fileList: addItemChildren(state.fileList, parentId, newItem.id),
       }));
     }
   },

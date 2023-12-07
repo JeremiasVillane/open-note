@@ -5,6 +5,8 @@ import { FileMenu } from "..";
 import { handleDelete, handleRename } from "../../helpers";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import { readTextFile } from "@tauri-apps/api/fs";
+import { useTauriContext } from "../../providers/tauri-provider";
 
 export function NoteItem({
   item,
@@ -23,6 +25,7 @@ export function NoteItem({
     setStatus,
     setShowNewItemForm,
   } = useNotesStore();
+  const { appDocuments } = useTauriContext();
   const [toRename, setToRename] = useState(false);
   const [fileName, setFileName] = useState(item.name);
 
@@ -40,10 +43,14 @@ export function NoteItem({
       if (!confirm) return;
     }
 
+    const itemObj: FileObj = JSON.parse(
+      await readTextFile(`${appDocuments}\\${item.id}`)
+    );
+
     setCurrentNote({
       id: item.id,
       name: fileName,
-      content: item.content,
+      content: itemObj.content,
       parent: item.parent,
     });
 
@@ -96,7 +103,7 @@ export function NoteItem({
             <button className="hidden" />
           </form>
         ) : (
-          <p className="overlook" data-text={item.name.split(".")[0]} />
+          <p className="overlook" data-text={item.name} />
         )}
 
         {currentNote?.id === item.id ? (

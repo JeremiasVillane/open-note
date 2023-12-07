@@ -16,7 +16,7 @@ export default function Editor() {
         const currentSelection = editor?.state.selection;
         editor
           ?.chain()
-          .setContent(currentNote?.content)
+          .setContent(currentNote.content!)
           .setTextSelection(currentSelection!)
           .run();
       });

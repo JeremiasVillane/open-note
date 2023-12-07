@@ -1,9 +1,9 @@
 import * as fs from "@tauri-apps/api/fs";
-import { join } from "@tauri-apps/api/path";
 import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../store/notesStore";
+import { FileObj } from "../../types";
 
 export function NewItemForm({
   itemType,
@@ -18,29 +18,45 @@ export function NewItemForm({
 }): JSX.Element {
   const { t } = useTranslation();
   const [itemName, setItemName] = useState<string>("");
-  const { addItem, setStatus, setShowNewItemForm } = useNotesStore();
+  const { addItem, setShowNewItemForm, setStatus } = useNotesStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = nanoid();
-    const filePath = await join(
-      path,
-      itemType === "note" ? `${itemName}` : itemName
-    );
     const isFolder = itemType === "folder";
 
-    isFolder
-      ? await fs.createDir(filePath)
-      : await fs.writeTextFile(filePath, ``);
+    if (parentId !== "root") {
+      let parentContent = JSON.parse(
+        await fs.readTextFile(`${path}\\${parentId}`)
+      );
+      parentContent = {
+        ...parentContent,
+        children: [...parentContent.children, id],
+      };
 
-    setItemName("");
-    addItem(parentId, {
+      await fs.writeTextFile(
+        `${path}\\${parentId}`,
+        JSON.stringify(parentContent)
+      );
+    }
+
+    let newItemObj: FileObj = {
       id,
       name: itemName,
-      path: filePath,
-      isFolder: itemType === "folder",
-      children: undefined,
-    });
+      parent: parentId,
+      tags: [],
+      isFolder,
+    };
+
+    isFolder
+      ? (newItemObj = { ...newItemObj, children: [] })
+      : (newItemObj = { ...newItemObj, content: "" });
+
+    await fs.writeTextFile(`${path}\\${id}`, JSON.stringify(newItemObj));
+
+    setItemName("");
+    addItem(parentId, newItemObj);
+    
 
     parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
 
