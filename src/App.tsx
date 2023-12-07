@@ -13,7 +13,7 @@ import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
 
 export default function App(): JSX.Element {
-  const { appDocuments } = useTauriContext();
+  const { appFolder } = useTauriContext();
   const { toggleColorScheme } = useMantineColorScheme();
   const { setItems, setShowNewItemForm } = useNotesStore();
   const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
@@ -24,7 +24,7 @@ export default function App(): JSX.Element {
     [
       "ctrl+shift+R",
       () => {
-        loadFiles(appDocuments, setItems);
+        loadFiles(appFolder, setItems);
         setLeftPanelIsOpened(false);
       },
     ],

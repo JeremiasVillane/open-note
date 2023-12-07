@@ -5,7 +5,7 @@ import { useNotesStore } from "../../store/notesStore";
 
 export function LeftPanelLayout() {
   const { fileList, showNewItemForm } = useNotesStore();
-  const { appDocuments } = useTauriContext();
+  const { appFolder } = useTauriContext();
 
   return (
     <AppShellNavbar
@@ -17,7 +17,7 @@ export function LeftPanelLayout() {
         {showNewItemForm ? (
           <NewItemForm
             itemType={showNewItemForm}
-            path={appDocuments}
+            path={appFolder}
             parentId="root"
           />
         ) : null}

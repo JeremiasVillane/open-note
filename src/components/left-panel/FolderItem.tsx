@@ -28,7 +28,7 @@ export function FolderItem({
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
   const [currentPath, setCurrentPath] = useState(item.path);
-  const { appDocuments } = useTauriContext();
+  const { appFolder } = useTauriContext();
 
   return (
     <>

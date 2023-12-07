@@ -10,7 +10,7 @@ export const explorerMenubarControls = (
     path: string,
     loaderFn: (content: FileObj[]) => void
   ) => Promise<void>,
-  appDocuments: string,
+  appFolder: string,
   setItems: (items: FileObj[]) => void
 ) => [
   {
@@ -30,6 +30,6 @@ export const explorerMenubarControls = (
     icon: "refresh-line",
     title: t("Reload explorer") + "\nCtrl+Shift+R",
     className: commonStyles,
-    onClick: () => loadFiles(appDocuments, setItems),
+    onClick: () => loadFiles(appFolder, setItems),
   },
 ];

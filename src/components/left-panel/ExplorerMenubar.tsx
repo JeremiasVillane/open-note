@@ -8,7 +8,7 @@ import { useNotesStore } from "../../store/notesStore";
 export function ExplorerMenubar() {
   const { t } = useTranslation();
   const { setItems, setShowNewItemForm } = useNotesStore();
-  const { appDocuments } = useTauriContext();
+  const { appFolder } = useTauriContext();
 
   return (
     <Group
@@ -21,7 +21,7 @@ export function ExplorerMenubar() {
         t,
         setShowNewItemForm,
         loadFiles,
-        appDocuments,
+        appFolder,
         setItems
       ).map((control, index) => {
         return (
