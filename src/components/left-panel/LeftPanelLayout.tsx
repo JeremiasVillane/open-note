@@ -12,8 +12,11 @@ export function LeftPanelLayout() {
       className="titleBarAdjustedHeight overflow-auto"
       hidden={false}
     >
-      <AppShellSection>
+      <AppShellSection className="fixed w-[12.5rem] z-50">
         <ExplorerMenubar />
+      </AppShellSection>
+
+      <AppShellSection className="mt-7">
         {showNewItemForm ? (
           <NewItemForm
             itemType={showNewItemForm}
