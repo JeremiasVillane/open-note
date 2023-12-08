@@ -1,4 +1,4 @@
-import { writeTextFile } from "@tauri-apps/api/fs";
+import { invoke } from "@tauri-apps/api/tauri";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { Note } from "../types";
@@ -15,15 +15,23 @@ export const handleSave = async (
   const { currentNote, setCurrentNote, setStatus } = store;
 
   if (currentNote?.name) {
-    await writeTextFile(currentNote.path, editor.getHTML());
+    try {
+      await invoke("write_text_file", {
+        path: currentNote.path,
+        content: editor.getHTML(),
+      });
 
-    setCurrentNote({
-      ...currentNote,
-      name: currentNote.name,
-      path: currentNote.path,
-      content: editor.getHTML(),
-    });
+      setCurrentNote({
+        ...currentNote,
+        name: currentNote.name,
+        path: currentNote.path,
+        content: editor.getHTML(),
+      });
 
-    setStatus(t("NoteSaved"));
+      setStatus(t("NoteSaved"));
+    } catch (error) {
+      console.error("Failed to write text file:", error);
+      setStatus(t("SaveFailed"));
+    }
   } else null;
 };

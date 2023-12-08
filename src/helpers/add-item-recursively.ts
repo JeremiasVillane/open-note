@@ -10,10 +10,10 @@ export function addItemRecursively(
       item.children = item.children ? [...item.children, newItem] : [newItem];
 
       const folders = item.children
-        .filter((item) => item.isFolder)
+        .filter((item) => item.is_folder)
         .sort((a, b) => a.name.localeCompare(b.name));
       const notes = item.children
-        .filter((item) => !item.isFolder)
+        .filter((item) => !item.is_folder)
         .sort((a, b) => a.name.localeCompare(b.name));
 
       item.children = [...folders, ...notes];

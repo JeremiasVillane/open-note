@@ -94,6 +94,13 @@ pub fn get_user_app_files_command(path: String) -> Result<FileObj, InvokeError> 
     )
 }
 
+// Creating text files
+#[tauri::command]
+pub fn write_text_file(path: String, content: String) -> Result<(), String> {
+    std::fs::write(&path, &content).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 // Deleting files
 #[tauri::command]
 pub fn delete_item(path: String, is_folder: bool) -> Result<(), String> {
