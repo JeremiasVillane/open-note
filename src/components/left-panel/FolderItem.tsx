@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, FolderMenu, NewItemForm } from "..";
-import { handleRename } from "../../helpers";
+import { handleRename, loadFiles } from "../../helpers";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
-import { useTauriContext } from "../../providers/tauri-provider";
 
 export function FolderItem({
   item,
@@ -24,7 +24,7 @@ export function FolderItem({
   menuItemStyles: string;
 }) {
   const { t } = useTranslation();
-  const { renameItem, setStatus, setItems } = useNotesStore();
+  const { setStatus, setItems } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
   const [currentPath, setCurrentPath] = useState(item.path);
@@ -45,26 +45,22 @@ export function FolderItem({
           {toRename ? (
             <form
               className="pl-1.5 font-semibold"
-              onSubmit={(event) =>
-                handleRename(
+              onSubmit={async (event) => {
+                await handleRename(
                   "folder",
                   event,
                   t,
-                  item.id,
                   item.name,
                   folderName,
-                  item.path,
                   currentPath,
-                  setCurrentPath,
                   setToRename,
-                  setFolderName,
                   setStatus,
-                  renameItem,
                   undefined,
                   undefined,
                   setFolderName
-                )
-              }
+                );
+                loadFiles(appFolder, setItems);
+              }}
             >
               <input
                 type="text"

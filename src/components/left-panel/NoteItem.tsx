@@ -74,25 +74,21 @@ export function NoteItem({
       <div className="flex items-center justify-between">
         {toRename ? (
           <form
-            onSubmit={(event) =>
-              handleRename(
+            onSubmit={async (event) => {
+              await handleRename(
                 "note",
                 event,
                 t,
-                noteId,
                 noteName,
                 fileName,
-                path,
                 currentPath,
-                setCurrentPath,
                 setToRename,
-                setFileName,
                 setStatus,
-                renameItem,
                 currentNote,
                 setCurrentNote
-              )
-            }
+              );
+              loadFiles(appFolder, setItems);
+            }}
           >
             <input
               type="text"

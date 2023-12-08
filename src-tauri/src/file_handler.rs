@@ -108,7 +108,23 @@ pub fn create_directory(path: String) -> Result<(), String> {
     Ok(())
 }
 
-// Deleting files
+// Reanaming files/directories
+#[tauri::command]
+pub fn rename_item(old_path: String, new_name: String) -> Result<(), String> {
+    let parent_directory = match std::path::Path::new(&old_path).parent() {
+        Some(parent) => parent,
+        None => {
+            return Err("Failed to determine parent directory".to_string());
+        }
+    };
+
+    let new_path = parent_directory.join(&new_name);
+
+    std::fs::rename(&old_path, &new_path).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+// Deleting files/directories
 #[tauri::command]
 pub fn delete_item(path: String, is_folder: bool) -> Result<(), String> {
     let result = if is_folder {
