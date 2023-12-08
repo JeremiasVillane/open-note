@@ -22,7 +22,7 @@ fn compute_id(path: &PathBuf) -> String {
     format!("{:x}", hash_result)
 }
 
-pub fn read_file_structure(path: &Path) -> Result<Vec<FileInfo>, std::io::Error> {
+fn read_file_structure(path: &Path) -> Result<Vec<FileInfo>, std::io::Error> {
     let mut file_info_list = Vec::new();
     if let Ok(entries) = fs::read_dir(path) {
         for entry in entries {
@@ -85,7 +85,7 @@ fn map_to_file_obj(file_info: FileInfo) -> FileObj {
     }
 }
 
-pub fn get_user_app_files(path: &str) -> Result<FileObj, std::io::Error> {
+fn get_user_app_files(path: &str) -> Result<FileObj, std::io::Error> {
     let file_info_list = read_file_structure(Path::new(path))?;
     let root_file_objs: Vec<FileObj> = file_info_list.into_iter().map(map_to_file_obj).collect();
 
