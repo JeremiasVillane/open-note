@@ -17,10 +17,10 @@ export const useNotesStore = create<NotesState>((set) => ({
         const newList = [...state.fileList, newItem];
 
         const folders = newList
-          .filter((item) => item.isFolder)
+          .filter((item) => item.is_folder)
           .sort((a, b) => a.name.localeCompare(b.name));
         const notes = newList
-          .filter((item) => !item.isFolder)
+          .filter((item) => !item.is_folder)
           .sort((a, b) => a.name.localeCompare(b.name));
 
         return {
