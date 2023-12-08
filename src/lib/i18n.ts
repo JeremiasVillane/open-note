@@ -22,6 +22,7 @@ const resources = {
       NoteDeleted: "Note successfully deleted",
       NoteSaved: "Note successfully saved",
       ErrorRenaming: "Wrong or forbidden caracters",
+      DeleteFailed: "Error deleting element",
 
       // ***** Toolbar
       "Link URL": "https://example.com",
@@ -65,6 +66,7 @@ const resources = {
       Words: "Palabras",
       Lines: "Líneas",
       ErrorRenaming: "Caracteres erróneos o no permitidos",
+      DeleteFailed: "Error eliminando elemento",
 
       // ***** Explorer/Explorer menubar
       "Reload explorer": "Recargar explorador",

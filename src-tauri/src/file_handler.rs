@@ -86,9 +86,23 @@ pub fn get_user_app_files(path: &str) -> Result<FileObj, std::io::Error> {
     })
 }
 
+// Reading files
 #[tauri::command]
 pub fn get_user_app_files_command(path: String) -> Result<FileObj, InvokeError> {
     get_user_app_files(&path).map_err(|e|
         InvokeError::from(format!("Failed to get user app files: {:?}", e))
     )
+}
+
+// Deleting files
+#[tauri::command]
+pub fn delete_item(path: String, is_folder: bool) -> Result<(), String> {
+    let result = if is_folder {
+        std::fs::remove_dir_all(&path)
+    } else {
+        std::fs::remove_file(&path)
+    };
+
+    result.map_err(|e| e.to_string())?;
+    Ok(())
 }

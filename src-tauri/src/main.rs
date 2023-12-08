@@ -6,14 +6,16 @@ use tauri_plugin_positioner::{ WindowExt, Position };
 use tauri::{ self, Manager };
 
 mod file_handler;
-use file_handler::get_user_app_files_command;
+use file_handler::{ get_user_app_files_command, delete_item };
 mod ui_handler;
 use ui_handler::close_splashscreen;
 
 fn main() {
     tauri::Builder
         ::default()
-        .invoke_handler(tauri::generate_handler![get_user_app_files_command, close_splashscreen])
+        .invoke_handler(
+            tauri::generate_handler![get_user_app_files_command, delete_item, close_splashscreen]
+        )
         // persistent storage with filesystem
         .plugin(tauri_plugin_store::Builder::default().build())
         .setup(|app| {

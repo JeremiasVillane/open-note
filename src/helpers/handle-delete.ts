@@ -1,4 +1,4 @@
-import * as fs from "@tauri-apps/api/fs";
+import { invoke } from "@tauri-apps/api/tauri";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { Note } from "../types";
@@ -20,18 +20,21 @@ export const handleDelete = async (
   const confirm = await window.confirm(
     t(isFolder ? "ConfirmDeleteFolder" : "ConfirmDeleteNote")
   );
+
   if (!confirm) return;
 
-  isFolder
-    ? await fs.removeDir(path, { recursive: true })
-    : await fs.removeFile(path);
+  try {
+    await invoke("delete_item", { path, isFolder });
+    removeItem(itemId);
 
-  removeItem(itemId);
+    if (!isFolder) {
+      setCurrentNote!(null);
+      editor?.chain().clearContent().run();
+    }
 
-  if (!isFolder) {
-    setCurrentNote!(null);
-    editor?.chain().clearContent().run();
+    setStatus(t(isFolder ? "FolderDeleted" : "NoteDeleted"));
+  } catch (error) {
+    console.error("Failed to delete item:", error);
+    setStatus(t("DeleteFailed"));
   }
-
-  setStatus(t(isFolder ? "FolderDeleted" : "NoteDeleted"));
 };
