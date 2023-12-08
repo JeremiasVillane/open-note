@@ -27,7 +27,6 @@ export function FolderItem({
   const { setStatus, setItems } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
-  const [currentPath] = useState(item.path);
   const { appFolder } = useTauriContext();
 
   return (
@@ -52,7 +51,7 @@ export function FolderItem({
                   t,
                   item.name,
                   folderName,
-                  currentPath,
+                  item.path,
                   setToRename,
                   setStatus,
                   undefined,
@@ -98,7 +97,7 @@ export function FolderItem({
         {newItem[item.id] ? (
           <NewItemForm
             itemType={newItem[item.id]}
-            path={currentPath}
+            path={item.path}
             parentId={item.id}
             setNewItem={setNewItem}
           />

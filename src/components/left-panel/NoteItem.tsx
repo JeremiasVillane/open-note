@@ -30,7 +30,6 @@ export function NoteItem({
   } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [fileName, setFileName] = useState(noteName);
-  const [currentPath] = useState(path);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -46,12 +45,12 @@ export function NoteItem({
       if (!confirm) return;
     }
 
-    const content = await fs.readTextFile(currentPath);
+    const content = await fs.readTextFile(path);
 
     setCurrentNote({
       id: noteId,
       name: fileName,
-      path: currentPath,
+      path,
       content,
     });
 
@@ -80,7 +79,7 @@ export function NoteItem({
                 t,
                 noteName,
                 fileName,
-                currentPath,
+                path,
                 setToRename,
                 setStatus,
                 currentNote,
@@ -113,7 +112,7 @@ export function NoteItem({
                 null,
                 "note",
                 setStatus,
-                currentPath,
+                path,
                 t,
                 setCurrentNote,
                 editor!
