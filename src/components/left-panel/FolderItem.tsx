@@ -27,7 +27,7 @@ export function FolderItem({
   const { setStatus, setItems } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
-  const [currentPath, setCurrentPath] = useState(item.path);
+  const [currentPath] = useState(item.path);
   const { appFolder } = useTauriContext();
 
   return (

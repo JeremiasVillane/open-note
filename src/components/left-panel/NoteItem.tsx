@@ -24,14 +24,13 @@ export function NoteItem({
   const {
     currentNote,
     setCurrentNote,
-    renameItem,
     setItems,
     setStatus,
     setShowNewItemForm,
   } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [fileName, setFileName] = useState(noteName);
-  const [currentPath, setCurrentPath] = useState(path);
+  const [currentPath] = useState(path);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
