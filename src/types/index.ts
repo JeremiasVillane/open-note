@@ -4,7 +4,7 @@ export interface FileObj {
   id: string;
   name: string;
   path: string;
-  isFolder: boolean;
+  is_folder: boolean;
   children?: FileObj[];
 }
 

@@ -1,5 +1,4 @@
 import { globalShortcut, invoke } from "@tauri-apps/api";
-import { listen } from "@tauri-apps/api/event";
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { type } from "@tauri-apps/api/os";
 import { documentDir } from "@tauri-apps/api/path";
@@ -7,8 +6,9 @@ import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
 import { Titlebar } from "../components";
 import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
+import { getFileStructure } from "../helpers";
 import { useNotesStore } from "../store/notesStore";
-import { getUserAppFiles } from "../utils";
+import { FileObj } from "../types";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 
@@ -25,10 +25,7 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
   const { setItems } = useNotesStore();
 
   useEffect(() => {
-    globalShortcut.registerAll(
-      ["CommandOrControl+P", "F5", "CommandOrControl+R"],
-      () => null
-    );
+    globalShortcut.registerAll(["CommandOrControl+P", "F5"], () => null);
   }, []);
 
   if (RUNNING_IN_TAURI) {
@@ -59,11 +56,13 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
           recursive: true,
         });
 
-        const myDocuments = await documentDir();
-        setAppFolder(`${myDocuments}${APP_NAME}`);
+        const userDocuments = await documentDir();
+        setAppFolder(`${userDocuments}${APP_NAME}`);
 
-        const userAppFiles = await getUserAppFiles(`${myDocuments}${APP_NAME}`);
-        setItems(userAppFiles);
+        const userAppFiles: FileObj[] | undefined = await getFileStructure(
+          `${userDocuments}${APP_NAME}`
+        );
+        setItems(userAppFiles ?? []);
 
         invoke("close_splashscreen");
       })().catch(console.error);

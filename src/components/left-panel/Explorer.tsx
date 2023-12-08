@@ -27,7 +27,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   return (
     <aside className="group/panel">
       {fileList?.map((item) =>
-        item.isFolder ? (
+        item.is_folder ? (
           <section key={item.id}>
             <FolderItem
               item={item}
