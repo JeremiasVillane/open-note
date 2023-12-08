@@ -6,9 +6,8 @@ import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
 import { Titlebar } from "../components";
 import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
-import { getFileStructure } from "../helpers";
+import { loadFiles } from "../helpers";
 import { useNotesStore } from "../store/notesStore";
-import { FileObj } from "../types";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 
@@ -59,10 +58,7 @@ export function TauriProvider({ children }: { children: React.ReactNode }) {
         const userDocuments = await documentDir();
         setAppFolder(`${userDocuments}${APP_NAME}`);
 
-        const userAppFiles: FileObj[] | undefined = await getFileStructure(
-          `${userDocuments}${APP_NAME}`
-        );
-        setItems(userAppFiles ?? []);
+        await loadFiles(`${userDocuments}${APP_NAME}`, setItems);
 
         invoke("close_splashscreen");
       })().catch(console.error);
