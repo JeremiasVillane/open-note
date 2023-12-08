@@ -24,7 +24,7 @@ const resources = {
       ErrorRenaming: "Wrong or forbidden caracters",
       DeleteFailed: "Error deleting element",
       SaveFailed: "Error saving note",
-
+      CreationFailed: "Error creating element",
       // ***** Toolbar
       "Link URL": "https://example.com",
     },
@@ -69,7 +69,7 @@ const resources = {
       ErrorRenaming: "Caracteres erróneos o no permitidos",
       DeleteFailed: "Error eliminando elemento",
       SaveFailed: "Error guardando nota",
-
+      CreationFailed: "Error creando elemento",
       // ***** Explorer/Explorer menubar
       "Reload explorer": "Recargar explorador",
       Cancel: "Cancelar",

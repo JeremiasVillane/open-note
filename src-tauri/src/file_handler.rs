@@ -94,10 +94,17 @@ pub fn get_user_app_files_command(path: String) -> Result<FileObj, InvokeError> 
     )
 }
 
-// Creating text files
+// Creating/Updating text files
 #[tauri::command]
 pub fn write_text_file(path: String, content: String) -> Result<(), String> {
     std::fs::write(&path, &content).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+// Creating directories
+#[tauri::command]
+pub fn create_directory(path: String) -> Result<(), String> {
+    std::fs::create_dir_all(&path).map_err(|e| e.to_string())?;
     Ok(())
 }
 

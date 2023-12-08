@@ -1,8 +1,8 @@
-import * as fs from "@tauri-apps/api/fs";
 import { join } from "@tauri-apps/api/path";
-import { nanoid } from "nanoid";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { handleCreate, loadFiles } from "../../helpers";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NewItemForm({
@@ -17,35 +17,23 @@ export function NewItemForm({
   setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
 }): JSX.Element {
   const { t } = useTranslation();
+  const { appFolder } = useTauriContext();
   const [itemName, setItemName] = useState<string>("");
-  const { addItem, setStatus, setShowNewItemForm } = useNotesStore();
+  const { setItems, setStatus, setShowNewItemForm } = useNotesStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const id = nanoid();
-    const filePath = await join(
-      path,
-      itemType === "note" ? `${itemName}.on` : itemName
-    );
-    const isFolder = itemType === "folder";
 
-    isFolder
-      ? await fs.createDir(filePath)
-      : await fs.writeTextFile(filePath, ``);
+    const isFolder = itemType === "folder";
+    const filePath = await join(path, isFolder ? itemName : `${itemName}.on`);
+
+    await handleCreate(filePath, isFolder, setStatus, t);
+    loadFiles(appFolder, setItems);
 
     setItemName("");
-    addItem(parentId, {
-      id,
-      name: itemName,
-      path: filePath,
-      isFolder: itemType === "folder",
-      children: undefined,
-    });
-
     parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
-
-    setStatus(t(isFolder ? "FolderCreated" : "NoteCreated"));
   };
+
   return (
     <form onSubmit={handleSubmit} className="relative">
       <input

@@ -6,7 +6,7 @@ use tauri_plugin_positioner::{ WindowExt, Position };
 use tauri::{ self, Manager };
 
 mod file_handler;
-use file_handler::{ get_user_app_files_command, delete_item, write_text_file };
+use file_handler::{ get_user_app_files_command, create_directory, delete_item, write_text_file };
 mod ui_handler;
 use ui_handler::close_splashscreen;
 
@@ -18,6 +18,7 @@ fn main() {
                 get_user_app_files_command,
                 delete_item,
                 write_text_file,
+                create_directory,
                 close_splashscreen
             ]
         )

@@ -1,6 +1,7 @@
 export * from "./add-item-recursively";
 export * from "./get-file-structure";
 export * from "./get-focus";
+export * from "./handle-create";
 export * from "./handle-delete";
 export * from "./handle-rename";
 export * from "./handle-save";
