@@ -1,5 +1,6 @@
 use std::fs;
 use std::path::{ Path, PathBuf };
+use sha2::{ Digest, Sha256 };
 use serde::Serialize;
 use tauri::InvokeError;
 
@@ -8,6 +9,17 @@ pub struct FileInfo {
     name: String,
     path: PathBuf,
     is_folder: bool,
+}
+
+fn compute_id(path: &PathBuf) -> String {
+    // Convert the folder path to a string
+    let path_str = path.to_string_lossy();
+
+    // Compute the SHA-256 hash of the folder path
+    let hash_result = Sha256::digest(path_str.as_bytes());
+
+    // Convert the hash to a hex string
+    format!("{:x}", hash_result)
 }
 
 pub fn read_file_structure(path: &Path) -> Result<Vec<FileInfo>, std::io::Error> {
@@ -45,7 +57,7 @@ pub struct FileObj {
 }
 
 fn map_to_file_obj(file_info: FileInfo) -> FileObj {
-    let id = nanoid::nanoid!();
+    let id = compute_id(&file_info.path);
     let name = file_info.name.split('.').next().unwrap_or_default().to_owned();
 
     if file_info.is_folder {
@@ -78,7 +90,7 @@ pub fn get_user_app_files(path: &str) -> Result<FileObj, std::io::Error> {
     let root_file_objs: Vec<FileObj> = file_info_list.into_iter().map(map_to_file_obj).collect();
 
     Ok(FileObj {
-        id: nanoid::nanoid!(),
+        id: compute_id(&PathBuf::from(path)),
         name: path.to_owned(),
         path: PathBuf::from(path),
         is_folder: true,
