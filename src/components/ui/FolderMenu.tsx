@@ -1,7 +1,9 @@
 import { Menu, UnstyledButton } from "@mantine/core";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
+import { loadFiles } from "../../helpers";
 import { handleDelete } from "../../helpers/handle-delete";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 import { OptionsIcon } from "./icons";
@@ -18,7 +20,8 @@ export function FolderMenu({
   setToRename: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
-  const { setStatus, removeItem } = useNotesStore();
+  const { appFolder } = useTauriContext();
+  const { setStatus, setItems } = useNotesStore();
 
   const handleCreate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -67,17 +70,10 @@ export function FolderMenu({
 
         <Menu.Item
           className={`${menuItemStyles} text-red-600`}
-          onClick={(e) =>
-            handleDelete(
-              e,
-              "folder",
-              setStatus,
-              removeItem,
-              folder.path,
-              folder.id,
-              t
-            )
-          }
+          onClick={async (e) => {
+            await handleDelete(e, "folder", setStatus, folder.path, t);
+            loadFiles(appFolder, setItems);
+          }}
         >
           {t("Delete folder")}
         </Menu.Item>

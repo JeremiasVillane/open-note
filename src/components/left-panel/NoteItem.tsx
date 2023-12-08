@@ -3,7 +3,8 @@ import * as fs from "@tauri-apps/api/fs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FileMenu } from "..";
-import { handleDelete, handleRename } from "../../helpers";
+import { handleDelete, handleRename, loadFiles } from "../../helpers";
+import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
 export function NoteItem({
@@ -18,12 +19,13 @@ export function NoteItem({
   menuItemStyles: string;
 }): JSX.Element {
   const { t } = useTranslation();
+  const { appFolder } = useTauriContext();
   const { editor } = useRichTextEditorContext();
   const {
     currentNote,
     setCurrentNote,
-    removeItem,
     renameItem,
+    setItems,
     setStatus,
     setShowNewItemForm,
   } = useNotesStore();
@@ -111,19 +113,18 @@ export function NoteItem({
             menuItemStyles={menuItemStyles}
             setToRename={setToRename}
             handleClose={handleClose}
-            handleDelete={() =>
-              handleDelete(
+            handleDelete={async () => {
+              await handleDelete(
                 null,
                 "note",
                 setStatus,
-                removeItem,
                 currentPath,
-                noteId,
                 t,
                 setCurrentNote,
                 editor!
-              )
-            }
+              );
+              loadFiles(appFolder, setItems);
+            }}
           />
         ) : null}
       </div>

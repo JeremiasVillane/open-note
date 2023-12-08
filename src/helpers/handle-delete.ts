@@ -7,9 +7,7 @@ export const handleDelete = async (
   e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
   itemType: string,
   setStatus: (status: string | null) => void,
-  removeItem: (id: string) => void,
   path: string,
-  itemId: string,
   t: TFunction<"translation", undefined>,
   setCurrentNote?: (note: Note | null) => void,
   editor?: Editor
@@ -25,7 +23,6 @@ export const handleDelete = async (
 
   try {
     await invoke("delete_item", { path, isFolder });
-    removeItem(itemId);
 
     if (!isFolder) {
       setCurrentNote!(null);
