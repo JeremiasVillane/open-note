@@ -39,6 +39,10 @@
   blockquote {
     @apply border-l-4 border-[var(--mantine-color-blue-light)]
   }
+
+  a {
+    @apply cursor-pointer;
+  }
 }
 
 @layer components {
