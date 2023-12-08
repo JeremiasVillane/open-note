@@ -24,18 +24,12 @@ export interface Note {
 export interface NotesState {
   fileList: FileObj[];
   currentNote: Note | null;
+  openFolders: Record<string, boolean>;
   status: string | null;
   showNewItemForm: "note" | "folder" | null;
-  addItem: (parentId: string, note: FileObj) => void;
-  removeItem: (id: string) => void;
-  renameItem: (
-    targetId: string,
-    newName: string,
-    currentPath: string,
-    setCurrentPath: React.Dispatch<React.SetStateAction<string>>
-  ) => void;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
+  setOpenFolder: (folderId: string) => void;
   setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
 }

@@ -7,7 +7,6 @@ import { FileObj } from "../../types";
 export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();
-  const [openFolder, setOpenFolder] = useState<Record<string, boolean>>({});
   const [newItem, setNewItem] = useState<Record<string, string>>({});
 
   const fileStyles = `itemStyles ${
@@ -16,13 +15,6 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const menuItemStyles = `${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
   } transition-colors ease-in-out`;
-
-  const handleOpenFolder = (folderId: string) => {
-    setOpenFolder({
-      ...openFolder,
-      [folderId]: openFolder[folderId] ? false : true,
-    });
-  };
 
   return (
     <aside className="group/panel">
@@ -33,8 +25,6 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
               item={item}
               newItem={newItem}
               setNewItem={setNewItem}
-              openFolder={openFolder}
-              handleOpenFolder={handleOpenFolder}
               fileStyles={fileStyles}
               menuItemStyles={menuItemStyles}
             />

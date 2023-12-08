@@ -10,21 +10,17 @@ export function FolderItem({
   item,
   newItem,
   setNewItem,
-  openFolder,
-  handleOpenFolder,
   fileStyles,
   menuItemStyles,
 }: {
   item: FileObj;
   newItem: Record<string, string>;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
-  openFolder: Record<string, boolean>;
-  handleOpenFolder: (folderId: string) => void;
   fileStyles: string;
   menuItemStyles: string;
 }) {
   const { t } = useTranslation();
-  const { setStatus, setItems } = useNotesStore();
+  const { setStatus, setItems, openFolders, setOpenFolder } = useNotesStore();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
   const { appFolder } = useTauriContext();
@@ -33,12 +29,12 @@ export function FolderItem({
     <>
       <div
         className={`${fileStyles} group/item justify-between items-center relative`}
-        onClick={() => handleOpenFolder(item.id)}
+        onClick={() => setOpenFolder(item.id)}
       >
         <div className="flex">
           <i
             className={`${
-              openFolder[item.id] ? "ri-folder-open-fill" : "ri-folder-fill"
+              openFolders[item.id] ? "ri-folder-open-fill" : "ri-folder-fill"
             } text-yellow-500`}
           ></i>
           {toRename ? (
@@ -91,7 +87,7 @@ export function FolderItem({
 
       <div
         className={`ml-5 group-hover/panel:border-l group-hover/panel:ml-[1.19rem] ${
-          !openFolder[item.id] && "hidden"
+          !openFolders[item.id] && "hidden"
         }`}
       >
         {newItem[item.id] ? (
