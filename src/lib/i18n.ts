@@ -13,7 +13,7 @@ const resources = {
         "Are you sure you want to delete this folder and all its content?",
 
       // ***** INFO
-      About: "Using React/Typescript and Rust.",
+      AboutInfo: "Using React/Typescript and Rust.",
 
       // ***** Statusbar
       FolderCreated: "Folder successfully created",
@@ -32,6 +32,23 @@ const resources = {
   },
   es: {
     translations: {
+      // ***** Title bar menu
+      File: "Archivo",
+      Edit: "Editar",
+      Help: "Ayuda",
+      "Close note": "Cerrar nota",
+      Exit: "Salir",
+
+      Cut: "Cortar",
+      Copy: "Copiar",
+      Paste: "Pegar",
+      Preferences: "Preferencias",
+      Language: "Idioma",
+      Theme: "Tema",
+
+      Welcome: "Bienvenida",
+      About: "Acerca de",
+
       // ***** Modals
       ConfirmDiscardChanges: "¿Estás seguro que quieres descartar los cambios?",
       ConfirmDeleteNote: "¿Estás seguro que quieres eliminar esta nota?",
@@ -41,7 +58,7 @@ const resources = {
       // ***** INFO
       "Developed by": "Desarrollada por",
       "Powered by": "Desarrollada con",
-      About: "Usando React/Typescript y Rust.",
+      AboutInfo: "Usando React/Typescript y Rust.",
 
       // ***** Window menu
       Minimize: "Minimizar",
@@ -74,7 +91,7 @@ const resources = {
       RenameFailed: "Error eliminando elemento",
 
       // ***** Explorer/Explorer menubar
-      "Reload explorer": "Recargar explorador",
+      Reload: "Recargar",
       Cancel: "Cancelar",
 
       // ***** Toolbar

@@ -1,9 +1,8 @@
 import { Text, useMantineColorScheme } from "@mantine/core";
 import { appWindow } from "@tauri-apps/api/window";
 import { useCallback, useLayoutEffect, useState } from "react";
+import { TitleBarButtons, TitleBarIconMenu, TitleBarMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
-import TitleBarButtons from "./TitleBarButtons";
-import TitleBarMenu from "./TitleBarMenu";
 
 export function Titlebar() {
   const { colorScheme } = useMantineColorScheme();
@@ -35,7 +34,7 @@ export function Titlebar() {
   const handleClose = async () => await appWindow.close();
 
   return (
-    <div
+    <header
       id="titlebar"
       className="h-[var(--titlebar-height)] flex justify-between fixed select-none top-0 left-0 right-0 z-[999]"
       style={{
@@ -46,8 +45,8 @@ export function Titlebar() {
       }}
       data-tauri-drag-region
     >
-      <div className="flex items-center">
-        <TitleBarMenu
+      <div className="flex items-center gap-1">
+        <TitleBarIconMenu
           handleMinimize={handleMinimize}
           handleRestore={handleRestore}
           handleMaximize={handleMaximize}
@@ -55,24 +54,16 @@ export function Titlebar() {
           isMaximized={isMaximized}
         />
 
-        <Text
-          data-tauri-drag-region
-          inline
-          size="xs"
-          className="overlook"
-          data-text={windowTitle}
-        />
+        <TitleBarMenu />
       </div>
 
-      {currentNote ? (
-        <Text
-          data-tauri-drag-region
-          inline
-          size="sm"
-          className="overlook self-center italic"
-          data-text={currentNote?.name}
-        />
-      ) : null}
+      <Text
+        data-tauri-drag-region
+        inline
+        size="sm"
+        className="overlook self-center italic"
+        data-text={currentNote ? currentNote.name : windowTitle}
+      />
 
       <TitleBarButtons
         handleMinimize={handleMinimize}
@@ -81,6 +72,6 @@ export function Titlebar() {
         handleClose={handleClose}
         isMaximized={isMaximized}
       />
-    </div>
+    </header>
   );
 }

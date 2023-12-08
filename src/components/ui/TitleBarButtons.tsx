@@ -2,7 +2,7 @@ import { useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { CloseIcon, MaximizeIcon, MinimizeIcon, RestoreIcon } from "./icons";
 
-export default function TitleBarButtons({
+export function TitleBarButtons({
   handleMinimize,
   handleRestore,
   handleMaximize,

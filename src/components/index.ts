@@ -13,3 +13,6 @@ export * from "./main-panel/MainPanelLayout";
 export * from "./ui/FileMenu";
 export * from "./ui/FolderMenu";
 export * from "./ui/TitleBar";
+export * from "./ui/TitleBarButtons";
+export * from "./ui/TitleBarIconMenu";
+export * from "./ui/TitleBarMenu";

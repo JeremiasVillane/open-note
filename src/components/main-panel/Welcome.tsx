@@ -44,7 +44,7 @@ export default function Welcome() {
                       Tauri
                     </a>
                   </p>
-                  <p>{t("About")}</p>
+                  <p>{t("AboutInfo")}</p>
                 </Popover.Dropdown>
               </Popover>
             </div>
