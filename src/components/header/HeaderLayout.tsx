@@ -2,7 +2,7 @@ import { AppShellHeader, Burger, Group } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { LanguageToggle, ThemeToggle, Toolbar } from "..";
+import { Toolbar } from "..";
 
 export function HeaderLayout({
   leftPanelIsOpened,
@@ -11,7 +11,7 @@ export function HeaderLayout({
   leftPanelIsOpened: boolean;
   setLeftPanelIsOpened: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
 
   return (
@@ -34,11 +34,6 @@ export function HeaderLayout({
           ></i>
         </Burger>
         {editor ? <Toolbar /> : null}
-      </Group>
-
-      <Group>
-        <LanguageToggle i18n={i18n} />
-        <ThemeToggle />
       </Group>
     </AppShellHeader>
   );

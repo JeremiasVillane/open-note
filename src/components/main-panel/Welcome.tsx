@@ -111,7 +111,7 @@ export default function Welcome() {
             <Kbd>Ctrl</Kbd> + <Kbd>L</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>J</Kbd>
+            <Kbd>Ctrl</Kbd> + <Kbd>T</Kbd>
           </p>
         </div>
       </section>

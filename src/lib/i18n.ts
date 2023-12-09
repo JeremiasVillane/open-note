@@ -45,6 +45,8 @@ const resources = {
       Preferences: "Preferencias",
       Language: "Idioma",
       Theme: "Tema",
+      Light: "Claro",
+      Dark: "Oscuro",
 
       Welcome: "Bienvenida",
       About: "Acerca de",
@@ -129,9 +131,6 @@ const resources = {
       "Align center": "Centrar",
       "Justify text": "Justificar",
       "Align right": "Alinear derecha",
-
-      "Switch language": "Cambiar idioma",
-      "Dark/Light theme": "Modo claro/oscuro",
     },
   },
 };

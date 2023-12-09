@@ -1,3 +1,4 @@
+import { Resource } from "i18next";
 import { SVGProps } from "react";
 
 export interface FileObj {
@@ -33,6 +34,14 @@ export interface NotesState {
   setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
 }
+
+export type I18nType = {
+  options?: {
+    resources: Resource | undefined;
+  };
+  resolvedLanguage: string;
+  changeLanguage: (language: string) => void;
+};
 
 export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
   title?: string;

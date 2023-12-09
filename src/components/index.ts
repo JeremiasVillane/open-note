@@ -1,7 +1,5 @@
 export * from "./footer/FooterLayout";
 export * from "./header/HeaderLayout";
-export * from "./header/LanguageToggle";
-export * from "./header/ThemeToggle";
 export * from "./header/Toolbar";
 export * from "./left-panel/Explorer";
 export * from "./left-panel/ExplorerMenubar";

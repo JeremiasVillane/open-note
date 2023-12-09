@@ -5,9 +5,11 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
+import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function TitleBarMenu() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
 
   const menuItemStyles = `cursor-default ${
@@ -173,39 +175,17 @@ export function TitleBarMenu() {
               offset={40}
             >
               <Menu.Target>
-                <UnstyledButton className="cursor-default w-full">
-                  <Text
-                    inline
-                    size="sm"
-                    className={`overlook ${menuItemStyles}`}
-                    data-text={t("Preferences")}
-                  />
-                </UnstyledButton>
+                <Text
+                  inline
+                  size="sm"
+                  className={`overlook ${menuItemStyles}`}
+                  data-text={t("Preferences")}
+                />
               </Menu.Target>
 
               <Menu.Dropdown className="shadow-lg">
-                <Menu.Item
-                  className={`${menuItemStyles} py-[inherit]`}
-                  rightSection={<i className="ri-arrow-right-s-line text-lg" />}
-                >
-                  <Text
-                    inline
-                    size="sm"
-                    className={"overlook"}
-                    data-text={t("Language")}
-                  />
-                </Menu.Item>
-                <Menu.Item
-                  className={`${menuItemStyles} py-[inherit]`}
-                  rightSection={<i className="ri-arrow-right-s-line text-lg" />}
-                >
-                  <Text
-                    inline
-                    size="sm"
-                    className={"overlook"}
-                    data-text={t("Theme")}
-                  />
-                </Menu.Item>
+                <LanguageToggle i18n={i18n} menuItemStyles={menuItemStyles} />
+                <ThemeToggle menuItemStyles={menuItemStyles} />
               </Menu.Dropdown>
             </Menu>
           </Menu.Item>
