@@ -33,6 +33,9 @@ export function CustomToolbarControls() {
                 return (
                   <button
                     key={index}
+                    className={`${
+                      currentNote ? "hover:text-blue-400 active:scale-95" : ""
+                    }`}
                     onClick={control.onClick}
                     title={control.title ?? ""}
                     disabled={!currentNote}

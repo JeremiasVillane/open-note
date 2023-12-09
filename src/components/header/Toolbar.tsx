@@ -10,55 +10,71 @@ export function Toolbar() {
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();
 
+  const controls = [
+    [
+      <RichTextEditor.Bold disabled={!currentNote} />,
+      <RichTextEditor.Italic disabled={!currentNote} />,
+      <RichTextEditor.Underline disabled={!currentNote} />,
+      <RichTextEditor.Strikethrough disabled={!currentNote} />,
+      <RichTextEditor.Highlight disabled={!currentNote} />,
+      <RichTextEditor.Code disabled={!currentNote} />,
+    ],
+    [
+      <RichTextEditor.H1 disabled={!currentNote} />,
+      <RichTextEditor.H2 disabled={!currentNote} />,
+      <RichTextEditor.H3 disabled={!currentNote} />,
+      <RichTextEditor.H4 disabled={!currentNote} />,
+    ],
+    [
+      <RichTextEditor.BulletList disabled={!currentNote} />,
+      <RichTextEditor.OrderedList disabled={!currentNote} />,
+      <RichTextEditor.Subscript disabled={!currentNote} />,
+      <RichTextEditor.Superscript disabled={!currentNote} />,
+    ],
+    [
+      <RichTextEditor.CodeBlock
+        // @ts-ignore
+        icon={CodeBlockIcon}
+        disabled={!currentNote}
+      />,
+      <RichTextEditor.Blockquote disabled={!currentNote} />,
+      <RichTextEditor.Hr disabled={!currentNote} />,
+    ],
+    [
+      <RichTextEditor.Link disabled={!currentNote} />,
+      <RichTextEditor.Unlink disabled={!currentNote} />,
+    ],
+    [
+      <RichTextEditor.AlignLeft disabled={!currentNote} />,
+      <RichTextEditor.AlignCenter disabled={!currentNote} />,
+      <RichTextEditor.AlignJustify disabled={!currentNote} />,
+      <RichTextEditor.AlignRight disabled={!currentNote} />,
+    ],
+  ];
+
   return (
     <RichTextEditor editor={editor} labels={labels(t)} className="border-none">
       <RichTextEditor.Toolbar className="border-none">
         <CustomToolbarControls />
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold disabled={!currentNote} />
-          <RichTextEditor.Italic disabled={!currentNote} />
-          <RichTextEditor.Underline disabled={!currentNote} />
-          <RichTextEditor.Strikethrough disabled={!currentNote} />
-          <RichTextEditor.Highlight disabled={!currentNote} />
-          <RichTextEditor.Code disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 disabled={!currentNote} />
-          <RichTextEditor.H2 disabled={!currentNote} />
-          <RichTextEditor.H3 disabled={!currentNote} />
-          <RichTextEditor.H4 disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.BulletList disabled={!currentNote} />
-          <RichTextEditor.OrderedList disabled={!currentNote} />
-          <RichTextEditor.Subscript disabled={!currentNote} />
-          <RichTextEditor.Superscript disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.CodeBlock
-            // @ts-ignore
-            icon={CodeBlockIcon}
-            disabled={!currentNote}
-          />
-          <RichTextEditor.Blockquote disabled={!currentNote} />
-          <RichTextEditor.Hr disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link disabled={!currentNote} />
-          <RichTextEditor.Unlink disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
-
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft disabled={!currentNote} />
-          <RichTextEditor.AlignCenter disabled={!currentNote} />
-          <RichTextEditor.AlignJustify disabled={!currentNote} />
-          <RichTextEditor.AlignRight disabled={!currentNote} />
-        </RichTextEditor.ControlsGroup>
+        {controls.map((group, index) => {
+          return (
+            <RichTextEditor.ControlsGroup key={index}>
+              {group.map((control, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={`${
+                      currentNote ? "hover:text-blue-400 active:scale-95" : ""
+                    }`}
+                  >
+                    {control}
+                  </span>
+                );
+              })}
+            </RichTextEditor.ControlsGroup>
+          );
+        })}
       </RichTextEditor.Toolbar>
     </RichTextEditor>
   );
