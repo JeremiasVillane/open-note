@@ -1,8 +1,10 @@
 import { Text, useMantineColorScheme } from "@mantine/core";
 import { appWindow } from "@tauri-apps/api/window";
 import { useCallback, useLayoutEffect, useState } from "react";
-import { TitleBarButtons, TitleBarIconMenu, TitleBarMenu } from "..";
 import { useNotesStore } from "../../store/notesStore";
+import TitleBarButtons from "./TitleBarButtons";
+import TitleBarIconMenu from "./TitleBarIconMenu";
+import TitleBarMenu from "./titlebar-menu/TitleBarMenu";
 
 export function Titlebar() {
   const { colorScheme } = useMantineColorScheme();

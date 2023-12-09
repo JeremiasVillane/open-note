@@ -6,9 +6,14 @@ import {
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
-import { CloseIcon, MaximizeIcon, MinimizeIcon, RestoreIcon } from "./icons";
+import {
+  CloseIcon,
+  MaximizeIcon,
+  MinimizeIcon,
+  RestoreIcon,
+} from "../ui/icons";
 
-export function TitleBarIconMenu({
+export default function TitleBarIconMenu({
   handleMinimize,
   handleRestore,
   handleMaximize,
@@ -31,7 +36,7 @@ export function TitleBarIconMenu({
   return (
     <Menu shadow="md" width={200} offset={4}>
       <Menu.Target>
-        <UnstyledButton className="cursor-default">
+        <UnstyledButton className="cursor-default" onDoubleClick={handleClose}>
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
         </UnstyledButton>
       </Menu.Target>

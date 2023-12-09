@@ -5,10 +5,10 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { LanguageToggle } from "./LanguageToggle";
-import { ThemeToggle } from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
+import ThemeToggle from "./ThemeToggle";
 
-export function TitleBarMenu() {
+export default function TitleBarMenu() {
   const { t, i18n } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
 

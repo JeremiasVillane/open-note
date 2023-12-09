@@ -1,9 +1,9 @@
 import { Menu, Text } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { t } from "i18next";
-import { I18nType } from "../../types";
+import { I18nType } from "../../../types";
 
-export function LanguageToggle({
+export default function LanguageToggle({
   i18n,
   menuItemStyles,
 }: {

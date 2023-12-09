@@ -1,7 +1,7 @@
 import { Menu, Text, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
-export function ThemeToggle({ menuItemStyles }: { menuItemStyles: string }) {
+export default function ThemeToggle({ menuItemStyles }: { menuItemStyles: string }) {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
 
