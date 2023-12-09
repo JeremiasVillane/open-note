@@ -6,7 +6,6 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
 // import { ModalsProvider } from "@mantine/modals";
-// import { Notifications } from "@mantine/notifications";
 import { useHotkeys } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
@@ -34,7 +33,6 @@ export default function Providers({ children }: { children: JSX.Element }) {
         {/* <ModalsProvider> */}
         <RichTextEditor editor={editor} className="border-none">
           <TauriProvider>
-            {/* <Notifications /> */}
             {children}
           </TauriProvider>
         </RichTextEditor>
