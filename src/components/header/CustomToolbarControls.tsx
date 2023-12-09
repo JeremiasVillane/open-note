@@ -2,7 +2,7 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
-import { menuControl } from "../../types";
+import { MenuControl } from "../../types";
 
 export function CustomToolbarControls() {
   const { t } = useTranslation();
@@ -27,29 +27,26 @@ export function CustomToolbarControls() {
               borderColor: "var(--_root-bd)",
             }}
           >
-            {
-              // @ts-ignore
-              group.map((control: menuControl, index) => {
-                return (
-                  <button
-                    key={index}
-                    className={`${
-                      currentNote ? "hover:text-blue-400 active:scale-95" : ""
-                    }`}
-                    onClick={control.onClick}
-                    title={control.title ?? ""}
-                    disabled={!currentNote}
-                  >
-                    <i
-                      className={`ri-${control.icon} border-r ${
-                        index === group.length - 1 && "border-none"
-                      } px-[0.3rem] py-1`}
-                      style={{ borderColor: "var(--_root-bd)" }}
-                    ></i>
-                  </button>
-                );
-              })
-            }
+            {group.map((control: MenuControl, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`${
+                    currentNote ? "hover:text-blue-400 active:scale-95" : ""
+                  }`}
+                  onClick={control.onClick}
+                  title={control.title ?? ""}
+                  disabled={!currentNote}
+                >
+                  <i
+                    className={`ri-${control.icon} border-r ${
+                      index === group.length - 1 && "border-none"
+                    } px-[0.3rem] py-1`}
+                    style={{ borderColor: "var(--_root-bd)" }}
+                  ></i>
+                </button>
+              );
+            })}
           </section>
         );
       })}

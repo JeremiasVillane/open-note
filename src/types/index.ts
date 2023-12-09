@@ -9,9 +9,9 @@ export interface FileObj {
   children?: FileObj[];
 }
 
-export interface menuControl {
+export interface MenuControl {
   icon: string;
-  onClick: () => boolean;
+  onClick: (() => boolean) | (() => Promise<void>);
   title?: string;
 }
 
