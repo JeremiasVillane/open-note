@@ -7,6 +7,7 @@ export const useNotesStore = create<NotesState>((set) => ({
   openFolders: {},
   status: null,
   showNewItemForm: null,
+  leftPanelIsClosed: false,
   setItems: (items) => set({ fileList: items }),
   setCurrentNote: (note) => set({ currentNote: note }),
   setOpenFolder: (folderId) =>
@@ -23,4 +24,5 @@ export const useNotesStore = create<NotesState>((set) => ({
     }, 2000);
   },
   setShowNewItemForm: (value) => set({ showNewItemForm: value }),
+  setLeftPanelIsClosed: (value) => set({ leftPanelIsClosed: value })
 }));

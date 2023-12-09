@@ -32,12 +32,12 @@ export default function Providers({ children }: { children: JSX.Element }) {
       <ColorSchemeScript defaultColorScheme="auto" />
       <MantineProvider defaultColorScheme="auto">
         {/* <ModalsProvider> */}
-        <TauriProvider>
-          {/* <Notifications /> */}
-          <RichTextEditor editor={editor} className="border-none">
+        <RichTextEditor editor={editor} className="border-none">
+          <TauriProvider>
+            {/* <Notifications /> */}
             {children}
-          </RichTextEditor>
-        </TauriProvider>
+          </TauriProvider>
+        </RichTextEditor>
         {/* </ModalsProvider> */}
       </MantineProvider>
     </>

@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
-import { getFocus, handleSave } from "../helpers";
+import { handleSave } from "../helpers";
 import { Note } from "../types";
 
 export const customControls = (
@@ -21,12 +21,12 @@ export const customControls = (
     },
     {
       icon: "arrow-go-back-line",
-      onClick: () => getFocus(editor).undo().run(),
+      onClick: () => editor?.commands.undo(),
       title: t("Undo"),
     },
     {
       icon: "arrow-go-forward-line",
-      onClick: () => getFocus(editor).redo().run(),
+      onClick: () => editor?.commands.redo(),
       title: t("Redo"),
     },
   ],

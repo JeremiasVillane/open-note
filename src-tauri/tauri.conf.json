@@ -49,6 +49,11 @@
         "scope": ["$DOCUMENT/**", "$DESKTOP/**/**"],
         "writeFile": true
       },
+      "clipboard": {
+        "all": false,
+        "writeText": false,
+        "readText": true
+      },
       "window": {
         "all": true,
         "center": true,
@@ -57,7 +62,7 @@
         "hide": true,
         "maximize": true,
         "minimize": true,
-        "print": true,
+        "print": false,
         "requestUserAttention": true,
         "setAlwaysOnTop": true,
         "setClosable": true,

@@ -5,6 +5,7 @@ import Superscript from "@tiptap/extension-superscript";
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
+import { ClipBoard } from "./clipboard";
 
 const CustomSubscript = SubScript.extend({
   excludes: "superscript",
@@ -22,4 +23,5 @@ export const extensions = [
   CustomSubscript,
   Highlight,
   TextAlign.configure({ types: ["heading", "paragraph"] }),
+  ClipBoard,
 ];

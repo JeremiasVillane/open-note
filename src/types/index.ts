@@ -28,11 +28,13 @@ export interface NotesState {
   openFolders: Record<string, boolean>;
   status: string | null;
   showNewItemForm: "note" | "folder" | null;
+  leftPanelIsClosed: boolean;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
   setOpenFolder: (folderId: string) => void;
   setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
+  setLeftPanelIsClosed: (value: any) => void;
 }
 
 export type I18nType = {

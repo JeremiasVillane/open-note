@@ -1,45 +1,78 @@
 import { AppShell, useMantineColorScheme } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { useState } from "react";
+import { useRichTextEditorContext } from "@mantine/tiptap";
+import { useTranslation } from "react-i18next";
 import {
   FooterLayout,
   HeaderLayout,
   LeftPanelLayout,
   MainPanelLayout,
 } from "./components";
-import { loadFiles } from "./helpers";
+import { handleClose, handleSave, loadFiles } from "./helpers";
 import { useTauriContext } from "./providers/tauri-provider";
 import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
 
 export default function App(): JSX.Element {
+  const { t } = useTranslation();
+  const { editor } = useRichTextEditorContext();
   const { appFolder } = useTauriContext();
   const { toggleColorScheme } = useMantineColorScheme();
-  const { setItems, setShowNewItemForm } = useNotesStore();
-  const [leftPanelIsOpened, setLeftPanelIsOpened] = useState(false);
+  const {
+    currentNote,
+    setCurrentNote,
+    setStatus,
+    setItems,
+    setShowNewItemForm,
+    leftPanelIsClosed,
+    setLeftPanelIsClosed,
+  } = useNotesStore();
+
+  const isEdited: boolean =
+    editor?.getText() !== "" &&
+    (currentNote?.content !== undefined ||
+      currentNote?.content !== "<p></p>") &&
+    editor?.getHTML() !== currentNote?.content;
 
   useHotkeys([
     ["ctrl+T", toggleColorScheme],
-    ["ctrl+shift+E", () => setLeftPanelIsOpened(!leftPanelIsOpened)],
+    [
+      "ctrl+S",
+      () =>
+        handleSave(t, editor!, {
+          currentNote,
+          setCurrentNote,
+          setStatus,
+        }),
+    ],
+    [
+      "ctrl+W",
+      async () => 
+        await handleClose(t, isEdited, 
+          setCurrentNote, editor
+        ),
+    ],
+    ["ctrl+shift+E", () => 
+      setLeftPanelIsClosed(!leftPanelIsClosed)],
     [
       "ctrl+shift+R",
       () => {
         loadFiles(appFolder, setItems);
-        setLeftPanelIsOpened(false);
+        setLeftPanelIsClosed(false);
       },
     ],
     [
       "ctrl+N",
       () => {
         setShowNewItemForm("note");
-        setLeftPanelIsOpened(false);
+        setLeftPanelIsClosed(false);
       },
     ],
     [
       "ctrl+shift+F",
       () => {
         setShowNewItemForm("folder");
-        setLeftPanelIsOpened(false);
+        setLeftPanelIsClosed(false);
       },
     ],
   ]);
@@ -52,18 +85,15 @@ export default function App(): JSX.Element {
         width: 200,
         breakpoint: "sm",
         collapsed: {
-          mobile: leftPanelIsOpened,
-          desktop: leftPanelIsOpened,
+          mobile: leftPanelIsClosed,
+          desktop: leftPanelIsClosed,
         },
       }}
       className="overflow-hidden select-none"
     >
       <MainPanelLayout />
 
-      <HeaderLayout
-        leftPanelIsOpened={leftPanelIsOpened}
-        setLeftPanelIsOpened={setLeftPanelIsOpened}
-      />
+      <HeaderLayout />
 
       <LeftPanelLayout />
 

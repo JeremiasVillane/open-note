@@ -1,5 +1,9 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
+import { appWindow } from "@tauri-apps/api/window";
 import { useTranslation } from "react-i18next";
+import { handleClose, handleSave } from "../../../helpers";
+import { useNotesStore } from "../../../store/notesStore";
+import { useRichTextEditorContext } from "@mantine/tiptap";
 
 export default function FileMenu({
   menuItemStyles,
@@ -9,6 +13,20 @@ export default function FileMenu({
   menuTitleStyles: string;
 }) {
   const { t } = useTranslation();
+  const { editor } = useRichTextEditorContext();
+  const {
+    currentNote,
+    setCurrentNote,
+    setLeftPanelIsClosed,
+    setShowNewItemForm,
+    setStatus,
+  } = useNotesStore();
+
+  const isEdited: boolean =
+    editor?.getText() !== "" &&
+    (currentNote?.content !== undefined ||
+      currentNote?.content !== "<p></p>") &&
+    editor?.getHTML() !== currentNote?.content;
 
   return (
     <Menu position="bottom-start" shadow="md" offset={3}>
@@ -25,7 +43,10 @@ export default function FileMenu({
 
       <Menu.Dropdown className="shadow-lg whitespace-nowrap">
         <Menu.Item
-          onClick={() => null}
+          onClick={() => {
+            setShowNewItemForm("note");
+            setLeftPanelIsClosed(false);
+          }}
           className={menuItemStyles}
           rightSection={<Text size="xs">Ctrl + N</Text>}
         >
@@ -38,7 +59,10 @@ export default function FileMenu({
         </Menu.Item>
 
         <Menu.Item
-          onClick={() => null}
+          onClick={() => {
+            setShowNewItemForm("folder");
+            setLeftPanelIsClosed(false);
+          }}
           className={menuItemStyles}
           rightSection={<Text size="xs">Ctrl + Shift + F</Text>}
         >
@@ -50,37 +74,42 @@ export default function FileMenu({
           />
         </Menu.Item>
 
-        <Menu.Item
-          onClick={() => null}
-          className={menuItemStyles}
-          rightSection={<Text size="xs">Ctrl + W</Text>}
-        >
-          <Text
-            inline
-            size="sm"
-            className="overlook"
-            data-text={t("Close note")}
-          />
-        </Menu.Item>
-
         <Menu.Divider />
 
         <Menu.Item
-          onClick={() => null}
+          onClick={async () =>
+            await handleSave(t, editor!, {
+              currentNote,
+              setCurrentNote,
+              setStatus,
+            })
+          }
           className={menuItemStyles}
           rightSection={
             <Text size="xs" className="whitespace-nowrap">
-              Ctrl + Shift + R
+              Ctrl + S
             </Text>
           }
+          disabled={!currentNote}
         >
-          <Text inline size="sm" className="overlook" data-text={t("Reload")} />
+          <Text inline size="sm" className="overlook" data-text={t("Save")} />
+        </Menu.Item>
+
+        <Menu.Item
+          onClick={async () =>
+            await handleClose(t, isEdited, setCurrentNote, editor)
+          }
+          className={menuItemStyles}
+          rightSection={<Text size="xs">Ctrl + W</Text>}
+          disabled={!currentNote}
+        >
+          <Text inline size="sm" className="overlook" data-text={t("Close")} />
         </Menu.Item>
 
         <Menu.Divider />
 
         <Menu.Item
-          onClick={() => null}
+          onClick={async () => await appWindow.close()}
           rightSection={<Text size="xs">Alt + F4</Text>}
           className={menuItemStyles}
         >

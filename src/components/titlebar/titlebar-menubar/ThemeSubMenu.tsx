@@ -1,7 +1,11 @@
 import { Menu, Text, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
-export default function ThemeSubMenu({ menuItemStyles }: { menuItemStyles: string }) {
+export default function ThemeSubMenu({
+  menuItemStyles,
+}: {
+  menuItemStyles: string;
+}) {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
 
@@ -23,7 +27,7 @@ export default function ThemeSubMenu({ menuItemStyles }: { menuItemStyles: strin
 
       <Menu.Dropdown className="shadow-lg">
         <Menu.Item
-          className={`${menuItemStyles} py-1`}
+          className={`${menuItemStyles}`}
           onClick={() => setColorScheme("light")}
         >
           <Text
@@ -35,7 +39,7 @@ export default function ThemeSubMenu({ menuItemStyles }: { menuItemStyles: strin
         </Menu.Item>
 
         <Menu.Item
-          className={`${menuItemStyles} py-1`}
+          className={`${menuItemStyles}`}
           onClick={() => setColorScheme("dark")}
         >
           <Text inline size="sm" className={"overlook"} data-text={t("Dark")} />

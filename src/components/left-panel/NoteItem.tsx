@@ -2,7 +2,12 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import * as fs from "@tauri-apps/api/fs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { handleDelete, handleRename, loadFiles } from "../../helpers";
+import {
+  handleClose,
+  handleDelete,
+  handleRename,
+  loadFiles,
+} from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import NoteMenu from "./NoteMenu";
@@ -57,16 +62,6 @@ export function NoteItem({
     setShowNewItemForm(null);
   };
 
-  const handleClose = async () => {
-    if (isEdited) {
-      const confirm = await window.confirm(t("ConfirmDiscardChanges"));
-      if (!confirm) return;
-    }
-
-    setCurrentNote(null);
-    editor?.chain().clearContent().run();
-  };
-
   return (
     <div className="pl-1.5 w-full" onClick={toRename ? () => null : hadleOpen}>
       <div className="flex items-center justify-between">
@@ -106,7 +101,7 @@ export function NoteItem({
           <NoteMenu
             menuItemStyles={menuItemStyles}
             setToRename={setToRename}
-            handleClose={handleClose}
+            handleClose={async () => await handleClose(t, isEdited, setCurrentNote, editor)}
             handleDelete={async () => {
               await handleDelete(
                 null,

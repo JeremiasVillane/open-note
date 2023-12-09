@@ -34,7 +34,7 @@ export default function TitleBarIconMenu({
   } transition-colors ease-in-out`;
 
   return (
-    <Menu shadow="md" width={200} offset={4}>
+    <Menu shadow="md" width={180} offset={4}>
       <Menu.Target>
         <UnstyledButton className="cursor-default" onDoubleClick={handleClose}>
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
