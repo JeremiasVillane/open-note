@@ -44,6 +44,7 @@ export const ClipBoard = Extension.create({
           readText()
             .then((text) => {
               editor?.commands.insertContent(text);
+              // document.execCommand("insertHTML", false, text!)
             })
             .catch((error) => {
               console.error("Error pasting text: ", error);
