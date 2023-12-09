@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Explorer, FolderMenu, NewItemForm } from "..";
+import { Explorer, NewItemForm } from "..";
 import { handleRename, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import FolderMenu from "./FolderMenu";
 
 export function FolderItem({
   item,

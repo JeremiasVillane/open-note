@@ -2,9 +2,9 @@ import { Menu, UnstyledButton } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { OptionsIcon } from "./icons";
+import { OptionsIcon } from "../ui/icons";
 
-export function FileMenu({
+export default function NoteMenu({
   menuItemStyles,
   setToRename,
   handleClose,

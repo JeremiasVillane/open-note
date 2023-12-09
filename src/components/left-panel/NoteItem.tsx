@@ -2,10 +2,10 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import * as fs from "@tauri-apps/api/fs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FileMenu } from "..";
 import { handleDelete, handleRename, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import NoteMenu from "./NoteMenu";
 
 export function NoteItem({
   noteName,
@@ -103,7 +103,7 @@ export function NoteItem({
         )}
 
         {currentNote?.id === noteId ? (
-          <FileMenu
+          <NoteMenu
             menuItemStyles={menuItemStyles}
             setToRename={setToRename}
             handleClose={handleClose}

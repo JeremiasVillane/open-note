@@ -4,7 +4,7 @@ import { useCallback, useLayoutEffect, useState } from "react";
 import { useNotesStore } from "../../store/notesStore";
 import TitleBarButtons from "./TitleBarButtons";
 import TitleBarIconMenu from "./TitleBarIconMenu";
-import TitleBarMenu from "./titlebar-menu/TitleBarMenu";
+import TitleBarMenuBar from "./titlebar-menubar/TitleBarMenuBar";
 
 export function Titlebar() {
   const { colorScheme } = useMantineColorScheme();
@@ -56,7 +56,7 @@ export function Titlebar() {
           isMaximized={isMaximized}
         />
 
-        <TitleBarMenu />
+        <TitleBarMenuBar />
       </div>
 
       <Text

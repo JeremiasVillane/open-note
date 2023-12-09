@@ -6,9 +6,9 @@ import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
-import { OptionsIcon } from "./icons";
+import { OptionsIcon } from "../ui/icons";
 
-export function FolderMenu({
+export default function FolderMenu({
   menuItemStyles,
   folder,
   setNewItem,

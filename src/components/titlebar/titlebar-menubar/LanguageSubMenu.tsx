@@ -3,7 +3,7 @@ import { useHotkeys } from "@mantine/hooks";
 import { t } from "i18next";
 import { I18nType } from "../../../types";
 
-export default function LanguageToggle({
+export default function LanguageSubMenu({
   i18n,
   menuItemStyles,
 }: {
