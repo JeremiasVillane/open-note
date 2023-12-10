@@ -23,7 +23,7 @@ export default function FolderMenu({
 }) {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
-  const { setStatus, setItems } = useNotesStore();
+  const { setStatus, setItems, setOpenFolder } = useNotesStore();
 
   const handleCreate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -56,6 +56,7 @@ export default function FolderMenu({
         className={menuItemStyles}
         onClick={(e) => {
           handleCreate(e, folder.id, "note");
+          setOpenFolder(folder.id)
           setContext(false);
         }}
       >
@@ -66,6 +67,7 @@ export default function FolderMenu({
         className={menuItemStyles}
         onClick={(e) => {
           handleCreate(e, folder.id, "folder");
+          setOpenFolder(folder.id)
           setContext(false);
         }}
       >
