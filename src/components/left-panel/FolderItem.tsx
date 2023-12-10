@@ -32,7 +32,7 @@ export function FolderItem({
   const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
   const ref = useClickOutside(() => setContext(false));
 
-  const showNav = (event: any) => {
+  const showNav = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
     setContext(false);
 
