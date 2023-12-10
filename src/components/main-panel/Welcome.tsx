@@ -11,7 +11,7 @@ export default function Welcome() {
     "cursor-pointer hover:text-blue-300 active:scale-95 transition-colors ease-in-out duration-300";
 
   return (
-    <main className="flex flex-row items-center justify-center h-[calc(80vh)] text-slate-400">
+    <main className="flex lg:flex-row flex-col gap-3 items-center justify-center h-[86vh] text-slate-400">
       <section className="flex flex-col items-center justify-center">
         <div className="flex flex-col text-center">
           <Image

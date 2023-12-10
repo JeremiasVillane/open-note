@@ -40,7 +40,7 @@ export default function FolderMenu({
   useHotkeys([["escape", () => setContext(false)]], undefined, true);
 
   return (
-    <Paper shadow="md" className="flex flex-col p-1">
+    <Paper shadow="md" className="flex flex-col p-1 z-50">
       <UnstyledButton
         className={menuItemStyles}
         onClick={(e) => {

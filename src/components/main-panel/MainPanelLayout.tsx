@@ -6,5 +6,9 @@ import Welcome from "./Welcome";
 export function MainPanelLayout(): JSX.Element {
   const { currentNote } = useNotesStore();
 
-  return <AppShellMain>{currentNote ? <Editor /> : <Welcome />}</AppShellMain>;
+  return (
+    <AppShellMain className="flex-1">
+      {currentNote ? <Editor /> : <Welcome />}
+    </AppShellMain>
+  );
 }

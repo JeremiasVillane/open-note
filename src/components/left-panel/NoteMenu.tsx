@@ -27,7 +27,7 @@ export default function NoteMenu({
   );
 
   return (
-    <Paper shadow="sm" className="flex flex-col p-1">
+    <Paper shadow="sm" className="flex flex-col p-1 z-50">
       <UnstyledButton
         onClick={() => {
           setToRename(true);
