@@ -6,12 +6,12 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "remixicon/fonts/remixicon.css";
 import "../styles/globals.css";
 // import { ModalsProvider } from "@mantine/modals";
-import { useHotkeys } from "@mantine/hooks";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../lib/extensions";
 import { useNotesStore } from "../store/notesStore";
 import { useMinWidth } from "../utils";
+import HotkeysProvider from "./hotkeys-provider";
 import { TauriProvider } from "./tauri-provider";
 
 export default function Providers({ children }: { children: JSX.Element }) {
@@ -24,8 +24,6 @@ export default function Providers({ children }: { children: JSX.Element }) {
 
   useMinWidth(1000);
 
-  useHotkeys([["ctrl+F", () => null]]);
-
   return (
     <>
       <ColorSchemeScript defaultColorScheme="auto" />
@@ -33,7 +31,7 @@ export default function Providers({ children }: { children: JSX.Element }) {
         {/* <ModalsProvider> */}
         <RichTextEditor editor={editor} className="border-none">
           <TauriProvider>
-            {children}
+            <HotkeysProvider>{children}</HotkeysProvider>
           </TauriProvider>
         </RichTextEditor>
         {/* </ModalsProvider> */}
