@@ -1,3 +1,4 @@
+import { useClickOutside } from "@mantine/hooks";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, NewItemForm } from "..";
@@ -13,24 +14,43 @@ export function FolderItem({
   setNewItem,
   fileStyles,
   menuItemStyles,
+  contextMenuStyles,
 }: {
   item: FileObj;
   newItem: Record<string, string>;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
   fileStyles: string;
   menuItemStyles: string;
+  contextMenuStyles: string;
 }) {
   const { t } = useTranslation();
   const { setStatus, setItems, openFolders, setOpenFolder } = useNotesStore();
+  const { appFolder } = useTauriContext();
   const [toRename, setToRename] = useState(false);
   const [folderName, setFolderName] = useState(item.name);
-  const { appFolder } = useTauriContext();
+  const [context, setContext] = useState(false);
+  const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
+  const ref = useClickOutside(() => setContext(false));
+
+  const showNav = (event: any) => {
+    event.preventDefault();
+    setContext(false);
+
+    const positionChange = {
+      x: event.pageX,
+      y: event.pageY,
+    };
+
+    setXyPosistion(positionChange);
+    setContext(true);
+  };
 
   return (
     <>
       <div
-        className={`${fileStyles} group/item justify-between items-center relative`}
+        className={`${fileStyles} group/item justify-between items-center`}
         onClick={() => setOpenFolder(item.id)}
+        onContextMenu={showNav}
       >
         <div className="flex">
           <i
@@ -38,6 +58,7 @@ export function FolderItem({
               openFolders[item.id] ? "ri-folder-open-fill" : "ri-folder-fill"
             } text-yellow-500`}
           ></i>
+
           {toRename ? (
             <form
               className="pl-1.5 font-semibold"
@@ -75,15 +96,6 @@ export function FolderItem({
             />
           )}
         </div>
-
-        <div className="invisible group-hover/item:visible">
-          <FolderMenu
-            menuItemStyles={menuItemStyles}
-            folder={item}
-            setNewItem={setNewItem}
-            setToRename={setToRename}
-          />
-        </div>
       </div>
 
       <div
@@ -101,6 +113,22 @@ export function FolderItem({
         ) : null}
         <Explorer fileList={item.children!} />
       </div>
+
+      {context ? (
+        <div
+          style={{ top: xYPosistion.y, left: xYPosistion.x }}
+          className={contextMenuStyles}
+          ref={ref}
+        >
+          <FolderMenu
+            menuItemStyles={menuItemStyles}
+            folder={item}
+            setNewItem={setNewItem}
+            setToRename={setToRename}
+            setContext={setContext}
+          />
+        </div>
+      ) : null}
     </>
   );
 }

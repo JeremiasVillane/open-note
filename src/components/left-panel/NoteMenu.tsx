@@ -1,51 +1,62 @@
-import { Menu, UnstyledButton } from "@mantine/core";
+import { Paper, UnstyledButton } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { OptionsIcon } from "../ui/icons";
 
 export default function NoteMenu({
   menuItemStyles,
   setToRename,
+  setContext,
   handleClose,
   handleDelete,
 }: {
   menuItemStyles: string;
   setToRename: Dispatch<SetStateAction<boolean>>;
+  setContext: Dispatch<SetStateAction<boolean>>;
   handleClose: () => void;
   handleDelete: () => void;
 }) {
   const { t } = useTranslation();
 
-  useHotkeys([["f2", () => setToRename(true)]], undefined, true);
+  useHotkeys(
+    [
+      ["escape", () => setContext(false)],
+    ],
+    undefined,
+    true
+  );
 
   return (
-    <Menu position="bottom-start" shadow="sm">
-      <Menu.Target>
-        <UnstyledButton>
-          <OptionsIcon size={21} />
-        </UnstyledButton>
-      </Menu.Target>
+    <Paper shadow="sm" className="flex flex-col p-1">
+      <UnstyledButton
+        onClick={() => {
+          setToRename(true);
+          setContext(false);
+        }}
+        className={menuItemStyles}
+      >
+        {t("Rename")}
+      </UnstyledButton>
 
-      <Menu.Dropdown className="shadow-lg">
-        <Menu.Item onClick={() => setToRename(true)} className={menuItemStyles}>
-          {t("Rename")}
-        </Menu.Item>
+      <UnstyledButton
+        onClick={async () => {
+          handleClose();
+          setContext(false);
+        }}
+        className={menuItemStyles}
+      >
+        {t("Close")}
+      </UnstyledButton>
 
-        <Menu.Item
-          onClick={async () => handleClose()}
-          className={menuItemStyles}
-        >
-          {t("Close")}
-        </Menu.Item>
-
-        <Menu.Item
-          onClick={async () => handleDelete()}
-          className={`${menuItemStyles} text-red-600`}
-        >
-          {t("Delete")}
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+      <UnstyledButton
+        onClick={async () => {
+          handleDelete();
+          setContext(false);
+        }}
+        className={`${menuItemStyles} text-red-600`}
+      >
+        {t("Delete")}
+      </UnstyledButton>
+    </Paper>
   );
 }

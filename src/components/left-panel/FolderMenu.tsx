@@ -1,4 +1,4 @@
-import { Menu, UnstyledButton } from "@mantine/core";
+import { Paper, UnstyledButton } from "@mantine/core";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { loadFiles } from "../../helpers";
@@ -6,18 +6,20 @@ import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
-import { OptionsIcon } from "../ui/icons";
+import { useHotkeys } from "@mantine/hooks";
 
 export default function FolderMenu({
   menuItemStyles,
   folder,
   setNewItem,
   setToRename,
+  setContext,
 }: {
   menuItemStyles: string;
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
   setToRename: Dispatch<SetStateAction<boolean>>;
+  setContext: Dispatch<SetStateAction<boolean>>;
 }) {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
@@ -35,49 +37,51 @@ export default function FolderMenu({
     });
   };
 
+  useHotkeys([["escape", () => setContext(false)]], undefined, true);
+
   return (
-    <Menu position="bottom" shadow="sm">
-      <Menu.Target>
-        <UnstyledButton onClick={(e) => e.stopPropagation()}>
-          <OptionsIcon size={21} className="absolute top-0.5 right-0" />
-        </UnstyledButton>
-      </Menu.Target>
+    <Paper shadow="md" className="flex flex-col p-1">
+      <UnstyledButton
+        className={menuItemStyles}
+        onClick={(e) => {
+          e.stopPropagation();
+          setToRename(true);
+          setContext(false);
+        }}
+      >
+        {t("Rename")}
+      </UnstyledButton>
 
-      <Menu.Dropdown className="shadow-lg">
-        <Menu.Item
-          className={menuItemStyles}
-          onClick={(e) => {
-            e.stopPropagation();
-            setToRename(true);
-          }}
-        >
-          {t("Rename")}
-        </Menu.Item>
+      <UnstyledButton
+        className={menuItemStyles}
+        onClick={(e) => {
+          handleCreate(e, folder.id, "note");
+          setContext(false);
+        }}
+      >
+        {t("New note")}
+      </UnstyledButton>
 
-        <Menu.Item
-          className={menuItemStyles}
-          onClick={(e) => handleCreate(e, folder.id, "note")}
-        >
-          {t("New note")}
-        </Menu.Item>
+      <UnstyledButton
+        className={menuItemStyles}
+        onClick={(e) => {
+          handleCreate(e, folder.id, "folder");
+          setContext(false);
+        }}
+      >
+        {t("New folder")}
+      </UnstyledButton>
 
-        <Menu.Item
-          className={menuItemStyles}
-          onClick={(e) => handleCreate(e, folder.id, "folder")}
-        >
-          {t("New folder")}
-        </Menu.Item>
-
-        <Menu.Item
-          className={`${menuItemStyles} text-red-600`}
-          onClick={async (e) => {
-            await handleDelete(e, "folder", setStatus, folder.path, t);
-            loadFiles(appFolder, setItems);
-          }}
-        >
-          {t("Delete folder")}
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+      <UnstyledButton
+        className={`${menuItemStyles} text-red-600`}
+        onClick={async (e) => {
+          await handleDelete(e, "folder", setStatus, folder.path, t);
+          loadFiles(appFolder, setItems);
+          setContext(false);
+        }}
+      >
+        {t("Delete folder")}
+      </UnstyledButton>
+    </Paper>
   );
 }

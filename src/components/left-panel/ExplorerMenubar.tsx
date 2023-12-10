@@ -16,7 +16,7 @@ export function ExplorerMenubar() {
       justify="flex-end"
       gap="1"
       bg={`${colorScheme === "light" ? "#e8f3fc" : "#1b2c3c"}`}
-      className="pr-1"
+      className="pr-1 border-r border-[var(--mantine-color-gray-light)]"
     >
       {explorerMenubarControls(
         t,

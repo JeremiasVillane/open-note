@@ -12,9 +12,12 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
   }`;
+
   const menuItemStyles = `${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
-  } transition-colors ease-in-out`;
+  } transition-colors ease-in-out text-sm cursor-default pl-4 pr-2 py-1 rounded-sm`;
+
+  const contextMenuStyles = `z-10 fixed rounded-sm border border-[var(--mantine-color-gray-light)]`;
 
   return (
     <aside className="group/panel">
@@ -27,6 +30,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
               setNewItem={setNewItem}
               fileStyles={fileStyles}
               menuItemStyles={menuItemStyles}
+              contextMenuStyles={contextMenuStyles}
             />
           </section>
         ) : (
@@ -43,6 +47,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
               noteId={item.id}
               path={item.path}
               menuItemStyles={menuItemStyles}
+              contextMenuStyles={contextMenuStyles}
             />
           </section>
         )
