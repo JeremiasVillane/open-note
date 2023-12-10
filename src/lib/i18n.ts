@@ -99,6 +99,7 @@ const resources = {
       CreationFailed: "Error creando elemento",
       "renamed to": "renombrado a",
       RenameFailed: "Error eliminando elemento",
+      "Files loaded": "Archivos cargados",
 
       // ***** Toolbar
       "Toggle explorer": "Mostrar/ocultar explorador",

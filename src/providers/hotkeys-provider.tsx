@@ -54,6 +54,7 @@ export default function HotkeysProvider({
         "ctrl+shift+R",
         () => {
           loadFiles(appFolder, setItems);
+          setStatus(t("Files loaded"));
           setLeftPanelIsClosed(false);
         },
       ],

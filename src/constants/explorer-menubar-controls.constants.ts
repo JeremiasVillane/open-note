@@ -11,7 +11,8 @@ export const explorerMenubarControls = (
     loaderFn: (content: FileObj[]) => void
   ) => Promise<void>,
   appFolder: string,
-  setItems: (items: FileObj[]) => void
+  setItems: (items: FileObj[]) => void,
+  setStatus: (status: string | null) => void
 ) => [
   {
     icon: "file-add-line",
@@ -30,6 +31,9 @@ export const explorerMenubarControls = (
     icon: "refresh-line",
     title: t("Reload explorer") + "\nCtrl+Shift+R",
     className: commonStyles,
-    onClick: () => loadFiles(appFolder, setItems),
+    onClick: () => {
+      loadFiles(appFolder, setItems);
+      setStatus(t("Files loaded"));
+    },
   },
 ];

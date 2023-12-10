@@ -7,7 +7,7 @@ import { useNotesStore } from "../../store/notesStore";
 
 export function ExplorerMenubar() {
   const { t } = useTranslation();
-  const { setItems, setShowNewItemForm } = useNotesStore();
+  const { setItems, setShowNewItemForm, setStatus } = useNotesStore();
   const { appFolder } = useTauriContext();
   const { colorScheme } = useMantineColorScheme();
 
@@ -23,7 +23,8 @@ export function ExplorerMenubar() {
         setShowNewItemForm,
         loadFiles,
         appFolder,
-        setItems
+        setItems,
+        setStatus
       ).map((control, index) => {
         return (
           <ActionIcon
