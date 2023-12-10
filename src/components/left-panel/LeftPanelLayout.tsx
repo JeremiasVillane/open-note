@@ -1,4 +1,8 @@
-import { AppShellNavbar, AppShellSection } from "@mantine/core";
+import {
+  AppShellNavbar,
+  AppShellSection,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Explorer, ExplorerMenubar, NewItemForm } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
@@ -14,6 +18,7 @@ export function LeftPanelLayout({
   }>;
 }) {
   const { fileList, showNewItemForm } = useNotesStore();
+  const { colorScheme } = useMantineColorScheme();
   const { appFolder } = useTauriContext();
   const sidebarRef = useRef(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -80,7 +85,9 @@ export function LeftPanelLayout({
 
       <div
         id="sidebar-resizer"
-        className="flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 hover:bg-gray-400 z-10"
+        className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
+          colorScheme === "light" ? "hover:bg-slate-300" : "hover:bg-slate-600"
+        } z-10`}
         onMouseDown={startResizing}
       />
     </AppShellNavbar>

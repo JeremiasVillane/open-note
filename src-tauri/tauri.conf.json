@@ -112,10 +112,10 @@
       {
         "title": "Open Note",
         "label": "main",
-        "width": 1000,
+        "width": 1100,
         "height": 800,
         "minWidth": 963,
-        "minHeight": 630,
+        "minHeight": 740,
         "resizable": true,
         "fullscreen": false,
         "visible": false,
