@@ -32,6 +32,10 @@ const resources = {
   },
   es: {
     translations: {
+      // ***** Welcome
+      "Switch language": "Cambiar idioma",
+      "Dark/Light theme": "Tema claro/oscuro",
+
       // ***** Title bar menu
       File: "Archivo",
       Edit: "Editar",
@@ -51,6 +55,24 @@ const resources = {
       Welcome: "Bienvenida",
       About: "Acerca de",
 
+      // ***** Window menu
+      Minimize: "Minimizar",
+      Maximize: "Maximizar",
+      Restore: "Restaurar",
+      "On top": "Por encima",
+      Close: "Cerrar",
+
+      // ***** Explorer/Explorer menubar
+      "Reload explorer": "Recargar explorador",
+      Cancel: "Cancelar",
+
+      // ***** Context menu
+      Rename: "Renombrar",
+      Delete: "Eliminar",
+      "New note": "Nueva nota",
+      "New folder": "Nueva carpeta",
+      "Delete folder": "Eliminar carpeta",
+
       // ***** Modals
       ConfirmDiscardChanges: "¿Estás seguro que quieres descartar los cambios?",
       ConfirmDeleteNote: "¿Estás seguro que quieres eliminar esta nota?",
@@ -61,20 +83,6 @@ const resources = {
       "Developed by": "Desarrollada por",
       "Powered by": "Desarrollada con",
       AboutInfo: "Usando React/Typescript y Rust.",
-
-      // ***** Window menu
-      Minimize: "Minimizar",
-      Maximize: "Maximizar",
-      Restore: "Restaurar",
-      Fullscreen: "Pantalla completa",
-      Close: "Cerrar",
-
-      // ***** Context menu
-      Rename: "Renombrar",
-      Delete: "Eliminar",
-      "New note": "Nueva nota",
-      "New folder": "Nueva carpeta",
-      "Delete folder": "Eliminar carpeta",
 
       // ***** Statusbar
       FolderCreated: "Carpeta creada correctamente",
@@ -91,10 +99,6 @@ const resources = {
       CreationFailed: "Error creando elemento",
       "renamed to": "renombrado a",
       RenameFailed: "Error eliminando elemento",
-
-      // ***** Explorer/Explorer menubar
-      Reload: "Recargar",
-      Cancel: "Cancelar",
 
       // ***** Toolbar
       "Toggle explorer": "Mostrar/ocultar explorador",

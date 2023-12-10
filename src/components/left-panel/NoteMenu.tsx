@@ -17,7 +17,7 @@ export default function NoteMenu({
 }) {
   const { t } = useTranslation();
 
-  useHotkeys([["f2", () => setToRename(true)]]);
+  useHotkeys([["f2", () => setToRename(true)]], undefined, true);
 
   return (
     <Menu position="bottom-start" shadow="sm">

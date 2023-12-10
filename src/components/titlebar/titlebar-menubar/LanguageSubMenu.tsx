@@ -1,5 +1,4 @@
 import { Menu, Text } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
 import { t } from "i18next";
 import { I18nType } from "../../../types";
 
@@ -11,19 +10,8 @@ export default function LanguageSubMenu({
   menuItemStyles: string;
 }) {
   const languages = Object.keys(i18n?.options?.resources!);
-  if (languages.length == 1) return <></>;
-  const lang = i18n.resolvedLanguage;
-  let nextLangIdx = 0;
-
-  function cycleLang() {
-    if (nextLangIdx == languages.length) nextLangIdx = 0;
-    i18n.changeLanguage(languages[nextLangIdx]);
-  }
 
   const langMenu = languages.map((supportedLang, index) => {
-    const selectedLang = lang === supportedLang;
-    if (selectedLang) nextLangIdx = index + 1;
-
     return (
       <Menu.Item
         key={index}
@@ -39,8 +27,6 @@ export default function LanguageSubMenu({
       </Menu.Item>
     );
   });
-
-  useHotkeys([["Ctrl+L", cycleLang]]);
 
   return (
     <Menu trigger="hover" position="right-start" shadow="md" offset={5}>
