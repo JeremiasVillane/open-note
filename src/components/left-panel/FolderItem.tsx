@@ -1,12 +1,13 @@
 import { useClickOutside } from "@mantine/hooks";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, lazy, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, NewItemForm } from "..";
 import { handleRename, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
-import FolderMenu from "./FolderMenu";
+
+const LazyFolderMenu = lazy(() => import("./FolderMenu"));
 
 export function FolderItem({
   item,
@@ -120,13 +121,15 @@ export function FolderItem({
           className={contextMenuStyles}
           ref={ref}
         >
-          <FolderMenu
-            menuItemStyles={menuItemStyles}
-            folder={item}
-            setNewItem={setNewItem}
-            setToRename={setToRename}
-            setContext={setContext}
-          />
+          <Suspense>
+            <LazyFolderMenu
+              menuItemStyles={menuItemStyles}
+              folder={item}
+              setNewItem={setNewItem}
+              setToRename={setToRename}
+              setContext={setContext}
+            />
+          </Suspense>
         </div>
       ) : null}
     </>
