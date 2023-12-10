@@ -41,7 +41,8 @@ export function NoteItem({
   const [fileName, setFileName] = useState(noteName);
   const [context, setContext] = useState(false);
   const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
-  const ref = useClickOutside(() => setContext(false));
+  const menuRef = useClickOutside(() => setContext(false));
+  const renameFormRef = useClickOutside(() => setToRename(false));
 
   const showNav = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
@@ -115,6 +116,7 @@ export function NoteItem({
                 );
                 loadFiles(appFolder, setItems);
               }}
+              ref={renameFormRef}
             >
               <input
                 type="text"
@@ -136,7 +138,7 @@ export function NoteItem({
         <div
           style={{ top: xYPosistion.y, left: xYPosistion.x }}
           className={contextMenuStyles}
-          ref={ref}
+          ref={menuRef}
         >
           <Suspense>
             <LazyNoteMenu

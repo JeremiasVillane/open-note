@@ -31,7 +31,8 @@ export function FolderItem({
   const [folderName, setFolderName] = useState(item.name);
   const [context, setContext] = useState(false);
   const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
-  const ref = useClickOutside(() => setContext(false));
+  const menuRef = useClickOutside(() => setContext(false));
+  const renameFormRef = useClickOutside(() => setToRename(false));
 
   const showNav = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
@@ -79,6 +80,7 @@ export function FolderItem({
                 );
                 loadFiles(appFolder, setItems);
               }}
+              ref={renameFormRef}
             >
               <input
                 type="text"
@@ -119,7 +121,7 @@ export function FolderItem({
         <div
           style={{ top: xYPosistion.y, left: xYPosistion.x }}
           className={contextMenuStyles}
-          ref={ref}
+          ref={menuRef}
         >
           <Suspense>
             <LazyFolderMenu
