@@ -49,7 +49,7 @@ export default function TitleBarIconMenu(): ReactNode {
       offset={4}
     >
       <Menu.Target>
-        <UnstyledButton className="cursor-default" onDoubleClick={handleExit}>
+        <UnstyledButton className="cursor-default">
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
         </UnstyledButton>
       </Menu.Target>
