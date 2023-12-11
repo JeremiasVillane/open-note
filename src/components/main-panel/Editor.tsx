@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNotesStore } from "../../store/notesStore";
 
 /**
- * Renders the Editor component.
+ * Renders the Editor component and updates it whenever its content changes.
  *
  * @returns {JSX.Element} The rendered Editor component.
  */
