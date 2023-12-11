@@ -8,6 +8,14 @@ import { Explorer, ExplorerMenubar, NewItemForm } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
+/**
+ * Renders the left panel layout of the application.
+ *
+ * @param {Object} param - An object containing the following properties:
+ *   - sidebarWidth: The width of the sidebar.
+ *   - setSidebarWidth: A function to set the width of the sidebar.
+ * @return {JSX.Element} The JSX element representing the left panel layout.
+ */
 export function LeftPanelLayout({
   sidebarWidth,
   setSidebarWidth,
@@ -16,7 +24,7 @@ export function LeftPanelLayout({
   setSidebarWidth: React.Dispatch<{
     width: number;
   }>;
-}) {
+}): JSX.Element {
   const { fileList, showNewItemForm } = useNotesStore();
   const { colorScheme } = useMantineColorScheme();
   const { appFolder } = useTauriContext();

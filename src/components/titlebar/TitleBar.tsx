@@ -5,7 +5,13 @@ import { TitleBarProvider } from "./TitleBarProvider";
 import TitleBarMenuBar from "./titlebar-menubar/TitleBarMenuBar";
 import TitleBarName from "./TitleBarName";
 
-export function Titlebar() {
+/**
+ * Renders the Titlebar component,
+ * containing the icon menu, menu bar, window name and window controls.
+ *
+ * @return {JSX.Element} The rendered Titlebar component.
+ */
+export function Titlebar(): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   return (

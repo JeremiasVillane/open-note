@@ -4,6 +4,12 @@ import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
 
+/**
+ * Renders the Explorer component.
+ *
+ * @param {Array<FileObj>} fileList - The list of files to display in the Explorer.
+ * @returns {JSX.Element} The JSX representation of the Explorer component.
+ */
 export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();

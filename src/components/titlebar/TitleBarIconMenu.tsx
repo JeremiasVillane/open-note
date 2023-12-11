@@ -5,7 +5,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { useContext, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
 import {
@@ -16,7 +16,12 @@ import {
 } from "../ui/icons";
 import TitleBarContext from "./TitleBarProvider";
 
-export default function TitleBarIconMenu() {
+/**
+ * Renders the window context menu bar.
+ *
+ * @return {ReactNode} The rendered menu component.
+ */
+export default function TitleBarIconMenu(): ReactNode {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [opened, setOpened] = useState(false);

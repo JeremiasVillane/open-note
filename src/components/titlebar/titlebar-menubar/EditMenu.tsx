@@ -5,13 +5,21 @@ import { useNotesStore } from "../../../store/notesStore";
 import LanguageSubMenu from "./LanguageSubMenu";
 import ThemeSubMenu from "./ThemeSubMenu";
 
+/**
+ * Renders an Edit Menu component.
+ *
+ * @param {object} props - The component props.
+ * @param {string} props.menuItemStyles - The styles for menu items.
+ * @param {string} props.menuTitleStyles - The styles for menu title.
+ * @return {JSX.Element} The rendered Edit Menu component.
+ */
 export default function EditMenu({
   menuItemStyles,
   menuTitleStyles,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}) {
+}): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();

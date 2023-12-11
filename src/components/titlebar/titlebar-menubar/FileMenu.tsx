@@ -5,13 +5,21 @@ import { handleClose, handleSave } from "../../../helpers";
 import { useNotesStore } from "../../../store/notesStore";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 
+/**
+ * Renders a file menu with various options to manage the current note.
+ *
+ * @param {object} props - The component props.
+ * @param {string} props.menuItemStyles - The styles for the menu items.
+ * @param {string} props.menuTitleStyles - The styles for the menu title.
+ * @return {JSX.Element} The rendered file menu component.
+ */
 export default function FileMenu({
   menuItemStyles,
   menuTitleStyles,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}) {
+}): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const {

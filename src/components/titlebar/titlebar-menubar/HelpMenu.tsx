@@ -1,13 +1,21 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Renders a HelpMenu component.
+ *
+ * @param {Object} props - The properties of the HelpMenu component.
+ * @param {string} props.menuItemStyles - The styles for the menu items.
+ * @param {string} props.menuTitleStyles - The styles for the menu title.
+ * @returns {JSX.Element} The rendered HelpMenu component.
+ */
 export default function HelpMenu({
   menuItemStyles,
   menuTitleStyles,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}) {
+}): JSX.Element {
   const { t } = useTranslation();
 
   return (

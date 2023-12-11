@@ -1,6 +1,12 @@
 import { TFunction } from "i18next";
 
-export const labels = (t: TFunction<"translation", undefined>) => {
+/**
+ * Generates an object containing labels for the Editor toolbar controls.
+ *
+ * @param {TFunction< "translation", undefined >} t - The translation function.
+ * @return {object} An object containing labels for formatting controls.
+ */
+export const labels = (t: TFunction<"translation", undefined>): object => {
   return {
     // Primary formatting
     boldControlLabel: t("Bold"),

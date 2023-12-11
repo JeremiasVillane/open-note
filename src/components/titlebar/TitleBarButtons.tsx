@@ -9,7 +9,12 @@ import {
 } from "../ui/icons";
 import TitleBarContext from "./TitleBarProvider";
 
-export default function TitleBarButtons() {
+/**
+ * Renders the window controls.
+ *
+ * @return {JSX.Element} The rendered title bar buttons.
+ */
+export default function TitleBarButtons(): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { isMaximized, handleMinimize, handleMaximize, handleExit } =

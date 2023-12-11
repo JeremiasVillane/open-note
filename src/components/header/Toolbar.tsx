@@ -5,7 +5,12 @@ import { useNotesStore } from "../../store/notesStore";
 import { CodeBlockIcon } from "../ui/icons";
 import { CustomToolbarControls } from "./CustomToolbarControls";
 
-export function Toolbar() {
+/**
+ * Renders the toolbar component for the rich text editor.
+ *
+ * @return {JSX.Element} The rendered toolbar component.
+ */
+export function Toolbar(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();

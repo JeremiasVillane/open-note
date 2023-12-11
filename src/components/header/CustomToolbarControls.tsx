@@ -4,7 +4,12 @@ import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
 import { MenuControl } from "../../types";
 
-export function CustomToolbarControls() {
+/**
+ * Renders the custom toolbar controls for the rich text editor.
+ *
+ * @return {JSX.Element} The custom toolbar controls.
+ */
+export function CustomToolbarControls(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setStatus, setShowNewItemForm } =

@@ -19,6 +19,12 @@ const TitleBarContext = createContext<TitleBarContextType>({
   handleExit: () => Promise.resolve(),
 });
 
+/**
+ * It provides the necessary context for managing the title bar of the application window.
+ *
+ * @param {React.ReactNode} children - The children components to be wrapped by the provider.
+ * @return {React.ReactNode} The wrapped children components.
+ */
 export const TitleBarProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }: any) => {

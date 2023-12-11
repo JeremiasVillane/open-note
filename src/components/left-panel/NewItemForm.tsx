@@ -5,6 +5,16 @@ import { handleCreate, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
+/**
+ * Renders a form for creating a new item.
+ *
+ * @param {Object} props - The props object.
+ * @param {string} props.itemType - The type of the item (note or folder).
+ * @param {string} props.path - The path of the item.
+ * @param {string} props.parentId - The ID of the parent item.
+ * @param {Dispatch<SetStateAction<Record<string, string>>>} [props.setNewItem] - Optional setter function used here to hide the new item form if it was called within a subfolder.
+ * @return {JSX.Element} The JSX element representing the new item form.
+ */
 export function NewItemForm({
   itemType,
   path,

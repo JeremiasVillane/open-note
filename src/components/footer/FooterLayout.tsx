@@ -4,7 +4,14 @@ import { count } from "letter-count";
 import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../store/notesStore";
 
-export function FooterLayout() {
+/**
+ * Renders the footer layout of the application.
+ * 
+ * Show the "status" global state.
+ *
+ * @return {JSX.Element} The JSX element representing the footer layout.
+ */
+export function FooterLayout(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { status } = useNotesStore();

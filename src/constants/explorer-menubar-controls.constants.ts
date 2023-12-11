@@ -3,6 +3,17 @@ import { FileObj } from "../types";
 
 const commonStyles = "border-none hoverStyles";
 
+/**
+ * Generates the menubar controls for the explorer.
+ *
+ * @param {TFunction<"translation", undefined>} t - The translation function.
+ * @param {function} setShowNewItemForm - The function to show the form to create a new item.
+ * @param {function} loadFiles - The function to load files.
+ * @param {string} appFolder - The application folder.
+ * @param {function} setItems - The function to update the fileList global state.
+ * @param {function} setStatus - The function to update the status bar message.
+ * @return {Array} An array of menubar control objects.
+ */
 export const explorerMenubarControls = (
   t: TFunction<"translation", undefined>,
   setShowNewItemForm: (value: "note" | "folder" | null) => void,

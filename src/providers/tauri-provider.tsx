@@ -18,7 +18,14 @@ const TauriContext = React.createContext({
 
 export const useTauriContext = () => useContext(TauriContext);
 
-export function TauriProvider({ children }: { children: React.ReactNode }) {
+/**
+ * Initializes the Tauri provider.
+ *
+ * @param {Object} props - The props object.
+ * @param {React.ReactNode} props.children - The children to be rendered inside the provider.
+ * @return {React.ReactNode} The rendered children.
+ */
+export function TauriProvider({ children }: { children: React.ReactNode }): React.ReactNode {
   const [osType, setOsType] = useState<string>("");
   const [appFolder, setAppFolder] = useState<string>("");
   const { setItems } = useNotesStore();

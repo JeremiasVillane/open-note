@@ -1,4 +1,3 @@
-import { Resource } from "i18next";
 import { SVGProps } from "react";
 
 export interface FileObj {
@@ -38,22 +37,14 @@ export interface NotesState {
 }
 
 export interface TitleBarContextType {
-  windowTitle: string
-  isMaximized: boolean
-  isOnTop: boolean
-  handleMinimize: () => Promise<void>
-  handleMaximize: () => Promise<void>
-  handleOnTop: () => Promise<void>
-  handleExit: () => Promise<void>
+  windowTitle: string;
+  isMaximized: boolean;
+  isOnTop: boolean;
+  handleMinimize: () => Promise<void>;
+  handleMaximize: () => Promise<void>;
+  handleOnTop: () => Promise<void>;
+  handleExit: () => Promise<void>;
 }
-
-export type I18nType = {
-  options?: {
-    resources: Resource | undefined;
-  };
-  resolvedLanguage: string;
-  changeLanguage: (language: string) => void;
-};
 
 export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
   title?: string;

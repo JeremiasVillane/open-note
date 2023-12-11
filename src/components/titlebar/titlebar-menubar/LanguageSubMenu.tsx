@@ -1,14 +1,21 @@
 import { Menu, Text } from "@mantine/core";
-import { t } from "i18next";
-import { I18nType } from "../../../types";
+import { i18n, t } from "i18next";
 
+/**
+ * Renders the language submenu component.
+ *
+ * @param {Object} props - The component props.
+ * @param {i18n} props.i18n - The i18n object.
+ * @param {string} props.menuItemStyles - The CSS styles for the menu item.
+ * @return {JSX.Element} The rendered language submenu.
+ */
 export default function LanguageSubMenu({
   i18n,
   menuItemStyles,
 }: {
-  i18n: I18nType | any;
+  i18n: i18n;
   menuItemStyles: string;
-}) {
+}): JSX.Element {
   const languages = Object.keys(i18n?.options?.resources!);
 
   const langMenu = languages.map((supportedLang, index) => {

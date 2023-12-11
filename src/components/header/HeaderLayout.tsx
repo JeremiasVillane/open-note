@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Toolbar } from "..";
 import { useNotesStore } from "../../store/notesStore";
 
-export function HeaderLayout() {
+/**
+ * Renders the header layout of the application,
+ * containing the sidebar toggle button and the Editor Toolbar.
+ *
+ * @return {JSX.Element} The header layout component.
+ */
+export function HeaderLayout(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { leftPanelIsClosed, setLeftPanelIsClosed } = useNotesStore();

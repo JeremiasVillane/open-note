@@ -5,7 +5,12 @@ import { loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 
-export function ExplorerMenubar() {
+/**
+ * Renders the menubar component for the explorer.
+ *
+ * @return {JSX.Element} The rendered menubar component.
+ */
+export function ExplorerMenubar(): JSX.Element {
   const { t } = useTranslation();
   const { setItems, setShowNewItemForm, setStatus } = useNotesStore();
   const { appFolder } = useTauriContext();

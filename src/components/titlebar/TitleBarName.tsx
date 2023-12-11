@@ -3,7 +3,12 @@ import { useContext } from "react";
 import { useNotesStore } from "../../store/notesStore";
 import TitleBarContext from "./TitleBarProvider";
 
-export default function TitleBarName() {
+/**
+ * Renders the name to be displayed in the title bar of the application.
+ *
+ * @return {JSX.Element} The JSX element representing the name to be displayed in the title bar.
+ */
+export default function TitleBarName(): JSX.Element {
   const { currentNote } = useNotesStore();
   const { windowTitle } = useContext(TitleBarContext);
 

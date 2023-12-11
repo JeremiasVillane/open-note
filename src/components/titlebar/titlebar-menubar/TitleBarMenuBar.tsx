@@ -3,7 +3,12 @@ import EditMenu from "./EditMenu";
 import FileMenu from "./FileMenu";
 import HelpMenu from "./HelpMenu";
 
-export default function TitleBarMenuBar() {
+/**
+ * Renders the title bar menu bar component.
+ *
+ * @return {JSX.Element} The rendered title bar menu bar component.
+ */
+export default function TitleBarMenuBar(): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   const menuItemStyles = `cursor-default ${

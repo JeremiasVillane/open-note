@@ -20,6 +20,9 @@ declare module "@tiptap/core" {
   }
 }
 
+/**
+ * A custom tiptap extension to manage clipboard actions.
+ */
 export const ClipBoard = Extension.create({
   name: "clipBoard",
 

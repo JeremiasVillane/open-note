@@ -3,7 +3,12 @@ import { useTranslation } from "react-i18next";
 import { APP_AUTHOR, APP_NAME, APP_VERSION } from "../../constants";
 import { GitHubIcon, LinkedInIcon } from "../ui/icons";
 
-export default function Welcome() {
+/**
+ * Renders the Welcome component.
+ *
+ * @return {JSX.Element} The rendered Welcome component.
+ */
+export default function Welcome(): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
 

@@ -7,11 +7,18 @@ import { useTauriContext } from "../providers/tauri-provider";
 import { useNotesStore } from "../store/notesStore";
 import { cycleLang } from "../utils";
 
+/**
+ * It provides global hotkey functionality.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The children to be wrapped by the HotkeysProvider.
+ * @return {React.ReactNode} The wrapped children.
+ */
 export default function HotkeysProvider({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): React.ReactNode {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { appFolder } = useTauriContext();

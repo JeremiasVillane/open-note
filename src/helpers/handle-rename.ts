@@ -2,6 +2,21 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { TFunction } from "i18next";
 import { Note } from "../types";
 
+/**
+ * Handles the rename action for a given item.
+ *
+ * @param {string} itemType - The type of the item being renamed ("note" | "folder").
+ * @param {React.FormEvent<HTMLFormElement>} event - The form event triggered by the rename action.
+ * @param {TFunction<"translation", undefined>} t - The translation function.
+ * @param {string} oldName - The current name of the item.
+ * @param {string} newName - The new name for the item.
+ * @param {string} currentPath - The current path of the item.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} setToRename - A function to set the renaming state.
+ * @param {(status: string | null) => void} setStatus - A function to update the status bar message.
+ * @param {Note | null | undefined} currentNote - The current note object.
+ * @param {(note: Note | null) => void} setCurrentNote - A function to set the current note.
+ * @param {React.Dispatch<React.SetStateAction<string>>} setFolderName - A function to set the folder name.
+ */
 export const handleRename = async (
   itemType: string,
   event: React.FormEvent<HTMLFormElement>,

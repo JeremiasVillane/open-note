@@ -1,11 +1,18 @@
 import { Menu, Text, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Renders a ThemeSubMenu component.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.menuItemStyles - The styles for the menu items.
+ * @return {JSX.Element} The rendered ThemeSubMenu component.
+ */
 export default function ThemeSubMenu({
   menuItemStyles,
 }: {
   menuItemStyles: string;
-}) {
+}): JSX.Element {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
 
