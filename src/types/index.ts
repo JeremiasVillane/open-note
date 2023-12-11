@@ -37,6 +37,16 @@ export interface NotesState {
   setLeftPanelIsClosed: (value: any) => void;
 }
 
+export interface TitleBarContextType {
+  windowTitle: string
+  isMaximized: boolean
+  isOnTop: boolean
+  handleMinimize: () => Promise<void>
+  handleMaximize: () => Promise<void>
+  handleOnTop: () => Promise<void>
+  handleExit: () => Promise<void>
+}
+
 export type I18nType = {
   options?: {
     resources: Resource | undefined;

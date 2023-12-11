@@ -1,0 +1,19 @@
+import { Text } from "@mantine/core";
+import { useContext } from "react";
+import { useNotesStore } from "../../store/notesStore";
+import TitleBarContext from "./TitleBarProvider";
+
+export default function TitleBarName() {
+  const { currentNote } = useNotesStore();
+  const { windowTitle } = useContext(TitleBarContext);
+
+  return (
+    <Text
+      data-tauri-drag-region
+      inline
+      size="sm"
+      className="overlook self-center italic"
+      data-text={currentNote ? currentNote.name : windowTitle}
+    />
+  );
+}

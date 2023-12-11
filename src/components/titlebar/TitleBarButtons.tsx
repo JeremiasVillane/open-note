@@ -1,4 +1,5 @@
 import { useMantineColorScheme } from "@mantine/core";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import {
   CloseIcon,
@@ -6,22 +7,13 @@ import {
   MinimizeIcon,
   RestoreIcon,
 } from "../ui/icons";
+import TitleBarContext from "./TitleBarProvider";
 
-export default function TitleBarButtons({
-  handleMinimize,
-  handleRestore,
-  handleMaximize,
-  handleClose,
-  isMaximized,
-}: {
-  handleMinimize: () => void;
-  handleRestore: () => void;
-  handleMaximize: () => void;
-  handleClose: () => Promise<void>;
-  isMaximized: boolean;
-}) {
+export default function TitleBarButtons() {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
+  const { isMaximized, handleMinimize, handleMaximize, handleExit } =
+    useContext(TitleBarContext);
 
   const buttonStyles =
     "inline-flex items-center justify-center w-12 h-[var(--titlebar-height)] transition-colors duration-200";
@@ -34,30 +26,25 @@ export default function TitleBarButtons({
         className={`${buttonStyles} ${buttonStylesOnHover}`}
         onClick={handleMinimize}
       >
-        <MinimizeIcon title={t("Minimize")} size={18} className="p-0.5" />
+        <MinimizeIcon title={t("Minimize")} className="p-0.5" />
       </i>
 
-      {isMaximized ? (
-        <i
-          className={`${buttonStyles} ${buttonStylesOnHover}`}
-          onClick={handleRestore}
-        >
-          <RestoreIcon title={t("Restore")} size={18} className="p-0.5" />
-        </i>
-      ) : (
-        <i
-          onClick={handleMaximize}
-          className={`${buttonStyles} ${buttonStylesOnHover}`}
-        >
-          <MaximizeIcon title={t("Maximize")} size={18} className="p-0.5" />
-        </i>
-      )}
+      <i
+        className={`${buttonStyles} ${buttonStylesOnHover}`}
+        onClick={handleMaximize}
+      >
+        {isMaximized ? (
+          <RestoreIcon title={t("Restore")} className="p-0.5" />
+        ) : (
+          <MaximizeIcon title={t("Maximize")} className="p-0.5" />
+        )}
+      </i>
 
       <i
         className={`${buttonStyles} hover:bg-red-500 hover:text-gray-100`}
-        onClick={handleClose}
+        onClick={handleExit}
       >
-        <CloseIcon title={t("Close")} size={18} className="p-0.5" />
+        <CloseIcon title={t("Close")} className="p-0.5" />
       </i>
     </div>
   );
