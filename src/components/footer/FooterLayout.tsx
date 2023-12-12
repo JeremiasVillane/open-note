@@ -17,27 +17,27 @@ export function FooterLayout(): JSX.Element {
   const { status } = useNotesStore();
 
   const editorContent = editor?.getText();
-  const stadistics = count(editorContent ?? "");
+  const statistics = count(editorContent ?? "");
 
   return (
     <AppShellFooter
-      p="md"
+      px="md"
       className="flex justify-between items-center font-mono text-xs"
     >
       {editorContent?.length ? (
         <div
           className="overlook"
           data-text={
-            `${t("Characters")}: ${stadistics.chars}${" "}
-            | ${t("Letters")}:${" "}${stadistics.letters}${" "}
-            | ${t("Words")}: ${stadistics.words}${" "}
-            | ${t("Lines")}: ${stadistics.lines > 1
-              ? stadistics.lines - (stadistics.lines - 1) / 2
-              : stadistics.lines}
+            `${t("Characters")}: ${statistics.chars}${" "}
+            | ${t("Letters")}:${" "}${statistics.letters}${" "}
+            | ${t("Words")}: ${statistics.words}${" "}
+            | ${t("Lines")}: ${statistics.lines > 1
+              ? statistics.lines - (statistics.lines - 1) / 2
+              : statistics.lines}
           `}
         />
       ) : (
-        <></>
+        null
       )}
       <div className="ml-auto">{status}</div>
     </AppShellFooter>

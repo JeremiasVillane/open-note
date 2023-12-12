@@ -30,7 +30,11 @@ export default function Editor(): JSX.Element {
 
   return (
     <RichTextEditor
-      className="h-[calc(100vh-6.7rem)] mt-6 overflow-auto border-none"
+      className="mt-6 overflow-auto border-none"
+      style={{
+        height:
+          "calc(100vh - (var(--titlebar-height) + var(--header-height) + var(--footer-height)))",
+      }}
       editor={editor}
     >
       <RichTextEditor.Content />

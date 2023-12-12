@@ -1,4 +1,9 @@
 /* Layout */
+:root {
+  --header-height: 50px;
+  --footer-height: 25px;
+}
+
 .appShell main {
   background-color: light-dark(
     var(--mantine-color-gray-0),

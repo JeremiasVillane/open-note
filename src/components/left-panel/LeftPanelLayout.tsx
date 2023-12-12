@@ -1,8 +1,4 @@
-import {
-  AppShellNavbar,
-  AppShellSection,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Explorer, ExplorerMenubar, NewItemForm } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
@@ -17,14 +13,15 @@ import { useNotesStore } from "../../store/notesStore";
  * @return {JSX.Element} The JSX element representing the left panel layout.
  */
 export function LeftPanelLayout({
-  totalWidth,
+  sidebarSize,
   sidebarWidth,
   setSidebarWidth,
 }: {
-  totalWidth: number;
+  sidebarSize: { min: number; max: number };
   sidebarWidth: number;
   setSidebarWidth: React.Dispatch<number>;
 }): JSX.Element {
+  const { leftPanelIsClosed } = useNotesStore();
   const { fileList, showNewItemForm } = useNotesStore();
   const { colorScheme } = useMantineColorScheme();
   const { appFolder } = useTauriContext();
@@ -67,42 +64,55 @@ export function LeftPanelLayout({
   }, [resize, stopResizing]);
 
   return (
-    <AppShellNavbar
-      className={`titleBarAdjustedHeight overflow-auto flex flex-row flex-grow-0 flex-shrink-0 min-w-[150px] max-w-[max-w-[${totalWidth / 2}px]]`}
-      style={{
-        width: sidebarWidth,
-      }}
-      onMouseDown={(e) => e.preventDefault()}
-      ref={sidebarRef}
-    >
-      <section id="sidebar-content" className="flex-1 z-20">
-        <AppShellSection
-          className={`fixed min-w-[150px] max-w-[${totalWidth / 2}px]`}
-          style={{ width: sidebarWidth }}
-        >
-          <ExplorerMenubar />
-        </AppShellSection>
+    <>
+      {!leftPanelIsClosed ? (
+        <>
+          <header
+            className={`fixed min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] z-50`}
+            style={{
+              width: sidebarWidth,
+              marginTop: "calc(var(--titlebar-height) + var(--header-height))",
+            }}
+          >
+            <ExplorerMenubar />
+          </header>
 
-        <AppShellSection className="mt-7">
-          {showNewItemForm ? (
-            <NewItemForm
-              itemType={showNewItemForm}
-              path={appFolder}
-              parentId="root"
-            />
-          ) : null}
+          <aside
+            className={`titleBarAdjustedHeight overflow-auto flex flex-row flex-grow-0 flex-shrink-0 min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] border-r border-[var(--mantine-color-gray-light)]`}
+            style={{
+              width: sidebarWidth,
+              marginTop:
+                "calc(var(--header-height) + var(--titlebar-height) + 1.5rem)",
+            }}
+            onMouseDown={(e) => e.preventDefault()}
+            ref={sidebarRef}
+          >
+            <section id="sidebar-content" className="flex-1 flex flex-col z-20">
+              <div className="">
+                {showNewItemForm ? (
+                  <NewItemForm
+                    itemType={showNewItemForm}
+                    path={appFolder}
+                    parentId="root"
+                  />
+                ) : null}
 
-          <Explorer fileList={fileList} />
-        </AppShellSection>
-      </section>
+                <Explorer fileList={fileList} />
+              </div>
+            </section>
+          </aside>
 
-      <div
-        id="sidebar-resizer"
-        className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
-          colorScheme === "light" ? "hover:bg-slate-300" : "hover:bg-slate-600"
-        } z-10`}
-        onMouseDown={startResizing}
-      />
-    </AppShellNavbar>
+          <div
+            id="sidebar-resizer"
+            className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
+              colorScheme === "light"
+                ? "hover:bg-slate-300"
+                : "hover:bg-slate-600"
+            } z-10`}
+            onMouseDown={startResizing}
+          />
+        </>
+      ) : null}
+    </>
   );
 }
