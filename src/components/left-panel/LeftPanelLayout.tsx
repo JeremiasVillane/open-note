@@ -17,9 +17,11 @@ import { useNotesStore } from "../../store/notesStore";
  * @return {JSX.Element} The JSX element representing the left panel layout.
  */
 export function LeftPanelLayout({
+  totalWidth,
   sidebarWidth,
   setSidebarWidth,
 }: {
+  totalWidth: number;
   sidebarWidth: number;
   setSidebarWidth: React.Dispatch<number>;
 }): JSX.Element {
@@ -66,7 +68,7 @@ export function LeftPanelLayout({
 
   return (
     <AppShellNavbar
-      className="titleBarAdjustedHeight overflow-auto flex flex-row flex-grow-0 flex-shrink-0 min-w-[150px] max-w-[500px]"
+      className={`titleBarAdjustedHeight overflow-auto flex flex-row flex-grow-0 flex-shrink-0 min-w-[150px] max-w-[max-w-[${totalWidth / 2}px]]`}
       style={{
         width: sidebarWidth,
       }}
@@ -75,7 +77,7 @@ export function LeftPanelLayout({
     >
       <section id="sidebar-content" className="flex-1 z-20">
         <AppShellSection
-          className="fixed min-w-[150px] max-w-[500px]"
+          className={`fixed min-w-[150px] max-w-[${totalWidth / 2}px]`}
           style={{ width: sidebarWidth }}
         >
           <ExplorerMenubar />
