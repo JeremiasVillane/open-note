@@ -65,7 +65,7 @@ export default function App(): JSX.Element {
 
       <LeftPanelLayout
         sidebarWidth={sidebarState.width}
-        setSidebarWidth={updateSidebarState}
+        setSidebarWidth={(value) => updateSidebarState({ width: value })}
       />
 
       <FooterLayout />

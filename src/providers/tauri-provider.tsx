@@ -25,16 +25,26 @@ export const useTauriContext = () => useContext(TauriContext);
  * @param {React.ReactNode} props.children - The children to be rendered inside the provider.
  * @return {React.ReactNode} The rendered children.
  */
-export function TauriProvider({ children }: { children: React.ReactNode }): React.ReactNode {
+export function TauriProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactNode {
   const [osType, setOsType] = useState<string>("");
   const [appFolder, setAppFolder] = useState<string>("");
   const { setItems } = useNotesStore();
 
+  // Disable global hotkeys to print and refresh the page,
+  // asigning a null function to them.
   useEffect(() => {
-    globalShortcut.registerAll(["CommandOrControl+P", "F5"], () => null);
+    globalShortcut.registerAll(
+      ["CommandOrControl+P", "F5", "CommandOrControl+R"],
+      () => null
+    );
   }, []);
 
   if (RUNNING_IN_TAURI) {
+    // Set window decorations and custom title bar height
     useEffect(() => {
       if (osType !== "Windows_NT") {
         return;
@@ -52,21 +62,28 @@ export function TauriProvider({ children }: { children: React.ReactNode }): Reac
       }
     }, [osType]);
 
+    // Perform Tauri-specific initialization on component mount
     useEffect(() => {
       (async () => {
+        // Set the osType global state
         const currentOsType = await type();
         setOsType(currentOsType);
 
+        // Create the app folder within the user Documents folder
         await createDir(APP_NAME, {
           dir: BaseDirectory.Document,
           recursive: true,
         });
 
+        // Set the appFolder global state
         const userDocuments = await documentDir();
         setAppFolder(`${userDocuments}${APP_NAME}`);
 
+        // Read the app folder content and store the files
+        // in the fileList global state through setItems
         await loadFiles(`${userDocuments}${APP_NAME}`, setItems);
 
+        // Close the splashscreen window
         invoke("close_splashscreen");
       })().catch(console.error);
     }, []);
