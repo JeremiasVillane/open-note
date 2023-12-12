@@ -22,18 +22,7 @@
   }
 
   ol {
-    @apply border rounded-md;
-    counter-reset: item;
-  }
-
-  ol li {
-    @apply flex -ml-4;
-  }
-
-  ol li:before {
-    @apply text-blue-400 font-mono font-semibold mr-1;
-    content: counter(item) ". ";
-    counter-increment: item;
+    @apply list-decimal border rounded-md;
   }
 
   blockquote {
