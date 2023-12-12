@@ -28,17 +28,14 @@ export function LeftPanelLayout({
   const sidebarRef = useRef<HTMLElement | null>(null);
   const [isResizing, setIsResizing] = useState(false);
 
-  // Callback to start resizing
   const startResizing = useCallback(() => {
     setIsResizing(true);
   }, []);
 
-  // Callback to stop resizing
   const stopResizing = useCallback(() => {
     setIsResizing(false);
   }, []);
 
-  // Callback to perform resizing
   const resize = useCallback(
     (event: MouseEvent) => {
       // Check if the resizing flag is true and if the sidebarRef is available
@@ -53,7 +50,6 @@ export function LeftPanelLayout({
     [isResizing]
   );
 
-  // Add event listeners for resizing and clean up on component unmount
   useEffect(() => {
     window.addEventListener("mousemove", resize);
     window.addEventListener("mouseup", stopResizing);
