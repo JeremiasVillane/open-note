@@ -24,11 +24,11 @@ export const handleRename = async (
   oldName: string,
   newName: string,
   currentPath: string,
-  setToRename: React.Dispatch<React.SetStateAction<boolean>>,
+  setToRename: React.Dispatch<boolean>,
   setStatus: (status: string | null) => void,
   currentNote?: Note | null,
   setCurrentNote?: (note: Note | null) => void,
-  setFolderName?: React.Dispatch<React.SetStateAction<string>>
+  setFolderName?: React.Dispatch<string>
 ) => {
   event.preventDefault();
 

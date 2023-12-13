@@ -46,6 +46,14 @@ export interface TitleBarContextType {
   handleExit: () => Promise<void>;
 }
 
+export interface itemStateType {
+  itemName?: string;
+  toRename?: boolean;
+  context?: boolean;
+  isEdited?: boolean;
+  xYPosistion?: { x: number; y: number };
+}
+
 export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
   title?: string;
   size?: string | number;

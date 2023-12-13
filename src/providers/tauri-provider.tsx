@@ -38,7 +38,7 @@ export function TauriProvider({
   // asigning a null function to them.
   useEffect(() => {
     globalShortcut.registerAll(
-      ["CommandOrControl+P", "F5", "CommandOrControl+R"],
+      ["CommandOrControl+P", "F5"],
       () => null
     );
   }, []);

@@ -1,11 +1,11 @@
 import { useClickOutside } from "@mantine/hooks";
-import { Dispatch, SetStateAction, Suspense, lazy, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, NewItemForm } from "..";
 import { handleRename, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
-import { FileObj } from "../../types";
+import { FileObj, itemStateType } from "../../types";
 
 const LazyFolderMenu = lazy(() => import("./FolderMenu"));
 
@@ -27,24 +27,58 @@ export function FolderItem({
   const { t } = useTranslation();
   const { setStatus, setItems, openFolders, setOpenFolder } = useNotesStore();
   const { appFolder } = useTauriContext();
-  const [toRename, setToRename] = useState(false);
-  const [folderName, setFolderName] = useState(item.name);
-  const [context, setContext] = useState(false);
-  const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
-  const menuRef = useClickOutside(() => setContext(false));
-  const renameFormRef = useClickOutside(() => setToRename(false));
+  const menuRef = useClickOutside(() => updateItemState({ context: false }));
+  const renameFormRef = useClickOutside(() =>
+    updateItemState({ toRename: false })
+  );
 
-  const showNav = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const [itemState, updateItemState] = useReducer(
+    (prev: itemStateType, next: itemStateType) => {
+      const newState = { ...prev, ...next };
+
+      if (newState.itemName) {
+        if (newState.itemName.length < 2) {
+          setStatus(t("ErrorNameLength"));
+          newState.itemName = item.name;
+        }
+
+        if (newState.itemName!.length > 21) {
+          setStatus(t("ErrorNameLength"));
+          newState.itemName = newState.itemName!.slice(0, 21);
+        }
+
+        const specialCharacters = ["\\", "/", ":", "*", "?", "<", ">", "|"];
+        const containsSpecialCharacter = new RegExp(
+          `[${specialCharacters.join("\\")}]`
+        ).test(newState.itemName!);
+
+        if (containsSpecialCharacter) {
+          setStatus(t("ErrorNameChars"));
+          newState.itemName = item.name;
+        }
+      }
+
+      return newState;
+    },
+    {
+      itemName: item.name,
+      toRename: false,
+      context: false,
+      xYPosistion: { x: 0, y: 0 },
+    }
+  );
+
+  const showMenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
-    setContext(false);
+    updateItemState({ context: false });
 
     const positionChange = {
       x: event.pageX,
       y: event.pageY,
     };
 
-    setXyPosistion(positionChange);
-    setContext(true);
+    updateItemState({ xYPosistion: positionChange });
+    updateItemState({ context: true });
   };
 
   return (
@@ -52,7 +86,7 @@ export function FolderItem({
       <div
         className={`${fileStyles} group/item justify-between items-center`}
         onClick={() => setOpenFolder(item.id)}
-        onContextMenu={showNav}
+        onContextMenu={showMenu}
       >
         <div className="flex">
           <i
@@ -61,7 +95,7 @@ export function FolderItem({
             } text-yellow-500`}
           ></i>
 
-          {toRename ? (
+          {itemState.toRename ? (
             <form
               className="pl-1.5 font-semibold"
               onSubmit={async (event) => {
@@ -70,13 +104,13 @@ export function FolderItem({
                   event,
                   t,
                   item.name,
-                  folderName,
+                  itemState.itemName!,
                   item.path,
-                  setToRename,
+                  (value) => updateItemState({ toRename: value }),
                   setStatus,
                   undefined,
                   undefined,
-                  setFolderName
+                  (value) => updateItemState({ itemName: value })
                 );
                 loadFiles(appFolder, setItems);
               }}
@@ -84,9 +118,11 @@ export function FolderItem({
             >
               <input
                 type="text"
-                value={folderName}
-                onChange={(e) => setFolderName(e.target.value)}
-                onKeyUp={(e) => e.key === "Escape" && setToRename(false)}
+                value={itemState.itemName}
+                onChange={(e) => updateItemState({ itemName: e.target.value })}
+                onKeyUp={(e) =>
+                  e.key === "Escape" && updateItemState({ toRename: false })
+                }
                 className="outline-none w-full"
                 autoFocus
               />
@@ -117,9 +153,12 @@ export function FolderItem({
         <Explorer fileList={item.children!} />
       </div>
 
-      {context ? (
+      {itemState.context ? (
         <div
-          style={{ top: xYPosistion.y, left: xYPosistion.x }}
+          style={{
+            top: itemState.xYPosistion?.y,
+            left: itemState.xYPosistion?.x,
+          }}
           className={contextMenuStyles}
           ref={menuRef}
         >
@@ -128,8 +167,7 @@ export function FolderItem({
               menuItemStyles={menuItemStyles}
               folder={item}
               setNewItem={setNewItem}
-              setToRename={setToRename}
-              setContext={setContext}
+              updateItemState={updateItemState}
             />
           </Suspense>
         </div>

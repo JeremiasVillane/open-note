@@ -1,62 +1,64 @@
 import { Paper, UnstyledButton } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
+import { itemStateType } from "../../types";
 
 export default function NoteMenu({
   menuItemStyles,
-  setToRename,
-  setContext,
+  updateItemState,
   handleClose,
   handleDelete,
 }: {
   menuItemStyles: string;
-  setToRename: Dispatch<SetStateAction<boolean>>;
-  setContext: Dispatch<SetStateAction<boolean>>;
+  updateItemState: React.Dispatch<itemStateType>;
   handleClose: () => void;
   handleDelete: () => void;
 }) {
   const { t } = useTranslation();
 
   useHotkeys(
-    [
-      ["escape", () => setContext(false)],
-    ],
+    [["escape", () => updateItemState({ context: false })]],
     undefined,
     true
   );
 
+  const controls = [
+    {
+      onClick: () => {
+        updateItemState({ toRename: true });
+        updateItemState({ context: false });
+      },
+      label: "Rename",
+    },
+    {
+      onClick: async () => {
+        handleClose();
+        updateItemState({ context: false });
+      },
+      label: "Close",
+    },
+    {
+      onClick: async () => {
+        handleDelete();
+        updateItemState({ context: false });
+      },
+      label: "Delete",
+    },
+  ];
+
   return (
     <Paper shadow="sm" className="flex flex-col p-1 z-50">
-      <UnstyledButton
-        onClick={() => {
-          setToRename(true);
-          setContext(false);
-        }}
-        className={menuItemStyles}
-      >
-        {t("Rename")}
-      </UnstyledButton>
-
-      <UnstyledButton
-        onClick={async () => {
-          handleClose();
-          setContext(false);
-        }}
-        className={menuItemStyles}
-      >
-        {t("Close")}
-      </UnstyledButton>
-
-      <UnstyledButton
-        onClick={async () => {
-          handleDelete();
-          setContext(false);
-        }}
-        className={`${menuItemStyles} text-red-600`}
-      >
-        {t("Delete")}
-      </UnstyledButton>
+      {controls.map((control, index) => (
+        <UnstyledButton
+          key={index}
+          onClick={control.onClick}
+          className={`${menuItemStyles} ${
+            index === controls.length - 1 ? "text-red-600" : ""
+          }`}
+        >
+          {t(control.label)}
+        </UnstyledButton>
+      ))}
     </Paper>
   );
 }

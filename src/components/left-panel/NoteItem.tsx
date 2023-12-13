@@ -1,6 +1,7 @@
+import { useClickOutside, useHotkeys } from "@mantine/hooks";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import * as fs from "@tauri-apps/api/fs";
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
 import {
   handleClose,
@@ -10,20 +11,16 @@ import {
 } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
-import { useClickOutside, useHotkeys } from "@mantine/hooks";
+import { FileObj, itemStateType } from "../../types";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
 
 export function NoteItem({
-  noteName,
-  noteId,
-  path,
+  item,
   menuItemStyles,
   contextMenuStyles,
 }: {
-  noteName: string;
-  noteId: string;
-  path: string;
+  item: FileObj;
   menuItemStyles: string;
   contextMenuStyles: string;
 }): JSX.Element {
@@ -37,24 +34,58 @@ export function NoteItem({
   } = useNotesStore();
   const { appFolder } = useTauriContext();
   const { editor } = useRichTextEditorContext();
-  const [toRename, setToRename] = useState(false);
-  const [fileName, setFileName] = useState(noteName);
-  const [context, setContext] = useState(false);
-  const [xYPosistion, setXyPosistion] = useState({ x: 0, y: 0 });
-  const menuRef = useClickOutside(() => setContext(false));
-  const renameFormRef = useClickOutside(() => setToRename(false));
+  const menuRef = useClickOutside(() => updateItemState({ context: false }));
+  const renameFormRef = useClickOutside(() =>
+    updateItemState({ toRename: false })
+  );
 
-  const showNav = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const [itemState, updateItemState] = useReducer(
+    (prev: itemStateType, next: itemStateType) => {
+      const newState = { ...prev, ...next };
+
+      if (newState.itemName) {
+        if (newState.itemName.length < 2) {
+          setStatus(t("ErrorNameLength"));
+          newState.itemName = currentNote?.name;
+        }
+
+        if (newState.itemName!.length > 21) {
+          setStatus(t("ErrorNameLength"));
+          newState.itemName = newState.itemName!.slice(0, 21);
+        }
+
+        const specialCharacters = ["\\", "/", ":", "*", "?", "<", ">", "|"];
+        const containsSpecialCharacter = new RegExp(
+          `[${specialCharacters.join("\\")}]`
+        ).test(newState.itemName!);
+
+        if (containsSpecialCharacter) {
+          setStatus(t("ErrorNameChars"));
+          newState.itemName = currentNote?.name;
+        }
+      }
+
+      return newState;
+    },
+    {
+      itemName: item.name,
+      toRename: false,
+      context: false,
+      xYPosistion: { x: 0, y: 0 },
+    }
+  );
+
+  const showMenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
-    setContext(false);
+    updateItemState({ context: false });
 
     const positionChange = {
       x: event.pageX,
       y: event.pageY,
     };
 
-    setXyPosistion(positionChange);
-    setContext(true);
+    updateItemState({ xYPosistion: positionChange });
+    updateItemState({ context: true });
   };
 
   const isEdited: boolean =
@@ -63,22 +94,22 @@ export function NoteItem({
       currentNote?.content !== "<p></p>") &&
     editor?.getHTML() !== currentNote?.content;
 
-  const hadleOpen = async () => {
-    if (currentNote?.id === noteId) return;
+  const handleOpen = async () => {
+    if (currentNote?.id === item.id) return;
 
-    setContext(false);
+    updateItemState({ context: false });
 
     if (isEdited) {
       const confirm = await window.confirm(t("ConfirmDiscardChanges"));
       if (!confirm) return;
     }
 
-    const content = await fs.readTextFile(path);
+    const content = await fs.readTextFile(item.path);
 
     setCurrentNote({
-      id: noteId,
-      name: fileName,
-      path,
+      id: item.id,
+      name: itemState.itemName!,
+      path: item.path,
       content,
     });
 
@@ -86,30 +117,38 @@ export function NoteItem({
   };
 
   useHotkeys(
-    [["f2", () => (currentNote?.id === noteId ? setToRename(true) : null)]],
+    [
+      [
+        "f2",
+        () =>
+          currentNote?.id === item.id
+            ? updateItemState({ toRename: true })
+            : null,
+      ],
+    ],
     undefined,
     true
   );
 
   return (
     <>
-      <div
+      <main
         className="pl-1.5 w-full"
-        onClick={toRename ? () => null : hadleOpen}
-        onContextMenu={showNav}
+        onClick={itemState.toRename ? () => null : handleOpen}
+        onContextMenu={showMenu}
       >
-        <div className="flex items-center justify-between">
-          {toRename ? (
+        <section className="flex items-center justify-between">
+          {itemState.toRename ? (
             <form
               onSubmit={async (event) => {
                 await handleRename(
                   "note",
                   event,
                   t,
-                  noteName,
-                  fileName,
-                  path,
-                  setToRename,
+                  item.name,
+                  itemState.itemName!,
+                  item.path,
+                  (value) => updateItemState({ toRename: value }),
                   setStatus,
                   currentNote,
                   setCurrentNote
@@ -120,31 +159,35 @@ export function NoteItem({
             >
               <input
                 type="text"
-                value={fileName}
-                onChange={(e) => setFileName(e.target.value)}
-                onKeyUp={(e) => e.key === "Escape" && setToRename(false)}
+                value={itemState.itemName}
+                onChange={(e) => updateItemState({ itemName: e.target.value })}
+                onKeyUp={(e) =>
+                  e.key === "Escape" && updateItemState({ toRename: false })
+                }
                 className="outline-none w-full"
                 autoFocus
               />
               <button className="hidden" />
             </form>
           ) : (
-            <p className="overlook" data-text={noteName.split(".")[0]} />
+            <p className="overlook" data-text={item.name.split(".")[0]} />
           )}
-        </div>
-      </div>
+        </section>
+      </main>
 
-      {currentNote?.id === noteId && context ? (
+      {currentNote?.id === item.id && itemState.context ? (
         <div
-          style={{ top: xYPosistion.y, left: xYPosistion.x }}
+          style={{
+            top: itemState.xYPosistion?.y,
+            left: itemState.xYPosistion?.x,
+          }}
           className={contextMenuStyles}
           ref={menuRef}
         >
           <Suspense>
             <LazyNoteMenu
               menuItemStyles={menuItemStyles}
-              setToRename={setToRename}
-              setContext={setContext}
+              updateItemState={updateItemState}
               handleClose={async () =>
                 await handleClose(t, isEdited, setCurrentNote, editor)
               }
@@ -153,7 +196,7 @@ export function NoteItem({
                   null,
                   "note",
                   setStatus,
-                  path,
+                  item.path,
                   t,
                   setCurrentNote,
                   editor!

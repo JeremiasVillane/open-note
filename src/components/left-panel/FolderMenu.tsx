@@ -5,21 +5,19 @@ import { loadFiles } from "../../helpers";
 import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
-import { FileObj } from "../../types";
+import { FileObj, itemStateType } from "../../types";
 import { useHotkeys } from "@mantine/hooks";
 
 export default function FolderMenu({
   menuItemStyles,
   folder,
   setNewItem,
-  setToRename,
-  setContext,
+  updateItemState,
 }: {
   menuItemStyles: string;
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
-  setToRename: Dispatch<SetStateAction<boolean>>;
-  setContext: Dispatch<SetStateAction<boolean>>;
+  updateItemState: React.Dispatch<itemStateType>;
 }) {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
@@ -37,53 +35,60 @@ export default function FolderMenu({
     });
   };
 
-  useHotkeys([["escape", () => setContext(false)]], undefined, true);
+  useHotkeys(
+    [["escape", () => updateItemState({ context: false })]],
+    undefined,
+    true
+  );
+
+  const controls = [
+    {
+      onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation();
+        updateItemState({ toRename: true });
+        updateItemState({ context: false });
+      },
+      label: "Rename",
+    },
+    {
+      onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        handleCreate(e, folder.id, "note");
+        setOpenFolder(folder.id);
+        updateItemState({ context: false });
+      },
+      label: "New note",
+    },
+    {
+      onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        handleCreate(e, folder.id, "folder");
+        setOpenFolder(folder.id);
+        updateItemState({ context: false });
+      },
+      label: "New folder",
+    },
+    {
+      onClick: async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        await handleDelete(e, "folder", setStatus, folder.path, t);
+        loadFiles(appFolder, setItems);
+        updateItemState({ context: false });
+      },
+      label: "Delete folder",
+    },
+  ];
 
   return (
     <Paper shadow="md" className="flex flex-col p-1 z-50">
-      <UnstyledButton
-        className={menuItemStyles}
-        onClick={(e) => {
-          e.stopPropagation();
-          setToRename(true);
-          setContext(false);
-        }}
-      >
-        {t("Rename")}
-      </UnstyledButton>
-
-      <UnstyledButton
-        className={menuItemStyles}
-        onClick={(e) => {
-          handleCreate(e, folder.id, "note");
-          setOpenFolder(folder.id)
-          setContext(false);
-        }}
-      >
-        {t("New note")}
-      </UnstyledButton>
-
-      <UnstyledButton
-        className={menuItemStyles}
-        onClick={(e) => {
-          handleCreate(e, folder.id, "folder");
-          setOpenFolder(folder.id)
-          setContext(false);
-        }}
-      >
-        {t("New folder")}
-      </UnstyledButton>
-
-      <UnstyledButton
-        className={`${menuItemStyles} text-red-600`}
-        onClick={async (e) => {
-          await handleDelete(e, "folder", setStatus, folder.path, t);
-          loadFiles(appFolder, setItems);
-          setContext(false);
-        }}
-      >
-        {t("Delete folder")}
-      </UnstyledButton>
+      {controls.map((control, index) => (
+        <UnstyledButton
+          key={index}
+          onClick={control.onClick}
+          className={`${menuItemStyles} ${
+            index === controls.length - 1 ? "text-red-600" : ""
+          }`}
+        >
+          {t(control.label)}
+        </UnstyledButton>
+      ))}
     </Paper>
   );
 }

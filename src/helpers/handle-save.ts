@@ -35,7 +35,7 @@ export const handleSave = async (
         path: currentNote.path,
         content: editor.getHTML(),
       });
-
+console.log(currentNote)
       setStatus(t("NoteSaved"));
     } catch (error) {
       console.error("Failed to write text file:", error);

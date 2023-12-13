@@ -27,7 +27,7 @@ const TitleBarContext = createContext<TitleBarContextType>({
  */
 export const TitleBarProvider: React.FC<{
   children: React.ReactNode;
-}> = ({ children }: any) => {
+}> = ({ children }: any): React.ReactNode => {
   const { osType } = useTauriContext();
   const [windowTitle, setWindowTitle] = useState<string>("");
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
