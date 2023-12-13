@@ -1,8 +1,16 @@
-import { Paper, UnstyledButton } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { useTranslation } from "react-i18next";
 import { itemStateType } from "../../types";
+import ContextMenu from "./ContextMenu";
 
+/**
+ * Renders a NoteMenu component.
+ *
+ * @prop {string} menuItemStyles - The styles for the menu items.
+ * @prop {function} updateItemState - The function to update the item state.
+ * @prop {function} handleClose - The function to handle closing the current note.
+ * @prop {function} handleDelete - The function to handle deleting the current note.
+ * @return {JSX.Element} The rendered NoteMenu component.
+ */
 export default function NoteMenu({
   menuItemStyles,
   updateItemState,
@@ -13,9 +21,7 @@ export default function NoteMenu({
   updateItemState: React.Dispatch<itemStateType>;
   handleClose: () => Promise<void>;
   handleDelete: () => Promise<void>;
-}) {
-  const { t } = useTranslation();
-
+}): JSX.Element {
   useHotkeys(
     [["escape", () => updateItemState({ context: false })]],
     undefined,
@@ -46,19 +52,5 @@ export default function NoteMenu({
     },
   ];
 
-  return (
-    <Paper shadow="sm" className="flex flex-col p-1 z-50">
-      {controls.map((control, index) => (
-        <UnstyledButton
-          key={index}
-          onClick={control.onClick}
-          className={`${menuItemStyles} ${
-            index === controls.length - 1 ? "text-red-600" : ""
-          }`}
-        >
-          {t(control.label)}
-        </UnstyledButton>
-      ))}
-    </Paper>
-  );
+  return <ContextMenu controls={controls} menuItemStyles={menuItemStyles} />;
 }

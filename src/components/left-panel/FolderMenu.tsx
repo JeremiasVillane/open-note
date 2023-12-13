@@ -1,4 +1,4 @@
-import { Paper, UnstyledButton } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { loadFiles } from "../../helpers";
@@ -6,8 +6,17 @@ import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj, itemStateType } from "../../types";
-import { useHotkeys } from "@mantine/hooks";
+import ContextMenu from "./ContextMenu";
 
+/**
+ * Renders a folder menu component.
+ *
+ * @prop {string} menuItemStyles - the styles for the menu items
+ * @prop {FileObj} folder - the folder object
+ * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - the function to set a new item
+ * @prop {React.Dispatch<itemStateType>} updateItemState - the function to update the item state
+ * @return {JSX.Element} - the rendered folder menu component
+ */
 export default function FolderMenu({
   menuItemStyles,
   folder,
@@ -18,7 +27,7 @@ export default function FolderMenu({
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
   updateItemState: React.Dispatch<itemStateType>;
-}) {
+}): JSX.Element {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
   const { setStatus, setItems, setOpenFolder } = useNotesStore();
@@ -75,19 +84,5 @@ export default function FolderMenu({
     },
   ];
 
-  return (
-    <Paper shadow="md" className="flex flex-col p-1 z-50">
-      {controls.map((control, index) => (
-        <UnstyledButton
-          key={index}
-          onClick={control.onClick}
-          className={`${menuItemStyles} ${
-            index === controls.length - 1 ? "text-red-600" : ""
-          }`}
-        >
-          {t(control.label)}
-        </UnstyledButton>
-      ))}
-    </Paper>
-  );
+  return <ContextMenu controls={controls} menuItemStyles={menuItemStyles} />;
 }
