@@ -54,7 +54,7 @@ export function NoteItem({
           newState.itemName = newState.itemName!.slice(0, 21);
         }
 
-        const specialCharacters = ["\\", "/", ":", "*", "?", "<", ">", "|"];
+        const specialCharacters = ["\\", "/", ".", ":", "*", "?", "<", ">", "|"];
         const containsSpecialCharacter = new RegExp(
           `[${specialCharacters.join("\\")}]`
         ).test(newState.itemName!);

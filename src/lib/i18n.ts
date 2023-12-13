@@ -25,7 +25,7 @@ const resources = {
       SaveFailed: "Error saving note",
       CreationFailed: "Error creating element",
       RenameFailed: "Error renaming element",
-      ErrorNameChars: 'File name cannot include "\\", "/", ":", "*", "?", "<", ">", "|"',
+      ErrorNameChars: 'File name cannot include "\\", "/", ".", ":", "*", "?", "<", ">", "|"',
       ErrorNameLength: "File name must be between 2 and 21 characters",
 
       // ***** Toolbar
@@ -102,7 +102,7 @@ const resources = {
       "renamed to": "renombrado a",
       RenameFailed: "Error eliminando elemento",
       "Files loaded": "Archivos cargados",
-      ErrorNameChars: 'El nombre no puede contener "\\", "/", ":", "*", "?", "<", ">", "|"',
+      ErrorNameChars: 'El nombre no puede contener "\\", "/", ".", ":", "*", "?", "<", ">", "|"',
       ErrorNameLength: "El nombre debe tener entre 2 y 21 caracteres",
 
       // ***** Toolbar

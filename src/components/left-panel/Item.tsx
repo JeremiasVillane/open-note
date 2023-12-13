@@ -213,7 +213,7 @@ export function Item({
                   ? "overlook"
                   : "overlook py-0 pb-0 pl-1.5 font-semibold"
               }
-              data-text={type === "note" ? item.name.split(".")[0] : item.name}
+              data-text={item.name.split(".")[0]}
             />
           )}
         </section>
