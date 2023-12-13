@@ -28,7 +28,7 @@ export const customControls = (
   [
     {
       icon: "save-3-line",
-      onClick: () => handleSave(t, editor, store),
+      onClick: async () => await handleSave(t, editor, store),
       title: t("Save"),
     },
     {

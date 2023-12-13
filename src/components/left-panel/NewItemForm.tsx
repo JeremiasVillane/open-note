@@ -38,7 +38,7 @@ export function NewItemForm({
     const filePath = await join(path, isFolder ? itemName : `${itemName}.on`);
 
     await handleCreate(filePath, isFolder, setStatus, t);
-    loadFiles(appFolder, setItems);
+    await loadFiles(appFolder, setItems);
 
     setItemName("");
     parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});

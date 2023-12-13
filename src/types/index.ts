@@ -50,7 +50,6 @@ export interface itemStateType {
   itemName?: string;
   toRename?: boolean;
   context?: boolean;
-  isEdited?: boolean;
   xYPosistion?: { x: number; y: number };
 }
 

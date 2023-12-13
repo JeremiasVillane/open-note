@@ -42,8 +42,8 @@ export const explorerMenubarControls = (
     icon: "refresh-line",
     title: t("Reload explorer") + "\nCtrl+Shift+R",
     className: commonStyles,
-    onClick: () => {
-      loadFiles(appFolder, setItems);
+    onClick: async () => {
+      await loadFiles(appFolder, setItems);
       setStatus(t("Files loaded"));
     },
   },

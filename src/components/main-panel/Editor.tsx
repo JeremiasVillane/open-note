@@ -16,17 +16,10 @@ export default function Editor(): JSX.Element {
       return;
     }
 
-    if (!editor.isFocused || !editor.isEditable) {
-      queueMicrotask(() => {
-        const currentSelection = editor?.state.selection;
-        editor
-          ?.chain()
-          .setContent(currentNote?.content)
-          .setTextSelection(currentSelection!)
-          .run();
-      });
-    }
-  }, [currentNote]);
+    queueMicrotask(() => {
+      editor?.chain().setContent(currentNote?.content).run();
+    });
+  }, [currentNote, editor]);
 
   return (
     <RichTextEditor

@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, NewItemForm } from "..";
 import {
-  hadleOpen,
+  handleOpen,
   handleClose,
   handleDelete,
   handleRename,
@@ -84,7 +84,6 @@ export function Item({
       itemName: item.name,
       toRename: false,
       context: false,
-      isEdited: false,
       xYPosistion: { x: 0, y: 0 },
     }
   );
@@ -107,14 +106,6 @@ export function Item({
     (currentNote?.content !== undefined ||
       currentNote?.content !== "<p></p>") &&
     editor?.getHTML() !== currentNote?.content;
-
-  console.log(
-    "editor?.getHTML(): ",
-    editor?.getHTML(),
-    "\ncurrentNote?.content: ",
-    currentNote?.content
-  );
-  console.log(isEdited);
 
   useHotkeys(
     [
@@ -142,8 +133,8 @@ export function Item({
           type === "note"
             ? itemState.toRename
               ? () => null
-              : () =>
-                  hadleOpen(
+              : async () =>
+                  await handleOpen(
                     item.name,
                     item.id,
                     item.path,
@@ -152,7 +143,7 @@ export function Item({
                     setCurrentNote,
                     setShowNewItemForm,
                     readTextFile,
-                    isEdited,
+                    editor!,
                     (value) => updateItemState({ context: value })
                   )
             : () => setOpenFolder(item.id)
@@ -187,7 +178,7 @@ export function Item({
                     ? (value) => updateItemState({ itemName: value })
                     : undefined
                 );
-                loadFiles(appFolder, setItems);
+                await loadFiles(appFolder, setItems);
               }}
               ref={renameFormRef}
             >
@@ -243,7 +234,7 @@ export function Item({
                     setCurrentNote,
                     editor!
                   );
-                  loadFiles(appFolder, setItems);
+                  await loadFiles(appFolder, setItems);
                 }}
               />
             </Suspense>

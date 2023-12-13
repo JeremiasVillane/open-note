@@ -1,8 +1,8 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { FolderItem, NoteItem } from "..";
 import { useNotesStore } from "../../store/notesStore";
 import { FileObj } from "../../types";
+import { Item } from "./Item";
 
 /**
  * Renders the Explorer component.
@@ -30,7 +30,8 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
       {fileList?.map((item) =>
         item.is_folder ? (
           <section key={item.id}>
-            <FolderItem
+            <Item
+              type="folder"
               item={item}
               newItem={newItem}
               setNewItem={setNewItem}
@@ -48,7 +49,8 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
             }`}
           >
             <i className="ri-file-2-fill text-blue-400"></i>
-            <NoteItem
+            <Item
+              type="note"
               item={item}
               menuItemStyles={menuItemStyles}
               contextMenuStyles={contextMenuStyles}

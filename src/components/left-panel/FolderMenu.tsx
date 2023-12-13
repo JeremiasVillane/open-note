@@ -45,8 +45,7 @@ export default function FolderMenu({
     {
       onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
-        updateItemState({ toRename: true });
-        updateItemState({ context: false });
+        updateItemState({ toRename: true, context: false });
       },
       label: "Rename",
     },
@@ -69,7 +68,7 @@ export default function FolderMenu({
     {
       onClick: async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         await handleDelete(e, "folder", setStatus, folder.path, t);
-        loadFiles(appFolder, setItems);
+        await loadFiles(appFolder, setItems);
         updateItemState({ context: false });
       },
       label: "Delete folder",

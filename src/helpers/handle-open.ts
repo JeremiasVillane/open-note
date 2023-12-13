@@ -1,6 +1,7 @@
 import { TFunction } from "i18next";
 import { Note } from "../types";
 import { FsOptions } from "@tauri-apps/api/fs";
+import { Editor } from "@tiptap/react";
 
 export const handleOpen = async (
   fileName: string,
@@ -14,12 +15,18 @@ export const handleOpen = async (
     filePath: string,
     options?: FsOptions | undefined
   ) => Promise<string>,
-  isEdited: boolean,
+  editor: Editor,
   setContext: React.Dispatch<boolean>
 ) => {
   if (currentNote?.id === noteId) return;
   
   setContext(false);
+
+  const isEdited =
+    editor?.getText() !== "" &&
+    (currentNote?.content !== undefined ||
+      currentNote?.content !== "<p></p>") &&
+    editor?.getHTML() !== currentNote?.content;
   
   if (isEdited) {
     const confirm = await window.confirm(t("ConfirmDiscardChanges"));

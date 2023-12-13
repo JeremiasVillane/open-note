@@ -112,7 +112,7 @@ export function FolderItem({
                   undefined,
                   (value) => updateItemState({ itemName: value })
                 );
-                loadFiles(appFolder, setItems);
+                await loadFiles(appFolder, setItems);
               }}
               ref={renameFormRef}
             >

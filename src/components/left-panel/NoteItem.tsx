@@ -153,7 +153,7 @@ export function NoteItem({
                   currentNote,
                   setCurrentNote
                 );
-                loadFiles(appFolder, setItems);
+                await loadFiles(appFolder, setItems);
               }}
               ref={renameFormRef}
             >
@@ -201,7 +201,7 @@ export function NoteItem({
                   setCurrentNote,
                   editor!
                 );
-                loadFiles(appFolder, setItems);
+                await loadFiles(appFolder, setItems);
               }}
             />
           </Suspense>

@@ -11,8 +11,8 @@ export default function NoteMenu({
 }: {
   menuItemStyles: string;
   updateItemState: React.Dispatch<itemStateType>;
-  handleClose: () => void;
-  handleDelete: () => void;
+  handleClose: () => Promise<void>;
+  handleDelete: () => Promise<void>;
 }) {
   const { t } = useTranslation();
 
@@ -32,14 +32,14 @@ export default function NoteMenu({
     },
     {
       onClick: async () => {
-        handleClose();
+        await handleClose();
         updateItemState({ context: false });
       },
       label: "Close",
     },
     {
       onClick: async () => {
-        handleDelete();
+        await handleDelete();
         updateItemState({ context: false });
       },
       label: "Delete",

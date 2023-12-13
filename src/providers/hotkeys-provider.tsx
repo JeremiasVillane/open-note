@@ -45,8 +45,8 @@ export default function HotkeysProvider({
       ["ctrl+L", () => cycleLang(i18n)],
       [
         "ctrl+S",
-        () =>
-          handleSave(t, editor!, {
+        async () =>
+         await handleSave(t, editor!, {
             currentNote,
             setCurrentNote,
             setStatus,
@@ -59,8 +59,8 @@ export default function HotkeysProvider({
       ["ctrl+shift+E", () => setLeftPanelIsClosed(!leftPanelIsClosed)],
       [
         "ctrl+shift+R",
-        () => {
-          loadFiles(appFolder, setItems);
+        async () => {
+          await loadFiles(appFolder, setItems);
           setStatus(t("Files loaded"));
           setLeftPanelIsClosed(false);
         },
