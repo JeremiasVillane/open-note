@@ -30,7 +30,8 @@ export interface NotesState {
   leftPanelIsClosed: boolean;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
-  setOpenFolder: (folderId: string) => void;
+  setOpenFolder: (folderId: string) => void
+  toggleOpenFolder: (folderId: string) => void;
   setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
   setLeftPanelIsClosed: (value: any) => void;

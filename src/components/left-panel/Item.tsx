@@ -5,9 +5,9 @@ import { Dispatch, SetStateAction, Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
 import { Explorer, NewItemForm } from "..";
 import {
-  handleOpen,
   handleClose,
   handleDelete,
+  handleOpen,
   handleRename,
   loadFiles,
 } from "../../helpers";
@@ -55,7 +55,7 @@ export function Item({
     setStatus,
     setShowNewItemForm,
     openFolders,
-    setOpenFolder,
+    toggleOpenFolder,
   } = useNotesStore();
   const { appFolder } = useTauriContext();
   const { editor } = useRichTextEditorContext();
@@ -158,7 +158,7 @@ export function Item({
                     editor!,
                     (value) => updateItemState({ context: value })
                   )
-            : () => setOpenFolder(item.id)
+            : () => toggleOpenFolder(item.id)
         }
         onContextMenu={showMenu}
       >

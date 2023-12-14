@@ -1,3 +1,4 @@
+import { useClickOutside } from "@mantine/hooks";
 import { join } from "@tauri-apps/api/path";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,6 +31,10 @@ export function NewItemForm({
   const { appFolder } = useTauriContext();
   const [itemName, setItemName] = useState<string>("");
   const { setItems, setStatus, setShowNewItemForm } = useNotesStore();
+  const inputRef = useClickOutside(() => closeForm());
+
+  const closeForm = () =>
+    parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,32 +46,33 @@ export function NewItemForm({
     await loadFiles(appFolder, setItems);
 
     setItemName("");
-    parentId === "root" ? setShowNewItemForm(null) : setNewItem!({});
+    closeForm();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <input
-        type="text"
-        autoFocus
-        name="new-item-field"
-        id="new-item-field"
-        placeholder={t(itemType === "note" ? "New note" : "New folder")}
-        autoComplete="off"
-        className="py-1 bg-[var(--mantine-color-gray-light)] p-3 w-full border-none outline-none"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setItemName(e.target.value)
-        }
-        value={itemName}
-      />
-      <i
-        className="ri-close-circle-line absolute text-lg translate-y-[12%] right-1 cursor-pointer hover:text-red-800 transition-colors ease-in-out duration-150"
-        onClick={() =>
-          parentId === "root" ? setShowNewItemForm(null) : setNewItem!({})
-        }
-        title={t("Cancel")}
-      ></i>
-      <button type="submit" className="hidden" />
-    </form>
+    <div className="flex items-center ml-3">
+      {itemType === "note" ? (
+        <i className="ri-file-2-fill text-blue-400"></i>
+      ) : (
+        <i className="ri-folder-fill text-yellow-500"></i>
+      )}
+      <form ref={inputRef} onSubmit={handleSubmit} className="relative">
+        <input
+          type="text"
+          autoFocus
+          name="new-item-field"
+          id="new-item-field"
+          placeholder={t(itemType === "note" ? "New note..." : "New folder...")}
+          autoComplete="off"
+          className="py-0 pl-1.5 w-full border-none outline-none"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setItemName(e.target.value)
+          }
+          onKeyUp={(e) => e.key === "Escape" && closeForm()}
+          value={itemName}
+        />
+        <button type="submit" className="hidden" />
+      </form>
+    </div>
   );
 }
