@@ -36,7 +36,7 @@ export default function Welcome(): JSX.Element {
                 <Popover.Target>
                   <span className={`font-semibold ${linkStyle}`}>INFO</span>
                 </Popover.Target>
-                <Popover.Dropdown className="text-sm text-center">
+                <Popover.Dropdown className="text-sm text-center select-none">
                   <p>
                     {t("Powered by")}{" "}
                     <a
