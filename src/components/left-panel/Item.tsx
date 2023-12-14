@@ -3,7 +3,7 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import { readTextFile } from "@tauri-apps/api/fs";
 import { Dispatch, SetStateAction, Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
-import { Explorer, NewItemForm } from "..";
+import { Explorer } from "..";
 import {
   handleClose,
   handleDelete,
@@ -17,6 +17,7 @@ import { FileObj, itemStateType } from "../../types";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
 const LazyFolderMenu = lazy(() => import("./FolderMenu"));
+const LazyNewItemForm = lazy(() => import("./NewItemForm"));
 
 /**
  * Renders an item component.
@@ -260,12 +261,14 @@ export function Item({
             }`}
           >
             {newItem![item.id] ? (
-              <NewItemForm
-                itemType={newItem![item.id]}
-                path={item.path}
-                parentId={item.id}
-                setNewItem={setNewItem}
-              />
+              <Suspense>
+                <LazyNewItemForm
+                  itemType={newItem![item.id]}
+                  path={item.path}
+                  parentId={item.id}
+                  setNewItem={setNewItem}
+                />
+              </Suspense>
             ) : null}
             <Explorer fileList={item.children!} />
           </div>

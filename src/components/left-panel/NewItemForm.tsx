@@ -16,7 +16,7 @@ import { useNotesStore } from "../../store/notesStore";
  * @param {Dispatch<SetStateAction<Record<string, string>>>} [props.setNewItem] - Optional setter function used here to hide the new item form if it was called within a subfolder.
  * @return {JSX.Element} The JSX element representing the new item form.
  */
-export function NewItemForm({
+export default function NewItemForm({
   itemType,
   path,
   parentId,

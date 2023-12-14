@@ -1,8 +1,17 @@
 import { useMantineColorScheme } from "@mantine/core";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Explorer, ExplorerMenubar, NewItemForm } from "..";
+import {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Explorer, ExplorerMenubar } from "..";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+
+const LazyNewItemForm = lazy(() => import("./NewItemForm"));
 
 /**
  * Renders the left panel layout of the application.
@@ -86,11 +95,13 @@ export function LeftPanelLayout({
             <section id="sidebar-content" className="flex-1 flex flex-col z-20">
               <div className="">
                 {showNewItemForm ? (
-                  <NewItemForm
-                    itemType={showNewItemForm}
-                    path={appFolder}
-                    parentId="root"
-                  />
+                  <Suspense>
+                    <LazyNewItemForm
+                      itemType={showNewItemForm}
+                      path={appFolder}
+                      parentId="root"
+                    />
+                  </Suspense>
                 ) : null}
 
                 <Explorer fileList={fileList} />
