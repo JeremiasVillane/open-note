@@ -33,17 +33,6 @@ export default function HelpMenu({
 
       <Menu.Dropdown className="shadow-lg">
         <Menu.Item onClick={() => null} className={menuItemStyles}>
-          <Text
-            inline
-            size="sm"
-            className="overlook"
-            data-text={t("Welcome")}
-          />
-        </Menu.Item>
-
-        <Menu.Divider />
-
-        <Menu.Item onClick={() => null} className={menuItemStyles}>
           <Text inline size="sm" className="overlook" data-text={t("About")} />
         </Menu.Item>
       </Menu.Dropdown>
