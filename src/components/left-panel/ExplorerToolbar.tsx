@@ -1,6 +1,6 @@
 import { ActionIcon, Group, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { explorerMenubarControls } from "../../constants";
+import { explorerToolbarControls } from "../../constants";
 import { loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
@@ -10,7 +10,7 @@ import { useNotesStore } from "../../store/notesStore";
  *
  * @return {JSX.Element} The rendered menubar component.
  */
-export default function ExplorerMenubar({
+export default function ExplorerToolbar({
   sidebarSize,
   sidebarWidth,
 }: {
@@ -34,7 +34,7 @@ export default function ExplorerMenubar({
         marginTop: "calc(var(--titlebar-height) + var(--header-height))",
       }}
     >
-      {explorerMenubarControls(
+      {explorerToolbarControls(
         t,
         setShowNewItemForm,
         loadFiles,

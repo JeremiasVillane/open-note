@@ -14,7 +14,7 @@ const commonStyles = "border-none hoverStyles";
  * @param {function} setStatus - The function to update the status bar message.
  * @return {Array} An array of menubar control objects.
  */
-export const explorerMenubarControls = (
+export const explorerToolbarControls = (
   t: TFunction<"translation", undefined>,
   setShowNewItemForm: (value: "note" | "folder" | null) => void,
   loadFiles: (

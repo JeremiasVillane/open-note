@@ -1,5 +1,5 @@
 import { useMantineColorScheme } from "@mantine/core";
-import ExplorerMenubar from "./ExplorerMenubar";
+import ExplorerToolbar from "./ExplorerToolbar";
 import LeftPanelContent from "./LeftPanelContent";
 
 export function LeftPanelLayout({
@@ -24,7 +24,7 @@ export function LeftPanelLayout({
         className="flex flex-col"
         ref={sidebarRef}
       >
-        <ExplorerMenubar
+        <ExplorerToolbar
           sidebarSize={sidebarSize}
           sidebarWidth={sidebarWidth}
         />
