@@ -46,10 +46,20 @@ export default function App(): JSX.Element {
 
   const startResizing = useCallback(() => {
     setIsResizing(true);
+
+    const root = document.getElementById("root");
+    if (root) {
+      root.style.setProperty("cursor", "col-resize");
+    }
   }, []);
 
   const stopResizing = useCallback(() => {
     setIsResizing(false);
+
+    const root = document.getElementById("root");
+    if (root) {
+      root.style.setProperty("cursor", "default");
+    }
   }, []);
 
   const resize = useCallback(
