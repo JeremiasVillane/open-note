@@ -6,21 +6,28 @@ import { handleClose, handleSave } from "../../../helpers";
 import { useNotesStore } from "../../../store/notesStore";
 
 /**
- * Renders a file menu with various options to manage the current note.
+ * Renders a file menu component.
  *
- * @param {object} props - The component props.
+ * @param {Object} props - The component props.
  * @param {string} props.menuItemStyles - The styles for the menu items.
  * @param {string} props.menuTitleStyles - The styles for the menu title.
+ * @param {Partial<Omit<TransitionProps, "mounted">>} props.transitionProps - The menu transition props.
+ * @param {boolean} props.open - Indicates whether the menu is open or closed.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setOpen - The function to set the open state.
  * @return {JSX.Element} The rendered file menu component.
  */
 export default function FileMenu({
   menuItemStyles,
   menuTitleStyles,
   transitionProps,
+  open,
+  setOpen,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
   transitionProps: Partial<Omit<TransitionProps, "mounted">>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
@@ -40,13 +47,17 @@ export default function FileMenu({
 
   return (
     <Menu
+      trigger={open ? "hover" : "click"}
       transitionProps={transitionProps}
       position="bottom-start"
       shadow="md"
       offset={3}
     >
       <Menu.Target>
-        <UnstyledButton className="cursor-default">
+        <UnstyledButton
+          className="cursor-default"
+          onClick={() => setOpen(!open)}
+        >
           <Text
             inline
             size="sm"

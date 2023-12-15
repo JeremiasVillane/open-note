@@ -6,9 +6,21 @@ import HelpMenu from "./HelpMenu";
 /**
  * Renders the title bar menu bar component.
  *
- * @return {JSX.Element} The rendered title bar menu bar component.
+ * @param {object} props - The props object.
+ * @param {boolean} props.open - Indicates whether the menu is open.
+ * @param {function} props.setOpen - A function to set the state of the open prop.
+ * @param {object} props.transitionProps - Menu transition props.
+ * @returns {JSX.Element} The rendered component.
  */
-export default function TitleBarMenuBar(): JSX.Element {
+export default function TitleBarMenuBar({
+  open,
+  setOpen,
+  transitionProps,
+}: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
+}): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   const menuItemStyles = `cursor-default ${
@@ -17,29 +29,30 @@ export default function TitleBarMenuBar(): JSX.Element {
 
   const menuTitleStyles = `overlook py-1 px-2 rounded-sm ${menuItemStyles}`;
 
-  const transitionProps: Partial<Omit<TransitionProps, "mounted">> = {
-    transition: "fade",
-    duration: 1,
-  };
-
   return (
     <>
       <FileMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
         transitionProps={transitionProps}
+        open={open}
+        setOpen={setOpen}
       />
 
       <EditMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
         transitionProps={transitionProps}
+        open={open}
+        setOpen={setOpen}
       />
 
       <HelpMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
         transitionProps={transitionProps}
+        open={open}
+        setOpen={setOpen}
       />
     </>
   );

@@ -6,21 +6,28 @@ import LanguageSubMenu from "./LanguageSubMenu";
 import ThemeSubMenu from "./ThemeSubMenu";
 
 /**
- * Renders an Edit Menu component.
+ * Renders an EditMenu component.
  *
- * @param {object} props - The component props.
- * @param {string} props.menuItemStyles - The styles for menu items.
- * @param {string} props.menuTitleStyles - The styles for menu title.
- * @return {JSX.Element} The rendered Edit Menu component.
+ * @param {Object} props - The component props.
+ * @param {string} props.menuItemStyles - The styles for the menu items.
+ * @param {string} props.menuTitleStyles - The styles for the menu title.
+ * @param {Partial<Omit<TransitionProps, "mounted">>} props.transitionProps - The menu transition props.
+ * @param {boolean} props.open - Indicates if the menu is open.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setOpen - The function to update the open state.
+ * @return {JSX.Element} The rendered EditMenu component.
  */
 export default function EditMenu({
   menuItemStyles,
   menuTitleStyles,
   transitionProps,
+  open,
+  setOpen,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
   transitionProps: Partial<Omit<TransitionProps, "mounted">>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
@@ -28,6 +35,7 @@ export default function EditMenu({
 
   return (
     <Menu
+      trigger={open ? "hover" : "click"}
       transitionProps={transitionProps}
       position="bottom-start"
       shadow="md"
@@ -35,7 +43,10 @@ export default function EditMenu({
       offset={3}
     >
       <Menu.Target>
-        <UnstyledButton className="cursor-default">
+        <UnstyledButton
+          className="cursor-default"
+          onClick={() => setOpen(!open)}
+        >
           <Text
             inline
             size="sm"

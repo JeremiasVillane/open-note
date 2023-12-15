@@ -1,6 +1,7 @@
 import {
   Menu,
   Text,
+  TransitionProps,
   UnstyledButton,
   useMantineColorScheme,
 } from "@mantine/core";
@@ -17,11 +18,23 @@ import {
 import TitleBarContext from "./TitleBarProvider";
 
 /**
- * Renders the window context menu bar.
+ * Renders a title bar icon menu component.
  *
- * @return {ReactNode} The rendered menu component.
+ * @param {object} props - The props object.
+ * @param {boolean} props.open - Indicates whether the menu is open.
+ * @param {function} props.setOpen - A function to set the state of the open prop.
+ * @param {object} props.transitionProps - Menu transition props.
+ * @return {ReactNode} The rendered title bar icon menu component.
  */
-export default function TitleBarIconMenu(): ReactNode {
+export default function TitleBarIconMenu({
+  open,
+  setOpen,
+  transitionProps,
+}: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
+}): ReactNode {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [opened, setOpened] = useState(false);
@@ -34,7 +47,19 @@ export default function TitleBarIconMenu(): ReactNode {
     handleExit,
   } = useContext(TitleBarContext);
 
-  useHotkeys([["ctrl+Space", () => setOpened(!opened)]], undefined, true);
+  useHotkeys(
+    [
+      [
+        "ctrl+Space",
+        () => {
+          setOpened(!opened);
+          setOpen(true);
+        },
+      ],
+    ],
+    undefined,
+    true
+  );
 
   const menuItemStyles = `cursor-default ${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
@@ -42,6 +67,8 @@ export default function TitleBarIconMenu(): ReactNode {
 
   return (
     <Menu
+      trigger={open ? "hover" : "click"}
+      transitionProps={transitionProps}
       opened={opened}
       onChange={setOpened}
       shadow="md"
@@ -49,7 +76,10 @@ export default function TitleBarIconMenu(): ReactNode {
       offset={4}
     >
       <Menu.Target>
-        <UnstyledButton className="cursor-default">
+        <UnstyledButton
+          className="cursor-default"
+          onClick={() => setOpen(!open)}
+        >
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
         </UnstyledButton>
       </Menu.Target>

@@ -1,9 +1,10 @@
-import { useMantineColorScheme } from "@mantine/core";
+import { TransitionProps, useMantineColorScheme } from "@mantine/core";
+import { useState } from "react";
 import TitleBarButtons from "./TitleBarButtons";
 import TitleBarIconMenu from "./TitleBarIconMenu";
+import TitleBarName from "./TitleBarName";
 import { TitleBarProvider } from "./TitleBarProvider";
 import TitleBarMenuBar from "./titlebar-menubar/TitleBarMenuBar";
-import TitleBarName from "./TitleBarName";
 
 /**
  * Renders the Titlebar component,
@@ -13,6 +14,12 @@ import TitleBarName from "./TitleBarName";
  */
 export function Titlebar(): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
+  const [open, setOpen] = useState(false);
+
+  const transitionProps: Partial<Omit<TransitionProps, "mounted">> = {
+    transition: "fade",
+    duration: 1,
+  };
 
   return (
     <TitleBarProvider>
@@ -27,10 +34,21 @@ export function Titlebar(): JSX.Element {
         }}
         data-tauri-drag-region
       >
-        <div className="flex items-center gap-1">
-          <TitleBarIconMenu />
+        <div
+          className="flex items-center gap-1"
+          onMouseLeave={() => setOpen(false)}
+        >
+          <TitleBarIconMenu
+            transitionProps={transitionProps}
+            open={open}
+            setOpen={setOpen}
+          />
 
-          <TitleBarMenuBar />
+          <TitleBarMenuBar
+            transitionProps={transitionProps}
+            open={open}
+            setOpen={setOpen}
+          />
         </div>
 
         <TitleBarName />
