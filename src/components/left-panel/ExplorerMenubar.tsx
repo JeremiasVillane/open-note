@@ -29,6 +29,7 @@ export default function ExplorerMenubar({
       bg={`${colorScheme === "light" ? "#e8f3fc" : "#1b2c3c"}`}
       className={`fixed pr-1 border-r border-[var(--mantine-color-gray-light)] min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px]`}
       style={{
+        height: "var(--explorer-menubar-height)",
         width: sidebarWidth,
         marginTop: "calc(var(--titlebar-height) + var(--header-height))",
       }}

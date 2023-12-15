@@ -31,8 +31,9 @@ export default function LeftPanelContent({
         style={{
           width: sidebarWidth,
           height:
-            "calc(100vh - (var(--titlebar-height) + var(--header-height) + var(--footer-height) + 1.5rem))",
-          marginTop: "calc(var(--header-height) + var(--titlebar-height) + 1.5rem)",
+            "calc(100vh - (var(--titlebar-height) + var(--header-height) + var(--footer-height) + var(--explorer-menubar-height)))",
+          marginTop:
+            "calc(var(--header-height) + var(--titlebar-height) + var(--explorer-menubar-height))",
           marginBottom: "var(--footer-height)",
         }}
         onMouseDown={(e) => e.preventDefault()}
