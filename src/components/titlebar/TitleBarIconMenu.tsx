@@ -4,17 +4,16 @@ import {
   UnstyledButton,
   useMantineColorScheme,
 } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
 import { ReactNode, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
+import TitleBarContext from "../../providers/titlebar-provider";
 import {
   CloseIcon,
   MaximizeIcon,
   MinimizeIcon,
   RestoreIcon,
 } from "../ui/icons";
-import TitleBarContext from "../../providers/titlebar-provider";
 
 /**
  * Renders a title bar icon menu component.
@@ -28,7 +27,6 @@ import TitleBarContext from "../../providers/titlebar-provider";
 export default function TitleBarIconMenu(): ReactNode {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const [opened, setOpened] = useState(false);
   const {
     isMaximized,
     isOnTop,
@@ -40,20 +38,7 @@ export default function TitleBarIconMenu(): ReactNode {
     handleOnTop,
     handleExit,
   } = useContext(TitleBarContext);
-
-  useHotkeys(
-    [
-      [
-        "ctrl+Space",
-        () => {
-          setOpened(!opened);
-          setOpenMenu(true);
-        },
-      ],
-    ],
-    undefined,
-    true
-  );
+  const [opened, setOpened] = useState(false);
 
   const menuItemStyles = `cursor-default ${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"
@@ -72,7 +57,10 @@ export default function TitleBarIconMenu(): ReactNode {
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpenMenu(!openMenu)}
+          onClick={() => {
+            setOpenMenu(!openMenu);
+            setOpened(!opened);
+          }}
         >
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
         </UnstyledButton>

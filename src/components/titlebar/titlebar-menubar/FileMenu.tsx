@@ -1,11 +1,11 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { appWindow } from "@tauri-apps/api/window";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { handleClose, handleSave } from "../../../helpers";
-import { useNotesStore } from "../../../store/notesStore";
 import TitleBarContext from "../../../providers/titlebar-provider";
+import { useNotesStore } from "../../../store/notesStore";
 
 /**
  * Renders a file menu component.
@@ -36,6 +36,7 @@ export default function FileMenu({
   } = useNotesStore();
   const { openMenu, setOpenMenu, transitionProps } =
     useContext(TitleBarContext);
+  const [opened, setOpened] = useState(false);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -47,6 +48,8 @@ export default function FileMenu({
     <Menu
       trigger={openMenu ? "hover" : "click"}
       transitionProps={transitionProps}
+      opened={opened}
+      onChange={setOpened}
       position="bottom-start"
       shadow="md"
       offset={3}
@@ -54,7 +57,10 @@ export default function FileMenu({
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpenMenu(!openMenu)}
+          onClick={() => {
+            setOpenMenu(!openMenu);
+            setOpened(!opened);
+          }}
         >
           <Text
             inline

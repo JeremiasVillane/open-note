@@ -1,5 +1,5 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TitleBarContext from "../../../providers/titlebar-provider";
 
@@ -24,11 +24,14 @@ export default function HelpMenu({
   const { t } = useTranslation();
   const { openMenu, setOpenMenu, transitionProps } =
     useContext(TitleBarContext);
+  const [opened, setOpened] = useState(false);
 
   return (
     <Menu
       trigger={openMenu ? "hover" : "click"}
       transitionProps={transitionProps}
+      opened={opened}
+      onChange={setOpened}
       position="bottom-start"
       shadow="md"
       width={150}
@@ -37,7 +40,10 @@ export default function HelpMenu({
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpenMenu(!openMenu)}
+          onClick={() => {
+            setOpenMenu(!openMenu);
+            setOpened(!opened);
+          }}
         >
           <Text
             inline
