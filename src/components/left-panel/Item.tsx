@@ -209,11 +209,11 @@ export function Item({
             </form>
           ) : (
             <p
-              className={
+              className={`${
                 type === "note"
                   ? "overlook"
                   : "overlook py-0 pb-0 pl-1.5 font-semibold"
-              }
+              } whitespace-nowrap`}
               data-text={item.name.split(".")[0]}
             />
           )}

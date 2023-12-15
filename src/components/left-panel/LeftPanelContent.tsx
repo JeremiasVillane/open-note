@@ -27,11 +27,13 @@ export default function LeftPanelContent({
   return (
     <>
       <aside
-        className={`titleBarAdjustedHeight overflow-auto flex-grow-0 flex-shrink-0 min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] border-r border-[var(--mantine-color-gray-light)]`}
+        className={`overflow-auto flex-grow-0 flex-shrink-0 min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] border-r border-[var(--mantine-color-gray-light)]`}
         style={{
           width: sidebarWidth,
-          marginTop:
-            "calc(var(--header-height) + var(--titlebar-height) + 1.5rem)",
+          height:
+            "calc(100vh - (var(--titlebar-height) + var(--header-height) + var(--footer-height) + 1.5rem))",
+          marginTop: "calc(var(--header-height) + var(--titlebar-height) + 1.5rem)",
+          marginBottom: "var(--footer-height)",
         }}
         onMouseDown={(e) => e.preventDefault()}
       >

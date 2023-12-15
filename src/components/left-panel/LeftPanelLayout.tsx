@@ -20,7 +20,10 @@ export function LeftPanelLayout({
 
   return (
     <>
-      <section className="flex flex-col" ref={sidebarRef}>
+      <section
+        className="flex flex-col"
+        ref={sidebarRef}
+      >
         <ExplorerMenubar
           sidebarSize={sidebarSize}
           sidebarWidth={sidebarWidth}

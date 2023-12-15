@@ -26,7 +26,7 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
   const contextMenuStyles = `z-10 fixed rounded-sm border border-[var(--mantine-color-gray-light)]`;
 
   return (
-    <aside className="group/panel">
+    <div className="group/panel">
       {fileList?.map((item) =>
         item.is_folder ? (
           <section key={item.id}>
@@ -58,6 +58,6 @@ export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
           </section>
         )
       )}
-    </aside>
+    </div>
   );
 }

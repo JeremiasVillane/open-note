@@ -13,19 +13,6 @@
   margin-top: var(----app-shell-header-offset);
 }
 
-.titleBarAdjustedHeight {
-  height: calc(
-    var(
-        --_section-height,
-        calc(
-          100dvh - var(--app-shell-header-offset, 0px) -
-            var(--app-shell-footer-offset, 0px)
-        )
-      ) - var(--titlebar-height)
-  ) !important;
-  margin-top: var(--titlebar-height);
-}
-
 /* Custom scrollbar styles */
 ::-webkit-scrollbar {
   width: 14px;
