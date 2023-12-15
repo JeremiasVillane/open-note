@@ -1,5 +1,7 @@
-import { Menu, Text, TransitionProps } from "@mantine/core";
+import { Menu, Text } from "@mantine/core";
 import { i18n, t } from "i18next";
+import { useContext } from "react";
+import TitleBarContext from "../../../providers/titlebar-provider";
 
 /**
  * Renders the language submenu component.
@@ -12,13 +14,12 @@ import { i18n, t } from "i18next";
 export default function LanguageSubMenu({
   i18n,
   menuItemStyles,
-  transitionProps,
 }: {
   i18n: i18n;
   menuItemStyles: string;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const languages = Object.keys(i18n?.options?.resources!);
+  const { transitionProps } = useContext(TitleBarContext);
 
   const langMenu = languages.map((supportedLang, index) => {
     return (

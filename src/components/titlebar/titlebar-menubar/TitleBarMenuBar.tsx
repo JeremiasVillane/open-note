@@ -1,4 +1,4 @@
-import { TransitionProps, useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 import EditMenu from "./EditMenu";
 import FileMenu from "./FileMenu";
 import HelpMenu from "./HelpMenu";
@@ -12,15 +12,7 @@ import HelpMenu from "./HelpMenu";
  * @param {object} props.transitionProps - Menu transition props.
  * @returns {JSX.Element} The rendered component.
  */
-export default function TitleBarMenuBar({
-  open,
-  setOpen,
-  transitionProps,
-}: {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
-}): JSX.Element {
+export default function TitleBarMenuBar(): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   const menuItemStyles = `cursor-default ${
@@ -34,25 +26,16 @@ export default function TitleBarMenuBar({
       <FileMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
-        transitionProps={transitionProps}
-        open={open}
-        setOpen={setOpen}
       />
 
       <EditMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
-        transitionProps={transitionProps}
-        open={open}
-        setOpen={setOpen}
       />
 
       <HelpMenu
         menuItemStyles={menuItemStyles}
         menuTitleStyles={menuTitleStyles}
-        transitionProps={transitionProps}
-        open={open}
-        setOpen={setOpen}
       />
     </>
   );

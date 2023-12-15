@@ -1,3 +1,4 @@
+import { TransitionProps } from "@mantine/core";
 import { SVGProps } from "react";
 
 export interface FileObj {
@@ -30,7 +31,7 @@ export interface NotesState {
   leftPanelIsClosed: boolean;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
-  setOpenFolder: (folderId: string) => void
+  setOpenFolder: (folderId: string) => void;
   toggleOpenFolder: (folderId: string) => void;
   setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
@@ -41,6 +42,9 @@ export interface TitleBarContextType {
   windowTitle: string;
   isMaximized: boolean;
   isOnTop: boolean;
+  openMenu: boolean;
+  setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  transitionProps?: Partial<Omit<TransitionProps, "mounted">>;
   handleMinimize: () => Promise<void>;
   handleMaximize: () => Promise<void>;
   handleOnTop: () => Promise<void>;

@@ -1,7 +1,6 @@
 import {
   Menu,
   Text,
-  TransitionProps,
   UnstyledButton,
   useMantineColorScheme,
 } from "@mantine/core";
@@ -15,7 +14,7 @@ import {
   MinimizeIcon,
   RestoreIcon,
 } from "../ui/icons";
-import TitleBarContext from "./TitleBarProvider";
+import TitleBarContext from "../../providers/titlebar-provider";
 
 /**
  * Renders a title bar icon menu component.
@@ -26,21 +25,16 @@ import TitleBarContext from "./TitleBarProvider";
  * @param {object} props.transitionProps - Menu transition props.
  * @return {ReactNode} The rendered title bar icon menu component.
  */
-export default function TitleBarIconMenu({
-  open,
-  setOpen,
-  transitionProps,
-}: {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
-}): ReactNode {
+export default function TitleBarIconMenu(): ReactNode {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const [opened, setOpened] = useState(false);
   const {
     isMaximized,
     isOnTop,
+    openMenu,
+    setOpenMenu,
+    transitionProps,
     handleMinimize,
     handleMaximize,
     handleOnTop,
@@ -53,7 +47,7 @@ export default function TitleBarIconMenu({
         "ctrl+Space",
         () => {
           setOpened(!opened);
-          setOpen(true);
+          setOpenMenu(true);
         },
       ],
     ],
@@ -67,7 +61,7 @@ export default function TitleBarIconMenu({
 
   return (
     <Menu
-      trigger={open ? "hover" : "click"}
+      trigger={openMenu ? "hover" : "click"}
       transitionProps={transitionProps}
       opened={opened}
       onChange={setOpened}
@@ -78,7 +72,7 @@ export default function TitleBarIconMenu({
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpenMenu(!openMenu)}
         >
           <img className="h-5 w-5 ml-2 flex-shrink-0" src={AppIcon} />
         </UnstyledButton>

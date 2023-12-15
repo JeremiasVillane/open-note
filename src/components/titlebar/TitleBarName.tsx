@@ -1,7 +1,7 @@
 import { Text } from "@mantine/core";
 import { useContext } from "react";
 import { useNotesStore } from "../../store/notesStore";
-import TitleBarContext from "./TitleBarProvider";
+import TitleBarContext from "../../providers/titlebar-provider";
 
 /**
  * Renders the name to be displayed in the title bar of the application.

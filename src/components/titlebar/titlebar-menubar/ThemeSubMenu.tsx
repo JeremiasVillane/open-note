@@ -1,10 +1,7 @@
-import {
-  Menu,
-  Text,
-  TransitionProps,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { Menu, Text, useMantineColorScheme } from "@mantine/core";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import TitleBarContext from "../../../providers/titlebar-provider";
 
 /**
  * Renders a ThemeSubMenu component.
@@ -15,13 +12,12 @@ import { useTranslation } from "react-i18next";
  */
 export default function ThemeSubMenu({
   menuItemStyles,
-  transitionProps,
 }: {
   menuItemStyles: string;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
+  const { transitionProps } = useContext(TitleBarContext);
 
   return (
     <Menu

@@ -1,9 +1,11 @@
-import { Menu, Text, TransitionProps, UnstyledButton } from "@mantine/core";
+import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { appWindow } from "@tauri-apps/api/window";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { handleClose, handleSave } from "../../../helpers";
 import { useNotesStore } from "../../../store/notesStore";
+import TitleBarContext from "../../../providers/titlebar-provider";
 
 /**
  * Renders a file menu component.
@@ -19,15 +21,9 @@ import { useNotesStore } from "../../../store/notesStore";
 export default function FileMenu({
   menuItemStyles,
   menuTitleStyles,
-  transitionProps,
-  open,
-  setOpen,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
@@ -38,6 +34,8 @@ export default function FileMenu({
     setShowNewItemForm,
     setStatus,
   } = useNotesStore();
+  const { openMenu, setOpenMenu, transitionProps } =
+    useContext(TitleBarContext);
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -47,7 +45,7 @@ export default function FileMenu({
 
   return (
     <Menu
-      trigger={open ? "hover" : "click"}
+      trigger={openMenu ? "hover" : "click"}
       transitionProps={transitionProps}
       position="bottom-start"
       shadow="md"
@@ -56,7 +54,7 @@ export default function FileMenu({
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpenMenu(!openMenu)}
         >
           <Text
             inline

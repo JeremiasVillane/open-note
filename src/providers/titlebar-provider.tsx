@@ -6,13 +6,17 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { TitleBarContextType } from "../../types";
+import { useTauriContext } from "./tauri-provider";
+import { TitleBarContextType } from "../types";
+import { TransitionProps } from "@mantine/core";
 
 const TitleBarContext = createContext<TitleBarContextType>({
   windowTitle: "",
   isMaximized: false,
   isOnTop: false,
+  openMenu: false,
+  transitionProps: undefined,
+  setOpenMenu: () => {},
   handleMinimize: () => Promise.resolve(),
   handleMaximize: () => Promise.resolve(),
   handleOnTop: () => Promise.resolve(),
@@ -32,6 +36,12 @@ export const TitleBarProvider: React.FC<{
   const [windowTitle, setWindowTitle] = useState<string>("");
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
   const [isOnTop, setIsOnTop] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const transitionProps: Partial<Omit<TransitionProps, "mounted">> = {
+    transition: "fade",
+    duration: 1,
+  };
 
   useLayoutEffect(() => {
     appWindow.title().then((title) => {
@@ -89,6 +99,9 @@ export const TitleBarProvider: React.FC<{
         windowTitle,
         isMaximized,
         isOnTop,
+        openMenu,
+        setOpenMenu,
+        transitionProps,
         handleMinimize,
         handleMaximize,
         handleOnTop,

@@ -8,6 +8,7 @@ import { Titlebar } from "../components";
 import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
 import { loadFiles } from "../helpers";
 import { useNotesStore } from "../store/notesStore";
+import { TitleBarProvider } from "./titlebar-provider";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 
@@ -37,10 +38,7 @@ export function TauriProvider({
   // Disable global hotkeys to print and refresh the page,
   // asigning a null function to them.
   useEffect(() => {
-    globalShortcut.registerAll(
-      ["CommandOrControl+P", "F5"],
-      () => null
-    );
+    globalShortcut.registerAll(["CommandOrControl+P", "F5"], () => null);
   }, []);
 
   if (RUNNING_IN_TAURI) {
@@ -96,7 +94,9 @@ export function TauriProvider({
         appFolder,
       }}
     >
-      <Titlebar />
+      <TitleBarProvider>
+        <Titlebar />
+      </TitleBarProvider>
       {children}
     </TauriContext.Provider>
   );

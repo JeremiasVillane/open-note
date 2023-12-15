@@ -1,9 +1,11 @@
-import { Menu, Text, TransitionProps, UnstyledButton } from "@mantine/core";
+import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../../store/notesStore";
 import LanguageSubMenu from "./LanguageSubMenu";
 import ThemeSubMenu from "./ThemeSubMenu";
+import { useContext } from "react";
+import TitleBarContext from "../../../providers/titlebar-provider";
 
 /**
  * Renders an EditMenu component.
@@ -19,23 +21,19 @@ import ThemeSubMenu from "./ThemeSubMenu";
 export default function EditMenu({
   menuItemStyles,
   menuTitleStyles,
-  transitionProps,
-  open,
-  setOpen,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();
+  const { openMenu, setOpenMenu, transitionProps } =
+    useContext(TitleBarContext);
 
   return (
     <Menu
-      trigger={open ? "hover" : "click"}
+      trigger={openMenu ? "hover" : "click"}
       transitionProps={transitionProps}
       position="bottom-start"
       shadow="md"
@@ -45,7 +43,7 @@ export default function EditMenu({
       <Menu.Target>
         <UnstyledButton
           className="cursor-default"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpenMenu(!openMenu)}
         >
           <Text
             inline
@@ -120,15 +118,8 @@ export default function EditMenu({
             </Menu.Item>
           </Menu.Target>
           <Menu.Dropdown className="shadow-lg">
-            <LanguageSubMenu
-              i18n={i18n}
-              transitionProps={transitionProps}
-              menuItemStyles={menuItemStyles}
-            />
-            <ThemeSubMenu
-              transitionProps={transitionProps}
-              menuItemStyles={menuItemStyles}
-            />
+            <LanguageSubMenu i18n={i18n} menuItemStyles={menuItemStyles} />
+            <ThemeSubMenu menuItemStyles={menuItemStyles} />
           </Menu.Dropdown>
         </Menu>
       </Menu.Dropdown>
