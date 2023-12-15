@@ -6,12 +6,10 @@ import { useNotesStore } from "../../store/notesStore";
 const LazyNewItemForm = lazy(() => import("./NewItemForm"));
 
 /**
- * Renders the left panel layout of the application.
+ * Renders the content for the left panel.
  *
- * @param {Object} param - An object containing the following properties:
- *   - sidebarWidth: The width of the sidebar.
- *   - setSidebarWidth: A function to set the width of the sidebar.
- * @return {JSX.Element} The JSX element representing the left panel layout.
+ * @param {{ sidebarSize: { min: number; max: number }; sidebarWidth: number }} props - The props object containing the sidebar size and width.
+ * @returns {JSX.Element} The JSX element representing the left panel content.
  */
 export default function LeftPanelContent({
   sidebarSize,

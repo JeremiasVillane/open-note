@@ -2,6 +2,18 @@ import { useMantineColorScheme } from "@mantine/core";
 import ExplorerToolbar from "./ExplorerToolbar";
 import LeftPanelContent from "./LeftPanelContent";
 
+/**
+ * Renders the layout for the left panel.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.MutableRefObject<HTMLElement | null>} props.sidebarRef - The ref to the sidebar element.
+ * @param {Object} props.sidebarSize - The minimum and maximum size of the sidebar.
+ * @param {number} props.sidebarSize.min - The minimum size of the sidebar.
+ * @param {number} props.sidebarSize.max - The maximum size of the sidebar.
+ * @param {number} props.sidebarWidth - The width of the sidebar.
+ * @param {Function} props.startResizing - The function to start resizing the sidebar.
+ * @return {JSX.Element} The rendered left panel layout.
+ */
 export function LeftPanelLayout({
   sidebarRef,
   sidebarSize,
@@ -15,7 +27,7 @@ export function LeftPanelLayout({
   };
   sidebarWidth: number;
   startResizing: () => void;
-}) {
+}): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   return (

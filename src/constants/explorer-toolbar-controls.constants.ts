@@ -4,7 +4,7 @@ import { FileObj } from "../types";
 const commonStyles = "border-none hoverStyles";
 
 /**
- * Generates the menubar controls for the explorer.
+ * Generates the toolbar controls for the explorer.
  *
  * @param {TFunction<"translation", undefined>} t - The translation function.
  * @param {function} setShowNewItemForm - The function to show the form to create a new item.

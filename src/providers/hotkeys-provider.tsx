@@ -8,7 +8,7 @@ import { useNotesStore } from "../store/notesStore";
 import { cycleLang } from "../utils";
 
 /**
- * It provides global hotkey functionality.
+ * Provides global hotkey functionality.
  *
  * @param {Object} props - The properties object.
  * @param {React.ReactNode} props.children - The children to be wrapped by the HotkeysProvider.

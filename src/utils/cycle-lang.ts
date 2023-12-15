@@ -1,6 +1,12 @@
 import { i18n } from "i18next";
 
-export function cycleLang(i18n: i18n) {
+/**
+ * Updates the language in the i18n object to the next available language in the list of resources.
+ *
+ * @param {i18n} i18n - The i18n object.
+ * @return {void} This function does not return anything.
+ */
+export function cycleLang(i18n: i18n): void {
   const languages = Object.keys(i18n.options.resources!);
   const lang = i18n.language;
 

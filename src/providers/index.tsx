@@ -14,7 +14,17 @@ import { useMinWidth } from "../utils";
 import HotkeysProvider from "./hotkeys-provider";
 import { TauriProvider } from "./tauri-provider";
 
-export default function Providers({ children }: { children: JSX.Element }) {
+/**
+ * Renders the Providers component.
+ *
+ * @param {JSX.Element} children - The JSX element representing the children of Providers.
+ * @return {JSX.Element}
+ */
+export default function Providers({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element {
   const { currentNote } = useNotesStore();
 
   const editor = useEditor({
