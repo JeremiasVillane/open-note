@@ -1,9 +1,9 @@
-import { Menu, Text, UnstyledButton } from "@mantine/core";
+import { Menu, Text, TransitionProps, UnstyledButton } from "@mantine/core";
+import { useRichTextEditorContext } from "@mantine/tiptap";
 import { appWindow } from "@tauri-apps/api/window";
 import { useTranslation } from "react-i18next";
 import { handleClose, handleSave } from "../../../helpers";
 import { useNotesStore } from "../../../store/notesStore";
-import { useRichTextEditorContext } from "@mantine/tiptap";
 
 /**
  * Renders a file menu with various options to manage the current note.
@@ -16,9 +16,11 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 export default function FileMenu({
   menuItemStyles,
   menuTitleStyles,
+  transitionProps,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
@@ -37,7 +39,12 @@ export default function FileMenu({
     editor?.getHTML() !== currentNote?.content;
 
   return (
-    <Menu position="bottom-start" shadow="md" offset={3}>
+    <Menu
+      transitionProps={transitionProps}
+      position="bottom-start"
+      shadow="md"
+      offset={3}
+    >
       <Menu.Target>
         <UnstyledButton className="cursor-default">
           <Text

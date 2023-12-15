@@ -1,4 +1,4 @@
-import { Menu, Text, UnstyledButton } from "@mantine/core";
+import { Menu, Text, TransitionProps, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { useNotesStore } from "../../../store/notesStore";
@@ -16,16 +16,24 @@ import ThemeSubMenu from "./ThemeSubMenu";
 export default function EditMenu({
   menuItemStyles,
   menuTitleStyles,
+  transitionProps,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();
 
   return (
-    <Menu position="bottom-start" shadow="md" width={200} offset={3}>
+    <Menu
+      transitionProps={transitionProps}
+      position="bottom-start"
+      shadow="md"
+      width={200}
+      offset={3}
+    >
       <Menu.Target>
         <UnstyledButton className="cursor-default">
           <Text
@@ -101,8 +109,15 @@ export default function EditMenu({
             </Menu.Item>
           </Menu.Target>
           <Menu.Dropdown className="shadow-lg">
-            <LanguageSubMenu i18n={i18n} menuItemStyles={menuItemStyles} />
-            <ThemeSubMenu menuItemStyles={menuItemStyles} />
+            <LanguageSubMenu
+              i18n={i18n}
+              transitionProps={transitionProps}
+              menuItemStyles={menuItemStyles}
+            />
+            <ThemeSubMenu
+              transitionProps={transitionProps}
+              menuItemStyles={menuItemStyles}
+            />
           </Menu.Dropdown>
         </Menu>
       </Menu.Dropdown>

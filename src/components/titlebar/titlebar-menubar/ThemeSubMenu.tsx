@@ -1,4 +1,9 @@
-import { Menu, Text, useMantineColorScheme } from "@mantine/core";
+import {
+  Menu,
+  Text,
+  TransitionProps,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -10,14 +15,22 @@ import { useTranslation } from "react-i18next";
  */
 export default function ThemeSubMenu({
   menuItemStyles,
+  transitionProps,
 }: {
   menuItemStyles: string;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
 
   return (
-    <Menu trigger="hover" position="right-start" shadow="md" offset={5}>
+    <Menu
+      transitionProps={transitionProps}
+      trigger="hover"
+      position="right-start"
+      shadow="md"
+      offset={5}
+    >
       <Menu.Target>
         <Menu.Item
           className={`${menuItemStyles} py-[inherit]`}

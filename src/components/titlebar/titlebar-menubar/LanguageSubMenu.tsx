@@ -1,4 +1,4 @@
-import { Menu, Text } from "@mantine/core";
+import { Menu, Text, TransitionProps } from "@mantine/core";
 import { i18n, t } from "i18next";
 
 /**
@@ -12,9 +12,11 @@ import { i18n, t } from "i18next";
 export default function LanguageSubMenu({
   i18n,
   menuItemStyles,
+  transitionProps,
 }: {
   i18n: i18n;
   menuItemStyles: string;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const languages = Object.keys(i18n?.options?.resources!);
 
@@ -36,7 +38,13 @@ export default function LanguageSubMenu({
   });
 
   return (
-    <Menu trigger="hover" position="right-start" shadow="md" offset={5}>
+    <Menu
+      transitionProps={transitionProps}
+      trigger="hover"
+      position="right-start"
+      shadow="md"
+      offset={5}
+    >
       <Menu.Target>
         <Menu.Item
           className={`${menuItemStyles} py-[inherit]`}

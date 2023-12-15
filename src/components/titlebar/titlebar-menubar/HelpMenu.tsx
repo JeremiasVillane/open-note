@@ -1,4 +1,4 @@
-import { Menu, Text, UnstyledButton } from "@mantine/core";
+import { Menu, Text, TransitionProps, UnstyledButton } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -12,14 +12,22 @@ import { useTranslation } from "react-i18next";
 export default function HelpMenu({
   menuItemStyles,
   menuTitleStyles,
+  transitionProps,
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
+  transitionProps: Partial<Omit<TransitionProps, "mounted">>;
 }): JSX.Element {
   const { t } = useTranslation();
 
   return (
-    <Menu position="bottom-start" shadow="md" width={150} offset={3}>
+    <Menu
+      transitionProps={transitionProps}
+      position="bottom-start"
+      shadow="md"
+      width={150}
+      offset={3}
+    >
       <Menu.Target>
         <UnstyledButton className="cursor-default">
           <Text
