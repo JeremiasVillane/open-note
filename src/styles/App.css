@@ -2,7 +2,7 @@
 :root {
   --header-height: 50px;
   --footer-height: 25px;
-  --explorer-menubar-height: 1.5rem;
+  --explorer-menubar-height: 1.75rem;
 }
 
 .appShell main {
