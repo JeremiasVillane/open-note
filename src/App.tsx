@@ -18,7 +18,7 @@ import "./styles/App.css";
  * @returns The JSX element representing the application.
  */
 export default function App(): JSX.Element {
-  const { leftPanelIsClosed } = useNotesStore();
+  const { leftPanelIsClosed, setLeftPanelIsClosed } = useNotesStore();
   const { ref, width } = useElementSize();
   const sidebarRef = useRef<HTMLElement | null>(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -34,6 +34,7 @@ export default function App(): JSX.Element {
       }
 
       if (newState.width < sidebarSize.min) {
+        setLeftPanelIsClosed(true);
         newState.width = sidebarSize.min;
       }
 
