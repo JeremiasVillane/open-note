@@ -10,7 +10,13 @@ import { useNotesStore } from "../../store/notesStore";
  *
  * @return {JSX.Element} The rendered menubar component.
  */
-export function ExplorerMenubar(): JSX.Element {
+export default function ExplorerMenubar({
+  sidebarSize,
+  sidebarWidth,
+}: {
+  sidebarSize: { min: number; max: number };
+  sidebarWidth: number;
+}): JSX.Element {
   const { t } = useTranslation();
   const { setItems, setShowNewItemForm, setStatus } = useNotesStore();
   const { appFolder } = useTauriContext();
@@ -21,7 +27,11 @@ export function ExplorerMenubar(): JSX.Element {
       justify="flex-end"
       gap="1"
       bg={`${colorScheme === "light" ? "#e8f3fc" : "#1b2c3c"}`}
-      className="pr-1 border-r border-[var(--mantine-color-gray-light)]"
+      className={`fixed pr-1 border-r border-[var(--mantine-color-gray-light)] min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px]`}
+      style={{
+        width: sidebarWidth,
+        marginTop: "calc(var(--titlebar-height) + var(--header-height))",
+      }}
     >
       {explorerMenubarControls(
         t,

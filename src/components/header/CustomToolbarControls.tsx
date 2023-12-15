@@ -26,7 +26,7 @@ export function CustomToolbarControls(): JSX.Element {
         return (
           <section
             key={index}
-            className={`border overflow-hidden`}
+            className="border overflow-hidden"
             style={{
               borderRadius: "var(--mantine-radius-default)",
               borderColor: "var(--_root-bd)",

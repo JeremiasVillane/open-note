@@ -1,12 +1,13 @@
 import { AppShell } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
-import { useReducer } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import {
   FooterLayout,
   HeaderLayout,
   LeftPanelLayout,
   MainPanelLayout,
 } from "./components";
+import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
 
 /**
@@ -17,36 +18,63 @@ import "./styles/App.css";
  * @returns The JSX element representing the application.
  */
 export default function App(): JSX.Element {
+  const { leftPanelIsClosed } = useNotesStore();
   const { ref, width } = useElementSize();
+  const sidebarRef = useRef<HTMLElement | null>(null);
+  const [isResizing, setIsResizing] = useState(false);
 
   const sidebarSize = { min: 150, max: width / 2 };
 
-  /**
-   * Reducer function to update the sidebar state.
-   * @param prev The previous sidebar state.
-   * @param next The new sidebar state.
-   * @returns The updated sidebar state.
-   */
-  const sidebarReducer = (prev: { width: number }, next: { width: number }) => {
-    const newState = { ...prev, ...next };
+  const [sidebarState, updateSidebarState] = useReducer(
+    (prev: { width: number }, next: { width: number }) => {
+      const newState = { ...prev, ...next };
 
-    // Ensure the sidebar width does not exceed half of the window
-    if (newState.width > sidebarSize.max) {
-      newState.width = sidebarSize.max;
+      if (newState.width > sidebarSize.max) {
+        newState.width = sidebarSize.max;
+      }
+
+      if (newState.width < sidebarSize.min) {
+        newState.width = sidebarSize.min;
+      }
+
+      return newState;
+    },
+    {
+      width: 200,
     }
+  );
 
-    // Ensure the sidebar width does not go below 150
-    if (newState.width < sidebarSize.min) {
-      newState.width = sidebarSize.min;
-    }
+  const startResizing = useCallback(() => {
+    setIsResizing(true);
+  }, []);
 
-    return newState;
-  };
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
 
-  // Initialize the sidebar state with a default width of 200
-  const [sidebarState, updateSidebarState] = useReducer(sidebarReducer, {
-    width: 200,
-  });
+  const resize = useCallback(
+    (event: MouseEvent) => {
+      // Check if the resizing flag is true and if the sidebarRef is available
+      if (isResizing && sidebarRef.current) {
+        // Calculate the new width of the sidebar by subtracting the left position
+        // of the mouse event from the left position of the sidebarRef element
+        updateSidebarState({
+          width:
+            event.clientX - sidebarRef.current.getBoundingClientRect().left,
+        });
+      }
+    },
+    [isResizing]
+  );
+
+  useEffect(() => {
+    window.addEventListener("mousemove", resize);
+    window.addEventListener("mouseup", stopResizing);
+    return () => {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    };
+  }, [resize, stopResizing]);
 
   return (
     <AppShell
@@ -55,11 +83,14 @@ export default function App(): JSX.Element {
       footer={{ height: "var(--footer-height)" }}
       className="overflow-hidden select-none flex flex-row"
     >
-      <LeftPanelLayout
-        sidebarSize={sidebarSize}
-        sidebarWidth={sidebarState.width}
-        setSidebarWidth={(value) => updateSidebarState({ width: value })}
-      />
+      {!leftPanelIsClosed ? (
+        <LeftPanelLayout
+          sidebarRef={sidebarRef}
+          sidebarSize={sidebarSize}
+          sidebarWidth={sidebarState.width}
+          startResizing={startResizing}
+        />
+      ) : null}
 
       <MainPanelLayout />
 

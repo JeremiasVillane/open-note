@@ -20,7 +20,7 @@ export function HeaderLayout(): JSX.Element {
       p="md"
       className="flex items-center justify-between mt-[var(--titlebar-height)]"
     >
-      <Group className="gap-5">
+      <Group className="gap-1">
         <UnstyledButton
           onClick={() => setLeftPanelIsClosed(!leftPanelIsClosed)}
           size="sm"
@@ -28,7 +28,7 @@ export function HeaderLayout(): JSX.Element {
           <i
             className={`${
               leftPanelIsClosed ? "ri-book-read-line" : "ri-book-read-fill"
-            } text-2xl absolute -translate-y-4 -translate-x-1 hoverStyles`}
+            } text-2xl hoverStyles`}
             title={t("Toggle sidebar") + "\nCtrl + Shift + B"}
           ></i>
         </UnstyledButton>

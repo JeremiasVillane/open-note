@@ -1,125 +1,44 @@
 import { useMantineColorScheme } from "@mantine/core";
-import {
-  Suspense,
-  lazy,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Explorer, ExplorerMenubar } from "..";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
+import ExplorerMenubar from "./ExplorerMenubar";
+import LeftPanelContent from "./LeftPanelContent";
 
-const LazyNewItemForm = lazy(() => import("./NewItemForm"));
-
-/**
- * Renders the left panel layout of the application.
- *
- * @param {Object} param - An object containing the following properties:
- *   - sidebarWidth: The width of the sidebar.
- *   - setSidebarWidth: A function to set the width of the sidebar.
- * @return {JSX.Element} The JSX element representing the left panel layout.
- */
 export function LeftPanelLayout({
+  sidebarRef,
   sidebarSize,
   sidebarWidth,
-  setSidebarWidth,
+  startResizing,
 }: {
-  sidebarSize: { min: number; max: number };
+  sidebarRef: React.MutableRefObject<HTMLElement | null>;
+  sidebarSize: {
+    min: number;
+    max: number;
+  };
   sidebarWidth: number;
-  setSidebarWidth: React.Dispatch<number>;
-}): JSX.Element {
-  const { leftPanelIsClosed } = useNotesStore();
-  const { fileList, showNewItemForm } = useNotesStore();
+  startResizing: () => void;
+}) {
   const { colorScheme } = useMantineColorScheme();
-  const { appFolder } = useTauriContext();
-  const sidebarRef = useRef<HTMLElement | null>(null);
-  const [isResizing, setIsResizing] = useState(false);
-
-  const startResizing = useCallback(() => {
-    setIsResizing(true);
-  }, []);
-
-  const stopResizing = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-
-  const resize = useCallback(
-    (event: MouseEvent) => {
-      // Check if the resizing flag is true and if the sidebarRef is available
-      if (isResizing && sidebarRef.current) {
-        // Calculate the new width of the sidebar by subtracting the left position
-        // of the mouse event from the left position of the sidebarRef element
-        setSidebarWidth(
-          event.clientX - sidebarRef.current.getBoundingClientRect().left
-        );
-      }
-    },
-    [isResizing]
-  );
-
-  useEffect(() => {
-    window.addEventListener("mousemove", resize);
-    window.addEventListener("mouseup", stopResizing);
-    return () => {
-      window.removeEventListener("mousemove", resize);
-      window.removeEventListener("mouseup", stopResizing);
-    };
-  }, [resize, stopResizing]);
 
   return (
     <>
-      {!leftPanelIsClosed ? (
-        <>
-          <header
-            className={`fixed min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] z-50`}
-            style={{
-              width: sidebarWidth,
-              marginTop: "calc(var(--titlebar-height) + var(--header-height))",
-            }}
-          >
-            <ExplorerMenubar />
-          </header>
+      <section className="flex flex-col" ref={sidebarRef}>
+        <ExplorerMenubar
+          sidebarSize={sidebarSize}
+          sidebarWidth={sidebarWidth}
+        />
 
-          <aside
-            className={`titleBarAdjustedHeight overflow-auto flex flex-row flex-grow-0 flex-shrink-0 min-w-[${sidebarSize.min}px] max-w-[${sidebarSize.max}px] border-r border-[var(--mantine-color-gray-light)]`}
-            style={{
-              width: sidebarWidth,
-              marginTop:
-                "calc(var(--header-height) + var(--titlebar-height) + 1.5rem)",
-            }}
-            onMouseDown={(e) => e.preventDefault()}
-            ref={sidebarRef}
-          >
-            <section id="sidebar-content" className="flex-1 flex flex-col z-20">
-              <div className="">
-                {showNewItemForm ? (
-                  <Suspense>
-                    <LazyNewItemForm
-                      itemType={showNewItemForm}
-                      path={appFolder}
-                      parentId="root"
-                    />
-                  </Suspense>
-                ) : null}
+        <LeftPanelContent
+          sidebarSize={sidebarSize}
+          sidebarWidth={sidebarWidth}
+        />
+      </section>
 
-                <Explorer fileList={fileList} />
-              </div>
-            </section>
-          </aside>
-
-          <div
-            id="sidebar-resizer"
-            className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
-              colorScheme === "light"
-                ? "hover:bg-slate-300"
-                : "hover:bg-slate-600"
-            } z-10`}
-            onMouseDown={startResizing}
-          />
-        </>
-      ) : null}
+      <div
+        id="sidebar-resizer"
+        className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
+          colorScheme === "light" ? "hover:bg-slate-300" : "hover:bg-slate-600"
+        } z-10`}
+        onMouseDown={startResizing}
+      />
     </>
   );
 }
