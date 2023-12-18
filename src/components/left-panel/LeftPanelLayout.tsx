@@ -11,6 +11,7 @@ import LeftPanelContent from "./LeftPanelContent";
  * @param {number} props.sidebarSize.min - The minimum size of the sidebar.
  * @param {number} props.sidebarSize.max - The maximum size of the sidebar.
  * @param {number} props.sidebarWidth - The width of the sidebar.
+ * @param {boolean} props.isResizing - Indicates if the left panel is being resized.
  * @param {Function} props.startResizing - The function to start resizing the sidebar.
  * @return {JSX.Element} The rendered left panel layout.
  */
@@ -18,6 +19,7 @@ export function LeftPanelLayout({
   sidebarRef,
   sidebarSize,
   sidebarWidth,
+  isResizing,
   startResizing,
 }: {
   sidebarRef: React.MutableRefObject<HTMLElement | null>;
@@ -26,6 +28,7 @@ export function LeftPanelLayout({
     max: number;
   };
   sidebarWidth: number;
+  isResizing:boolean;
   startResizing: () => void;
 }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
@@ -44,6 +47,7 @@ export function LeftPanelLayout({
         <LeftPanelContent
           sidebarSize={sidebarSize}
           sidebarWidth={sidebarWidth}
+          isResizing={isResizing}
         />
       </section>
 

@@ -99,6 +99,7 @@ export default function App(): JSX.Element {
           sidebarRef={sidebarRef}
           sidebarSize={sidebarSize}
           sidebarWidth={sidebarState.width}
+          isResizing={isResizing}
           startResizing={startResizing}
         />
       ) : null}

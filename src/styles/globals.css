@@ -40,7 +40,7 @@
   }
 
   .itemStyles {
-    @apply pl-3 flex items-center cursor-pointer transition-colors duration-300 ease-in-out;
+    @apply pl-3 flex items-center transition-colors duration-300 ease-in-out;
   }
 
   .overlook::after {

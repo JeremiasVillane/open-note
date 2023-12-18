@@ -7,17 +7,25 @@ import { FileObj } from "../../types";
 /**
  * Renders the Explorer component.
  *
- * @param {Array<FileObj>} fileList - The list of files to display in the Explorer.
+ * @param {Object} props - The properties object.
+ * @param {Array<FileObj>} props.fileList - The list of files to display in the Explorer.
+ * @param {boolean} props.isResizing - Indicates if the left panel is being resized.
  * @returns {JSX.Element} The JSX representation of the Explorer component.
  */
-export function Explorer({ fileList }: { fileList: FileObj[] }): JSX.Element {
+export function Explorer({
+  fileList,
+  isResizing,
+}: {
+  fileList: FileObj[];
+  isResizing: boolean;
+}): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();
   const [newItem, setNewItem] = useState<Record<string, string>>({});
 
   const fileStyles = `itemStyles ${
     colorScheme === "dark" ? "hover:bg-gray-700" : "hover:bg-slate-100"
-  }`;
+  } ${isResizing ? "cursor-col-resize" : "cursor-pointer"}`;
 
   const menuItemStyles = `${
     colorScheme === "dark" ? "hover:bg-[#383838]" : "hover:bg-gray-200"

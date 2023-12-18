@@ -9,14 +9,17 @@ const LazyNewItemForm = lazy(() => import("./NewItemForm"));
  * Renders the content for the left panel.
  *
  * @param {{ sidebarSize: { min: number; max: number }; sidebarWidth: number }} props - The props object containing the sidebar size and width.
+ * @param {boolean} props.isResizing - Indicates if the left panel is being resized.
  * @returns {JSX.Element} The JSX element representing the left panel content.
  */
 export default function LeftPanelContent({
   sidebarSize,
   sidebarWidth,
+  isResizing,
 }: {
   sidebarSize: { min: number; max: number };
   sidebarWidth: number;
+  isResizing: boolean;
 }): JSX.Element {
   const { fileList, showNewItemForm } = useNotesStore();
 
@@ -48,7 +51,7 @@ export default function LeftPanelContent({
               </Suspense>
             ) : null}
 
-            <Explorer fileList={fileList} />
+            <Explorer fileList={fileList} isResizing={isResizing} />
           </div>
         </section>
       </aside>
