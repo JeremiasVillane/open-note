@@ -16,6 +16,8 @@ import "./styles/App.css";
  * The component includes a dynamic sidebar that can be resized,
  * as well as header, main panel, and footer layouts.
  * @returns The JSX element representing the application.
+ *
+ * Resizing logic based partially on: https://codereview.stackexchange.com/questions/263970/react-based-resizable-sidebar
  */
 export default function App(): JSX.Element {
   const { leftPanelIsClosed, setLeftPanelIsClosed } = useNotesStore();

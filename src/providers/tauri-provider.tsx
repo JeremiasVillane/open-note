@@ -22,6 +22,8 @@ export const useTauriContext = () => useContext(TauriContext);
 /**
  * Initializes the Tauri provider.
  *
+ * Code partially based on: https://github.com/elibroftw/modern-desktop-app-template/blob/master/src/TauriProvider.jsx
+ *
  * @param {Object} props - The props object.
  * @param {React.ReactNode} props.children - The children to be rendered inside the provider.
  * @return {React.ReactNode} The rendered children.
