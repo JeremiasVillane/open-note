@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { handleClose, handleSave } from "../../../helpers";
 import TitleBarContext from "../../../providers/titlebar-provider";
 import { useNotesStore } from "../../../store/notesStore";
+import { useUiStore } from "../../../store/uiStore";
 
 /**
  * Renders a file menu component.
@@ -27,13 +28,9 @@ export default function FileMenu({
 }): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const {
-    currentNote,
-    setCurrentNote,
-    setLeftPanelIsClosed,
-    setShowNewItemForm,
-    setStatus,
-  } = useNotesStore();
+  const { currentNote, setCurrentNote, setShowNewItemForm } = useNotesStore();
+  const { setLeftPanelIsClosed } = useUiStore();
+  const { setStatus } = useUiStore();
   const { openMenu, setOpenMenu, transitionProps } =
     useContext(TitleBarContext);
   const [opened, setOpened] = useState(false);

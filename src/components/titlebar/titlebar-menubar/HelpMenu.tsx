@@ -1,8 +1,9 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
-import { WebviewWindow } from "@tauri-apps/api/window";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { renderModal } from "../../../helpers";
 import TitleBarContext from "../../../providers/titlebar-provider";
+import { useUiStore } from "../../../store/uiStore";
 
 /**
  * Renders a help menu component.
@@ -23,23 +24,10 @@ export default function HelpMenu({
   menuTitleStyles: string;
 }): JSX.Element {
   const { t } = useTranslation();
+  const { setActiveModal } = useUiStore();
   const { openMenu, setOpenMenu, transitionProps } =
     useContext(TitleBarContext);
   const [opened, setOpened] = useState(false);
-
-  const renderAboutWindow = () => {
-    new WebviewWindow("about", {
-      url: "index.html/#/about",
-      alwaysOnTop: true,
-      center: true,
-      resizable: false,
-      maximizable: false,
-      minimizable: false,
-      decorations: false,
-      height: 336,
-      width: 336,
-    });
-  };
 
   return (
     <Menu
@@ -70,7 +58,17 @@ export default function HelpMenu({
       </Menu.Target>
 
       <Menu.Dropdown className="shadow-lg">
-        <Menu.Item onClick={renderAboutWindow} className={menuItemStyles}>
+        <Menu.Item
+          onClick={() =>
+            renderModal({
+              label: "about",
+              width: 336,
+              height: 336,
+              setActiveModal,
+            })
+          }
+          className={menuItemStyles}
+        >
           <Text inline size="sm" className="overlook" data-text={t("About")} />
         </Menu.Item>
       </Menu.Dropdown>

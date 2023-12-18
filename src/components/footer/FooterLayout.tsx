@@ -2,11 +2,11 @@ import { AppShellFooter } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { count } from "letter-count";
 import { useTranslation } from "react-i18next";
-import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 
 /**
  * Renders the footer layout of the application.
- * 
+ *
  * Show the "status" global state.
  *
  * @return {JSX.Element} The JSX element representing the footer layout.
@@ -14,7 +14,7 @@ import { useNotesStore } from "../../store/notesStore";
 export function FooterLayout(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { status } = useNotesStore();
+  const { status } = useUiStore();
 
   const editorContent = editor?.getText();
   const statistics = count(editorContent ?? "");
@@ -27,18 +27,17 @@ export function FooterLayout(): JSX.Element {
       {editorContent?.length ? (
         <div
           className="overlook"
-          data-text={
-            `${t("Characters")}: ${statistics.chars}${" "}
+          data-text={`${t("Characters")}: ${statistics.chars}${" "}
             | ${t("Letters")}:${" "}${statistics.letters}${" "}
             | ${t("Words")}: ${statistics.words}${" "}
-            | ${t("Lines")}: ${statistics.lines > 1
+            | ${t("Lines")}: ${
+            statistics.lines > 1
               ? statistics.lines - (statistics.lines - 1) / 2
-              : statistics.lines}
+              : statistics.lines
+          }
           `}
         />
-      ) : (
-        null
-      )}
+      ) : null}
       <div className="ml-auto">{status}</div>
     </AppShellFooter>
   );

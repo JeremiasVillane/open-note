@@ -11,7 +11,7 @@ import {
 } from "./components";
 import { About } from "./components/ui/modals";
 import { TitleBarProvider } from "./providers/titlebar-provider";
-import { useNotesStore } from "./store/notesStore";
+import { useUiStore } from "./store/uiStore";
 import "./styles/App.css";
 
 /**
@@ -24,7 +24,7 @@ import "./styles/App.css";
  * Resizing logic based partially on: https://codereview.stackexchange.com/questions/263970/react-based-resizable-sidebar
  */
 export default function App(): JSX.Element {
-  const { leftPanelIsClosed, setLeftPanelIsClosed } = useNotesStore();
+  const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
   const { ref, width } = useElementSize();
   const sidebarRef = useRef<HTMLElement | null>(null);
   const [isResizing, setIsResizing] = useState(false);

@@ -46,6 +46,7 @@ export function Explorer({
               fileStyles={fileStyles}
               menuItemStyles={menuItemStyles}
               contextMenuStyles={contextMenuStyles}
+              isResizing={isResizing}
             />
           </section>
         ) : (

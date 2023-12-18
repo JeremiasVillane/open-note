@@ -2,7 +2,7 @@ import { AppShellHeader, Group, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { Toolbar } from "..";
-import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 
 /**
  * Renders the header layout of the application,
@@ -13,7 +13,7 @@ import { useNotesStore } from "../../store/notesStore";
 export function HeaderLayout(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { leftPanelIsClosed, setLeftPanelIsClosed } = useNotesStore();
+  const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
 
   return (
     <AppShellHeader

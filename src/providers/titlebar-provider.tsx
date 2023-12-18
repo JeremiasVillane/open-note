@@ -1,4 +1,5 @@
-import { appWindow } from "@tauri-apps/api/window";
+import { TransitionProps } from "@mantine/core";
+import { WebviewWindow, appWindow } from "@tauri-apps/api/window";
 import {
   createContext,
   useCallback,
@@ -6,9 +7,8 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import { useTauriContext } from "./tauri-provider";
 import { TitleBarContextType } from "../types";
-import { TransitionProps } from "@mantine/core";
+import { useTauriContext } from "./tauri-provider";
 
 const TitleBarContext = createContext<TitleBarContextType>({
   windowTitle: "",
@@ -90,6 +90,9 @@ export const TitleBarProvider: React.FC<{
   }, [appWindow, isOnTop]);
 
   const handleExit = useCallback(async () => {
+    const mainWindow = WebviewWindow.getByLabel("main");
+    await mainWindow?.emit("modal-closed", { closed: true });
+
     await appWindow.close();
   }, []);
 

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { handleCreate, loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 
 /**
  * Renders a form for creating a new item.
@@ -30,7 +31,8 @@ export default function NewItemForm({
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
   const [itemName, setItemName] = useState<string>("");
-  const { setItems, setStatus, setShowNewItemForm } = useNotesStore();
+  const { setItems, setShowNewItemForm } = useNotesStore();
+  const { setStatus } = useUiStore();
   const inputRef = useClickOutside(() => closeForm());
 
   const closeForm = () =>

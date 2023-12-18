@@ -5,3 +5,4 @@ export * from "./handle-open";
 export * from "./handle-rename";
 export * from "./handle-save";
 export * from "./load-files";
+export * from "./render-modal";

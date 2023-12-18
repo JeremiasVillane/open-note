@@ -2,6 +2,7 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
 import { customControls } from "../../constants";
 import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 import { MenuControl } from "../../types";
 
 /**
@@ -12,8 +13,8 @@ import { MenuControl } from "../../types";
 export function CustomToolbarControls(): JSX.Element {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
-  const { currentNote, setCurrentNote, setStatus, setShowNewItemForm } =
-    useNotesStore();
+  const { currentNote, setCurrentNote, setShowNewItemForm } = useNotesStore();
+  const { setStatus } = useUiStore();
 
   return (
     <>

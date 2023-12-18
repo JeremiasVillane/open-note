@@ -13,6 +13,7 @@ import {
 } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 import { FileObj, itemStateType } from "../../types";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
@@ -39,6 +40,7 @@ export function Item({
   fileStyles,
   newItem,
   setNewItem,
+  isResizing,
 }: {
   type: "note" | "folder";
   item: FileObj;
@@ -47,17 +49,18 @@ export function Item({
   fileStyles?: string;
   newItem?: Record<string, string>;
   setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
+  isResizing?: boolean;
 }): JSX.Element {
   const { t } = useTranslation();
   const {
     currentNote,
     setCurrentNote,
     setItems,
-    setStatus,
     setShowNewItemForm,
     openFolders,
     toggleOpenFolder,
   } = useNotesStore();
+  const { setStatus } = useUiStore();
   const { appFolder } = useTauriContext();
   const { editor } = useRichTextEditorContext();
   const menuRef = useClickOutside(() => updateItemState({ context: false }));
@@ -270,7 +273,7 @@ export function Item({
                 />
               </Suspense>
             ) : null}
-            <Explorer fileList={item.children!} />
+            <Explorer fileList={item.children!} isResizing={isResizing!} />
           </div>
 
           {itemState.context ? (

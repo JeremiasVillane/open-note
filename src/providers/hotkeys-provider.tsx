@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { handleClose, handleSave, loadFiles } from "../helpers";
 import { useTauriContext } from "../providers/tauri-provider";
 import { useNotesStore } from "../store/notesStore";
+import { useUiStore } from "../store/uiStore";
 import { cycleLang } from "../utils";
 
 /**
@@ -23,15 +24,10 @@ export default function HotkeysProvider({
   const { editor } = useRichTextEditorContext();
   const { appFolder } = useTauriContext();
   const { toggleColorScheme } = useMantineColorScheme();
-  const {
-    currentNote,
-    setCurrentNote,
-    setStatus,
-    setItems,
-    setShowNewItemForm,
-    leftPanelIsClosed,
-    setLeftPanelIsClosed,
-  } = useNotesStore();
+  const { currentNote, setCurrentNote, setItems, setShowNewItemForm } =
+    useNotesStore();
+  const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
+  const { setStatus } = useUiStore();
 
   const isEdited: boolean =
     editor?.getText() !== "" &&
@@ -46,7 +42,7 @@ export default function HotkeysProvider({
       [
         "ctrl+S",
         async () =>
-         await handleSave(t, editor!, {
+          await handleSave(t, editor!, {
             currentNote,
             setCurrentNote,
             setStatus,

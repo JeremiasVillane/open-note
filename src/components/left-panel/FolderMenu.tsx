@@ -5,6 +5,7 @@ import { loadFiles } from "../../helpers";
 import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 import { FileObj, itemStateType } from "../../types";
 import ContextMenu from "./ContextMenu";
 
@@ -30,7 +31,8 @@ export default function FolderMenu({
 }): JSX.Element {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
-  const { setStatus, setItems, setOpenFolder } = useNotesStore();
+  const { setItems, setOpenFolder } = useNotesStore();
+  const { setStatus } = useUiStore();
 
   const handleCreate = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

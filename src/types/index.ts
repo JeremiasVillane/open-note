@@ -1,4 +1,5 @@
 import { TransitionProps } from "@mantine/core";
+import { WebviewWindow } from "@tauri-apps/api/window";
 import { SVGProps } from "react";
 
 export interface FileObj {
@@ -26,16 +27,21 @@ export interface NotesState {
   fileList: FileObj[];
   currentNote: Note | null;
   openFolders: Record<string, boolean>;
-  status: string | null;
   showNewItemForm: "note" | "folder" | null;
-  leftPanelIsClosed: boolean;
   setItems: (items: FileObj[]) => void;
   setCurrentNote: (note: Note | null) => void;
   setOpenFolder: (folderId: string) => void;
   toggleOpenFolder: (folderId: string) => void;
-  setStatus: (status: string | null) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
+}
+
+export interface UiState {
+  status: string | null;
+  leftPanelIsClosed: boolean;
+  activeModal: boolean | undefined;
+  setStatus: (status: string | null) => void;
   setLeftPanelIsClosed: (value: any) => void;
+  setActiveModal: (value: boolean) => void;
 }
 
 export interface TitleBarContextType {

@@ -19,7 +19,7 @@ export function Titlebar({ modal }: { modal?: string }): JSX.Element {
   return (
     <section
       id="titlebar"
-      className="h-[var(--titlebar-height)] flex justify-between fixed select-none top-0 left-0 right-0 z-[999]"
+      className="h-[var(--titlebar-height)] flex justify-between fixed select-none top-0 left-0 right-0 z-[66]"
       style={{
         backgroundColor:
           colorScheme === "dark"

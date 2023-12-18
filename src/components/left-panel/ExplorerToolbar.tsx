@@ -4,6 +4,7 @@ import { explorerToolbarControls } from "../../constants";
 import { loadFiles } from "../../helpers";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
+import { useUiStore } from "../../store/uiStore";
 
 /**
  * Renders the menubar component for the explorer.
@@ -18,7 +19,8 @@ export default function ExplorerToolbar({
   sidebarWidth: number;
 }): JSX.Element {
   const { t } = useTranslation();
-  const { setItems, setShowNewItemForm, setStatus } = useNotesStore();
+  const { setItems, setShowNewItemForm } = useNotesStore();
+  const { setStatus } = useUiStore();
   const { appFolder } = useTauriContext();
   const { colorScheme } = useMantineColorScheme();
 
