@@ -60,7 +60,7 @@ export function Item({
     openFolders,
     toggleOpenFolder,
   } = useNotesStore();
-  const { setStatus } = useUiStore();
+  const { setActiveModal, setStatus } = useUiStore();
   const { appFolder } = useTauriContext();
   const { editor } = useRichTextEditorContext();
   const menuRef = useClickOutside(() => updateItemState({ context: false }));
@@ -238,7 +238,12 @@ export function Item({
                 menuItemStyles={menuItemStyles}
                 updateItemState={updateItemState}
                 handleClose={async () =>
-                  await handleClose(t, isEdited, setCurrentNote, editor)
+                  await handleClose(
+                    isEdited,
+                    setCurrentNote,
+                    editor,
+                    setActiveModal
+                  )
                 }
                 handleDelete={async () => {
                   await handleDelete(

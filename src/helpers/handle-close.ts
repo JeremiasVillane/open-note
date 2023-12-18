@@ -1,27 +1,43 @@
+import { listen } from "@tauri-apps/api/event";
 import { Editor } from "@tiptap/react";
-import { TFunction } from "i18next";
+import { renderModal } from ".";
 import { Note } from "../types";
 
 /**
- * Handles the close event.
+ * Closes the current note and handles any unsaved changes.
  *
- * @param {TFunction} t - The translation function.
- * @param {boolean} isEdited - Indicates if the note has been edited.
- * @param {(note: Note | null) => void} setCurrentNote - A function to set the current note.
+ * @param {boolean} isEdited - Indicates whether the note has unsaved changes.
+ * @param {(note: Note | null) => void} setCurrentNote - Function to set the current note.
  * @param {Editor | null} editor - The editor instance.
- * @return {void} No return value.
+ * @param {(value: boolean) => void} setActiveModal - Function to set the active modal state.
+ * @return {Promise<void>} A promise that resolves once the note is closed.
  */
 export const handleClose = async (
-  t: TFunction,
   isEdited: boolean,
   setCurrentNote: (note: Note | null) => void,
-  editor: Editor | null
+  editor: Editor | null,
+  setActiveModal: (value: boolean) => void
 ): Promise<void> => {
-  if (isEdited) {
-    const confirm = await window.confirm(t("ConfirmDiscardChanges"));
-    if (!confirm) return;
-  }
+  const closing = () => {
+    setCurrentNote(null);
+    editor?.chain().clearContent().run();
 
-  setCurrentNote(null);
-  editor?.chain().clearContent().run();
+    setActiveModal(false);
+    return;
+  };
+
+  if (isEdited) {
+    renderModal({
+      label: "discard",
+      setActiveModal,
+    });
+    await listen("modal-cancel", () => {
+      setActiveModal(false);
+      return;
+    });
+
+    await listen("modal-ok", () => closing());
+  } else {
+    closing();
+  }
 };

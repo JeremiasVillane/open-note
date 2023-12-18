@@ -82,6 +82,7 @@ const resources = {
       "Delete folder": "Eliminar carpeta",
 
       // ***** Modals
+      OK: "Aceptar",
       ConfirmDiscardChanges: "¿Estás seguro que quieres descartar los cambios?",
       ConfirmDeleteNote: "¿Estás seguro que quieres eliminar esta nota?",
       ConfirmDeleteFolder:

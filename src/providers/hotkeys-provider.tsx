@@ -26,7 +26,8 @@ export default function HotkeysProvider({
   const { toggleColorScheme } = useMantineColorScheme();
   const { currentNote, setCurrentNote, setItems, setShowNewItemForm } =
     useNotesStore();
-  const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
+  const { setActiveModal, leftPanelIsClosed, setLeftPanelIsClosed } =
+    useUiStore();
   const { setStatus } = useUiStore();
 
   const isEdited: boolean =
@@ -50,7 +51,8 @@ export default function HotkeysProvider({
       ],
       [
         "ctrl+W",
-        async () => await handleClose(t, isEdited, setCurrentNote, editor),
+        async () =>
+          await handleClose(isEdited, setCurrentNote, editor, setActiveModal),
       ],
       ["ctrl+shift+E", () => setLeftPanelIsClosed(!leftPanelIsClosed)],
       [

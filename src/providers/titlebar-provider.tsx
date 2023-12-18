@@ -91,7 +91,7 @@ export const TitleBarProvider: React.FC<{
 
   const handleExit = useCallback(async () => {
     const mainWindow = WebviewWindow.getByLabel("main");
-    await mainWindow?.emit("modal-closed", { closed: true });
+    await mainWindow?.emit("modal-closed");
 
     await appWindow.close();
   }, []);

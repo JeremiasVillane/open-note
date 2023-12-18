@@ -14,10 +14,7 @@ export function About() {
   const { osType } = useTauriContext();
 
   return (
-    <main
-      className="mt-[var(--titlebar-height)] flex flex-col items-center border border-[var(--mantine-color-gray-light)] border-t-0 px-7"
-      style={{ height: "calc(100vh - var(--titlebar-height))" }}
-    >
+    <main className="modalLayoutStyles">
       <i className="ri-information-2-fill text-blue-400 text-6xl p-3"></i>
       <h1 aria-label="Application name" className="font-black text-xl">
         {APP_NAME}

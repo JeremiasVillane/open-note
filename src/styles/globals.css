@@ -46,4 +46,9 @@
   .overlook::after {
     content: attr(data-text);
   }
+
+  .modalLayoutStyles {
+    @apply mt-[var(--titlebar-height)] flex flex-col items-center border border-[var(--mantine-color-gray-light)] border-t-0;
+    height: calc(100vh - var(--titlebar-height))
+  }
 }

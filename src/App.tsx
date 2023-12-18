@@ -1,6 +1,7 @@
 import { AppShell } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import {
   FooterLayout,
@@ -9,10 +10,11 @@ import {
   MainPanelLayout,
   Titlebar,
 } from "./components";
-import { About } from "./components/ui/modals";
+import { About, ModalLayout } from "./components/ui/modals";
 import { TitleBarProvider } from "./providers/titlebar-provider";
 import { useUiStore } from "./store/uiStore";
 import "./styles/App.css";
+import { APP_NAME } from "./constants";
 
 /**
  * Renders the main application component.
@@ -24,6 +26,7 @@ import "./styles/App.css";
  * Resizing logic based partially on: https://codereview.stackexchange.com/questions/263970/react-based-resizable-sidebar
  */
 export default function App(): JSX.Element {
+  const { t } = useTranslation();
   const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
   const { ref, width } = useElementSize();
   const sidebarRef = useRef<HTMLElement | null>(null);
@@ -129,6 +132,7 @@ export default function App(): JSX.Element {
             </>
           }
         />
+
         <Route
           path="/about"
           element={
@@ -139,6 +143,21 @@ export default function App(): JSX.Element {
 
               <div className="overflow-hidden select-none">
                 <About />
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/discard"
+          element={
+            <>
+              <TitleBarProvider>
+                <Titlebar modal={APP_NAME} />
+              </TitleBarProvider>
+
+              <div className="overflow-hidden select-none">
+                <ModalLayout type="warning" content={t("ConfirmDiscardChanges")} />
               </div>
             </>
           }

@@ -2,13 +2,13 @@ import { WebviewWindow } from "@tauri-apps/api/window";
 
 export const renderModal = ({
   label,
-  width = 350,
-  height = 125,
+  width = 400,
+  height = 175,
   setActiveModal,
 }: {
   label: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   setActiveModal: (value: boolean) => void;
 }) => {
   new WebviewWindow(label, {

@@ -29,7 +29,7 @@ export default function FileMenu({
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setShowNewItemForm } = useNotesStore();
-  const { setLeftPanelIsClosed } = useUiStore();
+  const { setActiveModal, setLeftPanelIsClosed } = useUiStore();
   const { setStatus } = useUiStore();
   const { openMenu, setOpenMenu, transitionProps } =
     useContext(TitleBarContext);
@@ -124,7 +124,12 @@ export default function FileMenu({
 
         <Menu.Item
           onClick={async () =>
-            await handleClose(t, isEdited, setCurrentNote, editor)
+            await handleClose(
+              isEdited,
+              setCurrentNote,
+              editor,
+              setActiveModal
+            )
           }
           className={menuItemStyles}
           rightSection={<Text size="xs">Ctrl + W</Text>}
