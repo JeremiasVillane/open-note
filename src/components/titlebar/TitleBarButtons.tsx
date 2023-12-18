@@ -14,7 +14,11 @@ import TitleBarContext from "../../providers/titlebar-provider";
  *
  * @return {JSX.Element} The rendered title bar buttons.
  */
-export default function TitleBarButtons(): JSX.Element {
+export default function TitleBarButtons({
+  modal,
+}: {
+  modal: boolean;
+}): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { isMaximized, handleMinimize, handleMaximize, handleExit } =
@@ -27,23 +31,27 @@ export default function TitleBarButtons(): JSX.Element {
 
   return (
     <div className="flex items-center">
-      <i
-        className={`${buttonStyles} ${buttonStylesOnHover}`}
-        onClick={handleMinimize}
-      >
-        <MinimizeIcon title={t("Minimize")} className="p-0.5" />
-      </i>
+      {!modal ? (
+        <>
+          <i
+            className={`${buttonStyles} ${buttonStylesOnHover}`}
+            onClick={handleMinimize}
+          >
+            <MinimizeIcon title={t("Minimize")} className="p-0.5" />
+          </i>
 
-      <i
-        className={`${buttonStyles} ${buttonStylesOnHover}`}
-        onClick={handleMaximize}
-      >
-        {isMaximized ? (
-          <RestoreIcon title={t("Restore")} className="p-0.5" />
-        ) : (
-          <MaximizeIcon title={t("Maximize")} className="p-0.5" />
-        )}
-      </i>
+          <i
+            className={`${buttonStyles} ${buttonStylesOnHover}`}
+            onClick={handleMaximize}
+          >
+            {isMaximized ? (
+              <RestoreIcon title={t("Restore")} className="p-0.5" />
+            ) : (
+              <MaximizeIcon title={t("Maximize")} className="p-0.5" />
+            )}
+          </i>
+        </>
+      ) : null}
 
       <i
         className={`${buttonStyles} hover:bg-red-500 hover:text-gray-100`}

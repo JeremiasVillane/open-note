@@ -1,12 +1,16 @@
 import { AppShell } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import {
   FooterLayout,
   HeaderLayout,
   LeftPanelLayout,
   MainPanelLayout,
+  Titlebar,
 } from "./components";
+import { About } from "./components/ui/modals";
+import { TitleBarProvider } from "./providers/titlebar-provider";
 import { useNotesStore } from "./store/notesStore";
 import "./styles/App.css";
 
@@ -90,27 +94,56 @@ export default function App(): JSX.Element {
   }, [resize, stopResizing]);
 
   return (
-    <AppShell
-      ref={ref}
-      header={{ height: "var(--header-height)" }}
-      footer={{ height: "var(--footer-height)" }}
-      className="overflow-hidden select-none flex flex-row"
-    >
-      {!leftPanelIsClosed ? (
-        <LeftPanelLayout
-          sidebarRef={sidebarRef}
-          sidebarSize={sidebarSize}
-          sidebarWidth={sidebarState.width}
-          isResizing={isResizing}
-          startResizing={startResizing}
+    <HashRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <TitleBarProvider>
+                <Titlebar />
+              </TitleBarProvider>
+
+              <AppShell
+                ref={ref}
+                header={{ height: "var(--header-height)" }}
+                footer={{ height: "var(--footer-height)" }}
+                className="overflow-hidden select-none flex flex-row"
+              >
+                {!leftPanelIsClosed ? (
+                  <LeftPanelLayout
+                    sidebarRef={sidebarRef}
+                    sidebarSize={sidebarSize}
+                    sidebarWidth={sidebarState.width}
+                    isResizing={isResizing}
+                    startResizing={startResizing}
+                  />
+                ) : null}
+
+                <MainPanelLayout />
+
+                <HeaderLayout />
+
+                <FooterLayout />
+              </AppShell>
+            </>
+          }
         />
-      ) : null}
+        <Route
+          path="/about"
+          element={
+            <>
+              <TitleBarProvider>
+                <Titlebar modal="About" />
+              </TitleBarProvider>
 
-      <MainPanelLayout />
-
-      <HeaderLayout />
-
-      <FooterLayout />
-    </AppShell>
+              <div className="overflow-hidden select-none">
+                <About />
+              </div>
+            </>
+          }
+        />
+      </Routes>
+    </HashRouter>
   );
 }

@@ -34,6 +34,12 @@ const resources = {
   },
   es: {
     translations: {
+      // ***** App
+      Version: "Versión",
+      Author: "Autor",
+      License: "Licencia",
+      Date: "Fecha",
+
       // ***** Welcome
       "Switch language": "Cambiar idioma",
       "Dark/Light theme": "Tema claro/oscuro",

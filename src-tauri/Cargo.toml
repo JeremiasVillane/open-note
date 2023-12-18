@@ -1,9 +1,9 @@
 [package]
 name = "open-note"
-version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
+version = "0.1.0"
+description = "A Tauri App to create rich text notes."
+authors = ["Jeremias Villane"]
+license = "MIT"
 repository = ""
 edition = "2021"
 

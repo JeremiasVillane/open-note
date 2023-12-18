@@ -4,11 +4,9 @@ import { type } from "@tauri-apps/api/os";
 import { documentDir } from "@tauri-apps/api/path";
 import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
-import { Titlebar } from "../components";
 import { APP_NAME, RUNNING_IN_TAURI } from "../constants";
 import { loadFiles } from "../helpers";
 import { useNotesStore } from "../store/notesStore";
-import { TitleBarProvider } from "./titlebar-provider";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 
@@ -96,9 +94,6 @@ export function TauriProvider({
         appFolder,
       }}
     >
-      <TitleBarProvider>
-        <Titlebar />
-      </TitleBarProvider>
       {children}
     </TauriContext.Provider>
   );

@@ -12,7 +12,7 @@ import TitleBarMenuBar from "./titlebar-menubar/TitleBarMenuBar";
  *
  * @return {JSX.Element} The rendered Titlebar component.
  */
-export function Titlebar(): JSX.Element {
+export function Titlebar({ modal }: { modal?: string }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
   const { setOpenMenu } = useContext(TitleBarContext);
 
@@ -25,21 +25,25 @@ export function Titlebar(): JSX.Element {
           colorScheme === "dark"
             ? "var(--mantine-color-dark-8)"
             : "var(--mantine-color-gray-1)",
+        border: modal ? "1px solid var(--mantine-color-gray-light)" : "",
+        borderBottom: "none",
       }}
       data-tauri-drag-region
     >
-      <div
-        className="flex items-center gap-1"
-        onMouseLeave={() => setOpenMenu(false)}
-      >
-        <TitleBarIconMenu />
+      {!modal ? (
+        <div
+          className="flex items-center gap-1"
+          onMouseLeave={() => setOpenMenu(false)}
+        >
+          <TitleBarIconMenu />
 
-        <TitleBarMenuBar />
-      </div>
+          <TitleBarMenuBar />
+        </div>
+      ) : null}
 
-      <TitleBarName />
+      <TitleBarName modal={modal} />
 
-      <TitleBarButtons />
+      <TitleBarButtons modal={modal ? true : false} />
     </section>
   );
 }

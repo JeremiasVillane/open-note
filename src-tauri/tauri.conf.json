@@ -96,7 +96,7 @@
       "targets": "all",
       "identifier": "open.note.jv",
       "publisher": "Jeremias Villane",
-      "copyright": "CC0",
+      "copyright": "MIT",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -123,11 +123,11 @@
         "alwaysOnTop": false
       },
       {
+        "label": "splashscreen",
+        "url": "splashscreen.html",
         "width": 300,
         "height": 300,
-        "decorations": false,
-        "url": "splashscreen.html",
-        "label": "splashscreen"
+        "decorations": false
       }
     ]
   }
