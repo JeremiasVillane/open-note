@@ -11,10 +11,10 @@ import {
   Titlebar,
 } from "./components";
 import { About, ModalLayout } from "./components/ui/modals";
+import { APP_NAME } from "./constants";
 import { TitleBarProvider } from "./providers/titlebar-provider";
 import { useUiStore } from "./store/uiStore";
 import "./styles/App.css";
-import { APP_NAME } from "./constants";
 
 /**
  * Renders the main application component.
@@ -157,7 +157,10 @@ export default function App(): JSX.Element {
               </TitleBarProvider>
 
               <div className="overflow-hidden select-none">
-                <ModalLayout type="warning" content={t("ConfirmDiscardChanges")} />
+                <ModalLayout
+                  type="warning"
+                  content={t("ConfirmDiscardChanges")}
+                />
               </div>
             </>
           }

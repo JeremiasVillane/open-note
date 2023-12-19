@@ -154,10 +154,10 @@ export function Item({
                     item.name,
                     item.id,
                     item.path,
-                    t,
                     currentNote,
                     setCurrentNote,
                     setShowNewItemForm,
+                    setActiveModal,
                     readTextFile,
                     editor!,
                     (value) => updateItemState({ context: value })
