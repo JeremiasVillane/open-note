@@ -1,5 +1,5 @@
-import AppRoutes from "./routes";
-import "./styles/App.css";
+import AppRoutes from "@/routes";
+import "@/styles/App.css";
 
 /**
  * Renders the main application component and its routes.

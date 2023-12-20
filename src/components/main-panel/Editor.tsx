@@ -1,6 +1,6 @@
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { useEffect } from "react";
-import { useNotesStore } from "../../store/notesStore";
+import { useNotesStore } from "@/store/notesStore";
 
 /**
  * Renders the Editor component and updates it whenever its content changes.

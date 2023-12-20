@@ -1,9 +1,9 @@
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
-import { customControls } from "../../constants";
-import { useNotesStore } from "../../store/notesStore";
-import { useUiStore } from "../../store/uiStore";
-import { MenuControl } from "../../types";
+import { customControls } from "@/constants";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
+import { MenuControl } from "@/types";
 
 /**
  * Renders the custom toolbar controls for the rich text editor.

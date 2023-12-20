@@ -3,10 +3,10 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import { appWindow } from "@tauri-apps/api/window";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { handleClose, handleSave } from "../../../helpers";
-import TitleBarContext from "../../../providers/titlebar-provider";
-import { useNotesStore } from "../../../store/notesStore";
-import { useUiStore } from "../../../store/uiStore";
+import { handleClose, handleSave } from "@/helpers";
+import TitleBarContext from "@/providers/titlebar-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
 
 /**
  * Renders a file menu component.

@@ -1,6 +1,6 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useContext } from "react";
-import TitleBarContext from "../../providers/titlebar-provider";
+import TitleBarContext from "@/providers/titlebar-provider";
 import TitleBarButtons from "./TitleBarButtons";
 import TitleBarIconMenu from "./TitleBarIconMenu";
 import TitleBarName from "./TitleBarName";

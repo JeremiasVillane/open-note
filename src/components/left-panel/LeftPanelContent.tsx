@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
-import { Explorer } from "..";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
+import { Explorer } from "@/components";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
 
 const LazyNewItemForm = lazy(() => import("./NewItemForm"));
 

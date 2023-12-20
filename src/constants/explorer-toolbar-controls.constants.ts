@@ -1,5 +1,5 @@
 import { TFunction } from "i18next";
-import { FileObj } from "../types";
+import { FileObj } from "@/types";
 
 const commonStyles = "border-none hoverStyles";
 

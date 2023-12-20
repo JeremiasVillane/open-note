@@ -1,12 +1,11 @@
 import { useHotkeys } from "@mantine/hooks";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { loadFiles } from "../../helpers";
-import { handleDelete } from "../../helpers/handle-delete";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
-import { useUiStore } from "../../store/uiStore";
-import { FileObj, ItemStateType } from "../../types";
+import { handleDelete, loadFiles } from "@/helpers";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
+import { FileObj, ItemStateType } from "@/types";
 import ContextMenu from "./ContextMenu";
 
 /**

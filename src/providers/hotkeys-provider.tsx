@@ -2,11 +2,11 @@ import { useMantineColorScheme } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
-import { handleClose, handleSave, loadFiles } from "../helpers";
-import { useTauriContext } from "../providers/tauri-provider";
-import { useNotesStore } from "../store/notesStore";
-import { useUiStore } from "../store/uiStore";
-import { cycleLang } from "../utils";
+import { handleClose, handleSave, loadFiles } from "@/helpers";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
+import { cycleLang } from "@/utils";
 
 /**
  * Provides global hotkey functionality.

@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
-import { handleSave } from "../helpers";
-import { Note } from "../types";
+import { handleSave } from "@/helpers";
+import { Note } from "@/types";
 
 /**
  * Generates the custom controls for the editor.

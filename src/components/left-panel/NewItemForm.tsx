@@ -2,10 +2,10 @@ import { useClickOutside } from "@mantine/hooks";
 import { join } from "@tauri-apps/api/path";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { handleCreate, loadFiles } from "../../helpers";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
-import { useUiStore } from "../../store/uiStore";
+import { handleCreate, loadFiles } from "@/helpers";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
 
 /**
  * Renders a form for creating a new item.

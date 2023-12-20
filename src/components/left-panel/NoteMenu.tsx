@@ -1,5 +1,5 @@
 import { useHotkeys } from "@mantine/hooks";
-import { ItemStateType } from "../../types";
+import { ItemStateType } from "@/types";
 import ContextMenu from "./ContextMenu";
 
 /**

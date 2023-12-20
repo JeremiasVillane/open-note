@@ -2,7 +2,7 @@ import { Button, useMantineColorScheme } from "@mantine/core";
 import { WebviewWindow, appWindow } from "@tauri-apps/api/window";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { ModalType } from "../../../types";
+import { ModalType } from "@/types";
 
 /**
  * Renders a modal layout with the specified type, content, and modal properties.

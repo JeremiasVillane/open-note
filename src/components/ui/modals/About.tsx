@@ -6,8 +6,8 @@ import {
   APP_VERSION,
   REACT_VERSION,
   TAURI_VERSION,
-} from "../../../constants";
-import { useTauriContext } from "../../../providers/tauri-provider";
+} from "@/constants";
+import { useTauriContext } from "@/providers/tauri-provider";
 
 /**
  * Renders the About component, which displays information about the application.

@@ -1,8 +1,8 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { useState } from "react";
-import { Item } from "..";
-import { useNotesStore } from "../../store/notesStore";
-import { FileObj } from "../../types";
+import { useNotesStore } from "@/store/notesStore";
+import { FileObj } from "@/types";
+import { Item } from "./Item";
 
 /**
  * Renders the Explorer component.

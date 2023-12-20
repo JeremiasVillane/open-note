@@ -1,7 +1,7 @@
 import { Image, Kbd, Popover, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { APP_AUTHOR, APP_NAME, APP_VERSION } from "../../constants";
-import { GitHubIcon, LinkedInIcon } from "../ui/icons";
+import { APP_AUTHOR, APP_NAME, APP_VERSION } from "@/constants";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 
 /**
  * Renders the Welcome component.

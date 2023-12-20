@@ -1,5 +1,5 @@
 import { AppShellMain } from "@mantine/core";
-import { useNotesStore } from "../../store/notesStore";
+import { useNotesStore } from "@/store/notesStore";
 import Editor from "./Editor";
 import Welcome from "./Welcome";
 

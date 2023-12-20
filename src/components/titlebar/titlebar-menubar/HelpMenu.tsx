@@ -1,9 +1,9 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { renderModal } from "../../../helpers";
-import TitleBarContext from "../../../providers/titlebar-provider";
-import { useUiStore } from "../../../store/uiStore";
+import { renderModal } from "@/helpers";
+import TitleBarContext from "@/providers/titlebar-provider";
+import { useUiStore } from "@/store/uiStore";
 
 /**
  * Renders a help menu component.

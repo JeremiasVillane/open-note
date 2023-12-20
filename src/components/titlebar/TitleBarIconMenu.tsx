@@ -7,13 +7,13 @@ import {
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
-import TitleBarContext from "../../providers/titlebar-provider";
+import TitleBarContext from "@/providers/titlebar-provider";
 import {
   CloseIcon,
   MaximizeIcon,
   MinimizeIcon,
   RestoreIcon,
-} from "../ui/icons";
+} from "@/components/ui/icons";
 
 /**
  * Renders a title bar icon menu component.

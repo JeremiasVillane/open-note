@@ -2,8 +2,8 @@ import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import TitleBarContext from "../../../providers/titlebar-provider";
-import { useNotesStore } from "../../../store/notesStore";
+import TitleBarContext from "@/providers/titlebar-provider";
+import { useNotesStore } from "@/store/notesStore";
 import LanguageSubMenu from "./LanguageSubMenu";
 import ThemeSubMenu from "./ThemeSubMenu";
 

@@ -1,8 +1,8 @@
 import { RichTextEditor, useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
-import { labels } from "../../lib/labels";
-import { useNotesStore } from "../../store/notesStore";
-import { CodeBlockIcon } from "../ui/icons";
+import { labels } from "@/lib/labels";
+import { useNotesStore } from "@/store/notesStore";
+import { CodeBlockIcon } from "@/components/ui/icons";
 import { CustomToolbarControls } from "./CustomToolbarControls";
 
 /**

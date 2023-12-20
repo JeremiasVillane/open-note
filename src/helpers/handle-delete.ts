@@ -3,7 +3,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
 import { renderModal } from ".";
-import { Note } from "../types";
+import { Note } from "@/types";
 
 /**
  * Handles the delete action for a given item.

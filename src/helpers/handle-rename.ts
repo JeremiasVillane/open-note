@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { TFunction } from "i18next";
-import { Note } from "../types";
+import { Note } from "@/types";
 
 /**
  * Handles the rename action for a given item.

@@ -1,7 +1,7 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { Editor } from "@tiptap/react";
 import { TFunction } from "i18next";
-import { Note } from "../types";
+import { Note } from "@/types";
 
 /**
  * Saves the current note content to a file.

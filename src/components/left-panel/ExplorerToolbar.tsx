@@ -1,10 +1,10 @@
 import { ActionIcon, Group, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { explorerToolbarControls } from "../../constants";
-import { loadFiles } from "../../helpers";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
-import { useUiStore } from "../../store/uiStore";
+import { explorerToolbarControls } from "@/constants";
+import { loadFiles } from "@/helpers";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
 
 /**
  * Renders the menubar component for the explorer.

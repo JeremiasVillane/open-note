@@ -1,7 +1,7 @@
 import { listen } from "@tauri-apps/api/event";
 import { Editor } from "@tiptap/react";
 import { renderModal } from ".";
-import { Note } from "../types";
+import { Note } from "@/types";
 
 /**
  * Closes the current note and handles any unsaved changes.

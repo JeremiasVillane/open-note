@@ -6,8 +6,8 @@ import {
   MaximizeIcon,
   MinimizeIcon,
   RestoreIcon,
-} from "../ui/icons";
-import TitleBarContext from "../../providers/titlebar-provider";
+} from "@/components/ui/icons";
+import TitleBarContext from "@/providers/titlebar-provider";
 
 /**
  * Renders the window controls.

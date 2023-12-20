@@ -2,7 +2,7 @@ import { listen } from "@tauri-apps/api/event";
 import { FsOptions } from "@tauri-apps/api/fs";
 import { Editor } from "@tiptap/react";
 import { renderModal } from ".";
-import { Note } from "../types";
+import { Note } from "@/types";
 
 /**
  * Handles the opening of a file.

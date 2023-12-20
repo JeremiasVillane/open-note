@@ -1,8 +1,8 @@
 import { AppShellHeader, Group, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { useTranslation } from "react-i18next";
-import { Toolbar } from "..";
-import { useUiStore } from "../../store/uiStore";
+import { useUiStore } from "@/store/uiStore";
+import { Toolbar } from "./Toolbar";
 
 /**
  * Renders the header layout of the application,

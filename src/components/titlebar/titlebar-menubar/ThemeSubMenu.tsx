@@ -1,7 +1,7 @@
 import { Menu, Text, useMantineColorScheme } from "@mantine/core";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import TitleBarContext from "../../../providers/titlebar-provider";
+import TitleBarContext from "@/providers/titlebar-provider";
 
 /**
  * Renders a ThemeSubMenu component.

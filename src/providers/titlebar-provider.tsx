@@ -7,7 +7,7 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import { TitleBarContextType } from "../types";
+import { TitleBarContextType } from "@/types";
 import { useTauriContext } from "./tauri-provider";
 
 const TitleBarContext = createContext<TitleBarContextType>({

@@ -3,18 +3,18 @@ import { useRichTextEditorContext } from "@mantine/tiptap";
 import { readTextFile } from "@tauri-apps/api/fs";
 import { Dispatch, SetStateAction, Suspense, lazy, useReducer } from "react";
 import { useTranslation } from "react-i18next";
-import { Explorer } from "..";
+import { Explorer } from "@/components";
 import {
   handleClose,
   handleDelete,
   handleOpen,
   handleRename,
   loadFiles,
-} from "../../helpers";
-import { useTauriContext } from "../../providers/tauri-provider";
-import { useNotesStore } from "../../store/notesStore";
-import { useUiStore } from "../../store/uiStore";
-import { FileObj, ItemStateType } from "../../types";
+} from "@/helpers";
+import { useTauriContext } from "@/providers/tauri-provider";
+import { useNotesStore } from "@/store/notesStore";
+import { useUiStore } from "@/store/uiStore";
+import { FileObj, ItemStateType } from "@/types";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
 const LazyFolderMenu = lazy(() => import("./FolderMenu"));

@@ -2,7 +2,7 @@ import { AppShellFooter } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
 import { count } from "letter-count";
 import { useTranslation } from "react-i18next";
-import { useUiStore } from "../../store/uiStore";
+import { useUiStore } from "@/store/uiStore";
 
 /**
  * Renders the footer layout of the application.

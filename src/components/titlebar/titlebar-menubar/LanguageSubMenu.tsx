@@ -1,7 +1,7 @@
 import { Menu, Text } from "@mantine/core";
 import { i18n, t } from "i18next";
 import { useContext } from "react";
-import TitleBarContext from "../../../providers/titlebar-provider";
+import TitleBarContext from "@/providers/titlebar-provider";
 
 /**
  * Renders the language submenu component.

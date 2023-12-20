@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { NotesState } from "../types";
+import { NotesState } from "@/types";
 
 export const useNotesStore = create<NotesState>((set) => ({
   fileList: [],

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UiState } from "../types";
+import { UiState } from "@/types";
 
 export const useUiStore = create<UiState>((set) => ({
   status: null,
