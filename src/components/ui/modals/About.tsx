@@ -9,12 +9,17 @@ import {
 } from "../../../constants";
 import { useTauriContext } from "../../../providers/tauri-provider";
 
+/**
+ * Renders the About component, which displays information about the application.
+ *
+ * @return {JSX.Element} The rendered About component.
+ */
 export function About() {
   const { t } = useTranslation();
   const { osType } = useTauriContext();
 
   return (
-    <main className="modalLayoutStyles">
+    <>
       <i className="ri-information-2-fill text-blue-400 text-6xl p-3"></i>
       <h1 aria-label="Application name" className="font-black text-xl">
         {APP_NAME}
@@ -37,6 +42,6 @@ export function About() {
           <p>OS: {osType === "Windows_NT" ? "Windows" : osType}</p>
         </section>
       </article>
-    </main>
+    </>
   );
 }

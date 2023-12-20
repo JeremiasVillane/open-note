@@ -1,5 +1,4 @@
 import { TransitionProps } from "@mantine/core";
-import { WebviewWindow } from "@tauri-apps/api/window";
 import { SVGProps } from "react";
 
 export interface FileObj {
@@ -42,6 +41,27 @@ export interface UiState {
   setStatus: (status: string | null) => void;
   setLeftPanelIsClosed: (value: any) => void;
   setActiveModal: (value: boolean) => void;
+}
+
+export interface ModalProps {
+  type?: "info" | "success" | "error" | "warning" | undefined;
+  path: string;
+  title: string;
+  content: string | React.ReactElement | JSX.Element;
+  modalProps?: {
+    displayIcon?: boolean;
+    buttons?: {
+      display?: boolean;
+      okButton?: {
+        display?: boolean;
+        customText?: string | undefined;
+      };
+      cancelButton?: {
+        display?: boolean;
+        customText?: string | undefined;
+      };
+    };
+  };
 }
 
 export interface TitleBarContextType {
