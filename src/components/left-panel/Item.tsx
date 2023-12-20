@@ -252,10 +252,11 @@ export function Item({
                     setStatus,
                     item.path,
                     t,
+                    setActiveModal,
+                    () => loadFiles(appFolder, setItems),
                     setCurrentNote,
                     editor!
                   );
-                  await loadFiles(appFolder, setItems);
                 }}
               />
             </Suspense>

@@ -32,6 +32,7 @@ export default function FolderMenu({
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
   const { setItems, setOpenFolder } = useNotesStore();
+  const { setActiveModal } = useUiStore();
   const { setStatus } = useUiStore();
 
   const handleCreate = (
@@ -78,8 +79,15 @@ export default function FolderMenu({
     },
     {
       onClick: async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        await handleDelete(e, "folder", setStatus, folder.path, t);
-        await loadFiles(appFolder, setItems);
+        await handleDelete(
+          e,
+          "folder",
+          setStatus,
+          folder.path,
+          t,
+          setActiveModal,
+          () => loadFiles(appFolder, setItems)
+        );
         updateItemState({ context: false });
       },
       label: "Delete folder",

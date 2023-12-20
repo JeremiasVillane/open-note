@@ -3,13 +3,21 @@ import { WebviewWindow, appWindow } from "@tauri-apps/api/window";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Renders a modal layout component.
+ *
+ * @param {object} props - The props object.
+ * @param {string} props.type - The type of the modal layout. It can be "info", "success", "error", or "warning".
+ * @param {string} props.content - The content to be displayed in the modal layout.
+ * @return {JSX.Element} The rendered modal layout component.
+ */
 export function ModalLayout({
   type,
   content,
 }: {
   type: "info" | "success" | "error" | "warning";
   content: string;
-}) {
+}): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
 

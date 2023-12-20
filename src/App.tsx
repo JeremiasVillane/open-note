@@ -165,6 +165,42 @@ export default function App(): JSX.Element {
             </>
           }
         />
+
+        <Route
+          path="/delete-note"
+          element={
+            <>
+              <TitleBarProvider>
+                <Titlebar modal={APP_NAME} />
+              </TitleBarProvider>
+
+              <div className="overflow-hidden select-none">
+                <ModalLayout
+                  type="warning"
+                  content={t("ConfirmDeleteNote")}
+                />
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/delete-folder"
+          element={
+            <>
+              <TitleBarProvider>
+                <Titlebar modal={APP_NAME} />
+              </TitleBarProvider>
+
+              <div className="overflow-hidden select-none">
+                <ModalLayout
+                  type="warning"
+                  content={t("ConfirmDeleteFolder")}
+                />
+              </div>
+            </>
+          }
+        />
       </Routes>
     </HashRouter>
   );
