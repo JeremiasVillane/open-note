@@ -28,17 +28,14 @@ export function LeftPanelLayout({
     max: number;
   };
   sidebarWidth: number;
-  isResizing:boolean;
+  isResizing: boolean;
   startResizing: () => void;
 }): JSX.Element {
   const { colorScheme } = useMantineColorScheme();
 
   return (
     <>
-      <section
-        className="flex flex-col"
-        ref={sidebarRef}
-      >
+      <section className="flex flex-col" ref={sidebarRef}>
         <ExplorerToolbar
           sidebarSize={sidebarSize}
           sidebarWidth={sidebarWidth}
@@ -55,7 +52,7 @@ export function LeftPanelLayout({
         id="sidebar-resizer"
         className={`flex-grow-0 flex-shrink-0 basis-1 justify-self-end cursor-col-resize resize-x hover:w-1 ${
           colorScheme === "light" ? "hover:bg-slate-300" : "hover:bg-slate-600"
-        } z-10`}
+        }`}
         onMouseDown={startResizing}
       />
     </>
