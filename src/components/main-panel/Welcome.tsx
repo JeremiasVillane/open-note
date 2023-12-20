@@ -1,6 +1,16 @@
 import { Image, Kbd, Popover, useMantineColorScheme } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { APP_AUTHOR, APP_NAME, APP_VERSION } from "@/constants";
+import {
+  APP_AUTHOR,
+  APP_NAME,
+  APP_VERSION,
+  HK_CHANGE_LANG,
+  HK_NEW_FOLDER,
+  HK_NEW_NOTE,
+  HK_RELOAD_EXPLORER,
+  HK_TOGGLE_EXPLORER,
+  HK_TOGGLE_THEME,
+} from "@/constants";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 
 /**
@@ -84,7 +94,11 @@ export default function Welcome(): React.ReactElement {
             target="_blank"
             draggable="false"
           >
-            <LinkedInIcon size={21} title="https://www.linkedin.com/in/jeremias-villane" className={linkStyle} />
+            <LinkedInIcon
+              size={21}
+              title="https://www.linkedin.com/in/jeremias-villane"
+              className={linkStyle}
+            />
           </a>
         </div>
       </section>
@@ -101,22 +115,22 @@ export default function Welcome(): React.ReactElement {
 
         <div>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>N</Kbd>
+            <Kbd>{HK_NEW_NOTE}</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>F</Kbd>
+            <Kbd>{HK_NEW_FOLDER}</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>E</Kbd>
+            <Kbd>{HK_TOGGLE_EXPLORER}</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>R</Kbd>
+            <Kbd>{HK_RELOAD_EXPLORER}</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>L</Kbd>
+            <Kbd>{HK_CHANGE_LANG}</Kbd>
           </p>
           <p>
-            <Kbd>Ctrl</Kbd> + <Kbd>T</Kbd>
+            <Kbd>{HK_TOGGLE_THEME}</Kbd>
           </p>
         </div>
       </section>

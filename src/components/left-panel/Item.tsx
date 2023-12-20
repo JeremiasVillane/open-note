@@ -15,6 +15,7 @@ import { useTauriContext } from "@/providers/tauri-provider";
 import { useNotesStore } from "@/store/notesStore";
 import { useUiStore } from "@/store/uiStore";
 import { FileObj, ItemStateType } from "@/types";
+import { HK_RENAME } from "@/constants";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
 const LazyFolderMenu = lazy(() => import("./FolderMenu"));
@@ -127,7 +128,7 @@ export function Item({
   useHotkeys(
     [
       [
-        "f2",
+        HK_RENAME,
         () =>
           currentNote?.id === item.id
             ? updateItemState({ toRename: true })

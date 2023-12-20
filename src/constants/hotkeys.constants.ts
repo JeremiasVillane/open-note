@@ -1,0 +1,9 @@
+export const HK_TOGGLE_THEME = "Ctrl + T";
+export const HK_TOGGLE_EXPLORER = "Ctrl + Shift + E";
+export const HK_CHANGE_LANG = "Ctrl + L";
+export const HK_RELOAD_EXPLORER = "Ctrl + Shift + R";
+export const HK_NEW_NOTE = "Ctrl + N";
+export const HK_NEW_FOLDER = "Ctrl + Shift + F";
+export const HK_SAVE = "Ctrl + S";
+export const HK_CLOSE = "Ctrl + W";
+export const HK_RENAME = "F2";

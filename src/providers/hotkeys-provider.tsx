@@ -7,6 +7,16 @@ import { useTauriContext } from "@/providers/tauri-provider";
 import { useNotesStore } from "@/store/notesStore";
 import { useUiStore } from "@/store/uiStore";
 import { cycleLang } from "@/utils";
+import {
+  HK_CHANGE_LANG,
+  HK_CLOSE,
+  HK_NEW_FOLDER,
+  HK_NEW_NOTE,
+  HK_RELOAD_EXPLORER,
+  HK_SAVE,
+  HK_TOGGLE_EXPLORER,
+  HK_TOGGLE_THEME,
+} from "@/constants";
 
 /**
  * Provides global hotkey functionality.
@@ -38,10 +48,10 @@ export default function HotkeysProvider({
 
   useHotkeys(
     [
-      ["ctrl+T", toggleColorScheme],
-      ["ctrl+L", () => cycleLang(i18n)],
+      [HK_TOGGLE_THEME, toggleColorScheme],
+      [HK_CHANGE_LANG, () => cycleLang(i18n)],
       [
-        "ctrl+S",
+        HK_SAVE,
         async () =>
           await handleSave(t, editor!, {
             currentNote,
@@ -50,13 +60,13 @@ export default function HotkeysProvider({
           }),
       ],
       [
-        "ctrl+W",
+        HK_CLOSE,
         async () =>
           await handleClose(isEdited, setCurrentNote, editor, setActiveModal),
       ],
-      ["ctrl+shift+E", () => setLeftPanelIsClosed(!leftPanelIsClosed)],
+      [HK_TOGGLE_EXPLORER, () => setLeftPanelIsClosed(!leftPanelIsClosed)],
       [
-        "ctrl+shift+R",
+        HK_RELOAD_EXPLORER,
         async () => {
           await loadFiles(appFolder, setItems);
           setStatus(t("Files loaded"));
@@ -64,14 +74,14 @@ export default function HotkeysProvider({
         },
       ],
       [
-        "ctrl+N",
+        HK_NEW_NOTE,
         () => {
           setShowNewItemForm("note");
           setLeftPanelIsClosed(false);
         },
       ],
       [
-        "ctrl+shift+F",
+        HK_NEW_FOLDER,
         () => {
           setShowNewItemForm("folder");
           setLeftPanelIsClosed(false);
