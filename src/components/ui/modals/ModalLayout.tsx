@@ -5,23 +5,13 @@ import { useTranslation } from "react-i18next";
 import { ModalType } from "@/types";
 
 /**
- * Renders a modal layout with the specified type, content, and modal properties.
+ * Renders a modal layout with specified type, content, and modal properties.
  *
  * @param {object} props - The props object.
- * @param {string} props.type - The type of the modal layout (e.g., "info", "success", "error", "warning").
- * @param {string | React.ReactElement} props.content - The content to be displayed in the modal layout.
- * @param {object} props.modalProps - The modal properties.
- * @param {boolean} [modalProps.displayIcon=true] - Determines whether to display an icon in the modal layout.
- * @param {object} [modalProps.buttons] - The buttons to be displayed in the modal layout.
- * @param {boolean} [modalProps.buttons.display=true] - Determines whether to display the buttons in the modal layout.
- * @param {object} [modalProps.buttons.okButton] - The OK button properties.
- * @param {boolean} [modalProps.buttons.okButton.display=true] - Determines whether to display the OK button.
- * @param {string} [modalProps.buttons.okButton.customText] - The custom text for the OK button.
- * @param {object} [modalProps.buttons.cancelButton] - The Cancel button properties.
- * @param {boolean} [modalProps.buttons.cancelButton.display=true] - Determines whether to display the Cancel button.
- * @param {string} [modalProps.buttons.cancelButton.customText] - The custom text for the Cancel button.
- *
- * @returns {React.ReactElement} The rendered modal layout.
+ * @param {string} props.type - The type of the modal layout ("info", "success", "error" or "warning").
+ * @param {ReactNode} props.content - The content to be displayed in the modal layout.
+ * @param {ModalProps} props.modalProps - The optional modal properties.
+ * @returns {ReactElement} The rendered modal layout.
  */
 export function ModalLayout({
   type,

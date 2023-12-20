@@ -11,10 +11,11 @@ import ContextMenu from "./ContextMenu";
 /**
  * Renders a folder menu component.
  *
- * @prop {string} menuItemStyles - the styles for the menu items
- * @prop {FileObj} folder - the folder object
- * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - the function to set a new item
- * @prop {React.Dispatch<ItemStateType>} updateItemState - the function to update the item state
+ * @param {object} props - The props object.
+ * @param {string} props.menuItemStyles - the styles for the menu items
+ * @param {FileObj} props.folder - the folder object
+ * @param {Dispatch<SetStateAction<Record<string, string>>>} props.setNewItem - the function to set a new item
+ * @param {React.Dispatch<ItemStateType>} props.updateItemState - the function to update the item state
  * @return {React.ReactElement} - the rendered folder menu component
  */
 export default function FolderMenu({

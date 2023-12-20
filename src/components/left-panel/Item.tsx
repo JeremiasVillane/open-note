@@ -23,13 +23,14 @@ const LazyNewItemForm = lazy(() => import("./NewItemForm"));
 /**
  * Renders an item component.
  *
- * @prop {string} type - The type of the item ("note" or "folder").
- * @prop {FileObj} item - The item object.
- * @prop {string} menuItemStyles - The styles for the menu item.
- * @prop {string} contextMenuStyles - The styles for the context menu.
- * @prop {string} fileStyles - The styles for the file.
- * @prop {Record<string, string>} newItem - The new item object.
- * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - The function to set the new item object.
+ * @param {object} props - The props object.
+ * @param {string} props.type - The type of the item ("note" or "folder").
+ * @param {FileObj} props.item - The item object.
+ * @param {string} props.menuItemStyles - The styles for the menu item.
+ * @param {string} props.contextMenuStyles - The styles for the context menu.
+ * @param {string} props.fileStyles - The styles for the file.
+ * @param {Record<string, string>} props.newItem - The new item object.
+ * @param {Dispatch<SetStateAction<Record<string, string>>>} props.setNewItem - The function to set the new item object.
  * @return {React.ReactElement} The rendered item component.
  */
 export function Item({

@@ -5,8 +5,9 @@ import { useTranslation } from "react-i18next";
 /**
  * Renders a context menu component.
  *
- * @prop {Array} controls - An array of control objects representing menu items. Each control object has an `onClick` function and a `label` string.
- * @prop {string} menuItemStyles - The CSS styles for the menu items.
+ * @param {object} props - The props object.
+ * @param {Array} props.controls - An array of control objects representing menu items. Each control object has an `onClick` function and a `label` string.
+ * @param {string} props.menuItemStyles - The CSS styles for the menu items.
  * @return {React.ReactElement} The rendered context menu component.
  */
 export default function ContextMenu({

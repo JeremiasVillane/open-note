@@ -22,7 +22,7 @@ import { ModalType } from "@/types";
  *
  * The base route represents the main layout: includes the custom titlebar, a dynamic sidebar that can be resized, as well as header, main panel, and footer layouts.
  *
- * The rest of the routes represents modals.
+ * The rest of the routes represent modals.
  *
  * Sidebar resizing logic based partially on: https://codereview.stackexchange.com/questions/263970/react-based-resizable-sidebar
  *
