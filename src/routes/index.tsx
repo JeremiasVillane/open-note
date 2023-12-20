@@ -167,9 +167,10 @@ export default function AppRoutes(): JSX.Element {
           }
         />
 
-        {modals.map((modal) => {
+        {modals.map((modal, index) => {
           return (
             <Route
+              key={index}
               path={modal.path}
               element={
                 <>
