@@ -1,5 +1,5 @@
 import { useHotkeys } from "@mantine/hooks";
-import { itemStateType } from "../../types";
+import { ItemStateType } from "../../types";
 import ContextMenu from "./ContextMenu";
 
 /**
@@ -18,7 +18,7 @@ export default function NoteMenu({
   handleDelete,
 }: {
   menuItemStyles: string;
-  updateItemState: React.Dispatch<itemStateType>;
+  updateItemState: React.Dispatch<ItemStateType>;
   handleClose: () => Promise<void>;
   handleDelete: () => Promise<void>;
 }): JSX.Element {

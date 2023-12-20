@@ -6,7 +6,7 @@ import { handleDelete } from "../../helpers/handle-delete";
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { useUiStore } from "../../store/uiStore";
-import { FileObj, itemStateType } from "../../types";
+import { FileObj, ItemStateType } from "../../types";
 import ContextMenu from "./ContextMenu";
 
 /**
@@ -15,7 +15,7 @@ import ContextMenu from "./ContextMenu";
  * @prop {string} menuItemStyles - the styles for the menu items
  * @prop {FileObj} folder - the folder object
  * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - the function to set a new item
- * @prop {React.Dispatch<itemStateType>} updateItemState - the function to update the item state
+ * @prop {React.Dispatch<ItemStateType>} updateItemState - the function to update the item state
  * @return {JSX.Element} - the rendered folder menu component
  */
 export default function FolderMenu({
@@ -27,7 +27,7 @@ export default function FolderMenu({
   menuItemStyles: string;
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
-  updateItemState: React.Dispatch<itemStateType>;
+  updateItemState: React.Dispatch<ItemStateType>;
 }): JSX.Element {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();

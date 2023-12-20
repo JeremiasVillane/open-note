@@ -14,7 +14,7 @@ import {
 import { useTauriContext } from "../../providers/tauri-provider";
 import { useNotesStore } from "../../store/notesStore";
 import { useUiStore } from "../../store/uiStore";
-import { FileObj, itemStateType } from "../../types";
+import { FileObj, ItemStateType } from "../../types";
 
 const LazyNoteMenu = lazy(() => import("./NoteMenu"));
 const LazyFolderMenu = lazy(() => import("./FolderMenu"));
@@ -69,7 +69,7 @@ export function Item({
   );
 
   const [itemState, updateItemState] = useReducer(
-    (prev: itemStateType, next: itemStateType) => {
+    (prev: ItemStateType, next: ItemStateType) => {
       const newState = { ...prev, ...next };
 
       if (newState.itemName) {

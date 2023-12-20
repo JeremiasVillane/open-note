@@ -1,11 +1,11 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
 import { useRichTextEditorContext } from "@mantine/tiptap";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import TitleBarContext from "../../../providers/titlebar-provider";
 import { useNotesStore } from "../../../store/notesStore";
 import LanguageSubMenu from "./LanguageSubMenu";
 import ThemeSubMenu from "./ThemeSubMenu";
-import { useContext, useState } from "react";
-import TitleBarContext from "../../../providers/titlebar-provider";
 
 /**
  * Renders an EditMenu component.
@@ -42,6 +42,7 @@ export default function EditMenu({
       shadow="md"
       width={200}
       offset={3}
+      closeOnClickOutside={false}
     >
       <Menu.Target>
         <UnstyledButton
@@ -114,6 +115,10 @@ export default function EditMenu({
             <Menu.Item
               className={`${menuItemStyles} py-[inherit]`}
               rightSection={<i className="ri-arrow-right-s-line text-lg" />}
+              onClick={() => {
+                setOpened(false);
+                setOpenMenu(false);
+              }}
             >
               <Text
                 inline
@@ -123,7 +128,14 @@ export default function EditMenu({
               />
             </Menu.Item>
           </Menu.Target>
-          <Menu.Dropdown className="shadow-lg">
+
+          <Menu.Dropdown
+            className="shadow-lg"
+            onClick={() => {
+              setOpened(false);
+              setOpenMenu(false);
+            }}
+          >
             <LanguageSubMenu i18n={i18n} menuItemStyles={menuItemStyles} />
             <ThemeSubMenu menuItemStyles={menuItemStyles} />
           </Menu.Dropdown>

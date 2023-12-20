@@ -62,8 +62,8 @@ export default function HelpMenu({
           onClick={() =>
             renderModal({
               label: "about",
-              width: 336,
-              height: 336,
+              width: 300,
+              height: 275,
               setActiveModal,
             })
           }

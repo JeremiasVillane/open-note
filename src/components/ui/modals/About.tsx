@@ -14,19 +14,18 @@ import { useTauriContext } from "../../../providers/tauri-provider";
  *
  * @return {JSX.Element} The rendered About component.
  */
-export function About() {
+export function About(): JSX.Element {
   const { t } = useTranslation();
   const { osType } = useTauriContext();
 
   return (
     <>
-      <i className="ri-information-2-fill text-blue-400 text-6xl p-3"></i>
-      <h1 aria-label="Application name" className="font-black text-xl">
+      <h1 aria-label="Application name" className="font-black text-xl mt-3">
         {APP_NAME}
       </h1>
 
       <article aria-label="About the application" className="mt-3 text-sm">
-        <section className="text-left ml-14">
+        <section className="text-left">
           <p>
             {t("Version")}: {APP_VERSION}
           </p>

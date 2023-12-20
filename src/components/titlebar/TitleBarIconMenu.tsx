@@ -4,7 +4,7 @@ import {
   UnstyledButton,
   useMantineColorScheme,
 } from "@mantine/core";
-import { ReactNode, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
 import TitleBarContext from "../../providers/titlebar-provider";
@@ -22,9 +22,9 @@ import {
  * @param {boolean} props.open - Indicates whether the menu is open.
  * @param {function} props.setOpen - A function to set the state of the open prop.
  * @param {object} props.transitionProps - Menu transition props.
- * @return {ReactNode} The rendered title bar icon menu component.
+ * @return {React.ReactElement} The rendered title bar icon menu component.
  */
-export default function TitleBarIconMenu(): ReactNode {
+export default function TitleBarIconMenu(): React.ReactElement {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const {
@@ -66,7 +66,13 @@ export default function TitleBarIconMenu(): ReactNode {
         </UnstyledButton>
       </Menu.Target>
 
-      <Menu.Dropdown className="shadow-lg">
+      <Menu.Dropdown
+        className="shadow-lg"
+        onClick={() => {
+          setOpenMenu(false);
+          setOpened(false);
+        }}
+      >
         <Menu.Item
           onClick={handleMinimize}
           leftSection={<MinimizeIcon size={11} />}

@@ -2,14 +2,14 @@ import { Button, useMantineColorScheme } from "@mantine/core";
 import { WebviewWindow, appWindow } from "@tauri-apps/api/window";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { ModalProps } from "../../../types";
+import { ModalType } from "../../../types";
 
 /**
  * Renders a modal layout with the specified type, content, and modal properties.
  *
  * @param {object} props - The props object.
  * @param {string} props.type - The type of the modal layout (e.g., "info", "success", "error", "warning").
- * @param {string | JSX.Element} props.content - The content to be displayed in the modal layout.
+ * @param {string | React.ReactElement} props.content - The content to be displayed in the modal layout.
  * @param {object} props.modalProps - The modal properties.
  * @param {boolean} [modalProps.displayIcon=true] - Determines whether to display an icon in the modal layout.
  * @param {object} [modalProps.buttons] - The buttons to be displayed in the modal layout.
@@ -27,23 +27,20 @@ export function ModalLayout({
   type,
   content,
   modalProps = {
-    displayIcon: true,
     buttons: {
       display: true,
       okButton: {
         display: true,
-        customText: undefined,
       },
       cancelButton: {
         display: true,
-        customText: undefined,
       },
     },
   },
-}: Omit<ModalProps, "path" | "title">): JSX.Element {
+}: Omit<ModalType, "path" | "title">): JSX.Element {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
-  const { displayIcon, buttons } = modalProps;
+  const { icon, buttons } = modalProps;
 
   const modalButtonsStyles = `border-2 ${
     colorScheme === "light"
@@ -60,18 +57,30 @@ export function ModalLayout({
 
   return (
     <main className="modalLayoutStyles">
-      {displayIcon ? (
-        <section id="icon" className="flex items-center px-1">
+      {type ? (
+        <section id="icon" className="flex items-start">
           {type === "info" ? (
-            <i className="ri-information-2-fill text-blue-400 text-5xl p-3"></i>
+            <i
+              className="ri-information-2-fill text-blue-400 text-5xl p-3"
+              style={icon?.style ?? {}}
+            ></i>
           ) : type === "success" ? (
-            <i className="ri-checkbox-circle-fill text-green-400 text-5xl p-3"></i>
+            <i
+              className="ri-checkbox-circle-fill text-green-400 text-5xl p-3"
+              style={icon?.style ?? {}}
+            ></i>
           ) : type === "error" ? (
-            <i className="ri-close-circle-fill text-red-400 text-5xl p-3"></i>
+            <i
+              className="ri-close-circle-fill text-red-400 text-5xl p-3"
+              style={icon?.style ?? {}}
+            ></i>
           ) : type === "warning" ? (
-            <i className="ri-alert-fill text-yellow-400 text-5xl p-3"></i>
+            <i
+              className="ri-alert-fill text-yellow-400 text-5xl p-3"
+              style={icon?.style ?? {}}
+            ></i>
           ) : null}
-          <article className="ml-2">{content}</article>
+          <article className="ml-2 mr-1 self-center">{content}</article>
         </section>
       ) : (
         content
@@ -82,6 +91,7 @@ export function ModalLayout({
           {buttons?.okButton?.display ? (
             <Button
               className={modalButtonsStyles}
+              style={buttons.okButton.style ?? {}}
               onClick={() => handleButton("ok")}
             >
               {buttons.okButton.customText ?? t("OK")}
@@ -91,6 +101,7 @@ export function ModalLayout({
           {buttons?.cancelButton?.display ? (
             <Button
               className={modalButtonsStyles}
+              style={buttons.cancelButton.style ?? {}}
               onClick={() => handleButton("cancel")}
             >
               {buttons.cancelButton.customText ?? t("Cancel")}

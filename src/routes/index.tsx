@@ -15,7 +15,7 @@ import { APP_NAME } from "../constants";
 import { TitleBarProvider } from "../providers/titlebar-provider";
 import { useUiStore } from "../store/uiStore";
 import "../styles/App.css";
-import { ModalProps } from "../types";
+import { ModalType } from "../types";
 
 /**
  * Renders the routes for the main application.
@@ -100,13 +100,14 @@ export default function AppRoutes(): JSX.Element {
   }, [resize, stopResizing]);
 
   // Modals data
-  const modals: ModalProps[] = [
+  const modals: ModalType[] = [
     {
       path: "/about",
       title: "About",
+      type: "info",
       content: <About />,
       modalProps: {
-        displayIcon: false,
+        icon: { style: { paddingLeft: "0" } },
         buttons: { display: false },
       },
     },

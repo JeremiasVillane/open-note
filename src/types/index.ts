@@ -1,28 +1,22 @@
 import { TransitionProps } from "@mantine/core";
-import { SVGProps } from "react";
+import React, { SVGProps } from "react";
 
-export interface FileObj {
+export type FileObj = {
   id: string;
   name: string;
   path: string;
   is_folder: boolean;
   children?: FileObj[];
-}
+};
 
-export interface MenuControl {
-  icon: string;
-  onClick: (() => boolean) | (() => Promise<void>);
-  title?: string;
-}
-
-export interface Note {
+export type Note = {
   id: string;
   name: string;
   path: string;
   content: string | null;
-}
+};
 
-export interface NotesState {
+export type NotesState = {
   fileList: FileObj[];
   currentNote: Note | null;
   openFolders: Record<string, boolean>;
@@ -32,39 +26,41 @@ export interface NotesState {
   setOpenFolder: (folderId: string) => void;
   toggleOpenFolder: (folderId: string) => void;
   setShowNewItemForm: (value: "note" | "folder" | null) => void;
-}
+};
 
-export interface UiState {
+export type UiState = {
   status: string | null;
   leftPanelIsClosed: boolean;
   activeModal: boolean | undefined;
   setStatus: (status: string | null) => void;
   setLeftPanelIsClosed: (value: any) => void;
   setActiveModal: (value: boolean) => void;
-}
+};
 
-export interface ModalProps {
+type ModalButtonType = {
+  display?: boolean | undefined;
+  customText?: string | undefined;
+  style?: React.CSSProperties | undefined;
+};
+
+export type ModalType = {
   type?: "info" | "success" | "error" | "warning" | undefined;
   path: string;
   title: string;
-  content: string | React.ReactElement | JSX.Element;
+  content: string | React.ReactElement;
   modalProps?: {
-    displayIcon?: boolean;
+    icon?: {
+      style?: React.CSSProperties | undefined;
+    };
     buttons?: {
-      display?: boolean;
-      okButton?: {
-        display?: boolean;
-        customText?: string | undefined;
-      };
-      cancelButton?: {
-        display?: boolean;
-        customText?: string | undefined;
-      };
+      display?: boolean | undefined;
+      okButton?: ModalButtonType;
+      cancelButton?: ModalButtonType;
     };
   };
-}
+};
 
-export interface TitleBarContextType {
+export type TitleBarContextType = {
   windowTitle: string;
   isMaximized: boolean;
   isOnTop: boolean;
@@ -75,14 +71,20 @@ export interface TitleBarContextType {
   handleMaximize: () => Promise<void>;
   handleOnTop: () => Promise<void>;
   handleExit: () => Promise<void>;
-}
+};
 
-export interface itemStateType {
+export type ItemStateType = {
   itemName?: string;
   toRename?: boolean;
   context?: boolean;
   xYPosistion?: { x: number; y: number };
-}
+};
+
+export type MenuControl = {
+  icon: string;
+  onClick: (() => boolean) | (() => Promise<void>);
+  title?: string;
+};
 
 export type CustomIconProps<T extends SVGElement> = SVGProps<T> & {
   title?: string;
