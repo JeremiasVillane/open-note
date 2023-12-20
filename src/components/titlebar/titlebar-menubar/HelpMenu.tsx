@@ -57,7 +57,7 @@ export default function HelpMenu({
         </UnstyledButton>
       </Menu.Target>
 
-      <Menu.Dropdown className="shadow-lg">
+      <Menu.Dropdown className="shadow-lg" onClick={() => setOpenMenu(false)}>
         <Menu.Item
           onClick={() =>
             renderModal({

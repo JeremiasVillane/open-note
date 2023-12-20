@@ -68,7 +68,10 @@ export default function FileMenu({
         </UnstyledButton>
       </Menu.Target>
 
-      <Menu.Dropdown className="shadow-lg whitespace-nowrap">
+      <Menu.Dropdown
+        className="shadow-lg whitespace-nowrap"
+        onClick={() => setOpenMenu(false)}
+      >
         <Menu.Item
           onClick={() => {
             setShowNewItemForm("note");
@@ -124,12 +127,7 @@ export default function FileMenu({
 
         <Menu.Item
           onClick={async () =>
-            await handleClose(
-              isEdited,
-              setCurrentNote,
-              editor,
-              setActiveModal
-            )
+            await handleClose(isEdited, setCurrentNote, editor, setActiveModal)
           }
           className={menuItemStyles}
           rightSection={<Text size="xs">Ctrl + W</Text>}
