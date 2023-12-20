@@ -12,9 +12,9 @@ import { useTauriContext } from "../../../providers/tauri-provider";
 /**
  * Renders the About component, which displays information about the application.
  *
- * @return {JSX.Element} The rendered About component.
+ * @return {React.ReactElement} The rendered About component.
  */
-export function About(): JSX.Element {
+export function About(): React.ReactElement {
   const { t } = useTranslation();
   const { osType } = useTauriContext();
 

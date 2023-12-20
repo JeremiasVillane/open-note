@@ -16,7 +16,7 @@ import ContextMenu from "./ContextMenu";
  * @prop {FileObj} folder - the folder object
  * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - the function to set a new item
  * @prop {React.Dispatch<ItemStateType>} updateItemState - the function to update the item state
- * @return {JSX.Element} - the rendered folder menu component
+ * @return {React.ReactElement} - the rendered folder menu component
  */
 export default function FolderMenu({
   menuItemStyles,
@@ -28,7 +28,7 @@ export default function FolderMenu({
   folder: FileObj;
   setNewItem: Dispatch<SetStateAction<Record<string, string>>>;
   updateItemState: React.Dispatch<ItemStateType>;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
   const { setItems, setOpenFolder } = useNotesStore();

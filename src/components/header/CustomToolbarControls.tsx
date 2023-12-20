@@ -8,9 +8,9 @@ import { MenuControl } from "../../types";
 /**
  * Renders the custom toolbar controls for the rich text editor.
  *
- * @return {JSX.Element} The custom toolbar controls.
+ * @return {React.ReactElement} The custom toolbar controls.
  */
-export function CustomToolbarControls(): JSX.Element {
+export function CustomToolbarControls(): React.ReactElement {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setShowNewItemForm } = useNotesStore();

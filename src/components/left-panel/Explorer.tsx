@@ -10,7 +10,7 @@ import { FileObj } from "../../types";
  * @param {Object} props - The properties object.
  * @param {Array<FileObj>} props.fileList - The list of files to display in the Explorer.
  * @param {boolean} props.isResizing - Indicates if the left panel is being resized.
- * @returns {JSX.Element} The JSX representation of the Explorer component.
+ * @returns {React.ReactElement} The JSX representation of the Explorer component.
  */
 export function Explorer({
   fileList,
@@ -18,7 +18,7 @@ export function Explorer({
 }: {
   fileList: FileObj[];
   isResizing: boolean;
-}): JSX.Element {
+}): React.ReactElement {
   const { colorScheme } = useMantineColorScheme();
   const { currentNote } = useNotesStore();
   const [newItem, setNewItem] = useState<Record<string, string>>({});

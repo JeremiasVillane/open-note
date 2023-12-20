@@ -30,7 +30,7 @@ const LazyNewItemForm = lazy(() => import("./NewItemForm"));
  * @prop {string} fileStyles - The styles for the file.
  * @prop {Record<string, string>} newItem - The new item object.
  * @prop {Dispatch<SetStateAction<Record<string, string>>>} setNewItem - The function to set the new item object.
- * @return {JSX.Element} The rendered item component.
+ * @return {React.ReactElement} The rendered item component.
  */
 export function Item({
   type,
@@ -50,7 +50,7 @@ export function Item({
   newItem?: Record<string, string>;
   setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
   isResizing?: boolean;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const {
     currentNote,

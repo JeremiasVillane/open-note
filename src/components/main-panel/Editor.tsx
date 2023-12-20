@@ -5,9 +5,9 @@ import { useNotesStore } from "../../store/notesStore";
 /**
  * Renders the Editor component and updates it whenever its content changes.
  *
- * @returns {JSX.Element} The rendered Editor component.
+ * @returns {React.ReactElement} The rendered Editor component.
  */
-export default function Editor(): JSX.Element {
+export default function Editor(): React.ReactElement {
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();
 

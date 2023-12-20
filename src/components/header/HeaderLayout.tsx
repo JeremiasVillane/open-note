@@ -8,9 +8,9 @@ import { useUiStore } from "../../store/uiStore";
  * Renders the header layout of the application,
  * containing the sidebar toggle button and the Editor Toolbar.
  *
- * @return {JSX.Element} The header layout component.
+ * @return {React.ReactElement} The header layout component.
  */
-export function HeaderLayout(): JSX.Element {
+export function HeaderLayout(): React.ReactElement {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();

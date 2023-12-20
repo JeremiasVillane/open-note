@@ -13,7 +13,7 @@ import LeftPanelContent from "./LeftPanelContent";
  * @param {number} props.sidebarWidth - The width of the sidebar.
  * @param {boolean} props.isResizing - Indicates if the left panel is being resized.
  * @param {Function} props.startResizing - The function to start resizing the sidebar.
- * @return {JSX.Element} The rendered left panel layout.
+ * @return {React.ReactElement} The rendered left panel layout.
  */
 export function LeftPanelLayout({
   sidebarRef,
@@ -30,7 +30,7 @@ export function LeftPanelLayout({
   sidebarWidth: number;
   isResizing: boolean;
   startResizing: () => void;
-}): JSX.Element {
+}): React.ReactElement {
   const { colorScheme } = useMantineColorScheme();
 
   return (

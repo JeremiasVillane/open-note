@@ -21,7 +21,7 @@ import { ModalType } from "../../../types";
  * @param {boolean} [modalProps.buttons.cancelButton.display=true] - Determines whether to display the Cancel button.
  * @param {string} [modalProps.buttons.cancelButton.customText] - The custom text for the Cancel button.
  *
- * @returns {JSX.Element} The rendered modal layout.
+ * @returns {React.ReactElement} The rendered modal layout.
  */
 export function ModalLayout({
   type,
@@ -37,7 +37,7 @@ export function ModalLayout({
       },
     },
   },
-}: Omit<ModalType, "path" | "title">): JSX.Element {
+}: Omit<ModalType, "path" | "title">): React.ReactElement {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { icon, buttons } = modalProps;

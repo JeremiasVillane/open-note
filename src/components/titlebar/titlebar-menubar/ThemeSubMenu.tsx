@@ -8,13 +8,13 @@ import TitleBarContext from "../../../providers/titlebar-provider";
  *
  * @param {Object} props - The component props.
  * @param {string} props.menuItemStyles - The styles for the menu items.
- * @return {JSX.Element} The rendered ThemeSubMenu component.
+ * @return {React.ReactElement} The rendered ThemeSubMenu component.
  */
 export default function ThemeSubMenu({
   menuItemStyles,
 }: {
   menuItemStyles: string;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { setColorScheme } = useMantineColorScheme();
   const { transitionProps } = useContext(TitleBarContext);

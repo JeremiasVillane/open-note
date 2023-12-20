@@ -10,9 +10,9 @@ import HelpMenu from "./HelpMenu";
  * @param {boolean} props.open - Indicates whether the menu is open.
  * @param {function} props.setOpen - A function to set the state of the open prop.
  * @param {object} props.transitionProps - Menu transition props.
- * @returns {JSX.Element} The rendered component.
+ * @returns {React.ReactElement} The rendered component.
  */
-export default function TitleBarMenuBar(): JSX.Element {
+export default function TitleBarMenuBar(): React.ReactElement {
   const { colorScheme } = useMantineColorScheme();
 
   const menuItemStyles = `cursor-default ${

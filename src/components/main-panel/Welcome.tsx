@@ -6,9 +6,9 @@ import { GitHubIcon, LinkedInIcon } from "../ui/icons";
 /**
  * Renders the Welcome component.
  *
- * @return {JSX.Element} The rendered Welcome component.
+ * @return {React.ReactElement} The rendered Welcome component.
  */
-export default function Welcome(): JSX.Element {
+export default function Welcome(): React.ReactElement {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
 

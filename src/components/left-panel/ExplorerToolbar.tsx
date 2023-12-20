@@ -9,7 +9,7 @@ import { useUiStore } from "../../store/uiStore";
 /**
  * Renders the menubar component for the explorer.
  *
- * @return {JSX.Element} The rendered menubar component.
+ * @return {React.ReactElement} The rendered menubar component.
  */
 export default function ExplorerToolbar({
   sidebarSize,
@@ -17,7 +17,7 @@ export default function ExplorerToolbar({
 }: {
   sidebarSize: { min: number; max: number };
   sidebarWidth: number;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { setItems, setShowNewItemForm } = useNotesStore();
   const { setStatus } = useUiStore();

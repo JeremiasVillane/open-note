@@ -9,7 +9,7 @@ import ContextMenu from "./ContextMenu";
  * @prop {function} updateItemState - The function to update the item state.
  * @prop {function} handleClose - The function to handle closing the current note.
  * @prop {function} handleDelete - The function to handle deleting the current note.
- * @return {JSX.Element} The rendered NoteMenu component.
+ * @return {React.ReactElement} The rendered NoteMenu component.
  */
 export default function NoteMenu({
   menuItemStyles,
@@ -21,7 +21,7 @@ export default function NoteMenu({
   updateItemState: React.Dispatch<ItemStateType>;
   handleClose: () => Promise<void>;
   handleDelete: () => Promise<void>;
-}): JSX.Element {
+}): React.ReactElement {
   useHotkeys(
     [["escape", () => updateItemState({ context: false })]],
     undefined,

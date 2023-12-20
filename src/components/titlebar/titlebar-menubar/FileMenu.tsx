@@ -17,7 +17,7 @@ import { useUiStore } from "../../../store/uiStore";
  * @param {Partial<Omit<TransitionProps, "mounted">>} props.transitionProps - The menu transition props.
  * @param {boolean} props.open - Indicates whether the menu is open or closed.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setOpen - The function to set the open state.
- * @return {JSX.Element} The rendered file menu component.
+ * @return {React.ReactElement} The rendered file menu component.
  */
 export default function FileMenu({
   menuItemStyles,
@@ -25,7 +25,7 @@ export default function FileMenu({
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote, setCurrentNote, setShowNewItemForm } = useNotesStore();

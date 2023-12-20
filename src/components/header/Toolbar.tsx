@@ -8,9 +8,9 @@ import { CustomToolbarControls } from "./CustomToolbarControls";
 /**
  * Renders the toolbar component for the rich text editor.
  *
- * @return {JSX.Element} The rendered toolbar component.
+ * @return {React.ReactElement} The rendered toolbar component.
  */
-export function Toolbar(): JSX.Element {
+export function Toolbar(): React.ReactElement {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();

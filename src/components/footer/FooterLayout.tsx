@@ -9,9 +9,9 @@ import { useUiStore } from "../../store/uiStore";
  *
  * Show the "status" global state.
  *
- * @return {JSX.Element} The JSX element representing the footer layout.
+ * @return {React.ReactElement} The JSX element representing the footer layout.
  */
-export function FooterLayout(): JSX.Element {
+export function FooterLayout(): React.ReactElement {
   const { t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { status } = useUiStore();

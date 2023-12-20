@@ -14,7 +14,7 @@ import { useUiStore } from "../../../store/uiStore";
  * @param {Partial<Omit<TransitionProps, "mounted">>} props.transitionProps - The transition props.
  * @param {boolean} props.open - Indicates if the menu is open.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setOpen - Function to set the open state.
- * @return {JSX.Element} The rendered help menu.
+ * @return {React.ReactElement} The rendered help menu.
  */
 export default function HelpMenu({
   menuItemStyles,
@@ -22,7 +22,7 @@ export default function HelpMenu({
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { setActiveModal } = useUiStore();
   const { openMenu, setOpenMenu, transitionProps } =

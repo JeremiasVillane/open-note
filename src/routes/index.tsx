@@ -26,9 +26,9 @@ import { ModalType } from "../types";
  *
  * Sidebar resizing logic based partially on: https://codereview.stackexchange.com/questions/263970/react-based-resizable-sidebar
  *
- * @return {JSX.Element}
+ * @return {React.ReactElement}
  */
-export default function AppRoutes(): JSX.Element {
+export default function AppRoutes(): React.ReactElement {
   const { t } = useTranslation();
   const { leftPanelIsClosed, setLeftPanelIsClosed } = useUiStore();
   const { ref, width } = useElementSize();

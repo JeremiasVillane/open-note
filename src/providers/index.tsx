@@ -17,14 +17,14 @@ import { listen } from "@tauri-apps/api/event";
 /**
  * Renders the Providers component.
  *
- * @param {JSX.Element} children - The JSX element representing the children of Providers.
- * @return {JSX.Element}
+ * @param {React.ReactElement} children - The JSX element representing the children of Providers.
+ * @return {React.ReactElement}
  */
 export default function Providers({
   children,
 }: {
-  children: JSX.Element;
-}): JSX.Element {
+  children: React.ReactElement;
+}): React.ReactElement {
   const { currentNote } = useNotesStore();
   const { activeModal, setActiveModal } = useUiStore();
 

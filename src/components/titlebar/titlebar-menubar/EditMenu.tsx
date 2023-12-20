@@ -16,7 +16,7 @@ import ThemeSubMenu from "./ThemeSubMenu";
  * @param {Partial<Omit<TransitionProps, "mounted">>} props.transitionProps - The menu transition props.
  * @param {boolean} props.open - Indicates if the menu is open.
  * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setOpen - The function to update the open state.
- * @return {JSX.Element} The rendered EditMenu component.
+ * @return {React.ReactElement} The rendered EditMenu component.
  */
 export default function EditMenu({
   menuItemStyles,
@@ -24,7 +24,7 @@ export default function EditMenu({
 }: {
   menuItemStyles: string;
   menuTitleStyles: string;
-}): JSX.Element {
+}): React.ReactElement {
   const { i18n, t } = useTranslation();
   const { editor } = useRichTextEditorContext();
   const { currentNote } = useNotesStore();

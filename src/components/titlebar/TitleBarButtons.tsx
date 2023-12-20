@@ -12,13 +12,13 @@ import TitleBarContext from "../../providers/titlebar-provider";
 /**
  * Renders the window controls.
  *
- * @return {JSX.Element} The rendered title bar buttons.
+ * @return {React.ReactElement} The rendered title bar buttons.
  */
 export default function TitleBarButtons({
   modal,
 }: {
   modal: boolean;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { isMaximized, handleMinimize, handleMaximize, handleExit } =

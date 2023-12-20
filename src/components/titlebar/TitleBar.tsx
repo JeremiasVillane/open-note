@@ -10,9 +10,9 @@ import TitleBarMenuBar from "./titlebar-menubar/TitleBarMenuBar";
  * Renders the Titlebar component,
  * containing the icon menu, menu bar, window name and window controls.
  *
- * @return {JSX.Element} The rendered Titlebar component.
+ * @return {React.ReactElement} The rendered Titlebar component.
  */
-export function Titlebar({ modal }: { modal?: string }): JSX.Element {
+export function Titlebar({ modal }: { modal?: string }): React.ReactElement {
   const { colorScheme } = useMantineColorScheme();
   const { setOpenMenu } = useContext(TitleBarContext);
 

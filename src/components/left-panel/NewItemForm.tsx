@@ -15,7 +15,7 @@ import { useUiStore } from "../../store/uiStore";
  * @param {string} props.path - The path of the item.
  * @param {string} props.parentId - The ID of the parent item.
  * @param {Dispatch<SetStateAction<Record<string, string>>>} [props.setNewItem] - Optional setter function used here to hide the new item form if it was called within a subfolder.
- * @return {JSX.Element} The JSX element representing the new item form.
+ * @return {React.ReactElement} The JSX element representing the new item form.
  */
 export default function NewItemForm({
   itemType,
@@ -27,7 +27,7 @@ export default function NewItemForm({
   path: string;
   parentId: string;
   setNewItem?: Dispatch<SetStateAction<Record<string, string>>>;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { appFolder } = useTauriContext();
   const [itemName, setItemName] = useState<string>("");

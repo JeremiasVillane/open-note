@@ -7,13 +7,13 @@ import { useTranslation } from "react-i18next";
 /**
  * Renders the name to be displayed in the title bar of the application.
  *
- * @return {JSX.Element} The JSX element representing the name to be displayed in the title bar.
+ * @return {React.ReactElement} The JSX element representing the name to be displayed in the title bar.
  */
 export default function TitleBarName({
   modal,
 }: {
   modal?: string;
-}): JSX.Element {
+}): React.ReactElement {
   const { t } = useTranslation();
   const { currentNote } = useNotesStore();
   const { windowTitle } = useContext(TitleBarContext);

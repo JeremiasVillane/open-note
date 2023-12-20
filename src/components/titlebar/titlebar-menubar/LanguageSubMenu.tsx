@@ -9,7 +9,7 @@ import TitleBarContext from "../../../providers/titlebar-provider";
  * @param {Object} props - The component props.
  * @param {i18n} props.i18n - The i18n object.
  * @param {string} props.menuItemStyles - The CSS styles for the menu item.
- * @return {JSX.Element} The rendered language submenu.
+ * @return {React.ReactElement} The rendered language submenu.
  */
 export default function LanguageSubMenu({
   i18n,
@@ -17,7 +17,7 @@ export default function LanguageSubMenu({
 }: {
   i18n: i18n;
   menuItemStyles: string;
-}): JSX.Element {
+}): React.ReactElement {
   const languages = Object.keys(i18n?.options?.resources!);
   const { transitionProps } = useContext(TitleBarContext);
 
