@@ -9,13 +9,13 @@ import {
   LeftPanelLayout,
   MainPanelLayout,
   Titlebar,
-} from "../components";
-import { About, ModalLayout } from "../components/ui/modals";
-import { APP_NAME } from "../constants";
-import { TitleBarProvider } from "../providers/titlebar-provider";
-import { useUiStore } from "../store/uiStore";
-import "../styles/App.css";
-import { ModalType } from "../types";
+} from "@/components";
+import { About, ModalLayout } from "@/components/ui/modals";
+import { APP_NAME } from "@/constants";
+import { TitleBarProvider } from "@/providers/titlebar-provider";
+import { useUiStore } from "@/store/uiStore";
+import "@/styles/App.css";
+import { ModalType } from "@/types";
 
 /**
  * Renders the routes for the main application.
