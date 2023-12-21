@@ -1,6 +1,6 @@
-import { WebviewWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/tauri";
 
-export const renderModal = ({
+export const renderModal = async ({
   label,
   width = 400,
   height = 175,
@@ -11,17 +11,7 @@ export const renderModal = ({
   height?: number;
   setActiveModal: (value: boolean) => void;
 }) => {
-  new WebviewWindow(label, {
-    url: `index.html/#/${label}`,
-    alwaysOnTop: true,
-    center: true,
-    resizable: false,
-    maximizable: false,
-    minimizable: false,
-    decorations: false,
-    width,
-    height,
-  });
+  await invoke("open_window", { label, width, height });
 
   setActiveModal(true);
 };

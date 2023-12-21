@@ -14,7 +14,7 @@ use file_handler::{
     write_text_file,
 };
 mod ui_handler;
-use ui_handler::close_splashscreen;
+use ui_handler::{ close_splashscreen, open_window };
 
 fn main() {
     tauri::Builder
@@ -26,7 +26,8 @@ fn main() {
                 write_text_file,
                 create_directory,
                 rename_item,
-                close_splashscreen
+                close_splashscreen,
+                open_window
             ]
         )
         // persistent storage with filesystem
