@@ -15,7 +15,7 @@
 
 </div>
 
-<hr style="height: 1px" />
+---
 
 A simple Notes desktop app with rich text capabilities made with [Tauri](https://tauri.app/) and [React](https://react.dev/), written in [Rust](https://www.rust-lang.org/) and [TypeScript](https://www.typescriptlang.org/).
 
@@ -36,12 +36,12 @@ A simple Notes desktop app with rich text capabilities made with [Tauri](https:/
 
 ## TO-DO
 
-<input type="checkbox" disabled> Export notes in pdf format.<br>
-<input type="checkbox" disabled> Drag & Drop notes in folders.<br>
-<input type="checkbox" disabled> Code highlighting.<br>
-<input type="checkbox" disabled> Automatic updates.<br>
-<input type="checkbox" disabled> Cloud sync.<br>
-<input type="checkbox" disabled> Note encryption.<br>
+:white_large_square: Export notes in pdf format.<br>
+:white_large_square: Drag & Drop notes in folders.<br>
+:white_large_square: Code highlighting.<br>
+:white_large_square: Automatic updates.<br>
+:white_large_square: Cloud sync.<br>
+:white_large_square: Note encryption.<br>
 
 ## License
 
