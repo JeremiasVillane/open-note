@@ -19,7 +19,7 @@
 
 A simple Notes desktop app with rich text capabilities made with [Tauri](https://tauri.app/) and [React](https://react.dev/), written in [Rust](https://www.rust-lang.org/) and [TypeScript](https://www.typescriptlang.org/).
 
-<center><img src="./public/open-note-screens.gif" alt="Open Note screen capture" width="555" /></center>
+<div align="center"><img src="./public/open-note-screens.gif" alt="Open Note screen capture" width="555" /></div>
 
 ## Features
 
