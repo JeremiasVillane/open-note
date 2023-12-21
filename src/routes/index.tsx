@@ -72,7 +72,7 @@ export default function AppRoutes(): React.ReactElement {
 
     const root = document.getElementById("root");
     if (root) {
-      root.style.setProperty("cursor", "default");
+      root.style.removeProperty("cursor");
     }
   }, []);
 
