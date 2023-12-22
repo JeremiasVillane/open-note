@@ -21,10 +21,10 @@ tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-works
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 window-shadows = {git = "https://github.com/tauri-apps/window-shadows", branch = "dev" }
 tauri-plugin-positioner = "1.0.4"
-tauri-api = "0.7.6"
 sha2 = "0.10.8"
 tokio = "1.35.1"
 ntapi = "0.4.1"
+sysinfo = "0.30.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
