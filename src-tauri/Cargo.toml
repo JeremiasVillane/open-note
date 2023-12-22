@@ -24,6 +24,7 @@ tauri-plugin-positioner = "1.0.4"
 tauri-api = "0.7.6"
 sha2 = "0.10.8"
 tokio = "1.35.1"
+ntapi = "0.4.1"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
