@@ -1,9 +1,13 @@
 import { Menu, Text, UnstyledButton } from "@mantine/core";
-import { useContext, useState } from "react";
+import { Suspense, lazy, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { renderModal } from "@/helpers";
 import TitleBarContext from "@/providers/titlebar-provider";
 import { useUiStore } from "@/store/uiStore";
+
+const MenuDropdown = lazy(() =>
+  import("@mantine/core").then((module) => ({ default: module.Menu.Dropdown }))
+);
 
 /**
  * Renders a help menu component.
@@ -57,21 +61,28 @@ export default function HelpMenu({
         </UnstyledButton>
       </Menu.Target>
 
-      <Menu.Dropdown className="shadow-lg" onClick={() => setOpenMenu(false)}>
-        <Menu.Item
-          onClick={() =>
-            renderModal({
-              label: "about",
-              width: 300,
-              height: 275,
-              setActiveModal,
-            })
-          }
-          className={menuItemStyles}
-        >
-          <Text inline size="sm" className="overlook" data-text={t("About")} />
-        </Menu.Item>
-      </Menu.Dropdown>
+      <Suspense>
+        <MenuDropdown className="shadow-lg" onClick={() => setOpenMenu(false)}>
+          <Menu.Item
+            onClick={() =>
+              renderModal({
+                label: "about",
+                width: 300,
+                height: 275,
+                setActiveModal,
+              })
+            }
+            className={menuItemStyles}
+          >
+            <Text
+              inline
+              size="sm"
+              className="overlook"
+              data-text={t("About")}
+            />
+          </Menu.Item>
+        </MenuDropdown>
+      </Suspense>
     </Menu>
   );
 }

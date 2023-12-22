@@ -1,7 +1,11 @@
 import { Menu, Text } from "@mantine/core";
 import { i18n, t } from "i18next";
-import { useContext } from "react";
+import { Suspense, lazy, useContext } from "react";
 import TitleBarContext from "@/providers/titlebar-provider";
+
+const MenuDropdown = lazy(() =>
+  import("@mantine/core").then((module) => ({ default: module.Menu.Dropdown }))
+);
 
 /**
  * Renders the language submenu component.
@@ -59,7 +63,9 @@ export default function LanguageSubMenu({
           />
         </Menu.Item>
       </Menu.Target>
-      <Menu.Dropdown className="shadow-lg">{langMenu}</Menu.Dropdown>
+      <Suspense>
+        <MenuDropdown className="shadow-lg">{langMenu}</MenuDropdown>
+      </Suspense>
     </Menu>
   );
 }

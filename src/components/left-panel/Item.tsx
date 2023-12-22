@@ -17,9 +17,9 @@ import { useUiStore } from "@/store/uiStore";
 import { FileObj, ItemStateType } from "@/types";
 import { HK_RENAME } from "@/constants";
 
-const LazyNoteMenu = lazy(() => import("./NoteMenu"));
-const LazyFolderMenu = lazy(() => import("./FolderMenu"));
-const LazyNewItemForm = lazy(() => import("./NewItemForm"));
+const NoteMenu = lazy(() => import("./NoteMenu"));
+const FolderMenu = lazy(() => import("./FolderMenu"));
+const NewItemForm = lazy(() => import("./NewItemForm"));
 
 /**
  * Renders an item component.
@@ -236,7 +236,7 @@ export function Item({
             ref={menuRef}
           >
             <Suspense>
-              <LazyNoteMenu
+              <NoteMenu
                 menuItemStyles={menuItemStyles}
                 updateItemState={updateItemState}
                 handleClose={async () =>
@@ -273,7 +273,7 @@ export function Item({
           >
             {newItem![item.id] ? (
               <Suspense>
-                <LazyNewItemForm
+                <NewItemForm
                   itemType={newItem![item.id]}
                   path={item.path}
                   parentId={item.id}
@@ -294,7 +294,7 @@ export function Item({
               ref={menuRef}
             >
               <Suspense>
-                <LazyFolderMenu
+                <FolderMenu
                   menuItemStyles={menuItemStyles}
                   folder={item}
                   setNewItem={setNewItem!}

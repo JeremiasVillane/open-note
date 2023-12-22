@@ -12,6 +12,13 @@ import {
   HK_TOGGLE_THEME,
 } from "@/constants";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
+import { Suspense, lazy } from "react";
+
+const PopoverDropdown = lazy(() =>
+  import("@mantine/core").then((module) => ({
+    default: module.Popover.Dropdown,
+  }))
+);
 
 /**
  * Renders the Welcome component.
@@ -46,21 +53,23 @@ export default function Welcome(): React.ReactElement {
                 <Popover.Target>
                   <span className={`font-semibold ${linkStyle}`}>INFO</span>
                 </Popover.Target>
-                <Popover.Dropdown className="text-sm text-center select-none">
-                  <p>
-                    {t("Powered by")}{" "}
-                    <a
-                      className="text-blue-400 hover:underline"
-                      href="https://tauri.app"
-                      title="https://tauri.app"
-                      rel="noreferrer noopener"
-                      target="_blank"
-                    >
-                      Tauri
-                    </a>
-                  </p>
-                  <p>{t("AboutInfo")}</p>
-                </Popover.Dropdown>
+                <Suspense>
+                  <PopoverDropdown className="text-sm text-center select-none">
+                    <p>
+                      {t("Powered by")}{" "}
+                      <a
+                        className="text-blue-400 hover:underline"
+                        href="https://tauri.app"
+                        title="https://tauri.app"
+                        rel="noreferrer noopener"
+                        target="_blank"
+                      >
+                        Tauri
+                      </a>
+                    </p>
+                    <p>{t("AboutInfo")}</p>
+                  </PopoverDropdown>
+                </Suspense>
               </Popover>
             </div>
           </article>

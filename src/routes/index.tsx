@@ -1,6 +1,14 @@
 import { AppShell } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import {
@@ -10,12 +18,14 @@ import {
   MainPanelLayout,
   Titlebar,
 } from "@/components";
-import { About, ModalLayout } from "@/components/ui/modals";
+import { About } from "@/components/ui/modals";
 import { APP_NAME } from "@/constants";
 import { TitleBarProvider } from "@/providers/titlebar-provider";
 import { useUiStore } from "@/store/uiStore";
 import "@/styles/App.css";
 import { ModalType } from "@/types";
+
+const ModalLayout = lazy(() => import("@/components/ui/modals/ModalLayout"));
 
 /**
  * Renders the routes for the main application.
@@ -180,11 +190,13 @@ export default function AppRoutes(): React.ReactElement {
                   </TitleBarProvider>
 
                   <div className="overflow-hidden select-none">
-                    <ModalLayout
-                      type={modal.type}
-                      content={modal.content}
-                      modalProps={modal.modalProps}
-                    />
+                    <Suspense>
+                      <ModalLayout
+                        type={modal.type}
+                        content={modal.content}
+                        modalProps={modal.modalProps}
+                      />
+                    </Suspense>
                   </div>
                 </>
               }

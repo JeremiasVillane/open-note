@@ -13,7 +13,7 @@ import { ModalType } from "@/types";
  * @param {ModalProps} props.modalProps - The optional modal properties.
  * @returns {ReactElement} The rendered modal layout.
  */
-export function ModalLayout({
+export default function ModalLayout({
   type,
   content,
   modalProps = {

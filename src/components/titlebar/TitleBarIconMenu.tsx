@@ -4,7 +4,7 @@ import {
   UnstyledButton,
   useMantineColorScheme,
 } from "@mantine/core";
-import { useContext, useState } from "react";
+import { Suspense, lazy, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppIcon from "../../../src-tauri/icons/32x32.png";
 import TitleBarContext from "@/providers/titlebar-provider";
@@ -14,6 +14,10 @@ import {
   MinimizeIcon,
   RestoreIcon,
 } from "@/components/ui/icons";
+
+const MenuDropdown = lazy(() =>
+  import("@mantine/core").then((module) => ({ default: module.Menu.Dropdown }))
+);
 
 /**
  * Renders a title bar icon menu component.
@@ -66,75 +70,86 @@ export default function TitleBarIconMenu(): React.ReactElement {
         </UnstyledButton>
       </Menu.Target>
 
-      <Menu.Dropdown
-        className="shadow-lg"
-        onClick={() => {
-          setOpenMenu(false);
-          setOpened(false);
-        }}
-      >
-        <Menu.Item
-          onClick={handleMinimize}
-          leftSection={<MinimizeIcon size={11} />}
-          className={menuItemStyles}
+      <Suspense>
+        <MenuDropdown
+          className="shadow-lg"
+          onClick={() => {
+            setOpenMenu(false);
+            setOpened(false);
+          }}
         >
-          <Text
-            inline
-            size="xs"
-            className="overlook ml-0.5"
-            data-text={t("Minimize")}
-          />
-        </Menu.Item>
+          <Menu.Item
+            onClick={handleMinimize}
+            leftSection={<MinimizeIcon size={11} />}
+            className={menuItemStyles}
+          >
+            <Text
+              inline
+              size="xs"
+              className="overlook ml-0.5"
+              data-text={t("Minimize")}
+            />
+          </Menu.Item>
 
-        <Menu.Item
-          onClick={handleMaximize}
-          leftSection={
-            isMaximized ? <RestoreIcon size={11} /> : <MaximizeIcon size={9} />
-          }
-          className={`${menuItemStyles} ml-0.5`}
-        >
-          <Text
-            inline
-            size="xs"
-            className="overlook ml-0.5"
-            data-text={t(isMaximized ? "Restore" : "Maximize")}
-          />
-        </Menu.Item>
+          <Menu.Item
+            onClick={handleMaximize}
+            leftSection={
+              isMaximized ? (
+                <RestoreIcon size={11} />
+              ) : (
+                <MaximizeIcon size={9} />
+              )
+            }
+            className={`${menuItemStyles} ml-0.5`}
+          >
+            <Text
+              inline
+              size="xs"
+              className="overlook ml-0.5"
+              data-text={t(isMaximized ? "Restore" : "Maximize")}
+            />
+          </Menu.Item>
 
-        <Menu.Item
-          onClick={handleOnTop}
-          leftSection={
-            isOnTop ? (
-              <i className="ri-layout-top-2-fill text-sm" />
-            ) : (
-              <i className="ri-layout-top-line text-sm" />
-            )
-          }
-          className={menuItemStyles}
-        >
-          <Text inline size="xs" className="overlook" data-text={t("On top")} />
-        </Menu.Item>
+          <Menu.Item
+            onClick={handleOnTop}
+            leftSection={
+              isOnTop ? (
+                <i className="ri-layout-top-2-fill text-sm" />
+              ) : (
+                <i className="ri-layout-top-line text-sm" />
+              )
+            }
+            className={menuItemStyles}
+          >
+            <Text
+              inline
+              size="xs"
+              className="overlook"
+              data-text={t("On top")}
+            />
+          </Menu.Item>
 
-        <Menu.Divider />
+          <Menu.Divider />
 
-        <Menu.Item
-          onClick={handleExit}
-          leftSection={<CloseIcon size={9} />}
-          rightSection={
-            <Text w="bold" size="xs">
-              Alt + F4
-            </Text>
-          }
-          className={`${menuItemStyles} ml-0.5`}
-        >
-          <Text
-            inline
-            size="xs"
-            className="overlook ml-0.5"
-            data-text={t("Close")}
-          />
-        </Menu.Item>
-      </Menu.Dropdown>
+          <Menu.Item
+            onClick={handleExit}
+            leftSection={<CloseIcon size={9} />}
+            rightSection={
+              <Text w="bold" size="xs">
+                Alt + F4
+              </Text>
+            }
+            className={`${menuItemStyles} ml-0.5`}
+          >
+            <Text
+              inline
+              size="xs"
+              className="overlook ml-0.5"
+              data-text={t("Close")}
+            />
+          </Menu.Item>
+        </MenuDropdown>
+      </Suspense>
     </Menu>
   );
 }

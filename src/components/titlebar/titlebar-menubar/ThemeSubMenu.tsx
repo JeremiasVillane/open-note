@@ -1,7 +1,11 @@
 import { Menu, Text, useMantineColorScheme } from "@mantine/core";
-import { useContext } from "react";
+import { Suspense, lazy, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import TitleBarContext from "@/providers/titlebar-provider";
+
+const MenuDropdown = lazy(() =>
+  import("@mantine/core").then((module) => ({ default: module.Menu.Dropdown }))
+);
 
 /**
  * Renders a ThemeSubMenu component.
@@ -41,26 +45,33 @@ export default function ThemeSubMenu({
         </Menu.Item>
       </Menu.Target>
 
-      <Menu.Dropdown className="shadow-lg">
-        <Menu.Item
-          className={`${menuItemStyles}`}
-          onClick={() => setColorScheme("light")}
-        >
-          <Text
-            inline
-            size="sm"
-            className={"overlook"}
-            data-text={t("Light")}
-          />
-        </Menu.Item>
+      <Suspense>
+        <MenuDropdown className="shadow-lg">
+          <Menu.Item
+            className={`${menuItemStyles}`}
+            onClick={() => setColorScheme("light")}
+          >
+            <Text
+              inline
+              size="sm"
+              className={"overlook"}
+              data-text={t("Light")}
+            />
+          </Menu.Item>
 
-        <Menu.Item
-          className={`${menuItemStyles}`}
-          onClick={() => setColorScheme("dark")}
-        >
-          <Text inline size="sm" className={"overlook"} data-text={t("Dark")} />
-        </Menu.Item>
-      </Menu.Dropdown>
+          <Menu.Item
+            className={`${menuItemStyles}`}
+            onClick={() => setColorScheme("dark")}
+          >
+            <Text
+              inline
+              size="sm"
+              className={"overlook"}
+              data-text={t("Dark")}
+            />
+          </Menu.Item>
+        </MenuDropdown>
+      </Suspense>
     </Menu>
   );
 }
