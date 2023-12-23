@@ -45,6 +45,7 @@ pub async fn open_window(
         .maximizable(false)
         .minimizable(false)
         .decorations(false)
+        .visible(false)
         .center()
         .build()
         .unwrap();

@@ -112,7 +112,7 @@ export default function AppRoutes(): React.ReactElement {
   // Modals data
   const modals: ModalType[] = [
     {
-      path: "/about",
+      label: "about",
       title: "About",
       type: "info",
       content: <About />,
@@ -122,19 +122,19 @@ export default function AppRoutes(): React.ReactElement {
       },
     },
     {
-      path: "/discard",
+      label: "discard",
       title: APP_NAME,
       type: "warning",
       content: t("ConfirmDiscardChanges"),
     },
     {
-      path: "/delete-note",
+      label: "delete-note",
       title: APP_NAME,
       type: "warning",
       content: t("ConfirmDeleteNote"),
     },
     {
-      path: "/delete-folder",
+      label: "delete-folder",
       title: APP_NAME,
       type: "warning",
       content: t("ConfirmDeleteFolder"),
@@ -182,7 +182,7 @@ export default function AppRoutes(): React.ReactElement {
           return (
             <Route
               key={index}
-              path={modal.path}
+              path={`/${modal.label}`}
               element={
                 <>
                   <TitleBarProvider>
@@ -193,6 +193,7 @@ export default function AppRoutes(): React.ReactElement {
                     <Suspense>
                       <ModalLayout
                         type={modal.type}
+                        label={modal.label}
                         content={modal.content}
                         modalProps={modal.modalProps}
                       />

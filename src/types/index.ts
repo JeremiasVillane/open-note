@@ -45,7 +45,7 @@ type ModalButtonType = {
 
 export type ModalType = {
   type?: "info" | "success" | "error" | "warning" | undefined;
-  path: string;
+  label: string;
   title: string;
   content: string | React.ReactElement;
   modalProps?: {

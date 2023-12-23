@@ -1,6 +1,6 @@
 import { Button, useMantineColorScheme } from "@mantine/core";
 import { WebviewWindow, appWindow } from "@tauri-apps/api/window";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ModalType } from "@/types";
 
@@ -15,6 +15,7 @@ import { ModalType } from "@/types";
  */
 export default function ModalLayout({
   type,
+  label,
   content,
   modalProps = {
     buttons: {
@@ -27,7 +28,7 @@ export default function ModalLayout({
       },
     },
   },
-}: Omit<ModalType, "path" | "title">): React.ReactElement {
+}: Omit<ModalType, "title">): React.ReactElement {
   const { t } = useTranslation();
   const { colorScheme } = useMantineColorScheme();
   const { icon, buttons } = modalProps;
@@ -43,6 +44,11 @@ export default function ModalLayout({
     await mainWindow?.emit(`modal-${type}`);
 
     await appWindow.close();
+  }, []);
+
+  useEffect(() => {
+    const win = WebviewWindow.getByLabel(label);
+    win?.show();
   }, []);
 
   return (
