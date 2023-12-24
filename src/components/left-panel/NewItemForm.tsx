@@ -41,6 +41,8 @@ export default function NewItemForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!itemName.length) return;
+
     const isFolder = itemType === "folder";
     const filePath = await join(path, isFolder ? itemName : `${itemName}.on`);
 

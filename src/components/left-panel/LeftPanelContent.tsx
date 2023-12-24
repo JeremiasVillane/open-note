@@ -3,7 +3,7 @@ import { Explorer } from "@/components";
 import { useTauriContext } from "@/providers/tauri-provider";
 import { useNotesStore } from "@/store/notesStore";
 
-const LazyNewItemForm = lazy(() => import("./NewItemForm"));
+const NewItemForm = lazy(() => import("./NewItemForm"));
 
 /**
  * Renders the content for the left panel.
@@ -43,7 +43,7 @@ export default function LeftPanelContent({
           <div className="">
             {showNewItemForm ? (
               <Suspense>
-                <LazyNewItemForm
+                <NewItemForm
                   itemType={showNewItemForm}
                   path={appFolder}
                   parentId="root"

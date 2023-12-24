@@ -70,22 +70,21 @@ export function Item({
     updateItemState({ toRename: false })
   );
 
+  const isNote = type === "note";
+  const isFolder = type === "folder";
+
   const [itemState, updateItemState] = useReducer(
     (prev: ItemStateType, next: ItemStateType) => {
       const newState = { ...prev, ...next };
 
       if (newState.itemName) {
-        if (newState.itemName.length < 2) {
-          setStatus(t("ErrorNameLength"));
-          newState.itemName = currentNote?.name;
-        }
-
         if (newState.itemName!.length > 21) {
           setStatus(t("ErrorNameLength"));
           newState.itemName = newState.itemName!.slice(0, 21);
         }
 
-        const specialCharacters = ["\\", "/", ".", ":", "*", "?", "<", ">", "|"];
+        // prettier-ignore
+        const specialCharacters = [ "\\", "/", ".", ":", "*", "?", "<", ">", "|" ];
         const containsSpecialCharacter = new RegExp(
           `[${specialCharacters.join("\\")}]`
         ).test(newState.itemName!);
@@ -143,12 +142,12 @@ export function Item({
     <>
       <main
         className={
-          type === "note"
+          isNote
             ? "pl-1.5 w-full"
             : `${fileStyles} group/item justify-between items-center`
         }
         onClick={
-          type === "note"
+          isNote
             ? itemState.toRename
               ? () => null
               : async () =>
@@ -169,7 +168,7 @@ export function Item({
         onContextMenu={showMenu}
       >
         <section className="flex items-center justify-between">
-          {type === "folder" ? (
+          {isFolder ? (
             <i
               className={`${
                 openFolders[item.id] ? "ri-folder-open-fill" : "ri-folder-fill"
@@ -179,7 +178,7 @@ export function Item({
 
           {itemState.toRename ? (
             <form
-              className={type === "folder" ? "pl-1.5 font-semibold" : ""}
+              className={isFolder ? "pl-1.5 font-semibold" : ""}
               onSubmit={async (event) => {
                 await handleRename(
                   type,
@@ -190,11 +189,9 @@ export function Item({
                   item.path,
                   (value) => updateItemState({ toRename: value }),
                   setStatus,
-                  type === "note" ? currentNote : undefined,
-                  type === "note" ? setCurrentNote : undefined,
-                  type === "folder"
-                    ? (value) => updateItemState({ itemName: value })
-                    : undefined
+                  (value) => updateItemState({ itemName: value }),
+                  isNote ? currentNote : undefined,
+                  isNote ? setCurrentNote : undefined
                 );
                 await loadFiles(appFolder, setItems);
               }}
@@ -204,9 +201,12 @@ export function Item({
                 type="text"
                 value={itemState.itemName}
                 onChange={(e) => updateItemState({ itemName: e.target.value })}
-                onKeyUp={(e) =>
-                  e.key === "Escape" && updateItemState({ toRename: false })
-                }
+                onKeyUp={(e) => {
+                  if (e.key === "Escape") {
+                    updateItemState({ toRename: false });
+                    updateItemState({ itemName: item.name });
+                  } else null;
+                }}
                 className="outline-none w-full"
                 autoFocus
               />
@@ -215,9 +215,7 @@ export function Item({
           ) : (
             <p
               className={`${
-                type === "note"
-                  ? "overlook"
-                  : "overlook py-0 pb-0 pl-1.5 font-semibold"
+                isNote ? "overlook" : "overlook py-0 pb-0 pl-1.5 font-semibold"
               } whitespace-nowrap`}
               data-text={item.name.split(".")[0]}
             />
@@ -225,7 +223,7 @@ export function Item({
         </section>
       </main>
 
-      {type === "note" ? (
+      {isNote ? (
         currentNote?.id === item.id && itemState.context ? (
           <div
             style={{

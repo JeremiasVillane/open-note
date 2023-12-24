@@ -15,7 +15,7 @@ import { Note } from "@/types";
  * @param {(status: string | null) => void} setStatus - A function to update the status bar message.
  * @param {Note | null | undefined} currentNote - The current note object.
  * @param {(note: Note | null) => void} setCurrentNote - A function to set the current note.
- * @param {React.Dispatch<React.SetStateAction<string>>} setFolderName - A function to set the folder name.
+ * @param {React.Dispatch<React.SetStateAction<string>>} setItemName - A function to set the item name.
  */
 export const handleRename = async (
   itemType: string,
@@ -26,11 +26,18 @@ export const handleRename = async (
   currentPath: string,
   setToRename: React.Dispatch<boolean>,
   setStatus: (status: string | null) => void,
+  setItemName: React.Dispatch<string>,
   currentNote?: Note | null,
-  setCurrentNote?: (note: Note | null) => void,
-  setFolderName?: React.Dispatch<string>
+  setCurrentNote?: (note: Note | null) => void
 ) => {
   event.preventDefault();
+
+  if (newName.length < 3) {
+    setItemName(oldName);
+    setToRename(false);
+    setStatus(t("ErrorNameLength"));
+    return;
+  }
 
   if (oldName === newName) {
     setToRename(false);
@@ -51,7 +58,7 @@ export const handleRename = async (
   }
 
   if (itemType === "folder") {
-    setFolderName!(newName);
+    setItemName!(newName);
   }
 
   try {
