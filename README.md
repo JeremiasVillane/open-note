@@ -4,7 +4,7 @@
 # Open Note
 
 ![Version](https://img.shields.io/github/package-json/v/jeremiasvillane/open-note.svg)
-<a href="https://github.com/jeremiasvillane/open-note/releases"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" /></a>
+<a href="https://github.com/jeremiasvillane/open-note/releases/latest"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" /></a>
 [![License](https://badgen.net/github/license/jeremiasvillane/open-note)](https://github.com/jeremiasvillane/open-note/blob/main/LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_shield)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -49,7 +49,7 @@ A simple desktop application for taking rich text notes, built with [Tauri](http
 
 ## Download
 
-Go to [releases page](https://github.com/JeremiasVillane/open-note/releases).
+Go to [release page](https://github.com/JeremiasVillane/open-note/releases/latest).
 
 ## Techstack
 
