@@ -4,6 +4,7 @@
 # Open Note
 
 ![Version](https://img.shields.io/github/package-json/v/jeremiasvillane/open-note.svg)
+<a href="https://github.com/jeremiasvillane/open-note/releases"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" /></a>
 [![License](https://badgen.net/github/license/jeremiasvillane/open-note)](https://github.com/jeremiasvillane/open-note/blob/main/LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_shield)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -23,9 +24,10 @@ A simple desktop application for taking rich text notes, built with [Tauri](http
 
 ## Key Features
 
+- Create, edit and delete notes/folders.
 - Rich text editor powered by [TipTap](https://tiptap.dev/).
 - Organize notes into folders and subfolders.
-- Create, edit and delete notes/folders.
+- Export notes in pdf format.
 - Multilingual (currently English and Spanish).
 - Light/dark theme.
 - Status bar showing characters, letters, word and line count, and system messages.
@@ -35,14 +37,19 @@ A simple desktop application for taking rich text notes, built with [Tauri](http
 - Use of Tauri multiwindow functionality to implement custom modals.
 - Use of Tauri events to pass information between windows.
 
-## TO-DO
+## Project Roadmap
 
-:white_large_square: Export notes in pdf format.<br>
-:white_large_square: Drag & Drop notes in folders.<br>
-:white_large_square: Code highlighting.<br>
-:white_large_square: Automatic updates.<br>
-:white_large_square: Cloud sync.<br>
-:white_large_square: Note encryption.<br>
+- [x] Export notes in pdf format.
+- [ ] Drag & Drop notes in folders.
+- [ ] Insert images.
+- [ ] Code highlighting.
+- [ ] Automatic updates.
+- [ ] Cloud sync.
+- [ ] Note encryption.
+
+## Download
+
+Go to [releases page](https://github.com/JeremiasVillane/open-note/releases).
 
 ## Techstack
 
@@ -94,7 +101,6 @@ npm run tauri dev
 ```
 npm run tauri build
 ```
-
 
 ## License
 

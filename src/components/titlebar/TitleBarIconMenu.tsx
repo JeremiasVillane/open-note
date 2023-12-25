@@ -56,7 +56,7 @@ export default function TitleBarIconMenu(): React.ReactElement {
       onChange={setOpened}
       shadow="md"
       width={180}
-      offset={4}
+      offset={1}
     >
       <Menu.Target>
         <UnstyledButton

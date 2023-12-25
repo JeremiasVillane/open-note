@@ -54,7 +54,7 @@ export default function FileMenu({
       onChange={setOpened}
       position="bottom-start"
       shadow="md"
-      offset={3}
+      offset={1}
     >
       <Menu.Target>
         <UnstyledButton

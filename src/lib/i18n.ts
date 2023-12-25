@@ -114,6 +114,7 @@ const resources = {
 
       // ***** Toolbar
       "Toggle explorer": "Mostrar/ocultar explorador",
+      "Export to PDF": "Exportar a PDF",
       Save: "Guardar",
       Undo: "Deshacer",
       Redo: "Rehacer",

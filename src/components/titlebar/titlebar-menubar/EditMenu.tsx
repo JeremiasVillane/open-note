@@ -45,7 +45,7 @@ export default function EditMenu({
       position="bottom-start"
       shadow="md"
       width={200}
-      offset={3}
+      offset={1}
       closeOnClickOutside={false}
     >
       <Menu.Target>

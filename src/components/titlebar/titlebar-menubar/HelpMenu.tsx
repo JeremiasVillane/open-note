@@ -42,7 +42,7 @@ export default function HelpMenu({
       position="bottom-start"
       shadow="md"
       width={150}
-      offset={3}
+      offset={1}
     >
       <Menu.Target>
         <UnstyledButton
