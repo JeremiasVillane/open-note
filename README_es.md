@@ -1,18 +1,18 @@
-<h4 align="right"><a href="./README.md">English</a> | <strong>Español</strong></h4>
+<h4 align="right"><a href="https://github.com/JeremiasVillane/open-note">English</a> | <strong>Español</strong></h4>
 
 <div align="center">
 <img alt="Open Note" src="./public/open-note.png" width="200" />
 
 <h1 align="center">Open Note <sup><em>alpha</em></sup></h1>
 
-![Version](https://img.shields.io/github/package-json/v/jeremiasvillane/open-note.svg)
-<a href="https://github.com/jeremiasvillane/open-note/releases/latest"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" /></a>
-[![License](https://badgen.net/github/license/jeremiasvillane/open-note)](https://github.com/jeremiasvillane/open-note/blob/main/LICENSE)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_shield)
+![Versión](https://img.shields.io/github/package-json/v/jeremiasvillane/open-note.svg)
+<a href="https://github.com/jeremiasvillane/open-note/releases/latest"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="Estado del Build" /></a>
+[![Licencia](https://badgen.net/github/license/jeremiasvillane/open-note)](https://github.com/jeremiasvillane/open-note/blob/main/LICENSE)
+[![Estado del FOSSA](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_shield)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-![Last commit](https://badgen.net/github/last-commit/jeremiasvillane/open-note)
-<img alt="Commit activity" src="https://img.shields.io/github/commit-activity/w/jeremiasvillane/open-note?color=%2346bd1b">
-<a href="https://www.rust-lang.org/" target="__blank"><img alt="Rust" src="https://img.shields.io/badge/Rust-1.73.0-dea584"></a>
+![Último commit](https://badgen.net/github/last-commit/jeremiasvillane/open-note)
+<img alt="Actividad de commits" src="https://img.shields.io/github/commit-activity/w/jeremiasvillane/open-note?color=%2346bd1b">
+<a href="https://www.rust-lang.org/" target="__blank" rel="noopener noreferrer"><img alt="Rust" src="https://img.shields.io/badge/Rust-1.73.0-dea584"></a>
 
 ### Tauri + React + Typescript
 
