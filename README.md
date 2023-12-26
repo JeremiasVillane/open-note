@@ -1,3 +1,5 @@
+<h4 align="right"><strong>English</strong> | <a href="./README_es.md">Español</a></h4>
+
 <div align="center">
 <img alt="Open Note" src="./public/open-note.png" width="200" />
 
