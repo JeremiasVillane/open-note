@@ -77,6 +77,12 @@ Go to the [release page](https://github.com/JeremiasVillane/open-note/releases/l
 
 ## How to run or build from source
 
+### Prerequisites
+
+- [NodeJS](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+
 ### Step 1: Clone the project repository to your computer
 
 - Open a terminal and run the following command to clone the project from GitHub to your computer:

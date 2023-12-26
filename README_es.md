@@ -77,6 +77,12 @@ Ir a la [página del release](https://github.com/JeremiasVillane/open-note/relea
 
 ## Cómo ejecutar o compilar desde el código fuente
 
+### Prerequisitos
+
+- [NodeJS](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+
 ### Paso 1: Clona el repositorio del proyecto en tu ordenador
 
 - Abre un terminal y ejecuta el siguiente comando para clonar el proyecto desde GitHub a tu ordenador:
