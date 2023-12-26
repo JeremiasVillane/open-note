@@ -1,7 +1,7 @@
 <div align="center">
 <img alt="Open Note" src="./public/open-note.png" width="200" />
 
-# Open Note
+<h1 align="center">Open Note <sup><em>alpha</em></sup></h1>
 
 ![Version](https://img.shields.io/github/package-json/v/jeremiasvillane/open-note.svg)
 <a href="https://github.com/jeremiasvillane/open-note/releases/latest"><img src="https://github.com/jeremiasvillane/open-note/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" /></a>
@@ -9,6 +9,8 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_shield)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![Last commit](https://badgen.net/github/last-commit/jeremiasvillane/open-note)
+<img alt="Commit activity" src="https://img.shields.io/github/commit-activity/w/jeremiasvillane/open-note?color=%2346bd1b">
+<a href="https://www.rust-lang.org/" target="__blank"><img alt="Rust" src="https://img.shields.io/badge/Rust-1.73.0-dea584"></a>
 
 ### Tauri + React + Typescript
 
@@ -18,9 +20,13 @@
 
 ---
 
-A simple desktop application for taking rich text notes, built with [Tauri](https://tauri.app/) and [React](https://react.dev/), and written in [Rust](https://www.rust-lang.org/) and [TypeScript](https://www.typescriptlang.org/).
+A simple note-taking desktop application to create rich text notes, built with [Tauri](https://tauri.app/) and [React](https://react.dev/), and written in [TypeScript](https://www.typescriptlang.org/) and [Rust](https://www.rust-lang.org/).
 
 <div align="center"><img src="./public/open-note-screens.gif" alt="Open Note screen capture" width="555" /></div>
+
+## Open Note is in alpha
+
+Currently, Open Note is still in _alpha_, which means that there may be incompatible version updates, and it is recommended to use it if you have backed up your data.
 
 ## Key Features
 
@@ -41,15 +47,18 @@ A simple desktop application for taking rich text notes, built with [Tauri](http
 
 - [x] Export notes in pdf format.
 - [ ] Drag & Drop notes in folders.
+- [ ] Tagging system.
+- [ ] Search notes.
 - [ ] Insert images.
 - [ ] Code highlighting.
 - [ ] Automatic updates.
+- [ ] Persistent config file.
 - [ ] Cloud sync.
 - [ ] Note encryption.
 
 ## Download
 
-Go to [release page](https://github.com/JeremiasVillane/open-note/releases/latest).
+Go to the [release page](https://github.com/JeremiasVillane/open-note/releases/latest).
 
 ## Techstack
 
@@ -60,6 +69,7 @@ Go to [release page](https://github.com/JeremiasVillane/open-note/releases/lates
 - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) for state management.
 - [Tailwind CSS](https://tailwindcss.com/) for the app styling.
 - [react-i18next](https://react.i18next.com/): a powerful internationalization framework based on <strong>i18next</strong>.
+- [React-pdf](https://react-pdf.org/): React renderer for creating PDF files.
 - [TypeScript](https://www.typescriptlang.org/) for type safety.
 - [Rust](https://www.rust-lang.org/) for the base infrastructure of the app.
 
@@ -107,6 +117,9 @@ npm run tauri build
 Distributed under the [**MIT License**](LICENSE).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FJeremiasVillane%2Fopen-note?ref=badge_large)
+
+## Support
+If you would like to support Open Note, please star this project. Your support is greatly appreciated.
 
 ## Contact me
 
