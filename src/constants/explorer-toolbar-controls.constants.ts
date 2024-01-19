@@ -1,5 +1,6 @@
-import { TFunction } from "i18next";
 import { FileObj } from "@/types";
+import { TFunction } from "i18next";
+import { HK_NEW_FOLDER, HK_NEW_NOTE, HK_RELOAD_EXPLORER } from ".";
 
 const commonStyles = "border-none hoverStyles";
 
@@ -28,19 +29,19 @@ export const explorerToolbarControls = (
   {
     icon: "file-add-line",
     title: `${t("New note")} 
-    Ctr+N`,
+    ${HK_NEW_NOTE}`,
     className: commonStyles,
     onClick: () => setShowNewItemForm("note"),
   },
   {
     icon: "folder-add-line",
-    title: t("New folder") + "\nCtrl+Shift+F",
+    title: t("New folder") + `\n${HK_NEW_FOLDER}`,
     className: commonStyles,
     onClick: () => setShowNewItemForm("folder"),
   },
   {
     icon: "refresh-line",
-    title: t("Reload explorer") + "\nCtrl+Shift+R",
+    title: t("Reload explorer") + `\n${HK_RELOAD_EXPLORER}`,
     className: commonStyles,
     onClick: async () => {
       await loadFiles(appFolder, setItems);
