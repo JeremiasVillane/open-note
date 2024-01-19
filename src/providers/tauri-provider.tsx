@@ -1,12 +1,12 @@
+import { APP_NAME, RUNNING_IN_TAURI } from "@/constants";
+import { loadFiles } from "@/helpers";
+import { useNotesStore } from "@/store/notesStore";
 import { globalShortcut, invoke } from "@tauri-apps/api";
 import { BaseDirectory, createDir } from "@tauri-apps/api/fs";
 import { type } from "@tauri-apps/api/os";
 import { documentDir } from "@tauri-apps/api/path";
 import { appWindow } from "@tauri-apps/api/window";
 import React, { useContext, useEffect, useState } from "react";
-import { APP_NAME, RUNNING_IN_TAURI } from "@/constants";
-import { loadFiles } from "@/helpers";
-import { useNotesStore } from "@/store/notesStore";
 
 const WIN32_CUSTOM_TITLEBAR = true;
 
@@ -38,7 +38,10 @@ export function TauriProvider({
   // Disable global hotkeys to print and refresh the page,
   // asigning a null function to them.
   useEffect(() => {
-    globalShortcut.registerAll(["CommandOrControl+P", "F5"], () => null);
+    globalShortcut.registerAll(
+      ["CommandOrControl+P", "CommandOrControl+R", "F5"],
+      () => null
+    );
   }, []);
 
   if (RUNNING_IN_TAURI) {
